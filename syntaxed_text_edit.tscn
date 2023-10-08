@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="1_qrdgm"]
+[ext_resource type="Script" path="res://SyntaxedTextEdit.gd" id="2_vs1m3"]
+
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_wvqcp"]
+
+[node name="SyntaxedTextEdit" type="TextEdit"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_qrdgm")
+text = "Tan'yao:
+No terminals or honors.
+
+Riichi:
+Four sets/runs and a two-pair."
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+wrap_mode = 1
+syntax_highlighter = SubResource("CodeHighlighter_wvqcp")
+script = ExtResource("2_vs1m3")

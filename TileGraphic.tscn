@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhu60farhkon0"]
+
+[ext_resource type="Script" path="res://TileGraphic.gd" id="1_w2ft1"]
+[ext_resource type="Texture2D" uid="uid://ccdv7r4ga7o3t" path="res://image/tiles.png" id="2_f03da"]
+[ext_resource type="Texture2D" uid="uid://bf8b1q22m2w0s" path="res://image/tilesides.png" id="3_rn2kv"]
+[ext_resource type="Texture2D" uid="uid://baxb03osrtkhb" path="res://image/tile_highlight_b.png" id="4_2lunx"]
+[ext_resource type="Texture2D" uid="uid://3xyv2a3mk865" path="res://image/tile_highlight_r.png" id="5_b2fx8"]
+
+[node name="TileGraphic" type="Control"]
+custom_minimum_size = Vector2(16, 26)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 16.0
+offset_bottom = 25.0
+script = ExtResource("1_w2ft1")
+
+[node name="Tilesides" type="Sprite2D" parent="."]
+position = Vector2(8, 13)
+texture = ExtResource("3_rn2kv")
+hframes = 4
+vframes = 2
+frame = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_repeat = 1
+texture = ExtResource("2_f03da")
+centered = false
+region_enabled = true
+region_rect = Rect2(16, 32, 16, 32)
+
+[node name="SimTileHighlight" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(8, 13)
+texture = ExtResource("4_2lunx")
+
+[node name="AdjTileHighlight" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(8, 13)
+texture = ExtResource("5_b2fx8")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

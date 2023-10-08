@@ -1,66 +1,46 @@
 extends Node
 
-enum SUITS {MAN=1, SOU=2, PIN=4, SPECIAL=8}
-enum SPECIALS {HAKU, HATSU, CHUN, NORTH, EAST, SOUTH, WEST}
-const SPEC_VALS = ["[", "]", "|", "@", "#", "$", "!"]
-#const SPEC_VALS = ["u", "s"," t",   "w", "x", "y", "z"]
-#const TOP_ROW = ["q", "w", "e", "r", "t", "y", "u", "i", "o"]
-const ALPH = ["a", "b", "c", "d", "e", "f", "g", "h", "i"]
-#const MID_ROW = ["a", "s", "d", "f", "g", "h", "j", "k", "l"]
-const ALPH2 = ["r", "s", "t", "u", "v", "w", "x", "y", "z"]
-#stuvwxyz
+@onready var gui_manager = $"../GUIManager"
 
 
-class MTile:
-	var suit: int
-	var value: int
-	
-	var aka: bool = false
-	
-	func _init(s:int,v:int):
-		suit = s
-		value = v
-	
-	func get_str():
-		if suit != SUITS.SPECIAL:
-			if suit == SUITS.MAN:
-				var offset = "1".unicode_at(0)-1
-				return char(offset+value)
-			elif suit == SUITS.SOU:
-				return(ALPH[value-1])
-			elif suit == SUITS.PIN:
-				var ret = ALPH2[value-1].to_upper()
-				return(ret)
-		else:
-			return SPEC_VALS[value]
-	
-	func get_order():
-		return suit * 100 + value * 10 + int(aka)
-
-
-@onready var hand_label = $"../HandLabel"
-@onready var tsumo_label = $"../TsumoLabel"
-@onready var input_label = $"../InputLabel"
-
+var OPPONENT_DISCARDS = 3
+var DEFAULT_KAN_SIZE = 5
 
 var wall = []
 var hand = []
 var tsumo
 var discard = []
+var opp_discard = []
+var kan_dora = []
+var ura_dora = []
+
+enum WINDS {EAST, SOUTH, WEST, NORTH}
+var prevalent_wind = WINDS.EAST
+var SEAT = WINDS.EAST
+
+var actionable = true
 
 func _ready():
-	input_label.grab_click_focus()
+	await get_tree().process_frame
 	
 	init_wall()
+	
+	gui_manager.update_discard([])
+	gui_manager.update_opp_discard([])
 	
 	draw_hand()
 	draw_tile()
 	
+	for i in DEFAULT_KAN_SIZE:
+		draw_kan_dora()
+	gui_manager.update_wall_count(wall.size())
+
+
 # default tiles
 func init_wall():
-	for i in SUITS.values():
-		if i == SUITS.SPECIAL:
-			for j in SPECIALS.values():
+	for i in MTile.SUITS.values():
+		if i == MTile.SUITS.SPECIAL:
+			for j in range(1, MTile.SPECIALS.values().size()):
 				wall.append(MTile.new(i,j))
 		else:
 			for j in range(1,10):
@@ -76,66 +56,60 @@ func draw_hand():
 		hand.append(wall.pop_back())
 	update_hand_label()
 
+func draw_kan_dora():
+	kan_dora.append(wall.pop_back())
+	ura_dora.append(wall.pop_back())
+	gui_manager.update_kan_dora(kan_dora)
+
 func draw_tile():
+	await do_opp_discard()
+	
 	tsumo = wall.pop_back()
-	tsumo_label.text = tsumo.get_str()
+	gui_manager.update_tsumo([tsumo])
+	
+	gui_manager.update_wall_count(wall.size())
 
+func do_opp_discard():
+	actionable = false
+	
+	await get_tree().create_timer(.1).timeout
+	
+	for i in OPPONENT_DISCARDS:
+		opp_discard.append(wall.pop_back())
+		gui_manager.update_opp_discard(opp_discard)
+		gui_manager.update_wall_count(wall.size())
+		await get_tree().create_timer(.3).timeout
+	
+	actionable = true
 
+#  for physical buttons. note only tiles we define as
+# `clickable` can even be clicked, and since this is only
+# for tiles in hand, we know that if a tile is clicked
+# it's in hand.
+func tile_graphic_clicked(tile: MTile):
+	if actionable:
+		draw_and_discard(tile)
 
-#func _unhandled_input(event):
-#	if event is InputEventKey:
-#		if event.pressed:
-#			var code = OS.get_keycode_string(event.keycode).to_lower()
-#
-#			print(code)
-#
-#			var extant = tsumo if tsumo.get_str().to_lower() == code else null
-#			if !extant:
-#				for t in hand:
-#					if t.get_str().to_lower() == code:
-#						extant = t
-#						break
-#
-#			if extant:
-#				hand.append(tsumo)
-#				hand.erase(extant)
-#				update_hand_label()
-#				draw_tile()
+func draw_and_discard_index(i: int):
+	if i == 13:
+		draw_and_discard(tsumo)
+	else:
+		draw_and_discard(hand[i])
 
-func _process(delta):
-	if input_label.text.length() > 0:
-		var code = input_label.text[0].to_lower()
-		
-		var extant = tsumo if tsumo.get_str().to_lower() == code else null
-		if !extant:
-			for t in hand:
-				if t.get_str().to_lower() == code:
-					extant = t
-					break
-
-		if extant:
-			hand.append(tsumo)
-			hand.erase(extant)
-			update_hand_label()
-			draw_tile()
-		
-		input_label.text = ""
-
-
+func draw_and_discard(discardee: MTile):
+	hand.append(tsumo)
+	hand.erase(discardee)
+	#TileGraphicKnower.highlight_matching_tiles(discardee.get_id(), false)
+	update_hand_label()
+	discard.append(discardee)
+	gui_manager.update_discard(discard)
+	gui_manager.update_tsumo([])
+	
+	TileGraphicKnower.highlight_matching_tiles(discardee, false)
+	draw_tile()
+	#TileGraphicKnower.highlight_matching_tiles(discardee, false)
+	
 
 func update_hand_label():
-	hand.sort_custom(Callable(self, "tile_compare"))
-	
-	hand_label.text = get_tiles_as_str(hand)
-
-
-
-
-func get_tiles_as_str(tiles: Array):
-	var str = ""
-	for t in tiles:
-		str += t.get_str()
-	return str
-
-func tile_compare(a:MTile, b:MTile):
-	return a.get_order() < b.get_order()
+	hand.sort_custom(Callable(MTile, "tile_compare"))
+	gui_manager.update_hand(hand)

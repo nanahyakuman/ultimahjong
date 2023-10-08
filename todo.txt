@@ -1,0 +1,66 @@
+end of every round can purchase:
+	new yaku or yaku refreshes
+		await one tile
+	special tiles (wild suit, wild digit, flowers that "kan" as dora instantly like sanma N)
+	new rules (south also counts as seat wind toka)
+		get two ura every reveal
+		call atama?
+	spell cards
+ yaku weaken every time you call one, min 1 han?
+ dead wall can be expanded as long as there are free tiles left
+ overall structure is 17 rounds, starting on E-E and rotating through everything until
+final boss on the E-E repeat. probably no repeated seats.
+
+
+
+
+round ending
+control styling, really want to wrangle it into 16colors
+indent in richtextboxes
+make calls
+yaku scanner should return all legal groups instead of just one
+	maybe shouldnt track riichi/ippatsu/memey last tile wins
+tiles display should be based on actual hand
+proper kan management
+	pregenerate all, but hide them
+
+
+actual turns:
+	discards come by 1, auto skip if no legal call but prompt for c/p/k
+	animations
+		i think its fine if they're kinda naive, just have a `block_input` var thats
+		toggled as long as an anim is playing
+
+
+yaku to implement
+	menzentsumo
+	riichi
+	ippatsu
+	pinfu?
+	iipeikou
+	last draw
+	last discard
+	dead wall draw?
+	--chankan
+	tanyao
+	yakuhai
+	
+	double riichi
+	chantaiyao
+	sanshoku doujun
+	ittsuu
+	toitoi
+	san-an-kou
+	sanshoku doukou
+	sankantsu
+	chiitoitsu
+	terminals and honors
+	shousangen
+	
+x	honitsu
+	terminal in each meld
+	ryanpeikou
+
+x	chinitsu
+
+~all yakuman

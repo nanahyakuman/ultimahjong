@@ -1,53 +1,463 @@
-[gd_scene load_steps=3 format=3 uid="uid://bmnncqwh6by6g"]
+[gd_scene load_steps=14 format=3 uid="uid://b51lqy8wfhf08"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
-[ext_resource type="FontFile" uid="uid://dqx84sjhhpglw" path="res://DMMono-Regular.ttf" id="2_vli3b"]
+[ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
+[ext_resource type="Texture2D" uid="uid://blcxpctsytj35" path="res://image/bg.png" id="2_q1squ"]
+[ext_resource type="Script" path="res://yaku/YakuChecker.gd" id="4_k3lw2"]
+[ext_resource type="PackedScene" uid="uid://dhu60farhkon0" path="res://TileGraphic.tscn" id="6_3ag2w"]
+[ext_resource type="Texture2D" uid="uid://bu7eiaj3nnu51" path="res://image/sittingwindindicator.png" id="8_00qj1"]
+[ext_resource type="Texture2D" uid="uid://qfsu5y82t8jk" path="res://image/prevwindindicator.png" id="8_heinv"]
+[ext_resource type="Texture2D" uid="uid://cerxwhe2cssp0" path="res://image/tableedge.png" id="8_hy522"]
+[ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tablediv.png" id="10_kbaim"]
+[ext_resource type="Script" path="res://MenuTileHolder.gd" id="11_gc23v"]
+[ext_resource type="Texture2D" uid="uid://8eiqqlppwabi" path="res://image/tilecounter.png" id="11_s1nfs"]
+[ext_resource type="Texture2D" uid="uid://ccdv7r4ga7o3t" path="res://image/tiles.png" id="15_8u0tq"]
+
+[sub_resource type="GDScript" id="GDScript_rrbm3"]
+script/source = "extends Control
+
+const SIZE = 20
+
+@export var tile_tex: Texture2D
+@export var tile_graphic: PackedScene
+@export var tile_size = Vector2i(16,32)
+
+
+@onready var mahjong_manager = %MahjongManager
+@onready var hand = $All/SideSpacers/Tiles/HBoxContainer/Hand
+@onready var tsumo = $All/SideSpacers/Tiles/HBoxContainer/Tsumo
+@onready var discards = [$All/SideSpacers/Tiles/PDiscards, $All/SideSpacers/Tiles/PDiscards2]
+@onready var opp_dcs = [$All/SideSpacers/Tiles/Discards2, $All/SideSpacers/Tiles/Discards3, $All/SideSpacers/Tiles/Discards4, $All/SideSpacers/Tiles/Discards5]
+@onready var kan_pile = $All/SideSpacers/Tiles/KanPile
+@onready var tile_counter = $\"../../TextureRect/TileCounter\"
+
+func _ready():
+	pass
+
+func update_hand(tiles: Array):
+	_update_node(hand, tiles, true, TileGraphic.SIDE_TOP)
+	
+func update_discard(tiles: Array):
+	for d in discards.size():
+		_update_node(discards[d], tiles.slice(d*SIZE, d*SIZE+SIZE))
+
+func update_opp_discard(tiles: Array):
+	for d in opp_dcs.size():
+		_update_node(opp_dcs[d], tiles.slice(d*SIZE, d*SIZE+SIZE))
+
+func update_tsumo(tiles: Array):
+	_update_node(tsumo, tiles, true, TileGraphic.SIDE_TOP)
+
+func update_kan_dora(tiles: Array):
+	_update_node(kan_pile, tiles, true, TileGraphic.SIDE_BOT, true)
+
+func _update_node(node: Node, tiles: Array, clickable: bool = false, visible_side: int = TileGraphic.SIDE_BOT, reverse: bool = false):
+	var existing_count = node.get_child_count()
+	for t in tiles.size():
+		if t < existing_count:
+			node.get_child(t).assign_suit_value(tiles[t])
+		else:
+			get_new_tile(tiles[t], node, clickable, visible_side, reverse)
+		node.get_child(t).visible = true
+	
+	for t in range(tiles.size(), existing_count):
+		node.get_child(t).visible = false
+
+func get_new_tile(t: MTile, parent: Node, clickable: bool, vis_side: int, reverse: bool):
+	var a = tile_graphic.instantiate()
+	parent.add_child(a)
+	a.assign_suit_value(t)
+	a.clickable = clickable
+	a.connect(\"tile_graphic_clicked\", mahjong_manager.tile_graphic_clicked)
+	a.assign_visible_side(vis_side)
+	a.set_reversed(reverse)
+	return(a)
+
+
+func update_wall_count(c: int):
+	tile_counter.size.y = c * 3
+	tile_counter.position.y = 360 - tile_counter.size.y
+"
 
 [node name="Control" type="Control"]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_j88jw")
 
-[node name="MahjongManager" type="Node" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="GameRoot" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(352, 352)
+layout_mode = 2
+
+[node name="BG" type="NinePatchRect" parent="HBoxContainer/GameRoot"]
+z_index = -2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_q1squ")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="MahjongManager" type="Node" parent="HBoxContainer/GameRoot"]
+unique_name_in_owner = true
 script = ExtResource("1_x3kjf")
 
-[node name="HandLabel" type="RichTextLabel" parent="."]
-custom_minimum_size = Vector2(0, 125)
+[node name="YakuChecker" type="Node" parent="HBoxContainer/GameRoot/MahjongManager"]
+script = ExtResource("4_k3lw2")
+
+[node name="GUIManager" type="Control" parent="HBoxContainer/GameRoot"]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 26.0
-offset_top = -128.0
 grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/normal_font = ExtResource("2_vli3b")
-theme_override_font_sizes/normal_font_size = 72
-text = "zzzzzzzzzzzzzz"
+grow_vertical = 2
+script = SubResource("GDScript_rrbm3")
+tile_tex = ExtResource("15_8u0tq")
+tile_graphic = ExtResource("6_3ag2w")
 
-[node name="TsumoLabel" type="RichTextLabel" parent="."]
-custom_minimum_size = Vector2(0, 125)
+[node name="All" type="VBoxContainer" parent="HBoxContainer/GameRoot/GUIManager"]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -71.0
-offset_top = -128.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/normal_font = ExtResource("2_vli3b")
-theme_override_font_sizes/normal_font_size = 72
-text = "a"
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
 
-[node name="InputLabel" type="TextEdit" parent="."]
-layout_mode = 0
-offset_left = 56.0
-offset_top = 30.0
-offset_right = 360.0
-offset_bottom = 190.0
+[node name="SideSpacers" type="HBoxContainer" parent="HBoxContainer/GameRoot/GUIManager/All"]
+layout_mode = 2
+alignment = 1
+
+[node name="Spacer" type="Control" parent="HBoxContainer/GameRoot/GUIManager/All/SideSpacers"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="Tiles" type="VBoxContainer" parent="HBoxContainer/GameRoot/GUIManager/All/SideSpacers"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="KanPile" type="HBoxContainer" parent="HBoxContainer/GameRoot/GUIManager/All/SideSpacers/Tiles"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Spacer3" type="Control" parent="HBoxContainer/GameRoot/GUIManager/All/SideSpacers/Tiles"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Discards5" type="HBoxContainer" parent="HBoxContainer/GameRoot/GUIManager/All/SideSpacers/Tiles"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Discards4" type="HBoxContainer" parent="HBoxContainer/GameRoot/GUIManager/All/SideSpacers/Tiles"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Discards3" type="HBoxContainer" parent="HBoxContainer/GameRoot/GUIManager/All/SideSpacers/Tiles"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Discards2" type="HBoxContainer" parent="HBoxContainer/GameRoot/GUIManager/All/SideSpacers/Tiles"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Spacer2" type="Control" parent="HBoxContainer/GameRoot/GUIManager/All/SideSpacers/Tiles"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="PDiscards" type="HBoxContainer" parent="HBoxContainer/GameRoot/GUIManager/All/SideSpacers/Tiles"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="PDiscards2" type="HBoxContainer" parent="HBoxContainer/GameRoot/GUIManager/All/SideSpacers/Tiles"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="HBoxContainer/GameRoot/GUIManager/All/SideSpacers/Tiles"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/GameRoot/GUIManager/All/SideSpacers/Tiles"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Hand" type="HBoxContainer" parent="HBoxContainer/GameRoot/GUIManager/All/SideSpacers/Tiles/HBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Tsumo" type="HBoxContainer" parent="HBoxContainer/GameRoot/GUIManager/All/SideSpacers/Tiles/HBoxContainer"]
+custom_minimum_size = Vector2(16, 32)
+layout_mode = 2
+
+[node name="Spacer2" type="Control" parent="HBoxContainer/GameRoot/GUIManager/All/SideSpacers"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/GameRoot/GUIManager/All"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+texture = ExtResource("8_hy522")
+stretch_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/GameRoot/GUIManager/All/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 6
+
+[node name="Spacer" type="Control" parent="HBoxContainer/GameRoot/GUIManager/All/TextureRect/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/GameRoot/GUIManager/All/TextureRect/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("8_heinv")
+
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer/GameRoot/GUIManager/All/TextureRect/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("8_00qj1")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/GameRoot/GUIManager/All/TextureRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "[b]Score: 00000 Expected: 01000"
+fit_content = true
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("10_kbaim")
+stretch_mode = 1
+
+[node name="TileCounter" type="TextureRect" parent="HBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_s1nfs")
+stretch_mode = 1
+
+[node name="Sidebar" type="ColorRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.25098, 0.215686, 0.184314, 1)
+
+[node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Hands" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Hands"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[b]Tan'yao [color=989fa5](menzenchin)[/color][/b]
+No terminals or honors.
+
+[b]Riichi[/b]
+1 tile short of a completed hand. Once entered, hand cannot be modified.
+
+[b]Yakuhai[/b]
+Set or quad of (dragons)/(seat wind)/(prevalent wind).
+"
+
+[node name="Tiles" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Tiles"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]Man[/b]"
+fit_content = true
+
+[node name="MenuTileHolder" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 4
+script = ExtResource("11_gc23v")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "4+0 4+0 4+0 4+0 3+1 4+0 4+0 4+0 4+0 "
+fit_content = true
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]Pin[/b]"
+fit_content = true
+
+[node name="MenuTileHolder2" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 4
+script = ExtResource("11_gc23v")
+suit = 2
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "4+0 4+0 4+0 4+0 3+1 4+0 4+0 4+0 4+0 "
+fit_content = true
+
+[node name="RichTextLabel5" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]Sou[/b]"
+fit_content = true
+
+[node name="MenuTileHolder3" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 4
+script = ExtResource("11_gc23v")
+suit = 4
+
+[node name="RichTextLabel6" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "4+0 4+0 4+0 4+0 3+1 4+0 4+0 4+0 4+0 "
+fit_content = true
+
+[node name="RichTextLabel7" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]Honor[/b]"
+fit_content = true
+
+[node name="MenuTileHolder4" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 4
+script = ExtResource("11_gc23v")
+suit = 8
+
+[node name="RichTextLabel8" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "4+0 4+0 4+0 4+0 4+0 4+0 4+0"
+fit_content = true
+
+[node name="Guide" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/Guide"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Terms" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Guide/TabContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Guide/TabContainer/Terms"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[b]Tile Types[/b]
+Terminal: 1 or 9 of any suit.
+Simple: 2 through 8 of any suit.
+Honor: Dragons and Winds.
+
+[b]Tile Groupings[/b]
+Pair: 2 tiles of the same value and suit.
+Set: 3 tiles of the same value and suit.
+Quad: 4 tiles of the same value and suit. Calling a quad reveals another quad indicator.
+Quint: 5 tiles of I think you get it.
+Sextet: 6.
+
+Run: 3 tiles in a row of the same suit.
+
+[b]Tile Bonuses[/b]
+ Some tiles are worth as many points as additional hands, although simply possesing them does not constitute a valid hand. They are as follows:
+Red: Printed as red.
+Quad: Every time a quad indicator is revealed, the tiles following it in sequence becomes a bonus tile. For number tiles, the order is numeric (1...9>1). For dragons, the order is W>G>R>W. For Winds: N>E>S>W>N."
+
+[node name="Waits" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Guide/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Guide/TabContainer/Waits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[b]Two-sided wait[/b]
+ Two adjacent tiles awaiting a third consecutive tile from either side to complete them as a run. E.g. [45] is a two-sided wait on 3 and 6.
+
+[b]One-sided wait[/b]
+ As above, but with only one wait. E.g. [12] or [46].
+
+[b]Three-sided wait[/b]
+ As example, [223] waits for 1, a duplicate 2, or 3. [45678] waits for a 3, 6, or 9.
+
+There are additional ways of waiting on even more tiles. These will be left as an excercise for the reader. Note that \"waits\" are largely conceptual, they're just a convenient way of thinking about the probabilities different hands have of being completed."
+
+[node name="Options" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
+layout_mode = 2

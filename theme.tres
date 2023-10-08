@@ -1,0 +1,42 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://bgwfxm5udtx2c"]
+
+[ext_resource type="FontFile" uid="uid://ceoffh0u2ix47" path="res://text/font/Body.png" id="1_0s3pa"]
+[ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="2_2v4im"]
+[ext_resource type="FontFile" uid="uid://dmoumxbcf3gn" path="res://text/font/Body2.png" id="3_e0qua"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1de0v"]
+bg_color = Color(0.25098, 0.215686, 0.184314, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bfkfa"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7526h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2p5o7"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+
+[resource]
+default_font = ExtResource("3_e0qua")
+BoxContainer/constants/separation = 0
+Fonts/fonts/normal = ExtResource("1_0s3pa")
+Panel/styles/panel = SubResource("StyleBoxFlat_1de0v")
+RichTextLabel/colors/default_color = Color(1, 1, 0.933333, 1)
+RichTextLabel/constants/line_separation = 2
+RichTextLabel/fonts/bold_font = ExtResource("2_2v4im")
+RichTextLabel/fonts/normal_font = ExtResource("3_e0qua")
+TabBar/colors/drop_mark_color = Color(1, 1, 0.933333, 1)
+TabBar/colors/font_selected_color = Color(1, 1, 0.933333, 1)
+TabBar/colors/font_unselected_color = Color(0.956863, 0.952941, 0.843137, 1)
+TabBar/fonts/font = ExtResource("2_2v4im")
+TabContainer/constants/side_margin = 0
+TabContainer/fonts/font = ExtResource("2_2v4im")
+TabContainer/styles/panel = SubResource("StyleBoxEmpty_bfkfa")
+TextEdit/colors/font_readonly_color = Color(1, 1, 1, 1)
+TextEdit/styles/normal = SubResource("StyleBoxEmpty_7526h")
+TextEdit/styles/read_only = SubResource("StyleBoxEmpty_2p5o7")

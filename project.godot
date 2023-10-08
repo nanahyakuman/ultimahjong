@@ -15,8 +15,27 @@ run/main_scene="res://root.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+FuncKeys="*res://global/FuncKeys.gd"
+TileGraphicKnower="*res://global/TileGraphicKnower.gd"
+
 [display]
 
-window/size/viewport_width=720
-window/size/viewport_height=720
-window/stretch/mode="canvas_items"
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/size/mode=4
+window/stretch/mode="viewport"
+
+[input]
+
+fullscreen={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194342,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
+}
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0.262745, 0.45098, 0.388235, 1)
+textures/canvas_textures/default_texture_filter=0

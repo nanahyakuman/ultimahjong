@@ -1,0 +1,21 @@
+[remap]
+
+importer="font_data_image"
+type="FontFile"
+uid="uid://dvb1ofv411u8h"
+path="res://.godot/imported/Title.png-d7fd02473b6f300a461340ea20fc547a.fontdata"
+
+[deps]
+
+source_file="res://text/font/Title.png"
+dest_files=["res://.godot/imported/Title.png-d7fd02473b6f300a461340ea20fc547a.fontdata"]
+
+[params]
+
+character_ranges=PackedStringArray("0-127")
+columns=16
+rows=16
+image_margin=Rect2i(0, 0, 0, 0)
+character_margin=Rect2i(0, 0, 0, 0)
+fallbacks=[]
+compress=true

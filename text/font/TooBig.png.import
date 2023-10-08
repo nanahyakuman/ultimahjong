@@ -1,0 +1,21 @@
+[remap]
+
+importer="font_data_image"
+type="FontFile"
+uid="uid://b2g4h8hs2l032"
+path="res://.godot/imported/TooBig.png-d001aa3ddffe4c3320bdc221344c0cb1.fontdata"
+
+[deps]
+
+source_file="res://text/font/TooBig.png"
+dest_files=["res://.godot/imported/TooBig.png-d001aa3ddffe4c3320bdc221344c0cb1.fontdata"]
+
+[params]
+
+character_ranges=PackedStringArray("0-127")
+columns=16
+rows=16
+image_margin=Rect2i(0, 0, 0, 0)
+character_margin=Rect2i(0, 0, 0, 0)
+fallbacks=[]
+compress=true
