@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b51lqy8wfhf08"]
+[gd_scene load_steps=16 format=3 uid="uid://b51lqy8wfhf08"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tablediv.png" id="10_kbaim"]
 [ext_resource type="Script" path="res://MenuTileHolder.gd" id="11_gc23v"]
 [ext_resource type="Texture2D" uid="uid://8eiqqlppwabi" path="res://image/tilecounter.png" id="11_s1nfs"]
+[ext_resource type="Script" path="res://TilesDisplay.gd" id="13_egxkc"]
 [ext_resource type="Texture2D" uid="uid://ccdv7r4ga7o3t" path="res://image/tiles.png" id="15_8u0tq"]
 
 [sub_resource type="GDScript" id="GDScript_rrbm3"]
@@ -286,6 +287,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Hands" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Hands"]
@@ -307,87 +309,87 @@ Set or quad of (dragons)/(seat wind)/(prevalent wind).
 "
 
 [node name="Tiles" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
-visible = false
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Tiles"]
+[node name="TilesDisplay" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Tiles"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("13_egxkc")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/TilesDisplay"]
 layout_mode = 2
 bbcode_enabled = true
 text = "[b]Man[/b]"
 fit_content = true
 
-[node name="MenuTileHolder" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+[node name="MenuTileHolder" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Tiles/TilesDisplay"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 4
 script = ExtResource("11_gc23v")
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/TilesDisplay"]
 layout_mode = 2
 bbcode_enabled = true
 text = "4+0 4+0 4+0 4+0 3+1 4+0 4+0 4+0 4+0 "
 fit_content = true
 
-[node name="RichTextLabel3" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+[node name="RichTextLabel3" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/TilesDisplay"]
 layout_mode = 2
 bbcode_enabled = true
 text = "[b]Pin[/b]"
 fit_content = true
 
-[node name="MenuTileHolder2" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+[node name="MenuTileHolder2" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Tiles/TilesDisplay"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 4
 script = ExtResource("11_gc23v")
 suit = 2
 
-[node name="RichTextLabel4" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+[node name="RichTextLabel4" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/TilesDisplay"]
 layout_mode = 2
 bbcode_enabled = true
 text = "4+0 4+0 4+0 4+0 3+1 4+0 4+0 4+0 4+0 "
 fit_content = true
 
-[node name="RichTextLabel5" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+[node name="RichTextLabel5" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/TilesDisplay"]
 layout_mode = 2
 bbcode_enabled = true
 text = "[b]Sou[/b]"
 fit_content = true
 
-[node name="MenuTileHolder3" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+[node name="MenuTileHolder3" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Tiles/TilesDisplay"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 4
 script = ExtResource("11_gc23v")
 suit = 4
 
-[node name="RichTextLabel6" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+[node name="RichTextLabel6" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/TilesDisplay"]
 layout_mode = 2
 bbcode_enabled = true
 text = "4+0 4+0 4+0 4+0 3+1 4+0 4+0 4+0 4+0 "
 fit_content = true
 
-[node name="RichTextLabel7" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+[node name="RichTextLabel7" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/TilesDisplay"]
 layout_mode = 2
 bbcode_enabled = true
 text = "[b]Honor[/b]"
 fit_content = true
 
-[node name="MenuTileHolder4" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+[node name="MenuTileHolder4" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Tiles/TilesDisplay"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 4
 script = ExtResource("11_gc23v")
 suit = 8
 
-[node name="RichTextLabel8" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/VBoxContainer"]
+[node name="RichTextLabel8" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/TilesDisplay"]
 layout_mode = 2
 bbcode_enabled = true
 text = "4+0 4+0 4+0 4+0 4+0 4+0 4+0"

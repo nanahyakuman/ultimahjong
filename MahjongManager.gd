@@ -24,23 +24,33 @@ var actionable = true
 func _ready():
 	await get_tree().process_frame
 	
+	start_round()
+
+func start_round():
 	init_wall()
-	
-	gui_manager.update_discard([])
-	gui_manager.update_opp_discard([])
 	
 	draw_hand()
 	draw_tile()
 	
+	gui_manager.update_discard([])
+	gui_manager.update_opp_discard([])
+	
 	for i in DEFAULT_KAN_SIZE:
 		draw_kan_dora()
+	
 	gui_manager.update_wall_count(wall.size())
-
 
 # default tiles
 func init_wall():
 	wall = tile_counter.get_all_tiles()
 	wall.shuffle()
+	
+	hand.clear()
+	tsumo = null
+	discard.clear()
+	opp_discard.clear()
+	kan_dora.clear()
+	ura_dora.clear()
 
 func draw_hand():
 	for i in 13:

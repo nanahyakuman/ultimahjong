@@ -1,6 +1,6 @@
 class_name MTile
 
-enum SUITS {MAN=1, SOU=4, PIN=2, SPECIAL=8}
+enum SUITS {MAN=1, PIN=2, SOU=4, SPECIAL=8}
 # specials are 1-indexed becuase so are the suits
 enum SPECIALS {NONE, EAST, SOUTH, WEST, NORTH, HAKU, HATSU, CHUN}
 
