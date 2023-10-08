@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://b51lqy8wfhf08"]
+[gd_scene load_steps=15 format=3 uid="uid://b51lqy8wfhf08"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
 [ext_resource type="Texture2D" uid="uid://blcxpctsytj35" path="res://image/bg.png" id="2_q1squ"]
 [ext_resource type="Script" path="res://yaku/YakuChecker.gd" id="4_k3lw2"]
+[ext_resource type="Script" path="res://TileCounter.gd" id="5_abq0l"]
 [ext_resource type="PackedScene" uid="uid://dhu60farhkon0" path="res://TileGraphic.tscn" id="6_3ag2w"]
 [ext_resource type="Texture2D" uid="uid://bu7eiaj3nnu51" path="res://image/sittingwindindicator.png" id="8_00qj1"]
 [ext_resource type="Texture2D" uid="uid://qfsu5y82t8jk" path="res://image/prevwindindicator.png" id="8_heinv"]
@@ -124,6 +125,9 @@ script = ExtResource("1_x3kjf")
 
 [node name="YakuChecker" type="Node" parent="HBoxContainer/GameRoot/MahjongManager"]
 script = ExtResource("4_k3lw2")
+
+[node name="TileCounter" type="Node" parent="HBoxContainer/GameRoot/MahjongManager"]
+script = ExtResource("5_abq0l")
 
 [node name="GUIManager" type="Control" parent="HBoxContainer/GameRoot"]
 layout_mode = 1

@@ -14,15 +14,16 @@ class Grouping:
 		tiles = ts
 
 func _ready():
-	var singlets = [MTile.new(1, 1), MTile.new(1, 3), MTile.new(1, 5), MTile.new(1, 7)]
-	var hand = []
-	hand.append_array(singlets)
-	hand.append_array(singlets)
-	hand.append_array(singlets)
-	hand.append(MTile.new(1, 9))
-	hand.append(MTile.new(1, 9))
-	
-	print(hand_get_han(hand, false, false))
+#	var singlets = [MTile.new(1, 1), MTile.new(1, 3), MTile.new(1, 5), MTile.new(1, 7)]
+#	var hand = []
+#	hand.append_array(singlets)
+#	hand.append_array(singlets)
+#	hand.append_array(singlets)
+#	hand.append(MTile.new(1, 9))
+#	hand.append(MTile.new(1, 9))
+#
+#	print(hand_get_han(hand, false, false))
+	pass
 
 
 # hand should be sorted by MTile id.

@@ -1,6 +1,7 @@
 extends Node
 
 @onready var gui_manager = $"../GUIManager"
+@onready var tile_counter = $TileCounter
 
 
 var OPPONENT_DISCARDS = 3
@@ -38,17 +39,7 @@ func _ready():
 
 # default tiles
 func init_wall():
-	for i in MTile.SUITS.values():
-		if i == MTile.SUITS.SPECIAL:
-			for j in range(1, MTile.SPECIALS.values().size()):
-				wall.append(MTile.new(i,j))
-		else:
-			for j in range(1,10):
-				wall.append(MTile.new(i,j))
-	
-	# this gives me anxiety but appears safe
-	wall.append_array(wall)
-	wall.append_array(wall)
+	wall = tile_counter.get_all_tiles()
 	wall.shuffle()
 
 func draw_hand():
