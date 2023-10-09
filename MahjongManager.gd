@@ -85,16 +85,18 @@ func do_opp_discard():
 		gui_manager.update_opp_discard(opp_discard)
 		gui_manager.update_wall_count(wall.size())
 		
-#		var call_bitmask = can_cpkr(disc)
-#		if call_bitmask != 0:
-#			state = STATE_CALLS
-#			gui_manager.enable_calls(call_bitmask)
-#
-#			# stall out as long as `call_graphic_clicked()` hasnt resolved.
-#			# this is called by `CallGraphic`s.
-#			while state == STATE_CALLS:
-#				await get_tree().process_frame
-#
+		var call_bitmask = can_cpkr(disc)
+		if call_bitmask != 0:
+			state = STATE_CALLS
+			gui_manager.enable_calls(call_bitmask)
+
+			# stall out as long as `call_graphic_clicked()` hasnt resolved.
+			# this is called by `CallGraphic`s.
+			while state == STATE_CALLS:
+				await get_tree().process_frame
+			
+			
+		
 		await get_tree().create_timer(.2).timeout
 	
 	state = STATE_ACTIONABLE

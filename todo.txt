@@ -28,6 +28,8 @@ proper kan management
 mahjmanager ron check needs to account for hgand openness
 need to update highlights when you click a tile
 
+
+
 actual turns:
 	discards come by 1, auto skip if no legal call but prompt for c/p/k
 	animations
@@ -36,7 +38,7 @@ actual turns:
 
 
 yaku to implement
-	menzentsumo
+x	menzentsumo
 	riichi
 	ippatsu
 	pinfu?

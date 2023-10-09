@@ -58,15 +58,16 @@ func update_tsumo(tiles: Array):
 	_update_node(tsumo, tiles, true, TileGraphic.SIDE_TOP)
 
 func update_kan_dora(tiles: Array):
-	_update_node(kan_pile, tiles, true, TileGraphic.SIDE_BOT, true)
+	_update_node(kan_pile, tiles, true, TileGraphic.SIDE_BOT, 4)
 
-func _update_node(node: Node, tiles: Array, clickable: bool = false, visible_side: int = TileGraphic.SIDE_BOT, reverse: bool = false):
+func _update_node(node: Node, tiles: Array, clickable: bool = false, visible_side: int = TileGraphic.SIDE_BOT, reverse_count: int = -1):
 	var existing_count = node.get_child_count()
 	for t in tiles.size():
 		if t < existing_count:
 			node.get_child(t).assign_suit_value(tiles[t])
+			node.get_child(t).set_reversed(reverse_count > t)
 		else:
-			get_new_tile(tiles[t], node, clickable, visible_side, reverse)
+			get_new_tile(tiles[t], node, clickable, visible_side, reverse_count > t)
 		node.get_child(t).visible = true
 	
 	for t in range(tiles.size(), existing_count):

@@ -49,6 +49,21 @@ func hand_get_han(hand: Array, is_open: bool, is_tsumo: bool) -> int:
 				han += 6 - int(is_open)
 			elif is_half:
 				han += 3 - int(is_open)
+		
+		# menzentsumo
+		if !is_open and is_tsumo:
+			han += 1
+		
+		# pinfu. doesnt account for ryanmen wait rn.
+#		if !is_open:
+#			var pinfu = true
+#			for g in groupings:
+#				if g.type == SET:
+#					pinfu = false
+#				if g.type == PAIR and g.tiles[0].SUIT == MTile.SUITS.SPECIAL:
+#					pinfu = false
+#			if pinfu:
+#				han += 1
 	
 	
 	return han
