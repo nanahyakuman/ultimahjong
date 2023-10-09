@@ -63,6 +63,9 @@ func _gui_input(event):
 				#TileGraphicKnower.highlight_matching_tiles(tile, false)
 				emit_signal("tile_graphic_clicked", tile)
 				#TileGraphicKnower.highlight_matching_tiles(tile, true)
+			
+			if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+				print(tile.get_id())
 
 
 

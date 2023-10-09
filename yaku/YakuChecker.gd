@@ -96,7 +96,7 @@ func get_maximal_groupings(remaining_hand: Array) -> Array: #return array is of 
 	return maximal_groupings
 
 func is_of_run(tile: MTile, hand:Array):
-	var id = tile.get_id()
+	#var id = tile.get_id()
 	var next_id = MTile.gen_id(tile.suit, tile.value+1)
 	var nexter_id = MTile.gen_id(tile.suit, tile.value+2)
 	

@@ -17,11 +17,14 @@ func _init(s:int,v:int,a:bool = false):
 func get_id():
 	return gen_id(suit, value)
 
-func get_adj_ids():
+func get_adj_ids(s = suit, v = value, chi_sets = false):
 	if suit == SUITS.SPECIAL:
 		return []
 	else:
-		return [gen_id(suit, value-1), gen_id(suit, value+1)]
+		if !chi_sets:
+			return [gen_id(s, v-1), gen_id(s, v+1)]
+		else:
+			return [gen_id(s, v-2), gen_id(s, v-1), gen_id(s, v+1), gen_id(s, v+2)]
 
 static func gen_id(s: int, v:int):
 	return s * 100 + v * 1

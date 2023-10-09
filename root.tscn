@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b51lqy8wfhf08"]
+[gd_scene load_steps=22 format=3 uid="uid://b51lqy8wfhf08"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -7,13 +7,19 @@
 [ext_resource type="Script" path="res://TileCounter.gd" id="5_abq0l"]
 [ext_resource type="PackedScene" uid="uid://dhu60farhkon0" path="res://TileGraphic.tscn" id="6_3ag2w"]
 [ext_resource type="Texture2D" uid="uid://bu7eiaj3nnu51" path="res://image/sittingwindindicator.png" id="8_00qj1"]
+[ext_resource type="Texture2D" uid="uid://bmqa5eyuh48qx" path="res://image/call_indicator.png" id="8_4d1ju"]
 [ext_resource type="Texture2D" uid="uid://qfsu5y82t8jk" path="res://image/prevwindindicator.png" id="8_heinv"]
 [ext_resource type="Texture2D" uid="uid://cerxwhe2cssp0" path="res://image/tableedge.png" id="8_hy522"]
 [ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tablediv.png" id="10_kbaim"]
 [ext_resource type="Script" path="res://MenuTileHolder.gd" id="11_gc23v"]
+[ext_resource type="Script" path="res://CallsGraphical.gd" id="11_oemle"]
 [ext_resource type="Texture2D" uid="uid://8eiqqlppwabi" path="res://image/tilecounter.png" id="11_s1nfs"]
 [ext_resource type="Script" path="res://TilesDisplay.gd" id="13_egxkc"]
+[ext_resource type="Texture2D" uid="uid://dbnpkxetohid0" path="res://image/call_ignore.png" id="13_qhnc0"]
+[ext_resource type="Script" path="res://CallGraphic.gd" id="13_wfhtv"]
+[ext_resource type="Script" path="res://GraphicTileCounter.gd" id="13_x2gyd"]
 [ext_resource type="Texture2D" uid="uid://ccdv7r4ga7o3t" path="res://image/tiles.png" id="15_8u0tq"]
+[ext_resource type="Texture2D" uid="uid://ch4nr70j7xj74" path="res://image/tilecounter_end_odd.png" id="15_tgg3l"]
 
 [sub_resource type="GDScript" id="GDScript_rrbm3"]
 script/source = "extends Control
@@ -31,7 +37,8 @@ const SIZE = 20
 @onready var discards = [$All/SideSpacers/Tiles/PDiscards, $All/SideSpacers/Tiles/PDiscards2]
 @onready var opp_dcs = [$All/SideSpacers/Tiles/Discards2, $All/SideSpacers/Tiles/Discards3, $All/SideSpacers/Tiles/Discards4, $All/SideSpacers/Tiles/Discards5]
 @onready var kan_pile = $All/SideSpacers/Tiles/KanPile
-@onready var tile_counter = $\"../../TextureRect/TileCounter\"
+@onready var graphic_tile_counter = $\"../../GraphicTileCounter\"
+@onready var calls = $Calls
 
 func _ready():
 	pass
@@ -77,8 +84,11 @@ func get_new_tile(t: MTile, parent: Node, clickable: bool, vis_side: int, revers
 
 
 func update_wall_count(c: int):
-	tile_counter.size.y = c * 3
-	tile_counter.position.y = 360 - tile_counter.size.y
+	graphic_tile_counter.update_wall_count(c)
+
+
+func enable_calls(bitmask: int):
+	calls.enable_calls(bitmask)
 "
 
 [node name="Control" type="Control"]
@@ -258,20 +268,224 @@ bbcode_enabled = true
 text = "[b]Score: 00000 Expected: 01000"
 fit_content = true
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+[node name="Calls" type="HBoxContainer" parent="HBoxContainer/GameRoot/GUIManager"]
+layout_mode = 2
+offset_top = 264.0
+offset_right = 352.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+alignment = 1
+script = ExtResource("11_oemle")
+
+[node name="ChiL" type="TextureRect" parent="HBoxContainer/GameRoot/GUIManager/Calls"]
+layout_mode = 2
+texture = ExtResource("8_4d1ju")
+script = ExtResource("13_wfhtv")
+bitmask = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/GameRoot/GUIManager/Calls/ChiL"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.5
+offset_top = -5.0
+offset_right = 7.5
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "Chi L"
+fit_content = true
+autowrap_mode = 0
+
+[node name="ChiM" type="TextureRect" parent="HBoxContainer/GameRoot/GUIManager/Calls"]
+layout_mode = 2
+texture = ExtResource("8_4d1ju")
+script = ExtResource("13_wfhtv")
+bitmask = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/GameRoot/GUIManager/Calls/ChiM"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.5
+offset_top = -5.0
+offset_right = 7.5
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "Chi M"
+fit_content = true
+autowrap_mode = 0
+
+[node name="ChiR" type="TextureRect" parent="HBoxContainer/GameRoot/GUIManager/Calls"]
+layout_mode = 2
+texture = ExtResource("8_4d1ju")
+script = ExtResource("13_wfhtv")
+bitmask = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/GameRoot/GUIManager/Calls/ChiR"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.5
+offset_top = -5.0
+offset_right = 7.5
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "Chi R"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Pon" type="TextureRect" parent="HBoxContainer/GameRoot/GUIManager/Calls"]
+layout_mode = 2
+texture = ExtResource("8_4d1ju")
+script = ExtResource("13_wfhtv")
+bitmask = 8
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/GameRoot/GUIManager/Calls/Pon"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.5
+offset_top = -5.0
+offset_right = 7.5
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "Pon"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Kan" type="TextureRect" parent="HBoxContainer/GameRoot/GUIManager/Calls"]
+layout_mode = 2
+texture = ExtResource("8_4d1ju")
+script = ExtResource("13_wfhtv")
+bitmask = 16
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/GameRoot/GUIManager/Calls/Kan"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.5
+offset_top = -5.0
+offset_right = 7.5
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "Kan"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Ron" type="TextureRect" parent="HBoxContainer/GameRoot/GUIManager/Calls"]
+layout_mode = 2
+texture = ExtResource("8_4d1ju")
+script = ExtResource("13_wfhtv")
+bitmask = 32
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/GameRoot/GUIManager/Calls/Ron"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.5
+offset_top = -5.0
+offset_right = 7.5
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "Ron"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Tsumo" type="TextureRect" parent="HBoxContainer/GameRoot/GUIManager/Calls"]
+layout_mode = 2
+texture = ExtResource("8_4d1ju")
+script = ExtResource("13_wfhtv")
+bitmask = 64
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/GameRoot/GUIManager/Calls/Tsumo"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -5.0
+offset_right = 12.5
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "Tsumo"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Ignore" type="TextureRect" parent="HBoxContainer/GameRoot/GUIManager/Calls"]
+layout_mode = 2
+texture = ExtResource("13_qhnc0")
+script = ExtResource("13_wfhtv")
+
+[node name="GraphicTileCounter" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("10_kbaim")
 stretch_mode = 1
+script = ExtResource("13_x2gyd")
 
-[node name="TileCounter" type="TextureRect" parent="HBoxContainer/TextureRect"]
+[node name="TileCounter" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_s1nfs")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="End" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("11_s1nfs")
-stretch_mode = 1
+texture = ExtResource("15_tgg3l")
+stretch_mode = 2
 
 [node name="Sidebar" type="ColorRect" parent="HBoxContainer"]
 layout_mode = 2
@@ -287,7 +501,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Hands" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Hands"]
@@ -309,6 +522,7 @@ Set or quad of (dragons)/(seat wind)/(prevalent wind).
 "
 
 [node name="Tiles" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="TilesDisplay" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Tiles"]

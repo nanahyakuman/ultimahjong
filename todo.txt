@@ -17,13 +17,16 @@ final boss on the E-E repeat. probably no repeated seats.
 round ending
 control styling, really want to wrangle it into 16colors
 indent in richtextboxes
-make calls
+make calls better
+	highlight what tiles in hand are involved
+	right click to cancel
 yaku scanner should return all legal groups instead of just one
 	maybe shouldnt track riichi/ippatsu/memey last tile wins
 tiles display should be based on actual hand
 proper kan management
 	pregenerate all, but hide them
-
+mahjmanager ron check needs to account for hgand openness
+need to update highlights when you click a tile
 
 actual turns:
 	discards come by 1, auto skip if no legal call but prompt for c/p/k

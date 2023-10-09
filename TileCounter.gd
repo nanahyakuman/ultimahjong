@@ -27,7 +27,7 @@ func initialize_tiles():
 			tile_data.append(MTileData.new(i,j+1,4, 1 if j+1 == 5 else 0))
 	
 	for i in MTile.SPECIALS.size()-1:
-		tile_data.append(MTileData.new(MTile.SUITS.SPECIAL, i, 4, 0))
+		tile_data.append(MTileData.new(MTile.SUITS.SPECIAL, i+1, 4, 0))
 
 
 func get_all_tiles():
