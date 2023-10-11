@@ -28,6 +28,14 @@ func get_adj_ids(s = suit, v = value, chi_sets = false):
 		else:
 			return [MTile.gen_id(s, v-2), MTile.gen_id(s, v-1), MTile.gen_id(s, v+1), MTile.gen_id(s, v+2)]
 
+func get_dora_id():
+	var val = 0
+	if suit == SUITS.SPECIAL:
+		val = (((value + 1) - 1) % 7) + 1 # uggy. this just allows us to mod 1-indexed tho
+	else:
+		val = (((value + 1) - 1) % 9) + 1
+	return MTile.gen_id(suit, val)
+
 static func gen_id(s: int, v:int):
 	return s * 100 + v * 1
 

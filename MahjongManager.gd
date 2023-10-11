@@ -7,7 +7,7 @@ class_name MahjongManager
 @onready var calls_manager = $"../GUIManager/Calls"
 
 var OPPONENT_DISCARDS = 3
-var DEFAULT_KAN_SIZE = 5
+var KAN_SIZE = 5
 
 var wall = [] # of `MTile`s
 var hand = [] # of `MTile`s
@@ -17,6 +17,7 @@ var discard = [] # of `MTile`s
 var opp_discard = [] # of `MTile`s
 var kan_dora = []
 var ura_dora = []
+var revealed_kan_dora = 1
 
 enum WINDS {EAST, SOUTH, WEST, NORTH}
 var prevalent_wind = -1 # incremented at start of round
@@ -41,10 +42,11 @@ func start_round():
 	gui_manager.update_discard([])
 	gui_manager.update_opp_discard([])
 	
-	for i in DEFAULT_KAN_SIZE:
+	for i in KAN_SIZE:
 		draw_kan_dora()
 	
 	gui_manager.update_wall_count(wall.size())
+	
 
 func increment_winds():
 	seat_wind += 1
@@ -80,7 +82,12 @@ func draw_hand():
 func draw_kan_dora():
 	kan_dora.append(wall.pop_back())
 	ura_dora.append(wall.pop_back())
-	gui_manager.update_kan_dora(kan_dora)
+	gui_manager.update_kan_dora(kan_dora, KAN_SIZE - revealed_kan_dora)
+	
+	var revealed_dora_ids = []
+	for i in range(KAN_SIZE-revealed_kan_dora, kan_dora.size()):
+		revealed_dora_ids.append(kan_dora[i].get_dora_id())
+	TileGraphicKnower.update_dora_ids(revealed_dora_ids)
 
 func draw_tile():
 	await do_opp_discard()

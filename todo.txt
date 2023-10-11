@@ -5,6 +5,7 @@ end of every round can purchase:
 	new rules (south also counts as seat wind toka)?
 		get two ura every reveal
 		call atama?
+		create runs with winds/dragons
 	spell cards, refresh every x draws
 		next tile will be honor
 		exchange one tile for a false haku
@@ -37,7 +38,7 @@ make calls better
 	feed groups into yakucheker
 	highlight the discard in question
 dora sparkles
-get the number of discards right
+get the number of discards right seat-wise
 if tile changes under the cursor it's not properly updated anymore
 
 

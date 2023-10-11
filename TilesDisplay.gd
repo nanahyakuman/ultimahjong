@@ -19,7 +19,7 @@ func update_display():
 	var strs = ["","","",""]
 	
 	for i in counts:
-		strs[suits.find(i.suit)] += "[color=989fa5]%s[/color]+[color=d79591]%s[/color] " % [i.count-i.aka_count, i.aka_count]
+		strs[suits.find(i.suit)] += "[color=989fa5]%s[/color] [color=d79591]%s[/color]  " % [i.count-i.aka_count, i.aka_count]
 	
 	for i in strs.size():
 		menu_counts[i].text = strs[i]

@@ -59,8 +59,8 @@ func update_opp_discard(tiles: Array):
 func update_tsumo(tiles: Array):
 	_update_node(tsumo, tiles, true, TileGraphic.SIDE_TOP)
 
-func update_kan_dora(tiles: Array):
-	_update_node(kan_pile, tiles, true, TileGraphic.SIDE_BOT, 4)
+func update_kan_dora(tiles: Array, covered: int):
+	_update_node(kan_pile, tiles, true, TileGraphic.SIDE_BOT, covered)
 
 func _update_node(node: Node, tiles: Array, in_hand: bool = false, visible_side: int = TileGraphic.SIDE_BOT, reverse_count: int = -1):
 	var existing_count = node.get_child_count()
@@ -655,7 +655,7 @@ fit_content = true
 [node name="MenuTileHolder" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Tiles/TilesDisplay"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 9
 script = ExtResource("11_gc23v")
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Tiles/TilesDisplay"]
@@ -673,7 +673,7 @@ fit_content = true
 [node name="MenuTileHolder2" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Tiles/TilesDisplay"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 9
 script = ExtResource("11_gc23v")
 suit = 2
 
@@ -692,7 +692,7 @@ fit_content = true
 [node name="MenuTileHolder3" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Tiles/TilesDisplay"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 9
 script = ExtResource("11_gc23v")
 suit = 4
 
@@ -711,7 +711,7 @@ fit_content = true
 [node name="MenuTileHolder4" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Tiles/TilesDisplay"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 9
 script = ExtResource("11_gc23v")
 suit = 8
 
@@ -755,8 +755,6 @@ Honor: Dragons and Winds.
 Pair: 2 tiles of the same value and suit.
 Set: 3 tiles of the same value and suit.
 Quad: 4 tiles of the same value and suit. Calling a quad reveals another quad indicator.
-Quint: 5 tiles of I think you get it.
-Sextet: 6.
 
 Run: 3 tiles in a row of the same suit.
 

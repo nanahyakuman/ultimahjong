@@ -6,9 +6,10 @@ class_name TileGraphic
 @onready var sim_tile_highlight = $BlueTileHighlight
 @onready var adj_tile_highlight = $RedTileHighlight
 @onready var call_tile_highlight = $RedTileHighlight2
+@onready var dora_sprite = $Sprite2D/TileDora
 
 @export var tile_size = Vector2(16,32)
-@export var in_hand = false
+var in_hand = false
 
 @export var suit = 0
 @export var value = 0
@@ -20,6 +21,7 @@ var _reversed = false
 
 func _ready():
 	TileGraphicKnower.highlight.connect(self._highlight_requested)
+	TileGraphicKnower.new_dora.connect(self._new_dora)
 
 
 func assign_suit_value(t: MTile):
@@ -31,6 +33,8 @@ func assign_suit_value(t: MTile):
 	tile = t
 	
 	sprite.region_rect = get_tile_segment(tile)
+	
+	_new_dora(TileGraphicKnower.dora_ids)
 
 func get_tile_segment(t: MTile) -> Rect2:
 	var x = (t.value-1) * tile_size.x
@@ -92,3 +96,7 @@ func _highlight_requested(id: int, val: bool, is_adj: bool):
 
 func direct_request_highlight(val: bool):
 	call_tile_highlight.visible = val
+
+
+func _new_dora(ids: Array):
+	dora_sprite.visible = ids.has(tile.get_id())
