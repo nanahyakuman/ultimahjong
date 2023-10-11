@@ -9,17 +9,18 @@ class_name MahjongManager
 var OPPONENT_DISCARDS = 3
 var DEFAULT_KAN_SIZE = 5
 
-var wall = []
-var hand = []
+var wall = [] # of `MTile`s
+var hand = [] # of `MTile`s
+var called_hand = [] # of `grouping`s
 var tsumo
-var discard = []
-var opp_discard = []
+var discard = [] # of `MTile`s
+var opp_discard = [] # of `MTile`s
 var kan_dora = []
 var ura_dora = []
 
-enum WINDS {EAST, SOUTH, WEST, NORTH}
-var prevalent_wind = WINDS.EAST
-var SEAT = WINDS.EAST
+#enum WINDS {EAST, SOUTH, WEST, NORTH}
+#var prevalent_wind = WINDS.EAST
+#var SEAT = WINDS.EAST
 
 enum {STATE_ACTIONABLE, STATE_ANIMATING, STATE_CALLS}
 var state = STATE_ACTIONABLE
@@ -158,6 +159,14 @@ func can_cpkr(disc: MTile) -> int:
 # called when a cpkr call is made, including passing the call
 func call_graphic_clicked(bitmask: int):
 	state = STATE_ANIMATING
+
+# right click to close call menu
+func _input(event):
+	if state == STATE_CALLS:
+		if event is InputEventMouseButton:
+			if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+				call_graphic_clicked(CALL_BITMASK.NONE)
+				gui_manager.enable_calls(0)
 
 
 #  for physical buttons. note only tiles we define as

@@ -1,17 +1,44 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://bgwfxm5udtx2c"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://bgwfxm5udtx2c"]
 
 [ext_resource type="FontFile" uid="uid://ceoffh0u2ix47" path="res://text/font/Body.png" id="1_0s3pa"]
 [ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="2_2v4im"]
 [ext_resource type="FontFile" uid="uid://dmoumxbcf3gn" path="res://text/font/Body2.png" id="3_e0qua"]
+[ext_resource type="Texture2D" uid="uid://b5liq6i15i6gh" path="res://image/scrollbar.png" id="4_30idf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1de0v"]
 bg_color = Color(0.25098, 0.215686, 0.184314, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bfkfa"]
-content_margin_left = 8.0
-content_margin_top = 8.0
-content_margin_right = 8.0
-content_margin_bottom = 8.0
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8vjpu"]
+content_margin_left = 6.0
+content_margin_top = 2.0
+content_margin_right = 6.0
+content_margin_bottom = 2.0
+bg_color = Color(0.309804, 0.266667, 0.227451, 1)
+corner_detail = 1
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cowft"]
+content_margin_left = 6.0
+content_margin_top = 2.0
+content_margin_right = 6.0
+content_margin_bottom = 2.0
+bg_color = Color(0.160784, 0.145098, 0.133333, 1)
+border_width_bottom = 2
+border_color = Color(0.309804, 0.266667, 0.227451, 1)
+corner_detail = 1
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5sxb1"]
+bg_color = Color(0.160784, 0.145098, 0.133333, 1)
+border_color = Color(0.309804, 0.266667, 0.227451, 1)
+corner_detail = 1
+anti_aliasing = false
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7526h"]
 
@@ -20,6 +47,28 @@ content_margin_left = 16.0
 content_margin_top = 16.0
 content_margin_right = 16.0
 content_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1aysx"]
+texture = ExtResource("4_30idf")
+texture_margin_top = 27.0
+texture_margin_bottom = 4.0
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ca302"]
+texture = ExtResource("4_30idf")
+texture_margin_top = 27.0
+texture_margin_bottom = 4.0
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3ryfc"]
+texture = ExtResource("4_30idf")
+texture_margin_top = 27.0
+texture_margin_bottom = 4.0
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iuex7"]
+content_margin_left = 4.0
+content_margin_right = 4.0
 
 [resource]
 default_font = ExtResource("3_e0qua")
@@ -34,9 +83,18 @@ TabBar/colors/drop_mark_color = Color(1, 1, 0.933333, 1)
 TabBar/colors/font_selected_color = Color(1, 1, 0.933333, 1)
 TabBar/colors/font_unselected_color = Color(0.956863, 0.952941, 0.843137, 1)
 TabBar/fonts/font = ExtResource("2_2v4im")
+TabContainer/colors/font_selected_color = Color(1, 1, 0.933333, 1)
+TabContainer/colors/font_unselected_color = Color(0.956863, 0.952941, 0.843137, 1)
 TabContainer/constants/side_margin = 0
 TabContainer/fonts/font = ExtResource("2_2v4im")
 TabContainer/styles/panel = SubResource("StyleBoxEmpty_bfkfa")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_8vjpu")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_cowft")
+TabContainer/styles/tabbar_background = SubResource("StyleBoxFlat_5sxb1")
 TextEdit/colors/font_readonly_color = Color(1, 1, 1, 1)
 TextEdit/styles/normal = SubResource("StyleBoxEmpty_7526h")
 TextEdit/styles/read_only = SubResource("StyleBoxEmpty_2p5o7")
+VScrollBar/styles/grabber = SubResource("StyleBoxTexture_1aysx")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_ca302")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_3ryfc")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_iuex7")

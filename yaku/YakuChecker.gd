@@ -5,14 +5,6 @@ var YAKU = {
 	"Ready": [1, "To enter ready hand, hand must be closed and 1 tile from completion. Once entered, hand cannot be modified."] 
 }
 
-enum {NONE, PAIR, SET, RUN}
-class Grouping:
-	var type = NONE
-	var tiles = []
-	func _init(typ: int, ts: Array):
-		type = typ
-		tiles = ts
-
 func _ready():
 #	var singlets = [MTile.new(1, 1), MTile.new(1, 3), MTile.new(1, 5), MTile.new(1, 7)]
 #	var hand = []
@@ -72,9 +64,9 @@ func groupings_meet_basic_reqs(groupings: Array) -> bool:
 	var setruns = 0
 	var pairs = 0
 	for g in groupings:
-		if g.type == SET or g.type == RUN:
+		if g.type == Grouping.SET or g.type == Grouping.RUN:
 			setruns += 1
-		if g.type == PAIR:
+		if g.type == Grouping.PAIR:
 			pairs += 1
 	
 	return (setruns >= 4) and (pairs >= 1) 
@@ -88,7 +80,7 @@ func get_maximal_groupings(remaining_hand: Array) -> Array: #return array is of 
 	
 	if remaining_hand.size() == 2:
 		if remaining_hand[0].get_id() == remaining_hand[1].get_id():
-			return [Grouping.new(PAIR, remaining_hand)]
+			return [Grouping.new(Grouping.PAIR, remaining_hand)]
 	
 	for t in remaining_hand:
 		for type_index in 2:
@@ -105,7 +97,7 @@ func get_maximal_groupings(remaining_hand: Array) -> Array: #return array is of 
 				var recurse = get_maximal_groupings(theoretically_mananged_tiles)
 				if recurse.size() + 1 >= maximal_groupings.size():
 					maximal_groupings = recurse.duplicate()
-					var type = RUN if type_index == 0 else SET
+					var type = Grouping.RUN if type_index == 0 else Grouping.SET
 					maximal_groupings.append(Grouping.new(type, group))
 	
 	return maximal_groupings

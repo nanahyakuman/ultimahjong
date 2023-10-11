@@ -15,30 +15,32 @@ final boss on the E-E repeat. probably no repeated seats.
 
 
 round ending
-control styling, really want to wrangle it into 16colors
-indent in richtextboxes
-make calls better
-	highlight what tiles in hand are involved
-	right click to cancel
 yaku scanner should return all legal groups instead of just one
 	maybe shouldnt track riichi/ippatsu/memey last tile wins
-tiles display should be based on actual hand
-proper kan management
+	also needs to take premade groupings (ie calls) as input
+proper kandora management
 	pregenerate all, but hide them
 mahjmanager ron check needs to account for hgand openness
 need to update highlights when you click a tile
+go back through all colors
+	snap to 16ths
+	fix dark orange, dark tile, see if can make halwwayws more interesting
+make calls better
+	highlight what tiles in hand are involved
+	right click to cancel
+call management
+	seperate "grouped_hand" var in mjmanager to track cpk
+	feed groups into yakucheker
+dora sparkles
 
 
 
-actual turns:
-	discards come by 1, auto skip if no legal call but prompt for c/p/k
-	animations
-		i think its fine if they're kinda naive, just have a `block_input` var thats
-		toggled as long as an anim is playing
+
+
 
 
 yaku to implement
-x	menzentsumo
+	menzentsumo
 	riichi
 	ippatsu
 	pinfu?

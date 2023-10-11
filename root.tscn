@@ -24,7 +24,7 @@
 [sub_resource type="GDScript" id="GDScript_rrbm3"]
 script/source = "extends Control
 
-const SIZE = 20
+const SIZE = 22
 
 @export var tile_tex: Texture2D
 @export var tile_graphic: PackedScene
@@ -112,7 +112,7 @@ grow_vertical = 2
 theme_override_constants/separation = 0
 
 [node name="GameRoot" type="Control" parent="HBoxContainer"]
-custom_minimum_size = Vector2(352, 352)
+custom_minimum_size = Vector2(384, 352)
 layout_mode = 2
 
 [node name="BG" type="NinePatchRect" parent="HBoxContainer/GameRoot"]
@@ -280,13 +280,13 @@ theme_override_constants/separation = 4
 alignment = 1
 script = ExtResource("11_oemle")
 
-[node name="ChiL" type="TextureRect" parent="HBoxContainer/GameRoot/GUIManager/Calls"]
+[node name="ChiR" type="TextureRect" parent="HBoxContainer/GameRoot/GUIManager/Calls"]
 layout_mode = 2
 texture = ExtResource("8_4d1ju")
 script = ExtResource("13_wfhtv")
-bitmask = 4
+bitmask = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/GameRoot/GUIManager/Calls/ChiL"]
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/GameRoot/GUIManager/Calls/ChiR"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -301,7 +301,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 bbcode_enabled = true
-text = "Chi L"
+text = "Chi R"
 fit_content = true
 autowrap_mode = 0
 
@@ -330,13 +330,13 @@ text = "Chi M"
 fit_content = true
 autowrap_mode = 0
 
-[node name="ChiR" type="TextureRect" parent="HBoxContainer/GameRoot/GUIManager/Calls"]
+[node name="ChiL" type="TextureRect" parent="HBoxContainer/GameRoot/GUIManager/Calls"]
 layout_mode = 2
 texture = ExtResource("8_4d1ju")
 script = ExtResource("13_wfhtv")
-bitmask = 1
+bitmask = 4
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/GameRoot/GUIManager/Calls/ChiR"]
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/GameRoot/GUIManager/Calls/ChiL"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -351,7 +351,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 bbcode_enabled = true
-text = "Chi R"
+text = "Chi L"
 fit_content = true
 autowrap_mode = 0
 
@@ -500,8 +500,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+tab_alignment = 1
 
 [node name="Hands" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Hands"]
@@ -611,7 +613,6 @@ text = "4+0 4+0 4+0 4+0 4+0 4+0 4+0"
 fit_content = true
 
 [node name="Guide" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/Guide"]
@@ -619,10 +620,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 
