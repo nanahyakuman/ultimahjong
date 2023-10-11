@@ -15,16 +15,18 @@ func _init(s:int,v:int,a:bool = false):
 	aka = a
 
 func get_id():
-	return gen_id(suit, value)
+	return MTile.gen_id(suit, value)
 
+#  `chi_sets` returns neighbors and superneighbors in order, to make
+# it easy to check for chis.
 func get_adj_ids(s = suit, v = value, chi_sets = false):
 	if suit == SUITS.SPECIAL:
 		return []
 	else:
 		if !chi_sets:
-			return [gen_id(s, v-1), gen_id(s, v+1)]
+			return [MTile.gen_id(s, v-1), MTile.gen_id(s, v+1)]
 		else:
-			return [gen_id(s, v-2), gen_id(s, v-1), gen_id(s, v+1), gen_id(s, v+2)]
+			return [MTile.gen_id(s, v-2), MTile.gen_id(s, v-1), MTile.gen_id(s, v+1), MTile.gen_id(s, v+2)]
 
 static func gen_id(s: int, v:int):
 	return s * 100 + v * 1

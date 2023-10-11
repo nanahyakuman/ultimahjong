@@ -1,0 +1,21 @@
+[remap]
+
+importer="font_data_image"
+type="FontFile"
+uid="uid://b5lagtqm6rgj"
+path="res://.godot/imported/TitleUnderlined.png-c08c3559f75134179f83318efa22a93f.fontdata"
+
+[deps]
+
+source_file="res://text/font/TitleUnderlined.png"
+dest_files=["res://.godot/imported/TitleUnderlined.png-c08c3559f75134179f83318efa22a93f.fontdata"]
+
+[params]
+
+character_ranges=PackedStringArray("0-128")
+columns=16
+rows=16
+image_margin=Rect2i(0, 0, 0, 0)
+character_margin=Rect2i(0, 0, 0, 0)
+fallbacks=[]
+compress=true

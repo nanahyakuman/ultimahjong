@@ -3,11 +3,12 @@ class_name TileGraphic
 
 @onready var sprite = $Sprite2D
 @onready var sides = $Tilesides
-@onready var sim_tile_highlight = $SimTileHighlight
-@onready var adj_tile_highlight = $AdjTileHighlight
+@onready var sim_tile_highlight = $BlueTileHighlight
+@onready var adj_tile_highlight = $RedTileHighlight
+@onready var call_tile_highlight = $RedTileHighlight2
 
 @export var tile_size = Vector2(16,32)
-@export var clickable = false
+@export var in_hand = false
 
 @export var suit = 0
 @export var value = 0
@@ -57,10 +58,11 @@ func set_reversed(rv: bool):
 signal tile_graphic_clicked
 
 func _gui_input(event):
-	if clickable:
+	# can only click on tiles in hand
+	if in_hand:
 		if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-				#TileGraphicKnower.highlight_matching_tiles(tile, false)
+				TileGraphicKnower.highlight_matching_tiles(tile, false)
 				emit_signal("tile_graphic_clicked", tile)
 				#TileGraphicKnower.highlight_matching_tiles(tile, true)
 			
@@ -69,6 +71,8 @@ func _gui_input(event):
 
 
 
+#  code for highlights. `TileGraphicKnower` sends out actual signals
+# for tiles to highlight themselves
 func _on_mouse_entered():
 	if !_reversed:
 		TileGraphicKnower.highlight_matching_tiles(tile, true)
@@ -85,3 +89,6 @@ func _highlight_requested(id: int, val: bool, is_adj: bool):
 				sim_tile_highlight.visible = val
 			else:
 				adj_tile_highlight.visible = val
+
+func direct_request_highlight(val: bool):
+	call_tile_highlight.visible = val

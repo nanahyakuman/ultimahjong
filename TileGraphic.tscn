@@ -28,12 +28,17 @@ centered = false
 region_enabled = true
 region_rect = Rect2(16, 32, 16, 32)
 
-[node name="SimTileHighlight" type="Sprite2D" parent="."]
+[node name="BlueTileHighlight" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(8, 13)
 texture = ExtResource("4_2lunx")
 
-[node name="AdjTileHighlight" type="Sprite2D" parent="."]
+[node name="RedTileHighlight" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(8, 13)
+texture = ExtResource("5_b2fx8")
+
+[node name="RedTileHighlight2" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(8, 13)
 texture = ExtResource("5_b2fx8")

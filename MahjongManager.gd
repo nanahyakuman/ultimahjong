@@ -4,7 +4,7 @@ class_name MahjongManager
 @onready var gui_manager = $"../GUIManager"
 @onready var tile_counter = $TileCounter
 @onready var yaku_checker = $YakuChecker
-
+@onready var calls_manager = $"../GUIManager/Calls"
 
 var OPPONENT_DISCARDS = 3
 var DEFAULT_KAN_SIZE = 5
@@ -69,6 +69,12 @@ func init_wall():
 func draw_hand():
 	for i in 13:
 		hand.append(wall.pop_back())
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
 	update_hand_label()
 
 func draw_kan_dora():
@@ -96,23 +102,30 @@ func do_opp_discard():
 		gui_manager.update_opp_discard(opp_discard)
 		gui_manager.update_wall_count(wall.size())
 		
-		var call_bitmask = can_cpkr(disc)
+			#  passed in and updated by `can_cpkr`. easier then
+			# retroactively searching for the tiles again (probably).
+			#  allows us to quickly highlight and lock off tiles involved
+			# in a call. note this is of `MTile,` so we still have to get the
+			# relevant tiles in hand manually
+		var tiles_involved_in_call = {}
+			#  a bitmask for what calls are legal. note chi is split into 3
+			# seperate calls depending on shape. this is kinda weird but the
+			# involved tiles are highlighted anyway so it shouldn't be that
+			# hard to udnerstand
+		var call_bitmask = can_cpkr(disc, tiles_involved_in_call)
 		if call_bitmask != 0:
 			state = STATE_CALLS
-			gui_manager.enable_calls(call_bitmask)
+			calls_manager.enable_calls(call_bitmask, tiles_involved_in_call)
 
 			# stall out as long as `call_graphic_clicked()` hasnt resolved.
-			# this is called by `CallGraphic`s.
+			# this fnctiuon is called by `CallGraphic`s.
 			while state == STATE_CALLS:
 				await get_tree().process_frame
-			
-			
 		
 		await get_tree().create_timer(.2).timeout
 	
 	state = STATE_ACTIONABLE
 
-# returns a bitmask for what can be called
 enum CALL_BITMASK {
 	NONE =		0,
 	CHI_L = 	0b100,
@@ -123,21 +136,36 @@ enum CALL_BITMASK {
 	RON = 		0b100000,
 	TSM = 		0b1000000
 }
-func can_cpkr(disc: MTile) -> int:
+# returns a bitmask for what can be called
+func can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
 	# ordered rkpccc
 	var bitmask = 0b0000
+	# the dict of involved tiles
+	tiles_involved.merge({CALL_BITMASK.CHI_L:[], CALL_BITMASK.CHI_M:[], CALL_BITMASK.CHI_R:[], CALL_BITMASK.PON:[], CALL_BITMASK.KAN:[]})
+	# (only functional for pons and kans atm)
 	
 	# pon and kan
 	var identical_count = 0
 	var did = disc.get_id()
 	for t in hand:
-		if did == t.get_id():
+		var tid = t.get_id()
+		if did == tid:
 			identical_count += 1
+			tiles_involved[CALL_BITMASK.PON].append(t)
+			tiles_involved[CALL_BITMASK.KAN].append(t)
 	
 	if identical_count >= 2:
 		bitmask |= CALL_BITMASK.PON
 		if identical_count >= 3:
 			bitmask |= CALL_BITMASK.KAN
+			tiles_involved[CALL_BITMASK.PON].resize(2)
+			tiles_involved[CALL_BITMASK.KAN].resize(3)
+		else:
+			tiles_involved[CALL_BITMASK.KAN].clear()
+	else:
+		tiles_involved[CALL_BITMASK.PON].clear()
+		tiles_involved[CALL_BITMASK.KAN].clear()
+	
 	
 	# chi.
 	var adjs = {}
@@ -146,16 +174,39 @@ func can_cpkr(disc: MTile) -> int:
 	
 	for t in hand:
 		var tid = t.get_id()
-		if adjs.keys().has(tid):
+		var extant = adjs.keys().find(tid)
+		if extant != -1:
 			adjs[tid] += 1
+			
+			if extant == 0:
+				tiles_involved[CALL_BITMASK.CHI_R].append(t)
+			elif extant == 1:
+				tiles_involved[CALL_BITMASK.CHI_R].append(t)
+				tiles_involved[CALL_BITMASK.CHI_M].append(t)
+			elif extant == 2:
+				tiles_involved[CALL_BITMASK.CHI_M].append(t)
+				tiles_involved[CALL_BITMASK.CHI_L].append(t)
+			else:
+				tiles_involved[CALL_BITMASK.CHI_L].append(t)
 	
 	if adjs.size() >= 4:
 		if adjs[did-2] > 0 and adjs[did-1]:
 			bitmask |= CALL_BITMASK.CHI_R
+		else:
+			tiles_involved[CALL_BITMASK.CHI_R].clear()
 		if adjs[did-1] > 0 and adjs[did+1]:
 			bitmask |= CALL_BITMASK.CHI_M
+		else:
+			tiles_involved[CALL_BITMASK.CHI_M].clear()
 		if adjs[did+1] > 0 and adjs[did+2]:
 			bitmask |= CALL_BITMASK.CHI_L
+		else:
+			tiles_involved[CALL_BITMASK.CHI_L].clear()
+	else:
+		tiles_involved[CALL_BITMASK.CHI_R].clear()
+		tiles_involved[CALL_BITMASK.CHI_M].clear()
+		tiles_involved[CALL_BITMASK.CHI_L].clear()
+	
 	
 	#ron
 	var full_hand = [disc]
@@ -176,7 +227,10 @@ func _input(event):
 		if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 				call_graphic_clicked(CALL_BITMASK.NONE)
-				gui_manager.enable_calls(0)
+				calls_manager.enable_calls(0, {})
+	
+#	if event is InputEventMouseButton:
+#		increment_winds()
 
 
 #  for physical buttons. note only tiles we define as

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b51lqy8wfhf08"]
+[gd_scene load_steps=24 format=3 uid="uid://b51lqy8wfhf08"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dhu60farhkon0" path="res://TileGraphic.tscn" id="6_3ag2w"]
 [ext_resource type="Texture2D" uid="uid://bu7eiaj3nnu51" path="res://image/sittingwindindicator.png" id="8_00qj1"]
 [ext_resource type="Texture2D" uid="uid://bmqa5eyuh48qx" path="res://image/call_indicator.png" id="8_4d1ju"]
+[ext_resource type="Script" path="res://HandGUI.gd" id="8_4hll1"]
 [ext_resource type="Texture2D" uid="uid://qfsu5y82t8jk" path="res://image/prevwindindicator.png" id="8_heinv"]
 [ext_resource type="Texture2D" uid="uid://cerxwhe2cssp0" path="res://image/tableedge.png" id="8_hy522"]
 [ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tablediv.png" id="10_kbaim"]
@@ -38,7 +39,6 @@ const SIZE = 22
 @onready var opp_dcs = [$All/SideSpacers/Tiles/Discards2, $All/SideSpacers/Tiles/Discards3, $All/SideSpacers/Tiles/Discards4, $All/SideSpacers/Tiles/Discards5]
 @onready var kan_pile = $All/SideSpacers/Tiles/KanPile
 @onready var graphic_tile_counter = $\"../../GraphicTileCounter\"
-@onready var calls = $Calls
 @onready var prev_wind = $All/TextureRect/HBoxContainer/RoundWind/Sprite2D
 @onready var seat_wind = $All/TextureRect/HBoxContainer/SittingWind/Sprite2D
 
@@ -62,24 +62,24 @@ func update_tsumo(tiles: Array):
 func update_kan_dora(tiles: Array):
 	_update_node(kan_pile, tiles, true, TileGraphic.SIDE_BOT, 4)
 
-func _update_node(node: Node, tiles: Array, clickable: bool = false, visible_side: int = TileGraphic.SIDE_BOT, reverse_count: int = -1):
+func _update_node(node: Node, tiles: Array, in_hand: bool = false, visible_side: int = TileGraphic.SIDE_BOT, reverse_count: int = -1):
 	var existing_count = node.get_child_count()
 	for t in tiles.size():
 		if t < existing_count:
 			node.get_child(t).assign_suit_value(tiles[t])
 			node.get_child(t).set_reversed(reverse_count > t)
 		else:
-			get_new_tile(tiles[t], node, clickable, visible_side, reverse_count > t)
+			get_new_tile(tiles[t], node, in_hand, visible_side, reverse_count > t)
 		node.get_child(t).visible = true
 	
 	for t in range(tiles.size(), existing_count):
 		node.get_child(t).visible = false
 
-func get_new_tile(t: MTile, parent: Node, clickable: bool, vis_side: int, reverse: bool):
+func get_new_tile(t: MTile, parent: Node, in_hand: bool, vis_side: int, reverse: bool):
 	var a = tile_graphic.instantiate()
 	parent.add_child(a)
 	a.assign_suit_value(t)
-	a.clickable = clickable
+	a.in_hand = in_hand
 	a.connect(\"tile_graphic_clicked\", mahjong_manager.tile_graphic_clicked)
 	a.assign_visible_side(vis_side)
 	a.set_reversed(reverse)
@@ -92,10 +92,11 @@ func update_winds(prev: int, seat: int):
 func update_wall_count(c: int):
 	graphic_tile_counter.update_wall_count(c)
 
-
-func enable_calls(bitmask: int):
-	calls.enable_calls(bitmask)
 "
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_negp3"]
+content_margin_top = 4.0
+content_margin_bottom = 8.0
 
 [node name="Control" type="Control"]
 texture_filter = 1
@@ -227,6 +228,7 @@ alignment = 1
 [node name="Hand" type="HBoxContainer" parent="HBoxContainer/GameRoot/GUIManager/All/SideSpacers/Tiles/HBoxContainer"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
+script = ExtResource("8_4hll1")
 
 [node name="Tsumo" type="HBoxContainer" parent="HBoxContainer/GameRoot/GUIManager/All/SideSpacers/Tiles/HBoxContainer"]
 custom_minimum_size = Vector2(16, 32)
@@ -287,7 +289,7 @@ fit_content = true
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/GameRoot/GUIManager"]
 layout_mode = 2
 offset_top = 264.0
-offset_right = 352.0
+offset_right = 384.0
 offset_bottom = 280.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -518,10 +520,22 @@ grow_vertical = 2
 tab_alignment = 1
 
 [node name="Hands" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
-visible = false
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Hands"]
+[node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/Hands"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_negp3")
+tab_alignment = 1
+
+[node name="1h" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Hands/TabContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Hands/TabContainer/1h"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -537,6 +551,86 @@ No terminals or honors.
 
 [b]Yakuhai[/b]
 Set or quad of (dragons)/(seat wind)/(prevalent wind).
+"
+
+[node name="2h" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Hands/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Hands/TabContainer/2h"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[b]Have not done this tab lol[/b]
+sample text sample text
+"
+
+[node name="3h" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Hands/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Hands/TabContainer/3h"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[b]Have not done this tab lol[/b]
+sample text sample text
+"
+
+[node name="6h" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Hands/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Hands/TabContainer/6h"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[b]Have not done this tab lol[/b]
+sample text sample text
+"
+
+[node name="Limit" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Hands/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Hands/TabContainer/Limit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[b]Have not done this tab lol[/b]
+sample text sample text
+"
+
+[node name="Luck" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Hands/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Hands/TabContainer/Luck"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[b]Have not done this tab lol[/b]
+sample text sample text
 "
 
 [node name="Tiles" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
@@ -628,6 +722,7 @@ text = "4+0 4+0 4+0 4+0 4+0 4+0 4+0"
 fit_content = true
 
 [node name="Guide" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/Guide"]
@@ -637,11 +732,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_negp3")
+tab_alignment = 1
 
-[node name="Terms" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Guide/TabContainer"]
+[node name="Defs" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Guide/TabContainer"]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Guide/TabContainer/Terms"]
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Guide/TabContainer/Defs"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

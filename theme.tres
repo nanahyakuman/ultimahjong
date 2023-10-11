@@ -9,10 +9,9 @@
 bg_color = Color(0.25098, 0.215686, 0.184314, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bfkfa"]
-content_margin_left = 4.0
+content_margin_left = 8.0
 content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
+content_margin_right = 8.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8vjpu"]
 content_margin_left = 6.0
@@ -35,7 +34,8 @@ corner_detail = 1
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5sxb1"]
-bg_color = Color(0.160784, 0.145098, 0.133333, 1)
+bg_color = Color(0.25098, 0.215686, 0.184314, 1)
+border_width_bottom = 1
 border_color = Color(0.309804, 0.266667, 0.227451, 1)
 corner_detail = 1
 anti_aliasing = false
@@ -66,9 +66,8 @@ texture_margin_top = 27.0
 texture_margin_bottom = 4.0
 axis_stretch_vertical = 1
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iuex7"]
-content_margin_left = 4.0
-content_margin_right = 4.0
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dl63n"]
+content_margin_left = 8.0
 
 [resource]
 default_font = ExtResource("3_e0qua")
@@ -97,4 +96,4 @@ TextEdit/styles/read_only = SubResource("StyleBoxEmpty_2p5o7")
 VScrollBar/styles/grabber = SubResource("StyleBoxTexture_1aysx")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_ca302")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_3ryfc")
-VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_iuex7")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_dl63n")

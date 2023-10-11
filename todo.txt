@@ -1,11 +1,17 @@
 end of every round can purchase:
-	new yaku or yaku refreshes
+	new yaku or yaku refreshes?
 		await one tile
 	special tiles (wild suit, wild digit, flowers that "kan" as dora instantly like sanma N)
-	new rules (south also counts as seat wind toka)
+	new rules (south also counts as seat wind toka)?
 		get two ura every reveal
 		call atama?
-	spell cards
+	spell cards, refresh every x draws
+		next tile will be honor
+		exchange one tile for a false haku
+		autocomplete a wait
+		exchange a tile in hand for the current?next kan
+	bonuses
+		1 han for every ~six tiles in your hand without any red ink
  yaku weaken every time you call one, min 1 han?
  dead wall can be expanded as long as there are free tiles left
  overall structure is 17 rounds, starting on E-E and rotating through everything until
@@ -26,17 +32,13 @@ go back through all colors
 	snap to 16ths
 	fix dark orange, dark tile, see if can make halwwayws more interesting
 make calls better
-	highlight what tiles in hand are involved
-	right click to cancel
-call management
+	make discards reflect calls
 	seperate "grouped_hand" var in mjmanager to track cpk
 	feed groups into yakucheker
+	highlight the discard in question
 dora sparkles
-
-
-
-
-
+get the number of discards right
+if tile changes under the cursor it's not properly updated anymore
 
 
 yaku to implement
