@@ -18,9 +18,9 @@ var opp_discard = [] # of `MTile`s
 var kan_dora = []
 var ura_dora = []
 
-#enum WINDS {EAST, SOUTH, WEST, NORTH}
-#var prevalent_wind = WINDS.EAST
-#var SEAT = WINDS.EAST
+enum WINDS {EAST, SOUTH, WEST, NORTH}
+var prevalent_wind = -1 # incremented at start of round
+var seat_wind = -1
 
 enum {STATE_ACTIONABLE, STATE_ANIMATING, STATE_CALLS}
 var state = STATE_ACTIONABLE
@@ -31,6 +31,8 @@ func _ready():
 	start_round()
 
 func start_round():
+	increment_winds()
+	
 	init_wall()
 	
 	draw_hand()
@@ -43,6 +45,14 @@ func start_round():
 		draw_kan_dora()
 	
 	gui_manager.update_wall_count(wall.size())
+
+func increment_winds():
+	seat_wind += 1
+	seat_wind %= 4
+	if seat_wind == 0:
+		prevalent_wind += 1
+		prevalent_wind %= 4
+	gui_manager.update_winds(prevalent_wind, seat_wind)
 
 # default tiles
 func init_wall():

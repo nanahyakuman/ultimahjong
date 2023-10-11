@@ -39,6 +39,8 @@ const SIZE = 22
 @onready var kan_pile = $All/SideSpacers/Tiles/KanPile
 @onready var graphic_tile_counter = $\"../../GraphicTileCounter\"
 @onready var calls = $Calls
+@onready var prev_wind = $All/TextureRect/HBoxContainer/RoundWind/Sprite2D
+@onready var seat_wind = $All/TextureRect/HBoxContainer/SittingWind/Sprite2D
 
 func _ready():
 	pass
@@ -83,6 +85,9 @@ func get_new_tile(t: MTile, parent: Node, clickable: bool, vis_side: int, revers
 	a.set_reversed(reverse)
 	return(a)
 
+func update_winds(prev: int, seat: int):
+	prev_wind.frame = prev
+	seat_wind.frame = seat
 
 func update_wall_count(c: int):
 	graphic_tile_counter.update_wall_count(c)
@@ -251,15 +256,25 @@ theme_override_constants/separation = 6
 [node name="Spacer" type="Control" parent="HBoxContainer/GameRoot/GUIManager/All/TextureRect/HBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/GameRoot/GUIManager/All/TextureRect/HBoxContainer"]
+[node name="RoundWind" type="Control" parent="HBoxContainer/GameRoot/GUIManager/All/TextureRect/HBoxContainer"]
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_vertical = 4
-texture = ExtResource("8_heinv")
 
-[node name="TextureRect2" type="TextureRect" parent="HBoxContainer/GameRoot/GUIManager/All/TextureRect/HBoxContainer"]
+[node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/GameRoot/GUIManager/All/TextureRect/HBoxContainer/RoundWind"]
+texture = ExtResource("8_heinv")
+centered = false
+vframes = 4
+
+[node name="SittingWind" type="Control" parent="HBoxContainer/GameRoot/GUIManager/All/TextureRect/HBoxContainer"]
+custom_minimum_size = Vector2(64, 24)
 layout_mode = 2
 size_flags_vertical = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/GameRoot/GUIManager/All/TextureRect/HBoxContainer/SittingWind"]
 texture = ExtResource("8_00qj1")
+centered = false
+vframes = 4
 
 [node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/GameRoot/GUIManager/All/TextureRect/HBoxContainer"]
 layout_mode = 2
