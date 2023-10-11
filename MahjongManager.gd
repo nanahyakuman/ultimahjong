@@ -219,7 +219,7 @@ func can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
 	var full_hand = [disc]
 	full_hand.append_array(hand)
 	full_hand.sort()
-	if yaku_checker.hand_get_han(full_hand, false, false) > 0:
+	if yaku_checker.hand_get_han(full_hand, called_hand, false) > 0:
 		bitmask |= CALL_BITMASK.RON
 	
 	return bitmask

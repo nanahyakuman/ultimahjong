@@ -9,8 +9,8 @@ end of every round can purchase:
 	spell cards, refresh every x draws
 		next tile will be honor
 		exchange one tile for a false haku
-		autocomplete a wait
-		exchange a tile in hand for the current?next kan
+		autocomplete a wait?
+		exchange a tile in hand for a current kandora
 	bonuses
 		1 han for every ~six tiles in your hand without any red ink
  yaku weaken every time you call one, min 1 han?
@@ -22,24 +22,22 @@ final boss on the E-E repeat. probably no repeated seats.
 
 
 round ending
-yaku scanner should return all legal groups instead of just one
+yaku scanner should return all legal groupingss instead of just one
 	maybe shouldnt track riichi/ippatsu/memey last tile wins
 	also needs to take premade groupings (ie calls) as input
-proper kandora management
-	pregenerate all, but hide them
 mahjmanager ron check needs to account for hgand openness
-need to update highlights when you click a tile
 go back through all colors
 	snap to 16ths
 	fix dark orange, dark tile, see if can make halwwayws more interesting
 make calls better
-	make discards reflect calls
+	get the number of discards right seat-wise
 	seperate "grouped_hand" var in mjmanager to track cpk
-	feed groups into yakucheker
+	feed groups into yakuchecker
 	highlight the discard in question
-dora sparkles
-get the number of discards right seat-wise
 if tile changes under the cursor it's not properly updated anymore
+
+
+
 
 
 yaku to implement

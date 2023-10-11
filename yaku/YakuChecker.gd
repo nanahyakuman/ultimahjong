@@ -14,15 +14,39 @@ func _ready():
 #	hand.append(MTile.new(1, 9))
 #	hand.append(MTile.new(1, 9))
 #
-#	print(hand_get_han(hand, false, false))
+#	var open_hand = [ Grouping.new(Grouping.SET, [MTile.new(1, 7), MTile.new(1, 7), MTile.new(1, 7)]) ]
+#
+#	print(hand_get_han(hand, open_hand, false))
 	pass
 
 
 # hand should be sorted by MTile id.
-func hand_get_han(hand: Array, is_open: bool, is_tsumo: bool) -> int:
+func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool) -> int:
+	var is_open = already_opened_groupings.size() > 0
+	
 	var han = 0
 	
-	var groupings = get_maximal_groupings(hand)
+	# remove parts of hand that are already open
+	var remaining_hand = hand.duplicate()
+	var open_groupings_copy = already_opened_groupings.duplicate()
+	
+	for grouping in already_opened_groupings:
+		for g_tile in grouping.tiles:
+			for h_tile in remaining_hand:
+				if g_tile.get_id() == h_tile.get_id():
+					remaining_hand.erase(h_tile)
+					break
+	
+	#  get the maximal groups left in the hand and rejoin the
+	# open part of the hand
+	var groupings = get_maximal_groupings(remaining_hand)
+	groupings.append_array(already_opened_groupings)
+	
+#	for g in groupings:
+#		print(g.type)
+#		for t in g.tiles:
+#			print(t.get_id())
+#	print()
 	
 	if groupings_meet_basic_reqs(groupings):
 		# check half and full flushes
