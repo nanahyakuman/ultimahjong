@@ -36,8 +36,11 @@ func get_dora_id():
 		val = (((value + 1) - 1) % 9) + 1
 	return MTile.gen_id(suit, val)
 
-static func gen_id(s: int, v:int):
+static func gen_id(s: int, v: int):
 	return s * 100 + v * 1
 
+static func gen_order(t: MTile):
+	return gen_id(t.suit,t.value) * 10 - int(t.aka)
+
 static func tile_compare(a:MTile, b:MTile):
-	return a.get_id() < b.get_id()
+	return gen_order(a) < gen_order(b)

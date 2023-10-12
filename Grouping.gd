@@ -7,4 +7,4 @@ var tiles = []
 
 func _init(typ: int, ts: Array):
 	type = typ
-	tiles = ts
+	tiles = ts.duplicate()

@@ -22,21 +22,13 @@ final boss on the E-E repeat. probably no repeated seats.
 
 
 round ending
-yaku scanner should return all legal groupingss instead of just one
-	maybe shouldnt track riichi/ippatsu/memey last tile wins
-	also needs to take premade groupings (ie calls) as input
-mahjmanager ron check needs to account for hgand openness
 go back through all colors
 	snap to 16ths
 	fix dark orange, dark tile, see if can make halwwayws more interesting
 make calls better
-	get the number of discards right seat-wise
-	seperate "grouped_hand" var in mjmanager to track cpk
-	feed groups into yakuchecker
 	highlight the discard in question
-if tile changes under the cursor it's not properly updated anymore
-
-
+	668 in hand discarded 7 highlights both 6es, and erases both. fix, abstract out if possible
+kandora are wrong on specials
 
 
 

@@ -21,10 +21,14 @@ var revealed_kan_dora = 1
 
 enum WINDS {EAST, SOUTH, WEST, NORTH}
 var prevalent_wind = -1 # incremented at start of round
-var seat_wind = -1
+var seat_wind = -3
 
 enum {STATE_ACTIONABLE, STATE_ANIMATING, STATE_CALLS}
 var state = STATE_ACTIONABLE
+#  i dont like this being global but its the easist way to make
+# this work
+var remaining_opp_discards
+
 
 func _ready():
 	await get_tree().process_frame
@@ -35,9 +39,7 @@ func start_round():
 	increment_winds()
 	
 	init_wall()
-	
 	draw_hand()
-	draw_tile()
 	
 	gui_manager.update_discard([])
 	gui_manager.update_opp_discard([])
@@ -47,9 +49,10 @@ func start_round():
 	
 	gui_manager.update_wall_count(wall.size())
 	
+	start_rotation((4-seat_wind)%4)
 
 func increment_winds():
-	seat_wind += 1
+	seat_wind += 3
 	seat_wind %= 4
 	if seat_wind == 0:
 		prevalent_wind += 1
@@ -77,6 +80,8 @@ func draw_hand():
 #	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
 #	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
 #	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+#	hand.append(MTile.new(MTile.SUITS.MAN, 5, false))
+#	hand.append(MTile.new(MTile.SUITS.MAN, 5, true))
 	update_hand_label()
 
 func draw_kan_dora():
@@ -89,49 +94,58 @@ func draw_kan_dora():
 		revealed_dora_ids.append(kan_dora[i].get_dora_id())
 	TileGraphicKnower.update_dora_ids(revealed_dora_ids)
 
-func draw_tile():
-	await do_opp_discard()
-	
+
+##  this is dopey but `start_rotation` calls `do_opp_discard`,
+## which recursively calls either itself or `do_tsumo` or "do_post_call_discard`
+## depending on if calls are made.
+func start_rotation(discard_override = null):
+	remaining_opp_discards = discard_override if discard_override != null else OPPONENT_DISCARDS
+	do_opp_discard()
+
+func do_tsumo():
+	state = STATE_ACTIONABLE
 	tsumo = wall.pop_back()
 	gui_manager.update_tsumo([tsumo])
-	
-	gui_manager.update_wall_count(wall.size())
 
-# stalls gameplay, animating in tiles and also prompting calls
-func do_opp_discard():
-	state = STATE_ANIMATING
-	
-	await get_tree().create_timer(.1).timeout
-	
-	for i in OPPONENT_DISCARDS:
-		var disc = wall.pop_back()
-		opp_discard.append(disc)
-		gui_manager.update_opp_discard(opp_discard)
-		gui_manager.update_wall_count(wall.size())
-		
-			#  passed in and updated by `can_cpkr`. easier then
-			# retroactively searching for the tiles again (probably).
-			#  allows us to quickly highlight and lock off tiles involved
-			# in a call. note this is of `MTile,` so we still have to get the
-			# relevant tiles in hand manually
-		var tiles_involved_in_call = {}
-			#  a bitmask for what calls are legal. note chi is split into 3
-			# seperate calls depending on shape. this is kinda weird but the
-			# involved tiles are highlighted anyway so it shouldn't be that
-			# hard to udnerstand
-		var call_bitmask = can_cpkr(disc, tiles_involved_in_call)
-		if call_bitmask != 0:
-			state = STATE_CALLS
-			calls_manager.enable_calls(call_bitmask, tiles_involved_in_call)
-
-			# stall out as long as `call_graphic_clicked()` hasnt resolved.
-			# this fnctiuon is called by `CallGraphic`s.
-			while state == STATE_CALLS:
-				await get_tree().process_frame
-		
-		await get_tree().create_timer(.2).timeout
-	
+func do_post_call_discard():
 	state = STATE_ACTIONABLE
+
+
+#  discard 1 tile, prompt calls if appropriate, recurse/go to player
+# draw if not
+func do_opp_discard():
+	if remaining_opp_discards == 0:
+		do_tsumo()
+		return
+	remaining_opp_discards -= 1
+	
+	state = STATE_ANIMATING
+	await get_tree().create_timer(.2).timeout
+	
+	var disc = wall.pop_back()
+	opp_discard.append(disc)
+	gui_manager.update_opp_discard(opp_discard)
+	gui_manager.update_wall_count(wall.size())
+	
+	#  passed in and updated by `can_cpkr`. easier then
+	# retroactively searching for the tiles again (probably).
+	#  allows us to quickly highlight and lock off tiles involved
+	# in a call. note this is of `MTile,` so we still have to get the
+	# relevant tiles in hand manually
+	var tiles_involved_in_call = {}
+	#  a bitmask for what calls are legal. note chi is split into 3
+	# seperate calls depending on shape. this is kinda weird but the
+	# involved tiles are highlighted anyway so it shouldn't be that
+	# hard to udnerstand
+	var call_bitmask = can_cpkr(disc, tiles_involved_in_call)
+	if call_bitmask != 0:
+		#  switching state like this means that only calls are taken as 
+		# input
+		state = STATE_CALLS
+		calls_manager.enable_calls(call_bitmask, tiles_involved_in_call)
+	else:
+		do_opp_discard()
+	
 
 enum CALL_BITMASK {
 	NONE =		0,
@@ -225,15 +239,52 @@ func can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
 	return bitmask
 
 # called when a cpkr call is made, including passing the call
-func call_graphic_clicked(bitmask: int):
-	state = STATE_ANIMATING
+func call_graphic_clicked(bitmask: int, tiles_involved: Array):
+	if state != STATE_CALLS:
+		print("call somehow made in non-calling state. this is bad!")
+	
+	var new_grouping
+	match bitmask:
+		CALL_BITMASK.NONE:
+			do_opp_discard()
+			return
+		CALL_BITMASK.TSM:
+			pass
+		CALL_BITMASK.RON:
+			pass
+		CALL_BITMASK.CHI_L:
+			new_grouping = Grouping.new(Grouping.RUN, tiles_involved)
+		CALL_BITMASK.CHI_M:
+			new_grouping = Grouping.new(Grouping.RUN, tiles_involved)
+		CALL_BITMASK.CHI_R:
+			new_grouping = Grouping.new(Grouping.RUN, tiles_involved)
+		CALL_BITMASK.PON:
+			new_grouping = Grouping.new(Grouping.SET, tiles_involved)
+		CALL_BITMASK.KAN:
+			new_grouping = Grouping.new(Grouping.SET, tiles_involved)
+	
+	if new_grouping is Grouping:
+		for t in new_grouping.tiles:
+			for th in hand:
+				if th.get_id() == t.get_id():
+					hand.erase(th)
+					break
+		
+		new_grouping.tiles.append(opp_discard.pop_back())
+		new_grouping.tiles.sort_custom(Callable(MTile, "tile_compare"))
+		called_hand = [new_grouping] + called_hand
+		gui_manager.update_opp_discard(opp_discard)
+		gui_manager.update_hand(hand)
+		gui_manager.update_made_calls(called_hand)
+	
+	do_post_call_discard()
 
 # right click to close call menu
 func _input(event):
 	if state == STATE_CALLS:
 		if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-				call_graphic_clicked(CALL_BITMASK.NONE)
+				call_graphic_clicked(CALL_BITMASK.NONE, [])
 				calls_manager.enable_calls(0, {})
 	
 #	if event is InputEventMouseButton:
@@ -254,18 +305,20 @@ func draw_and_discard_index(i: int):
 	else:
 		draw_and_discard(hand[i])
 
+#  if there is a tsumo, we must be drawing.
+# if not, we must just be discarding afer a call
 func draw_and_discard(discardee: MTile):
-	hand.append(tsumo)
+	if tsumo:
+		hand.append(tsumo)
+		tsumo = null
 	hand.erase(discardee)
-	#TileGraphicKnower.highlight_matching_tiles(discardee.get_id(), false)
-	update_hand_label()
 	discard.append(discardee)
+	update_hand_label()
 	gui_manager.update_discard(discard)
 	gui_manager.update_tsumo([])
 	
 	TileGraphicKnower.highlight_matching_tiles(discardee, false)
-	draw_tile()
-	#TileGraphicKnower.highlight_matching_tiles(discardee, false)
+	start_rotation()
 
 func update_hand_label():
 	hand.sort_custom(Callable(MTile, "tile_compare"))

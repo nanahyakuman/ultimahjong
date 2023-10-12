@@ -26,16 +26,16 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool) 
 	
 	var han = 0
 	
-	# remove parts of hand that are already open
+	# remove parts of hand that are already open. phased out
 	var remaining_hand = hand.duplicate()
-	var open_groupings_copy = already_opened_groupings.duplicate()
-	
-	for grouping in already_opened_groupings:
-		for g_tile in grouping.tiles:
-			for h_tile in remaining_hand:
-				if g_tile.get_id() == h_tile.get_id():
-					remaining_hand.erase(h_tile)
-					break
+#	var open_groupings_copy = already_opened_groupings.duplicate()
+#
+#	for grouping in already_opened_groupings:
+#		for g_tile in grouping.tiles:
+#			for h_tile in remaining_hand:
+#				if g_tile.get_id() == h_tile.get_id():
+#					remaining_hand.erase(h_tile)
+#					break
 	
 	#  get the maximal groups left in the hand and rejoin the
 	# open part of the hand
