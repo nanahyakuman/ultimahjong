@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dhu60farhkon0"]
+[gd_scene load_steps=14 format=3 uid="uid://dhu60farhkon0"]
 
 [ext_resource type="Script" path="res://TileGraphic.gd" id="1_w2ft1"]
 [ext_resource type="Texture2D" uid="uid://ccdv7r4ga7o3t" path="res://image/tiles.png" id="2_f03da"]
@@ -6,6 +6,61 @@
 [ext_resource type="Texture2D" uid="uid://baxb03osrtkhb" path="res://image/tile_highlight_b.png" id="4_2lunx"]
 [ext_resource type="Texture2D" uid="uid://3xyv2a3mk865" path="res://image/tile_highlight_r.png" id="5_b2fx8"]
 [ext_resource type="Texture2D" uid="uid://dajdvnl62pg7i" path="res://image/tile_dora.png" id="6_w2hg6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gf2xo"]
+atlas = ExtResource("6_w2hg6")
+region = Rect2(0, 0, 16, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_25tlm"]
+atlas = ExtResource("6_w2hg6")
+region = Rect2(16, 0, 16, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_duyqh"]
+atlas = ExtResource("6_w2hg6")
+region = Rect2(32, 0, 16, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bl5fb"]
+atlas = ExtResource("6_w2hg6")
+region = Rect2(48, 0, 16, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y5out"]
+atlas = ExtResource("6_w2hg6")
+region = Rect2(64, 0, 16, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojn2r"]
+atlas = ExtResource("6_w2hg6")
+region = Rect2(0, 0, 16, 26)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_446f8"]
+animations = [{
+"frames": [{
+"duration": 80.0,
+"texture": SubResource("AtlasTexture_gf2xo")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_25tlm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_duyqh")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_bl5fb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y5out")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ojn2r")
+}],
+"loop": true,
+"name": &"new_animation_1",
+"speed": 5.0
+}]
 
 [node name="TileGraphic" type="Control"]
 custom_minimum_size = Vector2(16, 26)
@@ -29,9 +84,10 @@ centered = false
 region_enabled = true
 region_rect = Rect2(80, 64, 16, 32)
 
-[node name="TileDora" type="Sprite2D" parent="Sprite2D"]
+[node name="TileDora" type="AnimatedSprite2D" parent="Sprite2D"]
 visible = false
-texture = ExtResource("6_w2hg6")
+sprite_frames = SubResource("SpriteFrames_446f8")
+animation = &"new_animation_1"
 centered = false
 
 [node name="BlueTileHighlight" type="Sprite2D" parent="."]

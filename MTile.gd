@@ -2,7 +2,8 @@ class_name MTile
 
 enum SUITS {MAN=1, PIN=2, SOU=4, SPECIAL=8}
 # specials are 1-indexed becuase so are the suits
-enum SPECIALS {NONE, EAST, SOUTH, WEST, NORTH, HAKU, HATSU, CHUN}
+enum SPECIALS {NONE, EAST, SOUTH, WEST, NORTH, UP, HAKU, HATSU, CHUN, KIN}
+const def_specials = [SPECIALS.EAST, SPECIALS.SOUTH, SPECIALS.WEST, SPECIALS.NORTH, SPECIALS.HAKU, SPECIALS.HATSU, SPECIALS.CHUN]
 
 var suit: int
 var value: int
@@ -29,12 +30,34 @@ func get_adj_ids(s = suit, v = value, chi_sets = false):
 			return [MTile.gen_id(s, v-2), MTile.gen_id(s, v-1), MTile.gen_id(s, v+1), MTile.gen_id(s, v+2)]
 
 func get_dora_id():
-	var val = 0
+	var val = []
 	if suit == SUITS.SPECIAL:
-		val = (((value + 1) - 1) % 7) + 1 # uggy. this just allows us to mod 1-indexed tho
+		match value:
+			SPECIALS.EAST:
+				val.append(SPECIALS.SOUTH)
+			SPECIALS.SOUTH:
+				val.append(SPECIALS.WEST)
+			SPECIALS.WEST:
+				val.append(SPECIALS.NORTH)
+			SPECIALS.NORTH:
+				val.append(SPECIALS.EAST)
+			SPECIALS.HAKU:
+				val.append(SPECIALS.HATSU)
+			SPECIALS.HATSU:
+				val.append(SPECIALS.CHUN)
+			SPECIALS.CHUN:
+				val.append(SPECIALS.HAKU)
+			SPECIALS.KIN:
+				val += [SPECIALS.HAKU, SPECIALS.HATSU, SPECIALS.CHUN]
+			SPECIALS.UP:
+				val += [SPECIALS.UP]
 	else:
-		val = (((value + 1) - 1) % 9) + 1
-	return MTile.gen_id(suit, val)
+		val.append((((value + 1) - 1) % 9) + 1)
+	
+	var ret = []
+	for v in val:
+		ret.append(MTile.gen_id(suit, v))
+	return ret
 
 static func gen_id(s: int, v: int):
 	return s * 100 + v * 1

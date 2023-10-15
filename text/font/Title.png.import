@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/Title.png-d7fd02473b6f300a461340ea20fc547a.fo
 
 [params]
 
-character_ranges=PackedStringArray("0-127")
+character_ranges=PackedStringArray("0-255")
 columns=16
 rows=16
 image_margin=Rect2i(0, 0, 0, 0)

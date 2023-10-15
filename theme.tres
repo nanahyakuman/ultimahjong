@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://hncwuni3ypib" path="res://image/tabbar_bg.png" id="4_31o0s"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1de0v"]
-bg_color = Color(0.25098, 0.215686, 0.184314, 1)
+bg_color = Color(0.266667, 0.2, 0.2, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bfkfa"]
 content_margin_left = 8.0
@@ -15,22 +15,22 @@ content_margin_top = 4.0
 content_margin_right = 8.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8vjpu"]
-content_margin_left = 6.0
-content_margin_top = 2.0
-content_margin_right = 6.0
-content_margin_bottom = 2.0
-bg_color = Color(0.309804, 0.266667, 0.227451, 1)
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 3.0
+content_margin_bottom = 0.0
+bg_color = Color(0.333333, 0.266667, 0.266667, 1)
 corner_detail = 1
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cowft"]
-content_margin_left = 6.0
-content_margin_top = 2.0
-content_margin_right = 6.0
-content_margin_bottom = 2.0
-bg_color = Color(0.160784, 0.145098, 0.133333, 1)
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 3.0
+content_margin_bottom = 0.0
+bg_color = Color(0.133333, 0.133333, 0.133333, 1)
 border_width_bottom = 2
-border_color = Color(0.309804, 0.266667, 0.227451, 1)
+border_color = Color(0.333333, 0.266667, 0.266667, 1)
 corner_detail = 1
 anti_aliasing = false
 
@@ -83,10 +83,10 @@ RichTextLabel/fonts/bold_font = ExtResource("2_2v4im")
 RichTextLabel/fonts/normal_font = ExtResource("3_e0qua")
 TabBar/colors/drop_mark_color = Color(1, 1, 0.933333, 1)
 TabBar/colors/font_selected_color = Color(1, 1, 0.933333, 1)
-TabBar/colors/font_unselected_color = Color(0.956863, 0.952941, 0.843137, 1)
+TabBar/colors/font_unselected_color = Color(0.933333, 0.866667, 0.8, 1)
 TabBar/fonts/font = ExtResource("2_2v4im")
 TabContainer/colors/font_selected_color = Color(1, 1, 0.933333, 1)
-TabContainer/colors/font_unselected_color = Color(0.956863, 0.952941, 0.843137, 1)
+TabContainer/colors/font_unselected_color = Color(0.933333, 0.866667, 0.8, 1)
 TabContainer/constants/side_margin = 0
 TabContainer/fonts/font = ExtResource("2_2v4im")
 TabContainer/styles/panel = SubResource("StyleBoxEmpty_bfkfa")

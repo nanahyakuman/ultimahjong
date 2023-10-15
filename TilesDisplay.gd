@@ -2,7 +2,7 @@ extends VBoxContainer
 
 @onready var menu_counts = [$RichTextLabel2, $RichTextLabel4, $RichTextLabel6, $RichTextLabel8]
 
-@onready var tile_counter = $"../../../../GameRoot/MahjongManager/TileCounter"
+@onready var tile_counter = $"../../../../MahjongRoot/MahjongManager/TileCounter"
 
 
 func _ready():
@@ -19,7 +19,7 @@ func update_display():
 	var strs = ["","","",""]
 	
 	for i in counts:
-		strs[suits.find(i.suit)] += "[color=989fa5]%s[/color] [color=d79591]%s[/color]  " % [i.count-i.aka_count, i.aka_count]
+		strs[suits.find(i.suit)] += "%s+%s " % [i.count-i.aka_count, i.aka_count]
 	
 	for i in strs.size():
 		menu_counts[i].text = strs[i]

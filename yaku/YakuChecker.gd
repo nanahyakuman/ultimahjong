@@ -1,23 +1,10 @@
 extends Node
 class_name YakuChecker
+@onready var mahjong_manager = %MahjongManager
 
 var YAKU = {
 	"Ready": [1, "To enter ready hand, hand must be closed and 1 tile from completion. Once entered, hand cannot be modified."] 
 }
-
-func _ready():
-#	var singlets = [MTile.new(1, 1), MTile.new(1, 3), MTile.new(1, 5), MTile.new(1, 7)]
-#	var hand = []
-#	hand.append_array(singlets)
-#	hand.append_array(singlets)
-#	hand.append_array(singlets)
-#	hand.append(MTile.new(1, 9))
-#	hand.append(MTile.new(1, 9))
-#
-#	var open_hand = [ Grouping.new(Grouping.SET, [MTile.new(1, 7), MTile.new(1, 7), MTile.new(1, 7)]) ]
-#
-#	print(hand_get_han(hand, open_hand, false))
-	pass
 
 
 # hand should be sorted by MTile id.
@@ -26,27 +13,10 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool) 
 	
 	var han = 0
 	
-	# remove parts of hand that are already open. phased out
 	var remaining_hand = hand.duplicate()
-#	var open_groupings_copy = already_opened_groupings.duplicate()
-#
-#	for grouping in already_opened_groupings:
-#		for g_tile in grouping.tiles:
-#			for h_tile in remaining_hand:
-#				if g_tile.get_id() == h_tile.get_id():
-#					remaining_hand.erase(h_tile)
-#					break
-	
-	#  get the maximal groups left in the hand and rejoin the
-	# open part of the hand
 	var groupings = get_maximal_groupings(remaining_hand)
 	groupings.append_array(already_opened_groupings)
 	
-#	for g in groupings:
-#		print(g.type)
-#		for t in g.tiles:
-#			print(t.get_id())
-#	print()
 	
 	if groupings_meet_basic_reqs(groupings):
 		# check half and full flushes
@@ -80,7 +50,22 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool) 
 #					pinfu = false
 #			if pinfu:
 #				han += 1
-	
+		
+		# yakuhaki
+		for g in groupings:
+			if g.type == Grouping.SET:
+				if g.tiles[0].suit == MTile.SUITS.SPECIAL:
+					if [mahjong_manager.seat_wind+1, mahjong_manager.prevalent_wind+1, MTile.SPECIALS.CHUN, MTile.SPECIALS.HAKU, MTile.SPECIALS.HATSU].has(g.tiles[0].suit):
+						han += 1
+		
+		# tanyao
+		var tanyao = true
+		for g in groupings:
+			for t in g.tiles:
+				if t.suit == MTile.SUITS.SPECIAL or t.value == 1 or t.value == 9:
+					tanyao = false
+		if tanyao:
+			han += 1
 	
 	return han
 
@@ -162,3 +147,8 @@ func is_of_set(tile: MTile, hand:Array, size: int = 3):
 			tiles_in_set.append(t)
 	
 	return tiles_in_set if count == size else null
+
+
+
+func get_fu(groupings: Array):
+	return 30

@@ -21,15 +21,12 @@ final boss on the E-E repeat. probably no repeated seats.
 
 
 
-round ending
-go back through all colors
-	snap to 16ths
-	fix dark orange, dark tile, see if can make halwwayws more interesting
+round ending !!
 make calls better
 	highlight the discard in question
-	668 in hand discarded 7 highlights both 6es, and erases both. fix, abstract out if possible
-kandora are wrong on specials
-
+the two tsumo kans
+tsumo to end round
+fu calculation
 
 
 yaku to implement

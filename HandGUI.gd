@@ -1,6 +1,8 @@
 extends HBoxContainer
 
-#  highlight tiles used in a chi/pon/kan
+@onready var gui_manager = $"../../../../.."
+
+#  highlight tiles used in a chi/pon/kan. called by individual calls
 func highlight_relevant_tiles(tiles: Array, val: bool):
 	if !val:
 		for tg in get_children():
@@ -14,3 +16,5 @@ func highlight_relevant_tiles(tiles: Array, val: bool):
 			if tids.has(tgid):
 				tg.direct_request_highlight(true)
 				tids.erase(tgid)
+	
+	gui_manager.most_recent_discard.direct_request_highlight(val)

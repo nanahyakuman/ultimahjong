@@ -24,9 +24,9 @@ func _gui_input(event):
 	# clicking
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			_on_mouse_exited()
 			mahjong_manager.call_graphic_clicked(bitmask,_tiles_involved)
 			calls.enable_calls(0, {})
-			_on_mouse_exited()
 
 
 # tells the hand to tell relevant tiles to highlight themselves

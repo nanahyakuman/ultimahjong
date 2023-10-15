@@ -17,11 +17,12 @@ var tile = null
 enum {SIDE_RIGHT, SIDE_TOP, SIDE_LEFT, SIDE_BOT}
 var visible_side = SIDE_BOT
 var _reversed = false
-
+var _face_upsidedown = false
 
 func _ready():
 	TileGraphicKnower.highlight.connect(self._highlight_requested)
 	TileGraphicKnower.new_dora.connect(self._new_dora)
+	
 
 
 func assign_suit_value(t: MTile):
@@ -58,6 +59,10 @@ func set_reversed(rv: bool):
 	_reversed = rv
 	assign_visible_side(visible_side)
 
+func set_upside_down(ud: bool):
+	var _face_upsidedown = ud
+	sprite.rotation = int(_face_upsidedown) * PI
+	sprite.position = Vector2(16,26) * int(_face_upsidedown)
 
 signal tile_graphic_clicked
 
