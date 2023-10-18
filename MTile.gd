@@ -62,6 +62,9 @@ func get_dora_id():
 static func gen_id(s: int, v: int):
 	return s * 100 + v * 1
 
+static func tile_from_id(id: int) -> MTile:
+	return MTile.new(int(id/100), id%100)
+
 static func gen_order(t: MTile):
 	return gen_id(t.suit,t.value) * 10 - int(t.aka)
 

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpirwiftxeu8s"]
+
+[ext_resource type="Texture2D" uid="uid://c5pgimgc4fwix" path="res://image/akabutton.png" id="1_gtfga"]
+[ext_resource type="Script" path="res://Purchaseable.gd" id="2_q6058"]
+
+[node name="Purchaseable" type="TextureButton"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("1_gtfga")
+script = ExtResource("2_q6058")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 7.0
+offset_right = 73.0
+offset_bottom = 33.0

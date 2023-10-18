@@ -40,7 +40,9 @@ func start_round():
 	draw_hand()
 	
 	gui_manager.update_discard([])
+	gui_manager.update_tsumo([])
 	gui_manager.update_opp_discard([])
+	gui_manager.update_made_calls([])
 	
 	for i in KAN_SIZE:
 		draw_kan_dora()
@@ -66,23 +68,24 @@ func init_wall():
 	opp_discard.clear()
 	kan_dora.clear()
 	ura_dora.clear()
+	called_hand.clear()
 
 func draw_hand():
-#	for i in 13:
-#		hand.append(get_next_from_wall())
-	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-	hand.append(MTile.new(MTile.SUITS.MAN, 2))
-	hand.append(MTile.new(MTile.SUITS.MAN, 2))
-	hand.append(MTile.new(MTile.SUITS.MAN, 1))
-	hand.append(MTile.new(MTile.SUITS.MAN, 1))
+	for i in 13:
+		hand.append(get_next_from_wall())
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+#	hand.append(MTile.new(MTile.SUITS.MAN, 2))
+#	hand.append(MTile.new(MTile.SUITS.MAN, 2))
+#	hand.append(MTile.new(MTile.SUITS.MAN, 1))
+#	hand.append(MTile.new(MTile.SUITS.MAN, 1))
 	update_hand_label()
 
 func draw_kan_dora():
@@ -384,9 +387,22 @@ func get_next_from_wall():
 
 
 func end_round():
-	var han = yaku_checker.hand_get_han(hand, called_hand, false)
+	var dora = []
+	for t in revealed_kan_dora:
+		dora.append(kan_dora[-t].get_id())
+	if called_hand.size() == 0:
+		for t in revealed_kan_dora:
+			dora.append(ura_dora[-t].get_id())
+	
+	
+	var han = yaku_checker.hand_get_han(hand, called_hand, false, dora)
 	var fu = yaku_checker.get_fu([])
-	root.end_round(fu, 2)
+	
+	root.end_round(fu, han)
+	
+	# moved to root temporarily
+	#TileGraphicKnower.update_dora_ids([])
+	
 
 
 func first_by_id(id: int, tiles: Array) -> int:

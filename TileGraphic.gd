@@ -46,9 +46,12 @@ func get_tile_segment(t: MTile) -> Rect2:
 	
 	return Rect2(x,y, tile_size.x, tile_size.y)
 
+# -1 to hide entirely
 func assign_visible_side(side: int):
 	visible_side = side
-	if !_reversed:
+	if side == -1:
+		sides.visible = false
+	elif !_reversed:
 		sides.frame = side
 	else:
 		sides.frame = 4 + side

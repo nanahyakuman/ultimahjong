@@ -6,9 +6,9 @@ extends VBoxContainer
 
 
 func _ready():
-	await get_tree().process_frame
+	tile_counter. connect("updated", update_display)
 	
-	update_display()
+	#update_display()
 
 # `tile_data` must be sorted
 func update_display():

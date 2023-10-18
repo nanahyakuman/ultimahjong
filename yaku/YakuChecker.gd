@@ -8,7 +8,7 @@ var YAKU = {
 
 
 # hand should be sorted by MTile id.
-func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool) -> int:
+func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, dora = []) -> int:
 	var is_open = already_opened_groupings.size() > 0
 	
 	var han = 0
@@ -66,6 +66,9 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool) 
 					tanyao = false
 		if tanyao:
 			han += 1
+	
+	if dora.size() > 0:
+		han += get_dora(groupings, dora)
 	
 	return han
 
@@ -149,6 +152,16 @@ func is_of_set(tile: MTile, hand:Array, size: int = 3):
 	return tiles_in_set if count == size else null
 
 
+
+func get_dora(groupings: Array, dora_ids: Array):
+	var dora = 0
+	for g in groupings:
+		for t in g.tiles:
+			if t.aka:
+				dora += 1
+			dora += dora_ids.count(t.get_id())
+	
+	return dora
 
 func get_fu(groupings: Array):
 	return 30

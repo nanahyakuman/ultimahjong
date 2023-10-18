@@ -21,12 +21,12 @@ final boss on the E-E repeat. probably no repeated seats.
 
 
 
-round ending !!
-make calls better
-	highlight the discard in question
 the two tsumo kans
 tsumo to end round
 fu calculation
+dora calculation (just assure it works)
+scoring screen
+
 
 
 yaku to implement

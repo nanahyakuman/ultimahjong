@@ -10,6 +10,9 @@ func _ready():
 	await get_tree().process_frame
 	
 	start_round()
+	
+	await get_tree().process_frame
+	end_round(30, 2)
 
 func start_round():
 	shop_root.visible = false
@@ -23,8 +26,12 @@ func end_round(fu: int, han: int):
 	
 	score_label.text = "[b]" + str(score)
 	
+	# temp probably
+	TileGraphicKnower.update_dora_ids([])
+	
 	start_shop()
 
 func start_shop():
+	shop_root.visible = true
 	shop_root.start()
 	
