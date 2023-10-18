@@ -26,16 +26,11 @@ tsumo to end round
 fu calculation
 dora calculation (just assure it works)
 scoring screen
-there are 3 instances where we refer to 0s instead of expanded mtile enums. fix!
-	pruchaseable related
 im sure some richtextlabels are having text directly assigned instead of cleared and appended
 doraizing anim when you buy dora, clear feedback as to what it was
-
-doraize prices:
-	known tile:		1.0
-	unknown:		0.5
-	dragon:			1.5
-added together and floored to get final price for the set
+add tiles to deck
+discard counts on round start are messed up still
+cant hover made calls
 
 
 yaku to implement

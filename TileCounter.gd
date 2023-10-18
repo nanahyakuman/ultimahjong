@@ -78,4 +78,14 @@ func increment_aka(tile: MTile):
 			mtd.aka_count += 1
 			break
 	
+	#  right now we emit this 1 time for every single tile purchased in the shop.
+	# if this causes slowdown just queue updates instead
+	emit_signal("updated")
+
+func increment_tile(tile: MTile):
+	for mtd in tile_data:
+		if mtd.suit == tile.suit and mtd.value == tile.value:
+			mtd.count += 1
+			break
+	
 	emit_signal("updated")

@@ -6,12 +6,16 @@ var MONEY_PER_ROUND = 10
 
 @onready var root = $"../../.."
 @onready var cash_label = $"../GUIManager/All/TextureRect/HBoxContainer/CashLabel"
-@onready var aka_purchaseables = $VBoxContainer/AkaPurchaseables
+@onready var to_be_started = [
+	$VBoxContainer/AkaPurchaseables,
+	$VBoxContainer/TilePurchaseables
+]
 
 func start():
 	adjust_money(MONEY_PER_ROUND)
 	
-	aka_purchaseables.start()
+	for s in to_be_started:
+		s.start()
 
 
 func adjust_money(amount: int):

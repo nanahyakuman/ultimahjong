@@ -43,7 +43,8 @@ func get_tile_segment(t: MTile) -> Rect2:
 	if tile.aka:
 		y += tile_size.y * 4
 	
-	if t.suit == 0 or t.value == 0:
+	# this texture is only visible if you messed up somehow
+	if t.suit == MTile.SUITS.NONE or t.value == 0:
 		x = 9 * tile_size.x
 		y = 7 * tile_size.y
 	
@@ -65,7 +66,7 @@ func set_reversed(rv: bool):
 	_reversed = rv
 	assign_visible_side(visible_side)
 
-func set_upside_down(ud: bool):
+func set_rotated(ud: bool):
 	var _face_upsidedown = ud
 	sprite.rotation = int(_face_upsidedown) * PI
 	sprite.position = Vector2(16,26) * int(_face_upsidedown)

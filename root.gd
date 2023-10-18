@@ -24,7 +24,8 @@ func end_round(fu: int, han: int):
 	points = ceil(points / 100.0) * 100.0
 	score += points * 5
 	
-	score_label.text = "[b]" + str(score)
+	score_label.clear()
+	score_label.append_text("[b]" + str(score))
 	
 	# temp probably
 	TileGraphicKnower.update_dora_ids([])

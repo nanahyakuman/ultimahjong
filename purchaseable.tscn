@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cpirwiftxeu8s"]
+[gd_scene load_steps=7 format=3 uid="uid://cpirwiftxeu8s"]
 
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="1_kndg5"]
 [ext_resource type="Texture2D" uid="uid://b3mdeom0sl6ir" path="res://image/purchaseable9pr.png" id="2_pd6pl"]
 [ext_resource type="Script" path="res://Purchaseable.gd" id="2_q6058"]
 [ext_resource type="Texture2D" uid="uid://0463r2wo7m7n" path="res://image/purchaseable_icons.png" id="3_q8u56"]
+[ext_resource type="PackedScene" uid="uid://dhu60farhkon0" path="res://TileGraphic.tscn" id="5_v11np"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_awi6b"]
 content_margin_left = 7.0
@@ -26,25 +27,43 @@ theme = ExtResource("1_kndg5")
 theme_override_styles/panel = SubResource("StyleBoxTexture_awi6b")
 script = ExtResource("2_q6058")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="PanelBuster" type="Control" parent="."]
 layout_mode = 2
-theme_override_constants/separation = 2
-alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelBuster"]
 layout_mode = 2
+offset_top = -1.0
+offset_right = 41.0
+offset_bottom = 11.0
 size_flags_vertical = 0
 mouse_filter = 1
 bbcode_enabled = true
-text = "[b]0"
+text = "0"
 fit_content = true
 autowrap_mode = 0
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
+alignment = 1
+
+[node name="TextureHolder" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(23, 27)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/TextureHolder"]
 texture = ExtResource("3_q8u56")
-stretch_mode = 2
+centered = false
+hframes = 2
+frame = 1
+
+[node name="Spacer" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
 
 [node name="TileContainer" type="HBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 alignment = 1
+
+[node name="TileGraphic" parent="HBoxContainer/TileContainer" instance=ExtResource("5_v11np")]
+layout_mode = 2

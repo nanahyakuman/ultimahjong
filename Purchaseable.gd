@@ -3,8 +3,10 @@ class_name Purchaseable
 
 @onready var tile_container = $HBoxContainer/TileContainer
 @export var tile_graphic = preload("res://TileGraphic.tscn")
-@onready var rich_text_label = $HBoxContainer/RichTextLabel
+@onready var rich_text_label = $PanelBuster/RichTextLabel
+@onready var sprite = $HBoxContainer/TextureHolder/Sprite2D
 
+enum TYPES {AKA, ADD}
 var type = null
 var tiles = []
 var hidden_mask = []
@@ -27,19 +29,21 @@ func assign_tiles(ts: Array, hidden: int = 0):
 	for i in tiles.size():
 		var tg = tile_graphic.instantiate()
 		tile_container.add_child(tg)
-		tg.assign_suit_value(tiles[i] if !hidden_mask[i] else MTile.new(0,0))
+		tg.assign_suit_value(tiles[i])
+		if hidden_mask[i]:
+			tg.set_reversed(true)
 		tg.assign_visible_side(-1)
 
 func assign_type(ty: int):
 	type = ty
-	## sprite code
+	sprite.frame = ty
 
-# calc cost based on what is shown
+# calc cost based on what is shown. call AFTER assigning type!
 func calc_cost():
 	cost = 0.0
 	for i in tiles.size():
 		if hidden_mask[i]:
-			cost += 1.5
+			cost += 1
 		elif tiles[i].suit == MTile.SUITS.SPECIAL:
 			if MTile.DRAGONS.has(tiles[i].value):
 				cost += 3
@@ -48,10 +52,13 @@ func calc_cost():
 		else:
 			cost += 2
 	
+	if type == TYPES.ADD:
+		cost /= 2
+	
 	cost = floori(cost)
 	
 	rich_text_label.clear()
-	rich_text_label.append_text("[b]$%d" % cost)
+	rich_text_label.append_text("%d" % cost)
 
 
 func _gui_input(event):

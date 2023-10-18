@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://dhu60farhkon0"]
+[gd_scene load_steps=15 format=3 uid="uid://dhu60farhkon0"]
 
 [ext_resource type="Script" path="res://TileGraphic.gd" id="1_w2ft1"]
 [ext_resource type="Texture2D" uid="uid://ccdv7r4ga7o3t" path="res://image/tiles.png" id="2_f03da"]
 [ext_resource type="Texture2D" uid="uid://bf8b1q22m2w0s" path="res://image/tilesides.png" id="3_rn2kv"]
 [ext_resource type="Texture2D" uid="uid://baxb03osrtkhb" path="res://image/tile_highlight_b.png" id="4_2lunx"]
 [ext_resource type="Texture2D" uid="uid://3xyv2a3mk865" path="res://image/tile_highlight_r.png" id="5_b2fx8"]
+[ext_resource type="Texture2D" uid="uid://cq5xymufy75on" path="res://image/tilerear.png" id="5_xhwoj"]
 [ext_resource type="Texture2D" uid="uid://dajdvnl62pg7i" path="res://image/tile_dora.png" id="6_w2hg6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gf2xo"]
@@ -76,6 +77,12 @@ texture = ExtResource("3_rn2kv")
 hframes = 4
 vframes = 2
 frame = 3
+
+[node name="TileRear" type="Sprite2D" parent="."]
+texture_repeat = 1
+texture = ExtResource("5_xhwoj")
+centered = false
+region_rect = Rect2(80, 64, 16, 32)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_repeat = 1
