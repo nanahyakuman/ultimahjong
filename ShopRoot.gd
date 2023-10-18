@@ -2,7 +2,7 @@ extends Control
 
 var money = 0
 
-var MONEY_PER_ROUND = 5
+var MONEY_PER_ROUND = 10
 
 @onready var root = $"../../.."
 @onready var cash_label = $"../GUIManager/All/TextureRect/HBoxContainer/CashLabel"

@@ -43,25 +43,30 @@ func get_all_tiles():
 # of size `amount_in_group`. looks a little weird but this implementation ensures
 # that individual groups will always have 3 unique tiles, but that different groups
 # can select the same suit-value pair up to as many times as it can be akafyed.
-func get_random_non_aka_ids(amount_in_group: int, reshuffle_every: int):
+func get_random_non_aka_ids(amount_in_group: int, group_by: int):
 	var ret = []
 	
 	var data_clone = tile_data.duplicate()
 	
-	for i in reshuffle_every:
+	for i in group_by:
 		data_clone.shuffle()
 		var counter = amount_in_group
 		var subret = []
 		for mtd in data_clone:
 			if counter <= 0:
 				break
-			if mtd.aka_count + ret.count(MTile.gen_id(mtd.suit,mtd.value)) >= mtd.count:
+			
+			var theoretical_akas = mtd.aka_count
+			for t in subret:
+				if t.get_id() == MTile.gen_id(mtd.suit,mtd.value):
+					theoretical_akas += 1
+			if theoretical_akas >= mtd.count:
 				continue
 			
-			subret.append(MTile.gen_id(mtd.suit,mtd.value))
+			subret.append(MTile.new(mtd.suit,mtd.value))
 			counter -= 1
 		
-		subret.sort()
+		subret.sort_custom(Callable(MTile, "tile_compare"))
 		ret.append(subret)
 	
 	

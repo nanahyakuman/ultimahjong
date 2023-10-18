@@ -7,20 +7,27 @@ extends HBoxContainer
 @export var purchaseable: PackedScene
 
 enum TYPES {AKA}
-const AKABUTTONS = 3
-const PER_AKABUTTON = 3
+@export var BUTTONS = 3
+@export var PER_BUTTON = 3
 
 func start():
-	var akas = tile_counter.get_random_non_aka_ids(PER_AKABUTTON, AKABUTTONS)
+	var akas = tile_counter.get_random_non_aka_ids(PER_BUTTON, BUTTONS)
 	
 	for c in get_children():
 		c.queue_free()
 	
-	for i in AKABUTTONS:
+	for i in BUTTONS:
 		var a: Purchaseable = purchaseable.instantiate()
 		add_child(a)
-		a.assign_tile_ids(akas[i])
+		# funny finder function
+		# 0: 9  /25
+		# 1: 7
+		# 2: 5
+		# 3: 3
+		# 4: 1
+		a.assign_tiles(akas[i], mini(randi()%(PER_BUTTON+1),randi()%(PER_BUTTON+1)))
 		a.assign_type(TYPES.AKA)
+		a.calc_cost()
 
 
 func pressed(node: Purchaseable):
@@ -31,7 +38,7 @@ func pressed(node: Purchaseable):
 	
 	match node.type:
 		TYPES.AKA:
-			for id in node.tile_ids:
-				tile_counter.increment_aka(MTile.tile_from_id(id))
+			for t in node.tiles:
+				tile_counter.increment_aka(t)
 	
 	return true

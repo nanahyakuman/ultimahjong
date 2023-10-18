@@ -43,6 +43,9 @@ func get_tile_segment(t: MTile) -> Rect2:
 	if tile.aka:
 		y += tile_size.y * 4
 	
+	if t.suit == 0 or t.value == 0:
+		x = 9 * tile_size.x
+		y = 7 * tile_size.y
 	
 	return Rect2(x,y, tile_size.x, tile_size.y)
 
@@ -86,7 +89,8 @@ func _gui_input(event):
 #  code for highlights. `TileGraphicKnower` sends out actual signals
 # for tiles to highlight themselves
 func _on_mouse_entered():
-	if !_reversed:
+	# reversed tiles are hidden, unknown tiles are hidden
+	if !_reversed and !(tile.suit == 0 or tile.value == 0):
 		TileGraphicKnower.highlight_matching_tiles(tile, true)
 func _on_mouse_exited():
 	if !_reversed:
