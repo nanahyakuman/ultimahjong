@@ -90,8 +90,8 @@ func _gui_input(event):
 #  code for highlights. `TileGraphicKnower` sends out actual signals
 # for tiles to highlight themselves
 func _on_mouse_entered():
-	# reversed tiles are hidden, unknown tiles are hidden
-	if !_reversed and !(tile.suit == 0 or tile.value == 0):
+	# reversed tiles are hidden
+	if !_reversed:
 		TileGraphicKnower.highlight_matching_tiles(tile, true)
 func _on_mouse_exited():
 	if !_reversed:

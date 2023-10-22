@@ -6,31 +6,32 @@ end of every round can purchase:
 		get two ura every reveal
 		call atama?
 		create runs with winds/dragons
+		call kita
 	spell cards, refresh every x draws
 		next tile will be honor
 		exchange one tile for a false haku
 		autocomplete a wait?
 		exchange a tile in hand for a current kandora
+		rearrange next five tiles
 	bonuses
 		1 han for every ~six tiles in your hand without any red ink
  yaku weaken every time you call one, min 1 han?
  dead wall can be expanded as long as there are free tiles left
  overall structure is 17 rounds, starting on E-E and rotating through everything until
 final boss on the E-E repeat. probably no repeated seats.
-
+10 points for every tile left in wall?
 
 
 
 the two tsumo kans
 tsumo to end round
 fu calculation
-dora calculation (just assure it works)
-scoring screen
-im sure some richtextlabels are having text directly assigned instead of cleared and appended
+also dora calculation (just assure it works)
+scoring screen!! scorer needs to interact with it properly
 doraizing anim when you buy dora, clear feedback as to what it was
-add tiles to deck
 discard counts on round start are messed up still
 cant hover made calls
+
 
 
 yaku to implement

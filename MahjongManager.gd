@@ -9,8 +9,12 @@ class_name MahjongManager
 @onready var call_sfx_player = $CallMade
 @onready var root = $"../../.."
 
+# how many discards inbetween each player draw
 var OPPONENT_DISCARDS = 3
+# how many kan tiles to draw
 var KAN_SIZE = 5
+# how many tiles to void at the start of each round
+var DEAD_TILES = 30#13*3
 
 var wall = [] # of `MTile`s
 var hand = [] # of `MTile`s
@@ -23,8 +27,8 @@ var ura_dora = []
 var revealed_kan_dora = 1
 
 enum WINDS {EAST, SOUTH, WEST, NORTH}
-var prevalent_wind = -1 # incremented at start of round
-var seat_wind = -1
+var prevalent_wind = -1 
+var seat_wind = -3 # incremented at start of round
 
 enum {STATE_ACTIONABLE, STATE_ANIMATING, STATE_CALLS}
 var state = STATE_ACTIONABLE
@@ -47,10 +51,10 @@ func start_round():
 	for i in KAN_SIZE:
 		draw_kan_dora()
 	
-	start_rotation((4-seat_wind)%4)
+	start_rotation(seat_wind)
 
 func increment_winds():
-	seat_wind += 1
+	seat_wind += 3
 	seat_wind %= 4
 	if seat_wind == 0:
 		prevalent_wind += 1
@@ -61,6 +65,10 @@ func increment_winds():
 func init_wall():
 	wall = tile_counter.get_all_tiles()
 	wall.shuffle()
+	
+	# kill a lot of tiles, simulating enemy hands
+	for i in DEAD_TILES:
+		get_next_from_wall()
 	
 	hand.clear()
 	tsumo = null
@@ -110,6 +118,8 @@ func start_rotation(discard_override = null):
 func do_tsumo():
 	state = STATE_ACTIONABLE
 	tsumo = get_next_from_wall()
+	if !tsumo:
+		return
 	gui_manager.update_tsumo([tsumo])
 	tile_sfx_player.play()
 
@@ -130,6 +140,8 @@ func do_opp_discard():
 	
 	
 	var disc = get_next_from_wall()
+	if !disc:
+		return
 	opp_discard.append(disc)
 	gui_manager.update_opp_discard(opp_discard)
 	
@@ -171,7 +183,6 @@ func can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
 	var bitmask = 0b0000
 	# the dict of involved tiles
 	tiles_involved.merge({CALL_BITMASK.CHI_L:[], CALL_BITMASK.CHI_M:[], CALL_BITMASK.CHI_R:[], CALL_BITMASK.PON:[], CALL_BITMASK.KAN:[]})
-	# (only functional for pons and kans atm)
 	
 	# pon and kan
 	var identical_count = 0
@@ -196,7 +207,7 @@ func can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
 		tiles_involved[CALL_BITMASK.KAN].clear()
 	
 	
-	# chi. only functional on last discard
+	# chi. only callable on last discard in cycle
 	if remaining_opp_discards == 0:
 		var adjs = {}
 		for i in disc.get_adj_ids(disc.suit, disc.value, true):
@@ -382,8 +393,12 @@ func update_hand_label():
 
 
 func get_next_from_wall():
+	if wall.size() == 0:
+		end_round()
+		return null
+	var ret = wall.pop_back()
 	gui_manager.update_wall_count(wall.size())
-	return wall.pop_back()
+	return ret
 
 
 func end_round():

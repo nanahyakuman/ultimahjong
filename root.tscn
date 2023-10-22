@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cilh5sx8o5o8k"]
+[gd_scene load_steps=38 format=3 uid="uid://cilh5sx8o5o8k"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://qfsu5y82t8jk" path="res://image/prevwindindicator.png" id="8_heinv"]
 [ext_resource type="Texture2D" uid="uid://cerxwhe2cssp0" path="res://image/tableedge.png" id="8_hy522"]
 [ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tablediv.png" id="10_kbaim"]
+[ext_resource type="Texture2D" uid="uid://6selxoc8faj5" path="res://image/table_top.png" id="11_a4xxf"]
 [ext_resource type="Script" path="res://MenuTileHolder.gd" id="11_gc23v"]
 [ext_resource type="Script" path="res://CallsGraphical.gd" id="11_oemle"]
 [ext_resource type="Texture2D" uid="uid://8eiqqlppwabi" path="res://image/tilecounter.png" id="11_s1nfs"]
@@ -25,9 +26,14 @@
 [ext_resource type="Texture2D" uid="uid://ccdv7r4ga7o3t" path="res://image/tiles.png" id="15_8u0tq"]
 [ext_resource type="Texture2D" uid="uid://ch4nr70j7xj74" path="res://image/tilecounter_end_odd.png" id="15_tgg3l"]
 [ext_resource type="Script" path="res://ShopRoot.gd" id="19_bnl3p"]
+[ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="20_ib16c"]
 [ext_resource type="Script" path="res://PurchaseablesHolder.gd" id="20_wmn33"]
 [ext_resource type="PackedScene" uid="uid://cpirwiftxeu8s" path="res://purchaseable.tscn" id="21_3mckx"]
+[ext_resource type="Script" path="res://OpenShopButton.gd" id="21_8bhal"]
 [ext_resource type="Script" path="res://NextRoundButton.gd" id="21_roajs"]
+[ext_resource type="FontFile" uid="uid://dmoumxbcf3gn" path="res://text/font/Body2.png" id="28_jde07"]
+[ext_resource type="Texture2D" uid="uid://c30qiclh2lxb4" path="res://image/cursor.png" id="30_7lply"]
+[ext_resource type="Script" path="res://Cursor.gd" id="31_y04dm"]
 
 [sub_resource type="GDScript" id="GDScript_rrbm3"]
 script/source = "extends Control
@@ -124,6 +130,19 @@ func update_wall_count(c: int):
 
 "
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_122ig"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("20_ib16c")
+texture_margin_left = 4.0
+texture_margin_top = 5.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_negp3"]
 content_margin_top = 4.0
 content_margin_bottom = 8.0
@@ -213,6 +232,44 @@ grow_vertical = 0
 size_flags_horizontal = 3
 mouse_filter = 0
 alignment = 2
+
+[node name="TableTop" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager"]
+layout_mode = 2
+offset_right = 384.0
+offset_bottom = 40.0
+texture = ExtResource("11_a4xxf")
+stretch_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Spacer" type="Control" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer"]
+layout_mode = 2
+
+[node name="ScoreLabel" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "[b]0000"
+fit_content = true
+
+[node name="CashLabel" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "[b]$0"
+fit_content = true
 
 [node name="All" type="VBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
 layout_mode = 1
@@ -345,22 +402,6 @@ size_flags_vertical = 4
 texture = ExtResource("8_00qj1")
 centered = false
 vframes = 4
-
-[node name="ScoreLabel" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/GUIManager/All/TextureRect/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-bbcode_enabled = true
-text = "[b]0000"
-fit_content = true
-
-[node name="CashLabel" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/GUIManager/All/TextureRect/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-bbcode_enabled = true
-text = "[b]$0"
-fit_content = true
 
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
 layout_mode = 1
@@ -555,6 +596,110 @@ layout_mode = 2
 texture = ExtResource("13_qhnc0")
 script = ExtResource("13_wfhtv")
 
+[node name="ScoringRoot" type="Control" parent="HBoxContainer/MahjongRoot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 36.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Window" type="PanelContainer" parent="HBoxContainer/MahjongRoot/ScoringRoot"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -214.0
+offset_top = 14.0
+offset_right = -14.0
+offset_bottom = 178.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_122ig")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window"]
+layout_mode = 2
+
+[node name="Title" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][b]Scoring[/b] (WIP)[/center]
+"
+fit_content = true
+
+[node name="Han" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer"]
+layout_mode = 2
+
+[node name="Names" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer/Han"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Yakuhai:
+Yakuhai:
+Half Flush:"
+fit_content = true
+
+[node name="Points" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer/Han"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "[right]1 han
+1 han
+3 han"
+fit_content = true
+
+[node name="Spacer" type="Control" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="Fu" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer"]
+layout_mode = 2
+
+[node name="Names" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer/Fu"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Base fu:
+Open Set (Yakuhai):
+Open Set (Yakuhai):"
+fit_content = true
+
+[node name="Points" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer/Fu"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "[right]20 fu
+8 fu
+8 fu"
+fit_content = true
+
+[node name="Spacer2" type="Control" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][b]36×2[/b](2+5)[b]=
+4610"
+fit_content = true
+
+[node name="OpenShopButton" type="Button" parent="HBoxContainer/MahjongRoot/ScoringRoot"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -58.0
+offset_top = -18.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Next"
+script = ExtResource("21_8bhal")
+
 [node name="ShopRoot" type="Control" parent="HBoxContainer/MahjongRoot"]
 unique_name_in_owner = true
 visible = false
@@ -562,6 +707,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 36.0
 offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -583,7 +729,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 4
 
 [node name="Spacer" type="Control" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
 layout_mode = 2
@@ -596,18 +742,20 @@ fit_content = true
 
 [node name="AkaPurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 4
 alignment = 1
 script = ExtResource("20_wmn33")
 purchaseable = ExtResource("21_3mckx")
+BUTTONS = 2
 
 [node name="TilePurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 4
 alignment = 1
 script = ExtResource("20_wmn33")
 purchaseable = ExtResource("21_3mckx")
 type = 1
+BUTTONS = 2
 PER_BUTTON = 4
 
 [node name="NextRoundButton" type="Button" parent="HBoxContainer/MahjongRoot/ShopRoot"]
@@ -676,6 +824,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("28_jde07")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_negp3")
 tab_alignment = 1
 
@@ -879,13 +1028,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("28_jde07")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_negp3")
 tab_alignment = 1
 
-[node name="Defs" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Guide/TabContainer"]
+[node name="Tiles" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Guide/TabContainer"]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Guide/TabContainer/Defs"]
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Guide/TabContainer/Tiles"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -946,9 +1096,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 bbcode_enabled = true
-text = "The base value of a hand is defined by:
-	fu×2^(2+han)
-This is rounded up to the nearest 100 and then multiplied by 5 to get the rewarded score.
+text = "The value of a hand is defined by:
+	fu×2^(2+han),
+rounded up to the nearest 10.
 
 Han, aka \"doublers\", are the real determining factor in a score. They are the sum of han from yaku met and the amount of dora tiles in hand.
 
@@ -964,11 +1114,18 @@ The fu awarded for a grouping is doubled if it's a yakuhai, that is, dragons/(se
 Fu are also awarded for riskier waits, specifically, 2 fu if your waiting hand can be completed by only one tile.
 Chiitoitsu is always worth 25 fu. No additional fu may be awarded.
 
-Note that, as opposed to as in real Riichi Mahjong, fu are not rounded to the 10s, and base values are not capped. Additionally, instead of a constant 5, the multiplier on top of the base points varies."
+This is approximately how real riichi calculates base points, but there's more rounding and multiplying stages there."
 tab_size = 2
 
 [node name="Options" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
 visible = false
 layout_mode = 2
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("30_7lply")
+centered = false
+script = ExtResource("31_y04dm")
+
+[connection signal="pressed" from="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" to="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" method="_on_pressed"]
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" to="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" method="_on_pressed"]

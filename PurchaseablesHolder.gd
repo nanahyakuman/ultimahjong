@@ -11,7 +11,12 @@ extends HBoxContainer
 @export var PER_BUTTON = 3
 
 func start():
-	var akas = tile_counter.get_random_non_aka_ids(PER_BUTTON, BUTTONS)
+	var akas
+	match type:
+		Purchaseable.TYPES.AKA:
+			akas = tile_counter.get_random_non_aka_ids(PER_BUTTON, BUTTONS)
+		Purchaseable.TYPES.ADD:
+			akas = tile_counter.get_random_tiles_to_add(PER_BUTTON, BUTTONS)
 	
 	for c in get_children():
 		c.queue_free()
@@ -19,20 +24,21 @@ func start():
 	for i in BUTTONS:
 		var a: Purchaseable = purchaseable.instantiate()
 		add_child(a)
-		# funny finder function
-		# 0: 9  /25
-		# 1: 7  /25
-		# 2: 5  /25
-		# 3: 3  /25
-		# 4: 1  /25
-		#
-		# 0: 7  /16
-		# 1: 5  /16
-		# 2: 3  /16
-		# 3: 1  /16
-		a.assign_tiles(akas[i], mini(randi()%(PER_BUTTON+1),randi()%(PER_BUTTON+1)))
+		var hidden = mini(randi()%(PER_BUTTON+1),randi()%(PER_BUTTON+1))
+		hidden = mini(randi()%(PER_BUTTON+1), hidden)
+		a.assign_tiles(akas[i], hidden)
 		a.assign_type(type)
 		a.calc_cost()
+	
+	# quick printer to try out different hiding weights
+#	var counts = {}
+#	for i in PER_BUTTON+1:
+#		counts[i] = 0
+#	for i in PER_BUTTON+1:
+#		for j in PER_BUTTON+1:
+#			for k in PER_BUTTON+1:
+#				counts[mini(i,mini(j,k))] += 1
+#	print(counts)
 
 
 func pressed(node: Purchaseable):

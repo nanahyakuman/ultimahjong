@@ -7,22 +7,21 @@
 [ext_resource type="PackedScene" uid="uid://dhu60farhkon0" path="res://TileGraphic.tscn" id="5_v11np"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_awi6b"]
-content_margin_left = 7.0
-content_margin_top = 7.0
-content_margin_right = 7.0
-content_margin_bottom = 7.0
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
 texture = ExtResource("2_pd6pl")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 7.0
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 5.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
 [node name="Purchaseable" type="PanelContainer"]
-custom_minimum_size = Vector2(32, 41)
-offset_right = 32.0
-offset_bottom = 41.0
+offset_right = 49.0
+offset_bottom = 35.0
 theme = ExtResource("1_kndg5")
 theme_override_styles/panel = SubResource("StyleBoxTexture_awi6b")
 script = ExtResource("2_q6058")

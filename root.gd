@@ -2,7 +2,8 @@ extends Control
 
 @onready var mahjong_manager = %MahjongManager
 @onready var shop_root = $HBoxContainer/MahjongRoot/ShopRoot
-@onready var score_label = $HBoxContainer/MahjongRoot/GUIManager/All/TextureRect/HBoxContainer/ScoreLabel
+@onready var score_label = $HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer/ScoreLabel
+@onready var scoring_root = $HBoxContainer/MahjongRoot/ScoringRoot
 
 var score = 0.0
 
@@ -12,17 +13,18 @@ func _ready():
 	start_round()
 	
 	await get_tree().process_frame
-	end_round(30, 2)
+	start_scoring()
+#	end_round(42, 2)
 
 func start_round():
 	shop_root.visible = false
+	scoring_root.visible = false
 	mahjong_manager.start_round()
 
 func end_round(fu: int, han: int):
-	han = 1
-	var points = fu * pow(2.0, han + 1.0)
-	points = ceil(points / 100.0) * 100.0
-	score += points * 5
+	var points = int(fu * pow(2.0, han + 2.0))
+	points = ceili(points / 10.0) * 10
+	score += points
 	
 	score_label.clear()
 	score_label.append_text("[b]" + str(score))
@@ -30,9 +32,14 @@ func end_round(fu: int, han: int):
 	# temp probably
 	TileGraphicKnower.update_dora_ids([])
 	
-	start_shop()
+	start_scoring()
+
+func start_scoring():
+	shop_root.visible = false
+	scoring_root.visible = true
 
 func start_shop():
+	scoring_root.visible = false
 	shop_root.visible = true
 	shop_root.start()
 	

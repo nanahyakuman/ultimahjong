@@ -5,7 +5,7 @@ var money = 0
 var MONEY_PER_ROUND = 10
 
 @onready var root = $"../../.."
-@onready var cash_label = $"../GUIManager/All/TextureRect/HBoxContainer/CashLabel"
+@onready var cash_label = $"../GUIManager/TableTop/HBoxContainer/CashLabel"
 @onready var to_be_started = [
 	$VBoxContainer/AkaPurchaseables,
 	$VBoxContainer/TilePurchaseables
