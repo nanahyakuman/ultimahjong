@@ -12,8 +12,8 @@ func _ready():
 	
 	start_round()
 	
-	await get_tree().process_frame
-	start_scoring()
+#	await get_tree().process_frame
+#	start_scoring()
 #	end_round(42, 2)
 
 func start_round():
@@ -21,24 +21,23 @@ func start_round():
 	scoring_root.visible = false
 	mahjong_manager.start_round()
 
+# also start scoring
 func end_round(fu: int, han: int):
+	shop_root.visible = false
+	scoring_root.visible = true
+	
 	var points = int(fu * pow(2.0, han + 2.0))
 	points = ceili(points / 10.0) * 10
 	score += points
 	
 	score_label.clear()
 	score_label.append_text("[b]" + str(score))
-	
+
+
+func start_shop():
 	# temp probably
 	TileGraphicKnower.update_dora_ids([])
 	
-	start_scoring()
-
-func start_scoring():
-	shop_root.visible = false
-	scoring_root.visible = true
-
-func start_shop():
 	scoring_root.visible = false
 	shop_root.visible = true
 	shop_root.start()
