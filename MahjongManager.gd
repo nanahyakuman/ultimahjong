@@ -19,7 +19,8 @@ var DEAD_TILES = 30#13*3
 var wall = [] # of `MTile`s
 var hand = [] # of `MTile`s
 var called_hand = [] # of `grouping`s
-var tsumo
+var tsumo # a Mtile or null. it's very important that this remains null when
+# it's not active, ctrl-f "tsumo" to see.
 var discard = [] # of `MTile`s
 var opp_discard = [] # of `MTile`s
 var kan_dora = []
@@ -79,21 +80,21 @@ func init_wall():
 	called_hand.clear()
 
 func draw_hand():
-	for i in 13:
-		hand.append(get_next_from_wall())
-#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-#	hand.append(MTile.new(MTile.SUITS.MAN, 2))
-#	hand.append(MTile.new(MTile.SUITS.MAN, 2))
-#	hand.append(MTile.new(MTile.SUITS.MAN, 1))
-#	hand.append(MTile.new(MTile.SUITS.MAN, 1))
+#	for i in 13:
+#		hand.append(get_next_from_wall())
+	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+	hand.append(MTile.new(MTile.SUITS.MAN, 2))
+	hand.append(MTile.new(MTile.SUITS.MAN, 2))
+	hand.append(MTile.new(MTile.SUITS.MAN, 1))
+	hand.append(MTile.new(MTile.SUITS.MAN, 1))
 	update_hand_label()
 
 func draw_kan_dora():
@@ -118,10 +119,15 @@ func start_rotation(discard_override = null):
 func do_tsumo():
 	state = STATE_ACTIONABLE
 	tsumo = get_next_from_wall()
+#	tsumo = MTile.new(MTile.SUITS.MAN, 1)
 	if !tsumo:
 		return
 	gui_manager.update_tsumo([tsumo])
 	tile_sfx_player.play()
+	
+	# tsumo agari
+	do_if_can_tsumo()
+
 
 func do_post_call_discard():
 	state = STATE_ACTIONABLE
@@ -297,18 +303,32 @@ func can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
 	
 	return bitmask
 
+# check if can tsumo, prompt if so
+func do_if_can_tsumo():
+	var full_hand = [tsumo]
+	full_hand.append_array(hand)
+	full_hand.sort()
+	if yaku_checker.hand_get_han(full_hand, called_hand, true) > 0:
+		state = STATE_CALLS
+		calls_manager.enable_calls(CALL_BITMASK.TSM, {})
+
+
 # called when a cpkr call is made, including passing the call
 func call_graphic_clicked(bitmask: int, tiles_involved: Array):
-	if state != STATE_CALLS:
-		print("call somehow made in non-calling state. this is bad!")
+	assert(state == STATE_CALLS, "call somehow made in non-calling state. this is bad!")
 	
 	var new_grouping
 	match bitmask:
 		CALL_BITMASK.NONE:
-			do_opp_discard()
+			#  if were cancelling tsumo, just continue play,
+			# else continue discarding
+			if tsumo != null:
+				state = STATE_ACTIONABLE
+			else:
+				do_opp_discard()
 			return
 		CALL_BITMASK.TSM:
-			pass
+			end_round(true)
 		CALL_BITMASK.RON:
 			end_round()
 		CALL_BITMASK.CHI_L:
@@ -325,10 +345,8 @@ func call_graphic_clicked(bitmask: int, tiles_involved: Array):
 	if new_grouping is Grouping:
 		for t in new_grouping.tiles:
 			var found = first_by_id(t.get_id(), hand)
-			if found != -1:
-				hand.remove_at(found)
-			else:
-				print("could not find tile that's meant to exist in hand!")
+			assert(found != -1, "could not find tile that's meant to exist in hand!")
+			hand.remove_at(found)
 		
 		new_grouping.tiles.append(opp_discard.pop_back())
 		new_grouping.tiles.sort_custom(Callable(MTile, "tile_compare"))
@@ -401,7 +419,8 @@ func get_next_from_wall():
 	return ret
 
 
-func end_round():
+func end_round(win_is_tsumo_not_ron = false):
+	# dora and uradora ids.
 	var dora = []
 	for t in revealed_kan_dora:
 		dora.append(kan_dora[-t].get_id())
@@ -409,13 +428,27 @@ func end_round():
 		for t in revealed_kan_dora:
 			dora.append(ura_dora[-t].get_id())
 	
+	# attach winning tile to hand
+	var full_hand = hand.duplicate()
+	if win_is_tsumo_not_ron:
+		full_hand.append(tsumo)
+	else:
+		full_hand.append(opp_discard.back())
+	full_hand.sort()
 	
-	var han = yaku_checker.hand_get_han(hand, called_hand, false, dora)
+	#  must have 14 tiles. this might need to be changed later
+	# for bigger hands
+	assert(full_hand.size() + called_hand.size() * 3 == 14)
+	
 	var fu = yaku_checker.get_fu([])
+	var han = yaku_checker.hand_get_han(full_hand, called_hand, win_is_tsumo_not_ron, dora)
 	
-	root.end_round(fu, han)
+	var multiplier = 6 if seat_wind == WINDS.EAST else 4
 	
-	# moved to root temporarily
+	#print("%d  %d  %d" % [fu, han, multiplier])
+	root.end_round(fu, han, multiplier)
+	
+	# moved to root temporarily(?)
 	#TileGraphicKnower.update_dora_ids([])
 	
 

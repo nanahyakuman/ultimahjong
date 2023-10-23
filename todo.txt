@@ -31,8 +31,9 @@ scoring screen!! scorer needs to interact with it properly
 doraizing anim when you buy dora, clear feedback as to what it was
 discard counts on round start are messed up still
 cant hover made calls
+more expensive shop items
 
-
+tsumo call tile hover broken, highlights most recent discard instead of tsumo
 
 yaku to implement
 	menzentsumo

@@ -2,10 +2,6 @@ extends Node
 class_name YakuChecker
 @onready var mahjong_manager = %MahjongManager
 
-var YAKU = {
-	"Ready": [1, "To enter ready hand, hand must be closed and 1 tile from completion. Once entered, hand cannot be modified."] 
-}
-
 
 # hand should be sorted by MTile id.
 func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, dora = []) -> int:
@@ -17,6 +13,10 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, 
 	var groupings = get_maximal_groupings(remaining_hand)
 	groupings.append_array(already_opened_groupings)
 	
+#	for g in groupings:
+#		for t in g.tiles:
+#			print(t.get_id(), " ")
+#		print("\n")
 	
 	if groupings_meet_basic_reqs(groupings):
 		# check half and full flushes
@@ -55,7 +55,8 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, 
 		for g in groupings:
 			if g.type == Grouping.SET:
 				if g.tiles[0].suit == MTile.SUITS.SPECIAL:
-					if [mahjong_manager.seat_wind+1, mahjong_manager.prevalent_wind+1, MTile.SPECIALS.CHUN, MTile.SPECIALS.HAKU, MTile.SPECIALS.HATSU].has(g.tiles[0].suit):
+					# offset to convert mhjman winds to mtile winds
+					if [mahjong_manager.seat_wind+1, mahjong_manager.prevalent_wind+1, MTile.SPECIALS.CHUN, MTile.SPECIALS.HAKU, MTile.SPECIALS.HATSU].has(g.tiles[0].value):
 						han += 1
 		
 		# tanyao
@@ -87,7 +88,7 @@ func groupings_meet_basic_reqs(groupings: Array) -> bool:
 # cover all possible arrangements. a better implementation would pregenerate
 # all sets and pairs and check for their maximal set instead of starting
 # over for every tile
-func get_maximal_groupings(remaining_hand: Array) -> Array: #return array is of `Grouping`s
+func get_maximal_groupings(remaining_hand: Array) -> Array: #return array of `Grouping`s
 	var maximal_groupings = []
 	
 	if remaining_hand.size() == 2:

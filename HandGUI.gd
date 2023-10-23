@@ -17,4 +17,5 @@ func highlight_relevant_tiles(tiles: Array, val: bool):
 				tg.direct_request_highlight(true)
 				tids.erase(tgid)
 	
-	gui_manager.most_recent_discard.direct_request_highlight(val)
+	if gui_manager.most_recent_discard:
+		gui_manager.most_recent_discard.direct_request_highlight(val)

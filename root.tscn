@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cilh5sx8o5o8k"]
+[gd_scene load_steps=39 format=3 uid="uid://cilh5sx8o5o8k"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -26,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://ccdv7r4ga7o3t" path="res://image/tiles.png" id="15_8u0tq"]
 [ext_resource type="Texture2D" uid="uid://ch4nr70j7xj74" path="res://image/tilecounter_end_odd.png" id="15_tgg3l"]
 [ext_resource type="Script" path="res://ShopRoot.gd" id="19_bnl3p"]
+[ext_resource type="Texture2D" uid="uid://bxt2na0s3mabw" path="res://image/call_indicator_gold.png" id="19_idqi3"]
 [ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="20_ib16c"]
 [ext_resource type="Script" path="res://PurchaseablesHolder.gd" id="20_wmn33"]
 [ext_resource type="PackedScene" uid="uid://cpirwiftxeu8s" path="res://purchaseable.tscn" id="21_3mckx"]
@@ -543,7 +544,7 @@ autowrap_mode = 0
 
 [node name="Ron" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
 layout_mode = 2
-texture = ExtResource("8_4d1ju")
+texture = ExtResource("19_idqi3")
 script = ExtResource("13_wfhtv")
 bitmask = 32
 
@@ -561,6 +562,7 @@ offset_bottom = 7.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+theme_override_colors/default_color = Color(0.133333, 0.133333, 0.133333, 1)
 bbcode_enabled = true
 text = "Ron"
 fit_content = true
@@ -568,7 +570,7 @@ autowrap_mode = 0
 
 [node name="Tsumo" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
 layout_mode = 2
-texture = ExtResource("8_4d1ju")
+texture = ExtResource("19_idqi3")
 script = ExtResource("13_wfhtv")
 bitmask = 64
 
@@ -586,6 +588,7 @@ offset_bottom = 7.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+theme_override_colors/default_color = Color(0.133333, 0.133333, 0.133333, 1)
 bbcode_enabled = true
 text = "Tsumo"
 fit_content = true
@@ -1096,9 +1099,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 bbcode_enabled = true
-text = "The value of a hand is defined by:
+text = "The base value of a hand is defined by:
 	fu×2^(2+han),
-rounded up to the nearest 10.
+rounded up to the nearest 10. This is then multiplied by 6 if in the East seat, else by 4.
 
 Han, aka \"doublers\", are the real determining factor in a score. They are the sum of han from yaku met and the amount of dora tiles in hand.
 
