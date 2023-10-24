@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://HandGUI.gd" id="8_4hll1"]
 [ext_resource type="Texture2D" uid="uid://qfsu5y82t8jk" path="res://image/prevwindindicator.png" id="8_heinv"]
 [ext_resource type="Texture2D" uid="uid://cerxwhe2cssp0" path="res://image/tableedge.png" id="8_hy522"]
+[ext_resource type="Script" path="res://GUIManager.gd" id="9_1ntl1"]
 [ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tablediv.png" id="10_kbaim"]
 [ext_resource type="Texture2D" uid="uid://6selxoc8faj5" path="res://image/table_top.png" id="11_a4xxf"]
 [ext_resource type="Script" path="res://MenuTileHolder.gd" id="11_gc23v"]
@@ -36,101 +37,6 @@
 [ext_resource type="FontFile" uid="uid://dmoumxbcf3gn" path="res://text/font/Body2.png" id="28_jde07"]
 [ext_resource type="Texture2D" uid="uid://c30qiclh2lxb4" path="res://image/cursor.png" id="30_7lply"]
 [ext_resource type="Script" path="res://Cursor.gd" id="31_y04dm"]
-
-[sub_resource type="GDScript" id="GDScript_tj5rr"]
-script/source = "extends Control
-
-const SIZE = 22
-
-@export var tile_tex: Texture2D
-@export var tile_graphic: PackedScene
-@export var tile_size = Vector2i(16,32)
-
-
-@onready var mahjong_manager = %MahjongManager
-@onready var hand = $All/SideSpacers/Tiles/HBoxContainer/Hand
-@onready var tsumo = $All/SideSpacers/Tiles/HBoxContainer/Tsumo
-@onready var discards = [$All/SideSpacers/Tiles/PDiscards, $All/SideSpacers/Tiles/PDiscards2]
-@onready var opp_dcs = [$All/SideSpacers/Tiles/Discards2, $All/SideSpacers/Tiles/Discards3, $All/SideSpacers/Tiles/Discards4, $All/SideSpacers/Tiles/Discards5]
-@onready var kan_pile = $All/SideSpacers/Tiles/KanPile/Top
-@onready var kan_pile_bot = $All/SideSpacers/Tiles/KanPile/Bot
-@onready var graphic_tile_counter = $\"../../GraphicTileCounter\"
-@onready var prev_wind = $All/TextureRect/HBoxContainer/RoundWind/Sprite2D
-@onready var seat_wind = $All/TextureRect/HBoxContainer/SittingWind/Sprite2D
-@onready var made_calls = $MadeCalls
-
-# tracked so calls can highlight it. only modifed by `hand`.
-var most_recent_discard = null
-
-func _ready():
-	pass
-
-func update_hand(tiles: Array):
-	_update_node(hand, tiles, true, TileGraphic.SIDE_TOP)
-	
-func update_discard(tiles: Array):
-	for d in discards.size():
-		_update_node(discards[d], tiles.slice(d*SIZE, d*SIZE+SIZE))
-
-func update_opp_discard(tiles: Array):
-	for d in opp_dcs.size():
-		var ret = _update_node(opp_dcs[d], tiles.slice(d*SIZE, d*SIZE+SIZE))
-		if ret:
-			most_recent_discard = ret
-
-func update_tsumo(tiles: Array):
-	_update_node(tsumo, tiles, true, TileGraphic.SIDE_TOP)
-
-func update_kan_dora(tiles: Array, covered: int):
-	_update_node(kan_pile, tiles, true, TileGraphic.SIDE_BOT, covered)
-	_update_node(kan_pile_bot, tiles, true, TileGraphic.SIDE_BOT, 9999)
-
-func update_made_calls(groupings: Array):
-	var tiles = []
-	for g in groupings:
-		for t in g.tiles:
-			tiles.append(t)
-	_update_node(made_calls, tiles)
-
-# returns the final updated visible node
-func _update_node(node: Node, tiles: Array, in_hand: bool = false, visible_side: int = TileGraphic.SIDE_BOT, reverse_count: int = -1):
-	var existing_count = node.get_child_count()
-	var ret = null
-	for t in tiles.size():
-		if t < existing_count:
-			node.get_child(t).assign_suit_value(tiles[t])
-			node.get_child(t).set_reversed(reverse_count > t)
-		else:
-			get_new_tile(tiles[t], node, in_hand, visible_side, reverse_count > t)
-		
-		var curr = node.get_child(t)
-		if curr:
-			curr.visible = true
-			ret = curr
-	
-	for t in range(tiles.size(), existing_count):
-		node.get_child(t).visible = false
-	
-	return ret
-
-func get_new_tile(t: MTile, parent: Node, in_hand: bool, vis_side: int, reverse: bool):
-	var a = tile_graphic.instantiate()
-	parent.add_child(a)
-	a.assign_suit_value(t)
-	a.in_hand = in_hand
-	a.connect(\"tile_graphic_clicked\", mahjong_manager.tile_graphic_clicked)
-	a.assign_visible_side(vis_side)
-	a.set_reversed(reverse)
-	return(a)
-
-func update_winds(prev: int, seat: int):
-	prev_wind.frame = prev
-	seat_wind.frame = seat
-
-func update_wall_count(c: int):
-	graphic_tile_counter.update_wall_count(c)
-
-"
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_122ig"]
 content_margin_left = 8.0
@@ -214,7 +120,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = SubResource("GDScript_tj5rr")
+script = ExtResource("9_1ntl1")
 tile_tex = ExtResource("15_8u0tq")
 tile_graphic = ExtResource("6_3ag2w")
 
