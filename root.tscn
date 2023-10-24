@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://cilh5sx8o5o8k"]
+[gd_scene load_steps=40 format=3 uid="uid://cilh5sx8o5o8k"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -32,6 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://cpirwiftxeu8s" path="res://purchaseable.tscn" id="21_3mckx"]
 [ext_resource type="Script" path="res://OpenShopButton.gd" id="21_8bhal"]
 [ext_resource type="Script" path="res://NextRoundButton.gd" id="21_roajs"]
+[ext_resource type="Script" path="res://ScoringRoot.gd" id="21_yhd2i"]
 [ext_resource type="FontFile" uid="uid://dmoumxbcf3gn" path="res://text/font/Body2.png" id="28_jde07"]
 [ext_resource type="Texture2D" uid="uid://c30qiclh2lxb4" path="res://image/cursor.png" id="30_7lply"]
 [ext_resource type="Script" path="res://Cursor.gd" id="31_y04dm"]
@@ -608,6 +609,7 @@ offset_top = 36.0
 offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("21_yhd2i")
 
 [node name="Window" type="PanelContainer" parent="HBoxContainer/MahjongRoot/ScoringRoot"]
 custom_minimum_size = Vector2(200, 0)
@@ -618,7 +620,7 @@ anchor_right = 1.0
 offset_left = -214.0
 offset_top = 14.0
 offset_right = -14.0
-offset_bottom = 178.0
+offset_bottom = 76.0
 grow_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxTexture_122ig")
 
@@ -628,7 +630,7 @@ layout_mode = 2
 [node name="Title" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "[center][b]Scoring[/b] (WIP)[/center]
+text = "[center][b]Scoring[/b][/center]
 "
 fit_content = true
 
@@ -639,18 +641,12 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
-text = "Yakuhai:
-Yakuhai:
-Half Flush:"
 fit_content = true
 
 [node name="Points" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer/Han"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 bbcode_enabled = true
-text = "[right]1 han
-1 han
-3 han"
 fit_content = true
 
 [node name="Spacer" type="Control" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer"]
@@ -664,29 +660,21 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
-text = "Base fu:
-Open Set (Yakuhai):
-Open Set (Yakuhai):"
 fit_content = true
 
 [node name="Points" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer/Fu"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 bbcode_enabled = true
-text = "[right]20 fu
-8 fu
-8 fu"
 fit_content = true
 
 [node name="Spacer2" type="Control" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer"]
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer"]
+[node name="Calc" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "[center][b]36×2[/b](2+5)[b]=
-4610"
 fit_content = true
 
 [node name="OpenShopButton" type="Button" parent="HBoxContainer/MahjongRoot/ScoringRoot"]

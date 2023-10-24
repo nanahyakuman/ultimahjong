@@ -4,10 +4,10 @@ class_name YakuChecker
 
 
 # hand should be sorted by MTile id.
-func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, dora = []) -> int:
+func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, dora = []) -> ScoringInfo:
 	var is_open = already_opened_groupings.size() > 0
 	
-	var han = 0
+	var scoring_info = ScoringInfo.new()
 	
 	var remaining_hand = hand.duplicate()
 	var groupings = get_maximal_groupings(remaining_hand)
@@ -30,15 +30,17 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, 
 				if t.suit == MTile.SUITS.SPECIAL:
 					is_full = false
 					continue
+				is_half = false
+				is_full = false
 			
 			if is_full:
-				han += 6 - int(is_open)
+				scoring_info.hans.append(ALL_YAKU.YAKUS[("" if not is_open else "Open ") + "Chin'itsu"])
 			elif is_half:
-				han += 3 - int(is_open)
+				scoring_info.hans.append(ALL_YAKU.YAKUS[("" if not is_open else "Open ") + "Hon'itsu"])
 		
 		# menzentsumo
 		if !is_open and is_tsumo:
-			han += 1
+			scoring_info.hans.append(ALL_YAKU.YAKUS["Menzentsumo"])
 		
 		# pinfu. doesnt account for ryanmen wait rn.
 #		if !is_open:
@@ -57,7 +59,7 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, 
 				if g.tiles[0].suit == MTile.SUITS.SPECIAL:
 					# offset to convert mhjman winds to mtile winds
 					if [mahjong_manager.seat_wind+1, mahjong_manager.prevalent_wind+1, MTile.SPECIALS.CHUN, MTile.SPECIALS.HAKU, MTile.SPECIALS.HATSU].has(g.tiles[0].value):
-						han += 1
+						scoring_info.hans.append(ALL_YAKU.YAKUS["Yakuhai"])
 		
 		# tanyao
 		var tanyao = true
@@ -66,12 +68,12 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, 
 				if t.suit == MTile.SUITS.SPECIAL or t.value == 1 or t.value == 9:
 					tanyao = false
 		if tanyao:
-			han += 1
+			scoring_info.hans.append(ALL_YAKU.YAKUS["Tan'yao"])
 	
-	if dora.size() > 0:
-		han += get_dora(groupings, dora)
+#	if dora.size() > 0:
+#		han += get_dora(groupings, dora)
 	
-	return han
+	return scoring_info
 
 func groupings_meet_basic_reqs(groupings: Array) -> bool:
 	var setruns = 0
@@ -164,5 +166,5 @@ func get_dora(groupings: Array, dora_ids: Array):
 	
 	return dora
 
-func get_fu(groupings: Array):
+func get_fu():#groupings: Array):
 	return 30

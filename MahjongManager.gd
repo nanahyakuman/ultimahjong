@@ -14,7 +14,7 @@ var OPPONENT_DISCARDS = 3
 # how many kan tiles to draw
 var KAN_SIZE = 5
 # how many tiles to void at the start of each round
-var DEAD_TILES = 30#13*3
+var DEAD_TILES = 20#13*3
 
 var wall = [] # of `MTile`s
 var hand = [] # of `MTile`s
@@ -80,21 +80,21 @@ func init_wall():
 	called_hand.clear()
 
 func draw_hand():
-#	for i in 13:
-#		hand.append(get_next_from_wall())
-	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-	hand.append(MTile.new(MTile.SUITS.MAN, 2))
-	hand.append(MTile.new(MTile.SUITS.MAN, 2))
-	hand.append(MTile.new(MTile.SUITS.MAN, 1))
-	hand.append(MTile.new(MTile.SUITS.MAN, 1))
+	for i in 13:
+		hand.append(get_next_from_wall())
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+#	hand.append(MTile.new(MTile.SUITS.MAN, 2))
+#	hand.append(MTile.new(MTile.SUITS.MAN, 2))
+#	hand.append(MTile.new(MTile.SUITS.MAN, 1))
+#	hand.append(MTile.new(MTile.SUITS.MAN, 1))
 	update_hand_label()
 
 func draw_kan_dora():
@@ -298,7 +298,7 @@ func can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
 	var full_hand = [disc]
 	full_hand.append_array(hand)
 	full_hand.sort()
-	if yaku_checker.hand_get_han(full_hand, called_hand, false) > 0:
+	if yaku_checker.hand_get_han(full_hand, called_hand, false).get_total_han() > 0:
 		bitmask |= CALL_BITMASK.RON
 	
 	return bitmask
@@ -308,7 +308,7 @@ func do_if_can_tsumo():
 	var full_hand = [tsumo]
 	full_hand.append_array(hand)
 	full_hand.sort()
-	if yaku_checker.hand_get_han(full_hand, called_hand, true) > 0:
+	if yaku_checker.hand_get_han(full_hand, called_hand, true).get_total_han() > 0:
 		state = STATE_CALLS
 		calls_manager.enable_calls(CALL_BITMASK.TSM, {})
 
@@ -440,17 +440,18 @@ func end_round(win_is_tsumo_not_ron = false):
 	# for bigger hands
 	assert(full_hand.size() + called_hand.size() * 3 == 14)
 	
-	var fu = yaku_checker.get_fu([])
-	var han = yaku_checker.hand_get_han(full_hand, called_hand, win_is_tsumo_not_ron, dora)
+	var score_info = yaku_checker.hand_get_han(full_hand, called_hand, win_is_tsumo_not_ron, dora)
+	#score_info.fu = yaku_checker.get_fu()
 	
 	var multiplier = 6 if seat_wind == WINDS.EAST else 4
 	
 	#print("%d  %d  %d" % [fu, han, multiplier])
-	root.end_round(fu, han, multiplier)
+	root.end_round(score_info, multiplier)
 	
 	# moved to root temporarily(?)
 	#TileGraphicKnower.update_dora_ids([])
-	
+
+
 
 
 func first_by_id(id: int, tiles: Array) -> int:
