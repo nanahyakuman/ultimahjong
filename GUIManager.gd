@@ -1,81 +1,92 @@
 extends Control
 
-@onready var hand_label = $VBoxContainer/HBoxContainer/HandLabel
-@onready var hand_label_2 = $VBoxContainer/HBoxContainer2/HandLabel2
-@onready var tsumo_label = $VBoxContainer/HBoxContainer/TsumoLabel
-@onready var tsumo_label_2 = $VBoxContainer/HBoxContainer2/TsumoLabel2
-@onready var input_label = $VBoxContainer/InputLabel
-@onready var discard_label = $VBoxContainer/DiscardLabel
-@onready var discard_label_2 = $VBoxContainer/DiscardLabel2
-@onready var kan_label = $VBoxContainer/KanLabel
-@onready var kan_label_2 = $VBoxContainer/KanLabel2
+const SIZE = 22
 
-const SIZE = 20
-@onready var opp_labels = [$VBoxContainer/DiscardLabel3,$VBoxContainer/DiscardLabel4,$VBoxContainer/DiscardLabel5, $VBoxContainer/DiscardLabel6,$VBoxContainer/DiscardLabel7, $VBoxContainer/DiscardLabel8]
+@export var tile_tex: Texture2D
+@export var tile_graphic: PackedScene
+@export var tile_size = Vector2i(16,32)
 
+
+@onready var mahjong_manager = %MahjongManager
+@onready var hand = $All/SideSpacers/Tiles/HBoxContainer/Hand
+@onready var tsumo = $All/SideSpacers/Tiles/HBoxContainer/Tsumo
+@onready var discards = [$All/SideSpacers/Tiles/PDiscards, $All/SideSpacers/Tiles/PDiscards2]
+@onready var opp_dcs = [$All/SideSpacers/Tiles/Discards2, $All/SideSpacers/Tiles/Discards3, $All/SideSpacers/Tiles/Discards4, $All/SideSpacers/Tiles/Discards5]
+@onready var kan_pile = $All/SideSpacers/Tiles/KanPile/Top
+@onready var kan_pile_bot = $All/SideSpacers/Tiles/KanPile/Bot
+@onready var graphic_tile_counter = $"../../GraphicTileCounter"
+@onready var prev_wind = $All/TextureRect/HBoxContainer/RoundWind/Sprite2D
+@onready var seat_wind = $All/TextureRect/HBoxContainer/SittingWind/Sprite2D
+@onready var made_calls = $MadeCalls
+
+# tracked so calls can highlight it. only modifed by `hand`.
+var most_recent_discard = null
 
 func _ready():
-	input_label.grab_focus()
+	pass
 
-func update_hand(hand):
-	#hand_label.text = MTile.get_tiles_as_str(hand)
-	var str = ""
-	var str2 = ""
-	for t in hand:
-		var a = t.get_display_strs()
-		str += a[0]
-		str2 += a[1]
-	hand_label.clear()
-	hand_label.append_text(str)
-	hand_label_2.clear()
-	hand_label_2.append_text(str2)
-
-func update_discard(discard):
-	var str = ""
-	var str2 = ""
-	for t in min(discard.size(), 22):
-		var a = discard[t].get_display_strs()
-		str += a[0]
-		str2 += a[1]
-	discard_label.clear()
-	discard_label.append_text(str)
-	discard_label_2.clear()
-	discard_label_2.append_text(str2)
-
-func update_opp_discard(opp_discard):
-	var strs = []
-	strs.resize(opp_labels.size()*2)
-	strs.fill("")
-	for i in opp_labels.size():
-		for t in range(i*SIZE, min(opp_discard.size()-SIZE*i, SIZE) + i*SIZE):
-			var a = opp_discard[t].get_display_strs()
-			strs[2*i] += a[0]
-			strs[2*i+1] += a[1]
+func update_hand(tiles: Array):
+	_update_node(hand, tiles, true, TileGraphic.SIDE_TOP)
 	
-	for i in opp_labels.size():
-		opp_labels[i].clear()
-		opp_labels[i].append_text(strs[i])
+func update_discard(tiles: Array):
+	for d in discards.size():
+		_update_node(discards[d], tiles.slice(d*SIZE, d*SIZE+SIZE))
 
+func update_opp_discard(tiles: Array):
+	for d in opp_dcs.size():
+		var ret = _update_node(opp_dcs[d], tiles.slice(d*SIZE, d*SIZE+SIZE))
+		if ret:
+			most_recent_discard = ret
 
-func update_tsumo(tsumo):
-	var str = ""
-	var str2 = ""
-	var a = tsumo.get_display_strs()
-	str += a[0]
-	str2 += a[1]
-	tsumo_label.clear()
-	tsumo_label.append_text(str)
-	tsumo_label_2.clear()
-	tsumo_label_2.append_text(str2)
+func update_tsumo(tiles: Array):
+	_update_node(tsumo, tiles, true, TileGraphic.SIDE_TOP)
 
-func update_kan_dora(kan_dora):
-	var str = ""
-	var str2 = ""
-	for t in kan_dora:
-		var a = t.get_display_strs()
-		str += a[0]
-		str2 += a[1]
-	kan_label.clear()
-	kan_label.append_text(str)
-	kan_label_2.clear()
-	kan_label_2.append_text(str2)
+func update_kan_dora(tiles: Array, covered: int):
+	_update_node(kan_pile, tiles, true, TileGraphic.SIDE_BOT, covered)
+	_update_node(kan_pile_bot, tiles, true, TileGraphic.SIDE_BOT, 9999)
+
+func update_made_calls(groupings: Array):
+	var tiles = []
+	for g in groupings:
+		for t in g.tiles:
+			tiles.append(t)
+	_update_node(made_calls, tiles)
+
+# returns the final updated visible node
+func _update_node(node: Node, tiles: Array, in_hand: bool = false, visible_side: int = TileGraphic.SIDE_BOT, reverse_count: int = -1):
+	var existing_count = node.get_child_count()
+	var ret = null
+	for t in tiles.size():
+		if t < existing_count:
+			node.get_child(t).assign_suit_value(tiles[t])
+			node.get_child(t).set_reversed(reverse_count > t)
+		else:
+			get_new_tile(tiles[t], node, in_hand, visible_side, reverse_count > t)
+		
+		var curr = node.get_child(t)
+		if curr:
+			curr.visible = true
+			ret = curr
+	
+	for t in range(tiles.size(), existing_count):
+		node.get_child(t).visible = false
+	
+	return ret
+
+func get_new_tile(t: MTile, parent: Node, in_hand: bool, vis_side: int, reverse: bool):
+	var a = tile_graphic.instantiate()
+	parent.add_child(a)
+	a.assign_suit_value(t)
+	a.in_hand = in_hand
+	a.connect("tile_graphic_clicked", mahjong_manager.tile_graphic_clicked)
+	a.assign_visible_side(vis_side)
+	a.set_reversed(reverse)
+	return(a)
+
+func update_winds(prev: int, seat: int):
+	prev_wind.frame = prev
+	seat_wind.frame = seat
+
+func update_wall_count(c: int):
+	graphic_tile_counter.update_wall_count(c)
+

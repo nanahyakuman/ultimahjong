@@ -37,7 +37,7 @@
 [ext_resource type="Texture2D" uid="uid://c30qiclh2lxb4" path="res://image/cursor.png" id="30_7lply"]
 [ext_resource type="Script" path="res://Cursor.gd" id="31_y04dm"]
 
-[sub_resource type="GDScript" id="GDScript_rrbm3"]
+[sub_resource type="GDScript" id="GDScript_tj5rr"]
 script/source = "extends Control
 
 const SIZE = 22
@@ -214,7 +214,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = SubResource("GDScript_rrbm3")
+script = SubResource("GDScript_tj5rr")
 tile_tex = ExtResource("15_8u0tq")
 tile_graphic = ExtResource("6_3ag2w")
 
@@ -920,6 +920,45 @@ text = "[b]Have not done this tab lol[/b]
 sample text sample text
 "
 
+[node name="Fu" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Fu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/table_h_separation = 10
+bbcode_enabled = true
+text = "[b]Special[/b]
+Base: 20
+Win by ron with an otherwise closed hand (Menzenkafu): 10
+Win by tsumo: 2
+Chiitoitsu: exactly 25
+
+[b]Grouping[/b]
+[table=3]
+[cell]Type[/cell][cell]Normal[/cell][cell]Yakuhai[/cell]
+[cell]Any Run[/cell][cell]0[/cell][cell]N/A[/cell]
+[cell]Any Pair[/cell][cell]0[/cell][cell]2[/cell]
+[cell]Open Set[/cell][cell]2[/cell][cell]4[/cell]
+[cell]Closed Set[/cell][cell]4[/cell][cell]8[/cell]
+[cell]Open Quad[/cell][cell]8[/cell][cell]16[/cell]
+[cell]Closed Quad[/cell][cell]16[/cell][cell]32[/cell]
+[/table]
+
+[b]Waits[/b]
+See Guide/Waits for more info.
+[table=2]
+[cell]1-sided[/cell][cell]2[/cell]
+[cell]2-sided[/cell][cell]0[/cell]
+[cell]>=3-sided[/cell][cell]0[/cell]
+[/table]"
+
 [node name="Tiles" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
 visible = false
 layout_mode = 2
@@ -1068,7 +1107,7 @@ text = "[b]Two-sided wait[/b]
 Two adjacent tiles awaiting a third consecutive tile from either side to complete them as a run. E.g. [45] is a two-sided wait on 3 and 6.
 
 [b]One-sided wait[/b]
-As above, but with only one wait. E.g. [12] or [46].
+As above, but with only one wait. E.g. [12], [46], or [88].
 
 [b]Three-sided wait[/b]
 As example, [223] waits for 1, a duplicate 2, or 3. [45678] waits for a 3, 6, or 9.
@@ -1093,17 +1132,7 @@ rounded up to the nearest 10. This is then multiplied by 6 if in the East seat, 
 
 Han, aka \"doublers\", are the real determining factor in a score. They are the sum of han from yaku met and the amount of dora tiles in hand.
 
-The base amount of fu for a winning hand is 20. 10 more are added for winning off a discard with a closed hand. 2 more fu are awarded for winning by tsumo.
-Fu are also awarded for making riskier groupings. They are as follows:
-  Any run:       0
-  Any pair:      0
-  Open set:      2
-  Closed set:    4
-  Open quad:     8
-  Closed quad:  16
-The fu awarded for a grouping is doubled if it's a yakuhai, that is, dragons/(seat wind)/(prevalant wind). A yakuhai pair is also worth 2 fu.
-Fu are also awarded for riskier waits, specifically, 2 fu if your waiting hand can be completed by only one tile.
-Chiitoitsu is always worth 25 fu. No additional fu may be awarded.
+Base fu is 20, additional fu are determined by a number of factors, generally incentivizing risk. See the \"Fu\" tab.
 
 This is approximately how real riichi calculates base points, but there's more rounding and multiplying stages there."
 tab_size = 2

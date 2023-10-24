@@ -6,7 +6,7 @@ extends Control
 @onready var calc = $Window/VBoxContainer/Calc
 
 
-# fu, han, and points can theoretically be derived her but
+# fu, han, and points can theoretically be derived here but
 # why do it twice
 func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points:int, mult: int):
 	han_names.clear()
@@ -20,6 +20,8 @@ func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points:int, mu
 	fu_points.clear()
 	fu_points.append_text("[right]")
 	for f in scoring_info.fus:
+		if f.fu == 0:
+			continue
 		fu_names.append_text(f.nam + "\n")
 		fu_points.append_text(str(f.fu) + " fu\n")
 	

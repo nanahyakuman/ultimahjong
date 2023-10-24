@@ -25,7 +25,7 @@ class Fu:
 		fu = _fu
 
 
-var fus = [Fu.new("Base Fu", 20)]
+var fus = []
 var hans = []
 
 func get_total_han() -> int:

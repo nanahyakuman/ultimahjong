@@ -24,17 +24,16 @@ final boss on the E-E repeat. probably no repeated seats.
 
 
 the two tsumo kans
-tsumo to end round
 fu calculation
-also dora calculation (just assure it works)
-scoring screen!! scorer needs to interact with it properly
 doraizing anim when you buy dora, clear feedback as to what it was
-discard counts on round start are messed up still
-cant hover made calls
+cant hover tiles in made calls
 more expensive shop items
 tsumo call tile hover broken, highlights most recent discard instead of tsumo
-link yaku gui to internal yaku data
-reimplement dora
+make ura dora more clear
+enter riichi
+upgrade fu
+
+dora broken
 
 yaku to implement
 	menzentsumo

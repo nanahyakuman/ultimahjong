@@ -5,6 +5,7 @@ class_name Grouping
 enum {NONE, PAIR, SET, RUN}
 var type = NONE
 var tiles = []
+var open = false
 
 func _init(typ: int, ts: Array):
 	type = typ

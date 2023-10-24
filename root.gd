@@ -13,8 +13,7 @@ func _ready():
 	start_round()
 	
 #	await get_tree().process_frame
-#	start_scoring()
-#	end_round(42, 2)
+#	end_round(ScoringInfo.new(), 6)
 
 func start_round():
 	shop_root.visible = false

@@ -1,3 +1,5 @@
+##  if you set the state to ANIMATING, nothing is allowed to happen. this
+## allows us to chain awaits to make cheap anims.
 extends Node
 class_name MahjongManager
 
@@ -32,25 +34,37 @@ var prevalent_wind = -1
 var seat_wind = -3 # incremented at start of round
 
 enum {STATE_ACTIONABLE, STATE_ANIMATING, STATE_CALLS}
-var state = STATE_ACTIONABLE
+var state = STATE_ANIMATING
 #  i dont like this being global but its the easist way to make
 # this work
 var remaining_opp_discards
 
 
 func start_round():
-	increment_winds()
-	
-	init_wall()
-	draw_hand()
-	
 	gui_manager.update_discard([])
 	gui_manager.update_tsumo([])
 	gui_manager.update_opp_discard([])
 	gui_manager.update_made_calls([])
 	
+	
+	increment_winds()
+	
+	await init_wall()
+	
 	for i in KAN_SIZE:
+		await get_tree().create_timer(.05).timeout
+		tile_sfx_player.play()
 		draw_kan_dora()
+	
+	# kill a lot of tiles, simulating enemy hands
+	for i in DEAD_TILES:
+		get_next_from_wall()
+		tile_sfx_player.play()
+		await get_tree().create_timer(.03).timeout
+	
+	await get_tree().create_timer(.1).timeout
+	
+	await draw_hand()
 	
 	start_rotation(seat_wind)
 
@@ -67,10 +81,6 @@ func init_wall():
 	wall = tile_counter.get_all_tiles()
 	wall.shuffle()
 	
-	# kill a lot of tiles, simulating enemy hands
-	for i in DEAD_TILES:
-		get_next_from_wall()
-	
 	hand.clear()
 	tsumo = null
 	discard.clear()
@@ -80,8 +90,11 @@ func init_wall():
 	called_hand.clear()
 
 func draw_hand():
-	for i in 13:
-		hand.append(get_next_from_wall())
+#	for i in 13:
+#		hand.append(get_next_from_wall())
+#		tile_sfx_player.play()
+#		update_hand_label()
+#		await get_tree().create_timer(.05).timeout
 #	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
 #	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
 #	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
@@ -95,7 +108,21 @@ func draw_hand():
 #	hand.append(MTile.new(MTile.SUITS.MAN, 2))
 #	hand.append(MTile.new(MTile.SUITS.MAN, 1))
 #	hand.append(MTile.new(MTile.SUITS.MAN, 1))
+	hand.append(MTile.new(MTile.SUITS.MAN, 1))
+	hand.append(MTile.new(MTile.SUITS.MAN, 1))
+	hand.append(MTile.new(MTile.SUITS.MAN, 1))
+	hand.append(MTile.new(MTile.SUITS.MAN, 2))
+	hand.append(MTile.new(MTile.SUITS.MAN, 3))
+	hand.append(MTile.new(MTile.SUITS.MAN, 4))
+	hand.append(MTile.new(MTile.SUITS.MAN, 5))
+	hand.append(MTile.new(MTile.SUITS.MAN, 6))
+	hand.append(MTile.new(MTile.SUITS.MAN, 7))
+	hand.append(MTile.new(MTile.SUITS.MAN, 8))
+	hand.append(MTile.new(MTile.SUITS.MAN, 9))
+	hand.append(MTile.new(MTile.SUITS.MAN, 9))
+	hand.append(MTile.new(MTile.SUITS.MAN, 9))
 	update_hand_label()
+	
 
 func draw_kan_dora():
 	kan_dora.append(get_next_from_wall())
@@ -350,6 +377,7 @@ func call_graphic_clicked(bitmask: int, tiles_involved: Array):
 		
 		new_grouping.tiles.append(opp_discard.pop_back())
 		new_grouping.tiles.sort_custom(Callable(MTile, "tile_compare"))
+		new_grouping.open = true
 		called_hand = [new_grouping] + called_hand
 		gui_manager.update_opp_discard(opp_discard)
 		gui_manager.update_hand(hand)
@@ -421,12 +449,12 @@ func get_next_from_wall():
 
 func end_round(win_is_tsumo_not_ron = false):
 	# dora and uradora ids.
-	var dora = []
+	var doras = []
 	for t in revealed_kan_dora:
-		dora.append(kan_dora[-t].get_id())
+		doras.append(kan_dora[-t].get_dora_id())
 	if called_hand.size() == 0:
 		for t in revealed_kan_dora:
-			dora.append(ura_dora[-t].get_id())
+			doras.append(ura_dora[-t].get_dora_id())
 	
 	# attach winning tile to hand
 	var full_hand = hand.duplicate()
@@ -440,8 +468,8 @@ func end_round(win_is_tsumo_not_ron = false):
 	# for bigger hands
 	assert(full_hand.size() + called_hand.size() * 3 == 14)
 	
-	var score_info = yaku_checker.hand_get_han(full_hand, called_hand, win_is_tsumo_not_ron, dora)
-	#score_info.fu = yaku_checker.get_fu()
+	print(doras)
+	var score_info = yaku_checker.hand_get_han(full_hand, called_hand, win_is_tsumo_not_ron, doras, true)
 	
 	var multiplier = 6 if seat_wind == WINDS.EAST else 4
 	

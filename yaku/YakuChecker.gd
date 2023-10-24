@@ -4,7 +4,7 @@ class_name YakuChecker
 
 
 # hand should be sorted by MTile id.
-func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, dora = []) -> ScoringInfo:
+func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, doras = [], do_fu = false) -> ScoringInfo:
 	var is_open = already_opened_groupings.size() > 0
 	
 	var scoring_info = ScoringInfo.new()
@@ -19,19 +19,30 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, 
 #		print("\n")
 	
 	if groupings_meet_basic_reqs(groupings):
-		# check half and full flushes
-		var suit = hand[0].suit
+		# check half and full flushes.
+		var suit = 0
+		var suit_it = 0
+		# weird iterator finds the first suit if we have one
+		while groupings[suit_it].tiles[0].suit == MTile.SUITS.SPECIAL:
+			suit_it += 1
+			if suit_it >= groupings.size()-1:
+				suit = MTile.SUITS.SPECIAL
+				break
+		
+		suit = groupings[suit_it].tiles[0].suit
+		
 		if suit != MTile.SUITS.SPECIAL: #different yaku
 			var is_full = true
 			var is_half = true
-			for t in hand:
-				if t.suit == suit:
-					continue
-				if t.suit == MTile.SUITS.SPECIAL:
+			for g in groupings:
+				for t in g.tiles:
+					if t.suit == suit:
+						continue
+					if t.suit == MTile.SUITS.SPECIAL:
+						is_full = false
+						continue
+					is_half = false
 					is_full = false
-					continue
-				is_half = false
-				is_full = false
 			
 			if is_full:
 				scoring_info.hans.append(ALL_YAKU.YAKUS[("" if not is_open else "Open ") + "Chin'itsu"])
@@ -57,8 +68,7 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, 
 		for g in groupings:
 			if g.type == Grouping.SET:
 				if g.tiles[0].suit == MTile.SUITS.SPECIAL:
-					# offset to convert mhjman winds to mtile winds
-					if [mahjong_manager.seat_wind+1, mahjong_manager.prevalent_wind+1, MTile.SPECIALS.CHUN, MTile.SPECIALS.HAKU, MTile.SPECIALS.HATSU].has(g.tiles[0].value):
+					if get_yakuhai_vals().has(g.tiles[0].value):
 						scoring_info.hans.append(ALL_YAKU.YAKUS["Yakuhai"])
 		
 		# tanyao
@@ -70,8 +80,16 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, 
 		if tanyao:
 			scoring_info.hans.append(ALL_YAKU.YAKUS["Tan'yao"])
 	
-#	if dora.size() > 0:
-#		han += get_dora(groupings, dora)
+	if doras.size() > 0:
+		for g in groupings:
+			for t in g.tiles:
+				if doras.has(t.get_id()):
+					scoring_info.hans.append(ALL_YAKU.YAKUS["Kan Dora"])
+				if t.aka:
+					scoring_info.hans.append(ALL_YAKU.YAKUS["Aka Dora"])
+	
+	if do_fu:
+		scoring_info.fus = get_fu(groupings)
 	
 	return scoring_info
 
@@ -166,5 +184,47 @@ func get_dora(groupings: Array, dora_ids: Array):
 	
 	return dora
 
-func get_fu():#groupings: Array):
-	return 30
+# assumes the hand is valid and not chiitoitsu
+func get_fu(groupings: Array):
+	var fus = []
+	
+	fus.append(ALL_YAKU.FU["Base"])
+	
+	for g in groupings:
+		if g.type == Grouping.RUN:
+			fus.append(ALL_YAKU.FU["Run"])
+			continue
+		if g.type == Grouping.SET:
+			# stitch name together.
+			var nam = ""
+			if g.tiles[0].suit == MTile.SUITS.SPECIAL:
+				if get_yakuhai_vals().has(g.tiles[0].value):
+					nam = "Yakuhai "
+			
+			if g.open:
+				nam = nam + "Open "
+			else:
+				nam = nam + "Closed "
+			
+			if g.tiles.size() == 3:
+				nam = nam + "Set"
+			else:
+				nam = nam + "Quad"
+			
+			fus.append(ALL_YAKU.FU[nam])
+			continue
+		
+		if g.type == Grouping.PAIR:
+			if g.tiles[0].suit == MTile.SUITS.SPECIAL and get_yakuhai_vals().has(g.tiles[0].value):
+				fus.append(ALL_YAKU.FU["Yakuhai Pair"])
+			else:
+				fus.append(ALL_YAKU.FU["Pair"])
+			continue
+	
+	return fus
+
+
+
+func get_yakuhai_vals() -> Array:
+	# offset to convert mhjman winds to mtile winds
+	return [mahjong_manager.seat_wind+1, mahjong_manager.prevalent_wind+1, MTile.SPECIALS.CHUN, MTile.SPECIALS.HAKU, MTile.SPECIALS.HATSU]
