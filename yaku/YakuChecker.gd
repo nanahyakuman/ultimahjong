@@ -80,10 +80,13 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, 
 		if tanyao:
 			scoring_info.hans.append(ALL_YAKU.YAKUS["Tan'yao"])
 	
+	# doras is and array of arrays of MTile ids, seperated into front and ura
 	if doras.size() > 0:
 		for g in groupings:
 			for t in g.tiles:
-				if doras.has(t.get_id()):
+				if doras[0].has(t.get_id()):
+					scoring_info.hans.append(ALL_YAKU.YAKUS["Kan Dora"])
+				if doras[1].has(t.get_id()):
 					scoring_info.hans.append(ALL_YAKU.YAKUS["Kan Dora"])
 				if t.aka:
 					scoring_info.hans.append(ALL_YAKU.YAKUS["Aka Dora"])

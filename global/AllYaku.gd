@@ -10,6 +10,7 @@ var YAKUS = {
 	"Open Chin'itsu": ScoringInfo.Han.new("Open Chin'itsu", 5, "Hand only contains tiles of a single suit."),
 
 	"Kan Dora": ScoringInfo.Han.new("Kan Dora", 1, ""),
+	"Ura Dora": ScoringInfo.Han.new("Ura Dora", 1, ""),
 	"Aka Dora": ScoringInfo.Han.new("Aka Dora", 1, ""),
 }
 

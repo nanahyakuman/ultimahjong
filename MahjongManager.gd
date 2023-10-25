@@ -449,12 +449,21 @@ func get_next_from_wall():
 
 func end_round(win_is_tsumo_not_ron = false):
 	# dora and uradora ids.
-	var doras = []
-	for t in revealed_kan_dora:
-		doras.append(kan_dora[-t].get_dora_id())
-	if called_hand.size() == 0:
-		for t in revealed_kan_dora:
-			doras.append(ura_dora[-t].get_dora_id())
+	var omote_doras = []
+	var ura_doras = []
+#	for t in revealed_kan_dora:
+#		doras.append(kan_dora[-t].get_dora_id())
+#	if called_hand.size() == 0:
+#		for t in revealed_kan_dora:
+#			doras.append(ura_dora[-t].get_dora_id())
+	for i in range(KAN_SIZE-revealed_kan_dora, kan_dora.size()):
+		for id in kan_dora[i].get_dora_id():
+			omote_doras.append(id)
+	if hand_is_open:
+		for i in range(KAN_SIZE-revealed_kan_dora, kan_dora.size()):
+			for id in ura_dora[i].get_dora_id():
+				ura_doras.append(id)
+	var doras = [omote_doras, ura_doras]
 	
 	# attach winning tile to hand
 	var full_hand = hand.duplicate()
@@ -468,7 +477,6 @@ func end_round(win_is_tsumo_not_ron = false):
 	# for bigger hands
 	assert(full_hand.size() + called_hand.size() * 3 == 14)
 	
-	print(doras)
 	var score_info = yaku_checker.hand_get_han(full_hand, called_hand, win_is_tsumo_not_ron, doras, true)
 	
 	var multiplier = 6 if seat_wind == WINDS.EAST else 4
@@ -480,6 +488,8 @@ func end_round(win_is_tsumo_not_ron = false):
 	#TileGraphicKnower.update_dora_ids([])
 
 
+func hand_is_open():
+	return called_hand.size() > 0
 
 
 func first_by_id(id: int, tiles: Array) -> int:
