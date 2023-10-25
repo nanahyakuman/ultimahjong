@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cilh5sx8o5o8k"]
+[gd_scene load_steps=41 format=3 uid="uid://cilh5sx8o5o8k"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://qfsu5y82t8jk" path="res://image/prevwindindicator.png" id="8_heinv"]
 [ext_resource type="Texture2D" uid="uid://cerxwhe2cssp0" path="res://image/tableedge.png" id="8_hy522"]
 [ext_resource type="Script" path="res://GUIManager.gd" id="9_1ntl1"]
+[ext_resource type="Script" path="res://AnimTimer.gd" id="9_r8218"]
 [ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tablediv.png" id="10_kbaim"]
 [ext_resource type="Texture2D" uid="uid://6selxoc8faj5" path="res://image/table_top.png" id="11_a4xxf"]
 [ext_resource type="Script" path="res://MenuTileHolder.gd" id="11_gc23v"]
@@ -24,7 +25,6 @@
 [ext_resource type="Texture2D" uid="uid://dbnpkxetohid0" path="res://image/call_ignore.png" id="13_qhnc0"]
 [ext_resource type="Script" path="res://CallGraphic.gd" id="13_wfhtv"]
 [ext_resource type="Script" path="res://GraphicTileCounter.gd" id="13_x2gyd"]
-[ext_resource type="Texture2D" uid="uid://ccdv7r4ga7o3t" path="res://image/tiles.png" id="15_8u0tq"]
 [ext_resource type="Texture2D" uid="uid://ch4nr70j7xj74" path="res://image/tilecounter_end_odd.png" id="15_tgg3l"]
 [ext_resource type="Script" path="res://ShopRoot.gd" id="19_bnl3p"]
 [ext_resource type="Texture2D" uid="uid://bxt2na0s3mabw" path="res://image/call_indicator_gold.png" id="19_idqi3"]
@@ -37,6 +37,7 @@
 [ext_resource type="FontFile" uid="uid://dmoumxbcf3gn" path="res://text/font/Body2.png" id="28_jde07"]
 [ext_resource type="Texture2D" uid="uid://c30qiclh2lxb4" path="res://image/cursor.png" id="30_7lply"]
 [ext_resource type="Script" path="res://Cursor.gd" id="31_y04dm"]
+[ext_resource type="Texture2D" uid="uid://blxlrv0jsh5hx" path="res://image/tilecounter_end_even.png" id="33_ykpb6"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_122ig"]
 content_margin_left = 8.0
@@ -113,6 +114,9 @@ pitch_scale = 0.3
 stream = ExtResource("7_358eq")
 pitch_scale = 0.3
 
+[node name="AnimTimer" type="Timer" parent="HBoxContainer/MahjongRoot/MahjongManager"]
+script = ExtResource("9_r8218")
+
 [node name="GUIManager" type="Control" parent="HBoxContainer/MahjongRoot"]
 layout_mode = 1
 anchors_preset = 15
@@ -121,7 +125,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("9_1ntl1")
-tile_tex = ExtResource("15_8u0tq")
 tile_graphic = ExtResource("6_3ag2w")
 
 [node name="MadeCalls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
@@ -518,15 +521,15 @@ grow_vertical = 2
 script = ExtResource("21_yhd2i")
 
 [node name="Window" type="PanelContainer" parent="HBoxContainer/MahjongRoot/ScoringRoot"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -214.0
-offset_top = 14.0
-offset_right = -14.0
-offset_bottom = 76.0
+offset_left = -170.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 72.0
 grow_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxTexture_122ig")
 
@@ -535,6 +538,7 @@ layout_mode = 2
 
 [node name="Title" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/default_color = Color(0.933333, 0.866667, 0.8, 1)
 bbcode_enabled = true
 text = "[center][b]Scoring[/b][/center]
 "
@@ -546,6 +550,7 @@ layout_mode = 2
 [node name="Names" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer/Han"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0.933333, 0.866667, 0.8, 1)
 bbcode_enabled = true
 fit_content = true
 
@@ -565,6 +570,7 @@ layout_mode = 2
 [node name="Names" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer/Fu"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0.933333, 0.866667, 0.8, 1)
 bbcode_enabled = true
 fit_content = true
 
@@ -580,6 +586,7 @@ layout_mode = 2
 
 [node name="Calc" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/default_color = Color(0.933333, 0.866667, 0.8, 1)
 bbcode_enabled = true
 fit_content = true
 
@@ -676,26 +683,36 @@ stretch_mode = 1
 script = ExtResource("13_x2gyd")
 
 [node name="TileCounter" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 2.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_right = 8.0
 texture = ExtResource("11_s1nfs")
 expand_mode = 1
 stretch_mode = 1
 
 [node name="End" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 8.0
+offset_bottom = 16.0
 texture = ExtResource("15_tgg3l")
 stretch_mode = 2
+
+[node name="DeadTileEnd" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
+layout_mode = 1
+offset_top = 350.0
+offset_right = 8.0
+offset_bottom = 366.0
+texture = ExtResource("33_ykpb6")
+stretch_mode = 2
+
+[node name="DeadTileCounter" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
+layout_mode = 2
+offset_top = 354.0
+offset_right = 8.0
+offset_bottom = 363.0
+scale = Vector2(1, -1)
+texture = ExtResource("11_s1nfs")
+expand_mode = 1
+stretch_mode = 1
 
 [node name="Sidebar" type="ColorRect" parent="HBoxContainer"]
 layout_mode = 2
@@ -841,12 +858,14 @@ grow_vertical = 2
 theme_override_constants/table_h_separation = 10
 bbcode_enabled = true
 text = "[b]Special[/b]
+Assorted Fu awards.
 Base: 20
-Win by ron with an otherwise closed hand (Menzenkafu): 10
+Closed Ron: 10
 Win by tsumo: 2
 Chiitoitsu: exactly 25
 
 [b]Grouping[/b]
+Fu awarded for each grouping in your hand.
 [table=3]
 [cell]Type[/cell][cell]Normal[/cell][cell]Yakuhai[/cell]
 [cell]Any Run[/cell][cell]0[/cell][cell]N/A[/cell]
@@ -858,7 +877,7 @@ Chiitoitsu: exactly 25
 [/table]
 
 [b]Waits[/b]
-See Guide/Waits for more info.
+Fu awarded for your final wait. See Guide/Waits for more info.
 [table=2]
 [cell]1-sided[/cell][cell]2[/cell]
 [cell]2-sided[/cell][cell]0[/cell]

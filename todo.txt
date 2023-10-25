@@ -24,7 +24,6 @@ final boss on the E-E repeat. probably no repeated seats.
 
 
 the two tsumo kans
-fu calculation
 doraizing anim when you buy dora, clear feedback as to what it was
 cant hover tiles in made calls
 more expensive shop items
@@ -32,8 +31,8 @@ tsumo call tile hover broken, highlights most recent discard instead of tsumo
 make ura dora more clear
 enter riichi
 upgrade fu
+fu tab updating
 
-dora broken
 
 yaku to implement
 	menzentsumo

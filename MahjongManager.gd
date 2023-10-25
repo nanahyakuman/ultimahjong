@@ -10,13 +10,17 @@ class_name MahjongManager
 @onready var tile_sfx_player = $TileOnTable
 @onready var call_sfx_player = $CallMade
 @onready var root = $"../../.."
+@onready var anim_timer = $AnimTimer
 
 # how many discards inbetween each player draw
 var OPPONENT_DISCARDS = 3
 # how many kan tiles to draw
 var KAN_SIZE = 5
-# how many tiles to void at the start of each round
-var DEAD_TILES = 20#13*3
+# base size of the hand
+var BASE_HAND_SIZE = 13
+#  amount of tiles to kill at the start. (it's the present value * 3).
+# this should be an even number or the dead wall display will break
+var TILES_DEAD_PER_4_PLAYER_DRAWS = 12
 
 var wall = [] # of `MTile`s
 var hand = [] # of `MTile`s
@@ -45,24 +49,23 @@ func start_round():
 	gui_manager.update_tsumo([])
 	gui_manager.update_opp_discard([])
 	gui_manager.update_made_calls([])
-	
+	gui_manager.update_kan_dora([],0)
+	gui_manager.update_hand([])
+	gui_manager.reset_dead_wall_count()
+	gui_manager.update_wall_count(0)
 	
 	increment_winds()
 	
 	await init_wall()
 	
+	await anim_timer.start_mod(.15).timeout
+	
 	for i in KAN_SIZE:
-		await get_tree().create_timer(.05).timeout
+		await anim_timer.start_mod(.1).timeout
 		tile_sfx_player.play()
 		draw_kan_dora()
 	
-	# kill a lot of tiles, simulating enemy hands
-	for i in DEAD_TILES:
-		get_next_from_wall()
-		tile_sfx_player.play()
-		await get_tree().create_timer(.03).timeout
-	
-	await get_tree().create_timer(.1).timeout
+	await anim_timer.start_mod(.15).timeout
 	
 	await draw_hand()
 	
@@ -88,13 +91,45 @@ func init_wall():
 	kan_dora.clear()
 	ura_dora.clear()
 	called_hand.clear()
+	
+	for i in wall.size():
+		await anim_timer.start_get(.01).timeout
+		gui_manager.update_wall_count(i+1)
+		tile_sfx_player.play()
+	
 
 func draw_hand():
-#	for i in 13:
-#		hand.append(get_next_from_wall())
-#		tile_sfx_player.play()
-#		update_hand_label()
-#		await get_tree().create_timer(.05).timeout
+	# the chaining looks dopey but it lets us draw by sets of 
+	# 4 (admittedly mostly for effect).
+	for i in int(BASE_HAND_SIZE/4):
+		await anim_timer.start_mod(.15).timeout
+		hand.append(get_next_from_wall())
+		hand.append(get_next_from_wall())
+		hand.append(get_next_from_wall())
+		hand.append(get_next_from_wall())
+		call_sfx_player.play()
+		update_hand_label()
+		for j in TILES_DEAD_PER_4_PLAYER_DRAWS/4:
+			await anim_timer.start_mod(.15).timeout
+			get_next_from_wall()
+			get_next_from_wall()
+			get_next_from_wall()
+			get_next_from_wall()
+			gui_manager.increment_dead_wall_count(4)
+			call_sfx_player.play()
+		if TILES_DEAD_PER_4_PLAYER_DRAWS%4 != 0:
+			await anim_timer.start_mod(.15).timeout
+			for j in TILES_DEAD_PER_4_PLAYER_DRAWS%4:
+				get_next_from_wall()
+			gui_manager.increment_dead_wall_count(TILES_DEAD_PER_4_PLAYER_DRAWS%4)
+			call_sfx_player.play()
+		
+	for i in BASE_HAND_SIZE%4:
+		await anim_timer.start_mod(.15).timeout
+		hand.append(get_next_from_wall())
+		tile_sfx_player.play()
+		update_hand_label()
+	
 #	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
 #	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
 #	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
@@ -108,20 +143,22 @@ func draw_hand():
 #	hand.append(MTile.new(MTile.SUITS.MAN, 2))
 #	hand.append(MTile.new(MTile.SUITS.MAN, 1))
 #	hand.append(MTile.new(MTile.SUITS.MAN, 1))
-	hand.append(MTile.new(MTile.SUITS.MAN, 1))
-	hand.append(MTile.new(MTile.SUITS.MAN, 1))
-	hand.append(MTile.new(MTile.SUITS.MAN, 1))
-	hand.append(MTile.new(MTile.SUITS.MAN, 2))
-	hand.append(MTile.new(MTile.SUITS.MAN, 3))
-	hand.append(MTile.new(MTile.SUITS.MAN, 4))
-	hand.append(MTile.new(MTile.SUITS.MAN, 5))
-	hand.append(MTile.new(MTile.SUITS.MAN, 6))
-	hand.append(MTile.new(MTile.SUITS.MAN, 7))
-	hand.append(MTile.new(MTile.SUITS.MAN, 8))
-	hand.append(MTile.new(MTile.SUITS.MAN, 9))
-	hand.append(MTile.new(MTile.SUITS.MAN, 9))
-	hand.append(MTile.new(MTile.SUITS.MAN, 9))
-	update_hand_label()
+#	var temp = []
+#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 2, true))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 4))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 5, true))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 6))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 7))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 8))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 9))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 9, true))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 9))
+#	hand = temp
+#	update_hand_label()
 	
 
 func draw_kan_dora():
@@ -164,7 +201,7 @@ func do_post_call_discard():
 # draw if not
 func do_opp_discard():
 	state = STATE_ANIMATING
-	await get_tree().create_timer(.2).timeout
+	await anim_timer.start_mod(.2).timeout
 	
 	if remaining_opp_discards == 0:
 		do_tsumo()

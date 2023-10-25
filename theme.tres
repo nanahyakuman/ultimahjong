@@ -77,7 +77,6 @@ BoxContainer/constants/separation = 0
 Fonts/fonts/normal = ExtResource("3_e0qua")
 Panel/styles/panel = SubResource("StyleBoxFlat_1de0v")
 RichTextLabel/colors/default_color = Color(1, 1, 0.933333, 1)
-RichTextLabel/constants/line_separation = 2
 RichTextLabel/fonts/bold_font = ExtResource("2_2v4im")
 RichTextLabel/fonts/normal_font = ExtResource("3_e0qua")
 TabBar/colors/drop_mark_color = Color(1, 1, 0.933333, 1)

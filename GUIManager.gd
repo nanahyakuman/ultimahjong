@@ -2,7 +2,6 @@ extends Control
 
 const SIZE = 22
 
-@export var tile_tex: Texture2D
 @export var tile_graphic: PackedScene
 @export var tile_size = Vector2i(16,32)
 
@@ -90,3 +89,8 @@ func update_winds(prev: int, seat: int):
 func update_wall_count(c: int):
 	graphic_tile_counter.update_wall_count(c)
 
+func increment_dead_wall_count(c: int):
+	graphic_tile_counter.increment_dead_wall_count(c)
+
+func reset_dead_wall_count():
+	graphic_tile_counter.reset_dead_wall_count()

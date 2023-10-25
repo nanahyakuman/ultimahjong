@@ -11,14 +11,14 @@ extends Control
 func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points:int, mult: int):
 	han_names.clear()
 	han_points.clear()
-	han_points.append_text("[right]")
+	han_points.append_text("[right][color=%s]" % COL.YELLOW)
 	for h in scoring_info.hans:
 		han_names.append_text(h.nam + "\n")
 		han_points.append_text(str(h.han) + " han\n")
 	
 	fu_names.clear()
 	fu_points.clear()
-	fu_points.append_text("[right]")
+	fu_points.append_text("[right][color=%s]" % COL.LBLUE)
 	for f in scoring_info.fus:
 		if f.fu == 0:
 			continue
@@ -26,4 +26,4 @@ func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points:int, mu
 		fu_points.append_text(str(f.fu) + " fu\n")
 	
 	calc.clear()
-	calc.text = "[center][b]%d×2[/b](2+%d)[b]×%d=\n%d" % [fu, han, mult, points]
+	calc.text = "[center][b][color=%s]%d[/color]×2[/b](2+[color=%s]%d[/color])[b]×%d=\n[color=%s]%d[/color]" % [COL.LBLUE, fu, COL.YELLOW, han, mult, COL.WHITE, points]

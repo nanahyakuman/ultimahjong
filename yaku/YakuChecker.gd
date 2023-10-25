@@ -87,7 +87,7 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, 
 				if doras[0].has(t.get_id()):
 					scoring_info.hans.append(ALL_YAKU.YAKUS["Kan Dora"])
 				if doras[1].has(t.get_id()):
-					scoring_info.hans.append(ALL_YAKU.YAKUS["Kan Dora"])
+					scoring_info.hans.append(ALL_YAKU.YAKUS["Ura Dora"])
 				if t.aka:
 					scoring_info.hans.append(ALL_YAKU.YAKUS["Aka Dora"])
 	

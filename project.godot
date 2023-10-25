@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 FuncKeys="*res://global/FuncKeys.gd"
 TileGraphicKnower="*res://global/TileGraphicKnower.gd"
 ALL_YAKU="*res://global/AllYaku.gd"
+COL="*res://global/Colors.gd"
 
 [display]
 
