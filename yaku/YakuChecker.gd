@@ -80,19 +80,9 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, 
 		if tanyao:
 			scoring_info.hans.append(ALL_YAKU.YAKUS["Tan'yao"])
 	
-	# doras is and array of arrays of MTile ids, seperated into front and ura
-	if doras.size() > 0:
-		for g in groupings:
-			for t in g.tiles:
-				if doras[0].has(t.get_id()):
-					scoring_info.hans.append(ALL_YAKU.YAKUS["Kan Dora"])
-				if doras[1].has(t.get_id()):
-					scoring_info.hans.append(ALL_YAKU.YAKUS["Ura Dora"])
-				if t.aka:
-					scoring_info.hans.append(ALL_YAKU.YAKUS["Aka Dora"])
 	
 	if do_fu:
-		scoring_info.fus = get_fu(groupings)
+		scoring_info.fus = get_fu(groupings, doras)
 	
 	return scoring_info
 
@@ -188,7 +178,7 @@ func get_dora(groupings: Array, dora_ids: Array):
 	return dora
 
 # assumes the hand is valid and not chiitoitsu
-func get_fu(groupings: Array):
+func get_fu(groupings: Array, doras: Array):
 	var fus = []
 	
 	fus.append(ALL_YAKU.FU["Base"])
@@ -223,6 +213,18 @@ func get_fu(groupings: Array):
 			else:
 				fus.append(ALL_YAKU.FU["Pair"])
 			continue
+	
+	# doras is and array of arrays of MTile ids, seperated into front and ura
+	if doras.size() > 0:
+		for g in groupings:
+			for t in g.tiles:
+				if doras[0].has(t.get_id()):
+					fus.append(ALL_YAKU.FU["Kan Dora"])
+				if doras[1].has(t.get_id()):
+					fus.append(ALL_YAKU.FU["Ura Dora"])
+				if t.aka:
+					fus.append(ALL_YAKU.FU["Aka Dora"])
+	
 	
 	return fus
 

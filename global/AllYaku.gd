@@ -9,9 +9,9 @@ var YAKUS = {
 	"Chin'itsu": ScoringInfo.Han.new("Chin'itsu", 6, "Hand only contains tiles of a single suit."),
 	"Open Chin'itsu": ScoringInfo.Han.new("Open Chin'itsu", 5, "Hand only contains tiles of a single suit."),
 
-	"Kan Dora": ScoringInfo.Han.new("Kan Dora", 1, ""),
-	"Ura Dora": ScoringInfo.Han.new("Ura Dora", 1, ""),
-	"Aka Dora": ScoringInfo.Han.new("Aka Dora", 1, ""),
+#	"Kan Dora": ScoringInfo.Han.new("Kan Dora", 1, ""),
+#	"Ura Dora": ScoringInfo.Han.new("Ura Dora", 1, ""),
+#	"Aka Dora": ScoringInfo.Han.new("Aka Dora", 1, ""),
 }
 
 var FU = {
@@ -36,4 +36,8 @@ var FU = {
 	"1-sided Wait": ScoringInfo.Fu.new("1-sided Wait", 2),
 	"2-sided Wait": ScoringInfo.Fu.new("2-sided Wait", 0),
 	">=3-sided Wait": ScoringInfo.Fu.new(">=3-sided Wait", 0),
+	
+	"Kan Dora": ScoringInfo.Fu.new("Kan Dora", 8),
+	"Ura Dora": ScoringInfo.Fu.new("Ura Dora", 8),
+	"Aka Dora": ScoringInfo.Fu.new("Aka Dora", 8),
 }
