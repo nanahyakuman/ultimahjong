@@ -12,8 +12,8 @@ func _ready():
 	
 	start_round()
 	
-#	await get_tree().process_frame
-#	end_round(ScoringInfo.new(), 6)
+	await get_tree().create_timer(2.0).timeout
+	end_round(ScoringInfo.new(), 6)
 
 func start_round():
 	shop_root.visible = false

@@ -651,6 +651,7 @@ alignment = 1
 script = ExtResource("20_wmn33")
 purchaseable = ExtResource("21_3mckx")
 BUTTONS = 2
+PER_BUTTON = 2
 
 [node name="TilePurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
 layout_mode = 2
@@ -660,7 +661,6 @@ script = ExtResource("20_wmn33")
 purchaseable = ExtResource("21_3mckx")
 type = 1
 BUTTONS = 2
-PER_BUTTON = 4
 
 [node name="NextRoundButton" type="Button" parent="HBoxContainer/MahjongRoot/ShopRoot"]
 layout_mode = 1
@@ -706,9 +706,9 @@ stretch_mode = 2
 
 [node name="DeadTileCounter" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
 layout_mode = 2
-offset_top = 354.0
+offset_top = 353.0
 offset_right = 8.0
-offset_bottom = 363.0
+offset_bottom = 362.0
 scale = Vector2(1, -1)
 texture = ExtResource("11_s1nfs")
 expand_mode = 1
@@ -863,6 +863,13 @@ Base: 20
 Closed Ron: 10
 Win by tsumo: 2
 Chiitoitsu: exactly 25
+
+[b]Dora[/b]
+[table=2]
+[cell]Aka Dora[/cell][cell]16[/cell]
+[cell]Kan Dora[/cell][cell]16[/cell]
+[cell]Ura Dora[/cell][cell]16[/cell]
+[/table]
 
 [b]Grouping[/b]
 Fu awarded for each grouping in your hand.

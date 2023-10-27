@@ -1,6 +1,6 @@
 extends Timer
 
-var anim_speed_mod =1.0
+var anim_speed_mod = 3.0
 
 func start_get(time: float) -> Timer:
 	start(time)

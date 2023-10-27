@@ -32,6 +32,8 @@ make ura dora more clear
 enter riichi
 upgrade fu
 fu tab updating
+reduce dead wall size upgrade
+
 
 
 yaku to implement

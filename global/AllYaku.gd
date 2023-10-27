@@ -37,7 +37,7 @@ var FU = {
 	"2-sided Wait": ScoringInfo.Fu.new("2-sided Wait", 0),
 	">=3-sided Wait": ScoringInfo.Fu.new(">=3-sided Wait", 0),
 	
-	"Kan Dora": ScoringInfo.Fu.new("Kan Dora", 8),
-	"Ura Dora": ScoringInfo.Fu.new("Ura Dora", 8),
-	"Aka Dora": ScoringInfo.Fu.new("Aka Dora", 8),
+	"Kan Dora": ScoringInfo.Fu.new("Kan Dora", 16),
+	"Ura Dora": ScoringInfo.Fu.new("Ura Dora", 16),
+	"Aka Dora": ScoringInfo.Fu.new("Aka Dora", 16),
 }

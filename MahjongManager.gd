@@ -92,10 +92,10 @@ func init_wall():
 	ura_dora.clear()
 	called_hand.clear()
 	
-	for i in range(0, wall.size(), 4):
-		await anim_timer.start_get(.01).timeout
-		gui_manager.update_wall_count(i+1)
-		tile_sfx_player.play()
+	for i in range(0, wall.size(), 6):
+		await anim_timer.start_get(.04).timeout
+		gui_manager.update_wall_count(i)
+		call_sfx_player.play()
 	gui_manager.update_wall_count(wall.size())
 	
 

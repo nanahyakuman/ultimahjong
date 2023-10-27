@@ -43,14 +43,14 @@ func calc_cost():
 	cost = 0.0
 	for i in tiles.size():
 		if hidden_mask[i]:
-			cost += 1
+			cost += 2
 		elif tiles[i].suit == MTile.SUITS.SPECIAL:
 			if MTile.DRAGONS.has(tiles[i].value):
-				cost += 3
+				cost += 5
 			else:
-				cost += 2
+				cost += 4
 		else:
-			cost += 2
+			cost += 3
 	
 	if type == TYPES.ADD:
 		cost /= 2
