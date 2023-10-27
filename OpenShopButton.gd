@@ -1,4 +1,4 @@
-extends Button
+extends TextureButton
 @onready var root = $"../../../.."
 
 func _on_pressed():

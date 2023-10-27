@@ -12,7 +12,11 @@ func _ready():
 	
 	start_round()
 	
+<<<<<<< Updated upstream
 	await get_tree().create_timer(2.0).timeout
+=======
+	await get_tree().create_timer(3).timeout
+>>>>>>> Stashed changes
 	end_round(ScoringInfo.new(), 6)
 
 func start_round():
