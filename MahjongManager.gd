@@ -58,14 +58,14 @@ func start_round():
 	
 	await init_wall()
 	
-	await anim_timer.start_mod(.15).timeout
+	await anim_timer.start_mod(.15)
 	
 	for i in KAN_SIZE:
-		await anim_timer.start_mod(.1).timeout
+		await anim_timer.start_mod(.1)
 		tile_sfx_player.play()
 		draw_kan_dora()
 	
-	await anim_timer.start_mod(.15).timeout
+	await anim_timer.start_mod(.15)
 	
 	await draw_hand()
 	
@@ -93,7 +93,7 @@ func init_wall():
 	called_hand.clear()
 	
 	for i in range(0, wall.size(), 6):
-		await anim_timer.start_get(.04).timeout
+		await anim_timer.start_mod(.04)
 		gui_manager.update_wall_count(i)
 		call_sfx_player.play()
 	gui_manager.update_wall_count(wall.size())
@@ -103,7 +103,7 @@ func draw_hand():
 	# the chaining looks dopey but it lets us draw by sets of 
 	# 4 (admittedly mostly for effect).
 	for i in int(BASE_HAND_SIZE/4):
-		await anim_timer.start_mod(.15).timeout
+		await anim_timer.start_mod(.15)
 		hand.append(get_next_from_wall())
 		hand.append(get_next_from_wall())
 		hand.append(get_next_from_wall())
@@ -111,7 +111,7 @@ func draw_hand():
 		call_sfx_player.play()
 		update_hand_label()
 		for j in TILES_DEAD_PER_4_PLAYER_DRAWS/4:
-			await anim_timer.start_mod(.15).timeout
+			await anim_timer.start_mod(.15)
 			get_next_from_wall()
 			get_next_from_wall()
 			get_next_from_wall()
@@ -119,32 +119,35 @@ func draw_hand():
 			gui_manager.increment_dead_wall_count(4)
 			call_sfx_player.play()
 		if TILES_DEAD_PER_4_PLAYER_DRAWS%4 != 0:
-			await anim_timer.start_mod(.15).timeout
+			await anim_timer.start_mod(.15)
 			for j in TILES_DEAD_PER_4_PLAYER_DRAWS%4:
 				get_next_from_wall()
 			gui_manager.increment_dead_wall_count(TILES_DEAD_PER_4_PLAYER_DRAWS%4)
 			call_sfx_player.play()
-		
-	for i in BASE_HAND_SIZE%4:
-		await anim_timer.start_mod(.15).timeout
-		hand.append(get_next_from_wall())
+	
+	if BASE_HAND_SIZE%4 != 0:
+		await anim_timer.start_mod(.15)
 		tile_sfx_player.play()
+		for i in BASE_HAND_SIZE%4:
+			hand.append(get_next_from_wall())
 		update_hand_label()
 	
-#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-#	hand.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-#	hand.append(MTile.new(MTile.SUITS.MAN, 2))
-#	hand.append(MTile.new(MTile.SUITS.MAN, 2))
-#	hand.append(MTile.new(MTile.SUITS.MAN, 1))
-#	hand.append(MTile.new(MTile.SUITS.MAN, 1))
-#	var temp = []
+	var temp = []
+	
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
@@ -158,8 +161,8 @@ func draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.MAN, 9))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 9, true))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 9))
-#	hand = temp
-#	update_hand_label()
+	hand = temp
+	update_hand_label()
 	
 
 func draw_kan_dora():
@@ -190,7 +193,7 @@ func do_tsumo():
 	gui_manager.update_tsumo([tsumo])
 	tile_sfx_player.play()
 	
-	# tsumo agari
+	# tsumo agari, also kan check
 	do_if_can_tsumo()
 
 
@@ -202,7 +205,7 @@ func do_post_call_discard():
 # draw if not
 func do_opp_discard():
 	state = STATE_ANIMATING
-	await anim_timer.start_mod(.2).timeout
+	await anim_timer.start_mod(.2)
 	
 	if remaining_opp_discards == 0:
 		do_tsumo()
@@ -246,7 +249,8 @@ enum CALL_BITMASK {
 	PON = 		0b1000,
 	KAN = 		0b10000,
 	RON = 		0b100000,
-	TSM = 		0b1000000
+	TSM = 		0b1000000,
+	CLOSED_KAN= 0b10000000
 }
 # returns a bitmask for what can be called
 func can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
@@ -373,9 +377,30 @@ func do_if_can_tsumo():
 	var full_hand = [tsumo]
 	full_hand.append_array(hand)
 	full_hand.sort()
+	
+	var btm = 0
+	var involved = {}
+	
 	if yaku_checker.hand_get_han(full_hand, called_hand, true).get_total_han() > 0:
+		btm |= CALL_BITMASK.TSM
+	
+	# closed tsumo kan
+	var tsid = tsumo.get_id()
+	var kantiles = []
+	for t in hand:
+		if t.get_id() == tsid:
+			kantiles.append(t)
+	if kantiles.size() >= 3:
+		btm |= CALL_BITMASK.CLOSED_KAN
+		# append involved tiles
+		var firstthree = []
+		for i in 3:
+			firstthree.append(kantiles[i])
+		involved[CALL_BITMASK.CLOSED_KAN] = firstthree
+	
+	if btm:
 		state = STATE_CALLS
-		calls_manager.enable_calls(CALL_BITMASK.TSM, {})
+		calls_manager.enable_calls(btm, involved)
 
 
 # called when a cpkr call is made, including passing the call
@@ -406,6 +431,8 @@ func call_graphic_clicked(bitmask: int, tiles_involved: Array):
 			new_grouping = Grouping.new(Grouping.SET, tiles_involved)
 		CALL_BITMASK.KAN:
 			new_grouping = Grouping.new(Grouping.SET, tiles_involved)
+		CALL_BITMASK.CLOSED_KAN:
+			new_grouping = Grouping.new(Grouping.SET, tiles_involved)
 	
 	if new_grouping is Grouping:
 		for t in new_grouping.tiles:
@@ -413,9 +440,18 @@ func call_graphic_clicked(bitmask: int, tiles_involved: Array):
 			assert(found != -1, "could not find tile that's meant to exist in hand!")
 			hand.remove_at(found)
 		
-		new_grouping.tiles.append(opp_discard.pop_back())
+		# append final tile
+		if bitmask != CALL_BITMASK.CLOSED_KAN:
+			new_grouping.tiles.append(opp_discard.pop_back())
+		else:
+			new_grouping.tiles.append(tsumo)
+			tsumo = null
+			gui_manager.update_tsumo([null])
 		new_grouping.tiles.sort_custom(Callable(MTile, "tile_compare"))
-		new_grouping.open = true
+		
+		# closed kan stay closed
+		if bitmask != CALL_BITMASK.CLOSED_KAN:
+			new_grouping.open = true
 		called_hand = [new_grouping] + called_hand
 		gui_manager.update_opp_discard(opp_discard)
 		gui_manager.update_hand(hand)
@@ -423,7 +459,7 @@ func call_graphic_clicked(bitmask: int, tiles_involved: Array):
 	
 	
 	call_sfx_player.play()
-	if bitmask == CALL_BITMASK.KAN:
+	if bitmask == CALL_BITMASK.KAN or bitmask == CALL_BITMASK.CLOSED_KAN:
 		do_tsumo()
 	else:
 		do_post_call_discard()

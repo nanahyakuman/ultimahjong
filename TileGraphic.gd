@@ -66,6 +66,9 @@ func set_reversed(rv: bool):
 	_reversed = rv
 	assign_visible_side(visible_side)
 
+func get_reversed():
+	return _reversed
+
 func set_rotated(ud: bool):
 	var _face_upsidedown = ud
 	sprite.rotation = int(_face_upsidedown) * PI

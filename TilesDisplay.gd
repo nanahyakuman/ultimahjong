@@ -2,11 +2,12 @@ extends VBoxContainer
 
 @onready var menu_counts = [$RichTextLabel2, $RichTextLabel4, $RichTextLabel6, $RichTextLabel8]
 
-@onready var tile_counter = $"../../../../MahjongRoot/MahjongManager/TileCounter"
+@onready var mahjong_manager = %MahjongManager
+@onready var tile_counter = mahjong_manager.get_node("TileCounter")
 
 
 func _ready():
-	tile_counter. connect("updated", update_display)
+	tile_counter.connect("updated", update_display)
 	
 	#update_display()
 

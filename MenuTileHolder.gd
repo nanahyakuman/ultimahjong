@@ -3,7 +3,7 @@ extends HBoxContainer
 @export var suit = MTile.SUITS.MAN
 @export var tile_graphic = preload("res://TileGraphic.tscn")
 
-@onready var tile_counter = $"../../../../../MahjongRoot/MahjongManager/TileCounter"
+@onready var tile_counter = $"../../../../../../../../MahjongRoot/MahjongManager/TileCounter"
 
 func _ready():
 	for i in 9 if suit != MTile.SUITS.SPECIAL else MTile.SPECIALS.size()-1:

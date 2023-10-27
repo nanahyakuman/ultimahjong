@@ -1,11 +1,15 @@
 extends Timer
 
-var anim_speed_mod = 3.0
+var anim_speed_mod = 2.0
+var skip = false
 
-func start_get(time: float) -> Timer:
+func start_get(time: float):
+	if skip:
+		return
 	start(time)
-	return self
+	await timeout
+	return
 
-func start_mod(time: float) -> Timer:
-	start(time / anim_speed_mod)
-	return self
+func start_mod(time: float):
+	var ret = await start_get(time / anim_speed_mod)
+	return ret

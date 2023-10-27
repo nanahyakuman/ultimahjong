@@ -23,7 +23,6 @@ final boss on the E-E repeat. probably no repeated seats.
 
 
 
-the two tsumo kans
 doraizing anim when you buy dora, clear feedback as to what it was
 cant hover tiles in made calls
 more expensive shop items
@@ -33,8 +32,8 @@ enter riichi
 upgrade fu
 fu tab updating
 reduce dead wall size upgrade
-
-
+visually indicate closed kans
+winning by tsumo off a post-kan draw might be broken
 
 yaku to implement
 	menzentsumo

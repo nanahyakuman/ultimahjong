@@ -12,8 +12,8 @@ func _ready():
 	
 	start_round()
 	
-	await get_tree().create_timer(2.0).timeout
-	end_round(ScoringInfo.new(), 6)
+#	await get_tree().create_timer(2.0).timeout
+#	end_round(ScoringInfo.new(), 6)
 
 func start_round():
 	shop_root.visible = false
@@ -29,7 +29,7 @@ func end_round(scoring_info: ScoringInfo, multiplier: int):
 	var han = scoring_info.get_total_han()
 	
 	var points = int(fu * pow(2.0, han + 2.0))
-	points = ceili(points / 10.0) * 10
+	points = ceili(points / 1.0) * 1
 	points *= multiplier
 	
 	# 0 points for exhaustive
