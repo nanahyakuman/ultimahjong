@@ -29,19 +29,12 @@ cant hover tiles in made calls
 more expensive shop items
 tsumo call tile hover broken, highlights most recent discard instead of tsumo
 make ura dora more clear
+enter riichi
 upgrade fu
 fu tab updating
-<<<<<<< Updated upstream
 reduce dead wall size upgrade
 
 
-=======
-run info tab? some better grouping for things you upgrade
-win off a pon gives "closed set" fu, should be open
-dominant west didnt count as a win condition in west seat
-aka still miscounted, seems to be open hand related?? misses all closed ones when hand is open
-riichi!!
->>>>>>> Stashed changes
 
 yaku to implement
 	menzentsumo

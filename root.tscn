@@ -108,10 +108,11 @@ script = ExtResource("5_abq0l")
 
 [node name="TileOnTable" type="AudioStreamPlayer" parent="HBoxContainer/MahjongRoot/MahjongManager"]
 stream = ExtResource("6_5a2qq")
-pitch_scale = 1.2
+pitch_scale = 0.3
 
 [node name="CallMade" type="AudioStreamPlayer" parent="HBoxContainer/MahjongRoot/MahjongManager"]
 stream = ExtResource("7_358eq")
+pitch_scale = 0.3
 
 [node name="AnimTimer" type="Timer" parent="HBoxContainer/MahjongRoot/MahjongManager"]
 script = ExtResource("9_r8218")
@@ -589,33 +590,19 @@ theme_override_colors/default_color = Color(0.933333, 0.866667, 0.8, 1)
 bbcode_enabled = true
 fit_content = true
 
-[node name="OpenShopButton" type="TextureButton" parent="HBoxContainer/MahjongRoot/ScoringRoot"]
+[node name="OpenShopButton" type="Button" parent="HBoxContainer/MahjongRoot/ScoringRoot"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -42.0
-offset_top = -57.0
-offset_right = -4.0
-offset_bottom = -41.0
+offset_left = -58.0
+offset_top = -18.0
 grow_horizontal = 0
 grow_vertical = 0
-texture_normal = ExtResource("8_4d1ju")
+text = "Next"
 script = ExtResource("21_8bhal")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 3.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-bbcode_enabled = true
-text = "[center]Next"
 
 [node name="ShopRoot" type="Control" parent="HBoxContainer/MahjongRoot"]
 unique_name_in_owner = true
@@ -674,10 +661,6 @@ script = ExtResource("20_wmn33")
 purchaseable = ExtResource("21_3mckx")
 type = 1
 BUTTONS = 2
-<<<<<<< Updated upstream
-=======
-PER_BUTTON = 2
->>>>>>> Stashed changes
 
 [node name="NextRoundButton" type="Button" parent="HBoxContainer/MahjongRoot/ShopRoot"]
 layout_mode = 1

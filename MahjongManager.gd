@@ -97,10 +97,7 @@ func init_wall():
 		gui_manager.update_wall_count(i)
 		call_sfx_player.play()
 	gui_manager.update_wall_count(wall.size())
-<<<<<<< Updated upstream
 	
-=======
->>>>>>> Stashed changes
 
 func draw_hand():
 	# the chaining looks dopey but it lets us draw by sets of 
