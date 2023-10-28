@@ -29,17 +29,14 @@ script = ExtResource("2_q6058")
 [node name="PanelBuster" type="Control" parent="."]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelBuster"]
+[node name="Label" type="Label" parent="PanelBuster"]
 layout_mode = 2
-offset_top = -1.0
+offset_top = -3.0
 offset_right = 41.0
-offset_bottom = 11.0
+offset_bottom = 12.0
 size_flags_vertical = 0
 mouse_filter = 1
-bbcode_enabled = true
 text = "0"
-fit_content = true
-autowrap_mode = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -53,7 +50,7 @@ mouse_filter = 1
 [node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/TextureHolder"]
 texture = ExtResource("3_q8u56")
 centered = false
-hframes = 2
+hframes = 4
 frame = 1
 
 [node name="Spacer" type="Control" parent="HBoxContainer"]

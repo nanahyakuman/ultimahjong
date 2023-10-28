@@ -3,10 +3,10 @@ class_name Purchaseable
 
 @onready var tile_container = $HBoxContainer/TileContainer
 @export var tile_graphic = preload("res://TileGraphic.tscn")
-@onready var rich_text_label = $PanelBuster/RichTextLabel
 @onready var sprite = $HBoxContainer/TextureHolder/Sprite2D
+@onready var label = $PanelBuster/Label
 
-enum TYPES {AKA, ADD}
+enum TYPES {AKA, ADD, DEAD_REDUCE, KAN_REVEAL}
 var type = null
 var tiles = []
 var hidden_mask = []
@@ -40,25 +40,25 @@ func assign_type(ty: int):
 
 # calc cost based on what is shown. call AFTER assigning type!
 func calc_cost():
-	cost = 0.0
-	for i in tiles.size():
-		if hidden_mask[i]:
-			cost += 2
-		elif tiles[i].suit == MTile.SUITS.SPECIAL:
-			if MTile.DRAGONS.has(tiles[i].value):
-				cost += 5
+	if type == TYPES.AKA or type == TYPES.ADD:
+		cost = 0
+		for i in tiles.size():
+			if hidden_mask[i]:
+				cost += 2
+			elif tiles[i].suit == MTile.SUITS.SPECIAL:
+				if MTile.DRAGONS.has(tiles[i].value):
+					cost += 5
+				else:
+					cost += 4
 			else:
-				cost += 4
-		else:
-			cost += 3
+				cost += 3
+		
+		if type == TYPES.ADD:
+			cost /= 2
+		
+		cost = floori(cost)
 	
-	if type == TYPES.ADD:
-		cost /= 2
-	
-	cost = floori(cost)
-	
-	rich_text_label.clear()
-	rich_text_label.append_text("%d" % cost)
+	label.text = "%d" % cost
 
 
 func _gui_input(event):

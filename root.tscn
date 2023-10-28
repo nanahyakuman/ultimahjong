@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://cilh5sx8o5o8k"]
+[gd_scene load_steps=42 format=3 uid="uid://cilh5sx8o5o8k"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dhu60farhkon0" path="res://TileGraphic.tscn" id="6_3ag2w"]
 [ext_resource type="AudioStream" uid="uid://crkug05d3uk76" path="res://audio/sfx/tap.wav" id="6_5a2qq"]
 [ext_resource type="AudioStream" uid="uid://fs4fwi2wiaj7" path="res://audio/sfx/taps.wav" id="7_358eq"]
+[ext_resource type="Script" path="res://Upgrades.gd" id="7_i15dy"]
 [ext_resource type="Texture2D" uid="uid://bu7eiaj3nnu51" path="res://image/sittingwindindicator.png" id="8_00qj1"]
 [ext_resource type="Texture2D" uid="uid://bmqa5eyuh48qx" path="res://image/call_indicator.png" id="8_4d1ju"]
 [ext_resource type="Script" path="res://HandGUI.gd" id="8_4hll1"]
@@ -103,6 +104,9 @@ script = ExtResource("4_k3lw2")
 
 [node name="TileCounter" type="Node" parent="HBoxContainer/MahjongRoot/MahjongManager"]
 script = ExtResource("5_abq0l")
+
+[node name="Upgrades" type="Node" parent="HBoxContainer/MahjongRoot/MahjongManager"]
+script = ExtResource("7_i15dy")
 
 [node name="TileOnTable" type="AudioStreamPlayer" parent="HBoxContainer/MahjongRoot/MahjongManager"]
 stream = ExtResource("6_5a2qq")
@@ -562,6 +566,10 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_l6in4")
 bbcode_enabled = true
 fit_content = true
 
+[node name="Control" type="Control" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
 [node name="Fu" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer"]
 layout_mode = 2
 
@@ -603,7 +611,6 @@ script = ExtResource("21_8bhal")
 
 [node name="ShopRoot" type="Control" parent="HBoxContainer/MahjongRoot"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -658,6 +665,27 @@ script = ExtResource("20_wmn33")
 purchaseable = ExtResource("21_3mckx")
 type = 1
 BUTTONS = 2
+PER_BUTTON = 2
+
+[node name="DeadWallPurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+script = ExtResource("20_wmn33")
+purchaseable = ExtResource("21_3mckx")
+type = 2
+BUTTONS = 1
+PER_BUTTON = 0
+
+[node name="KanRevealPurchaseables2" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+script = ExtResource("20_wmn33")
+purchaseable = ExtResource("21_3mckx")
+type = 3
+BUTTONS = 1
+PER_BUTTON = 0
 
 [node name="NextRoundButton" type="Button" parent="HBoxContainer/MahjongRoot/ShopRoot"]
 layout_mode = 1
@@ -725,7 +753,159 @@ grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
 
+[node name="Run" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/Run"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("28_jde07")
+
+[node name="Tiles" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Spacer" type="Control" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer"]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+
+[node name="TilesDisplay" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer"]
+layout_mode = 2
+script = ExtResource("13_egxkc")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]Man[/b]"
+fit_content = true
+
+[node name="MenuTileHolder" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 4
+script = ExtResource("11_gc23v")
+
+[node name="RichTextLabel2" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+layout_mode = 2
+text = "4+0 4+0 4+0 4+0 3+1 4+0 4+0 4+0 4+0 "
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]Pin[/b]"
+fit_content = true
+
+[node name="MenuTileHolder2" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 4
+script = ExtResource("11_gc23v")
+suit = 2
+
+[node name="RichTextLabel4" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+layout_mode = 2
+text = "4+0 4+0 4+0 4+0 3+1 4+0 4+0 4+0 4+0 "
+
+[node name="RichTextLabel5" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]Sou[/b]"
+fit_content = true
+
+[node name="MenuTileHolder3" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 4
+script = ExtResource("11_gc23v")
+suit = 4
+
+[node name="RichTextLabel6" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+layout_mode = 2
+text = "4+0 4+0 4+0 4+0 3+1 4+0 4+0 4+0 4+0 "
+
+[node name="RichTextLabel7" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]Honor[/b]"
+fit_content = true
+
+[node name="MenuTileHolder4" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 4
+script = ExtResource("11_gc23v")
+suit = 8
+
+[node name="RichTextLabel8" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+layout_mode = 2
+text = "4+0 4+0 4+0 4+0 4+0 4+0 4+0"
+
+[node name="Fu" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Fu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/table_h_separation = 10
+bbcode_enabled = true
+text = "[b]Special[/b]
+Assorted Fu awards.
+Base: 20
+Closed Ron: 10
+Win by tsumo: 2
+Chiitoitsu: exactly 25
+
+[b]Dora[/b]
+[table=2]
+[cell]Aka Dora[/cell][cell]16[/cell]
+[cell]Kan Dora[/cell][cell]16[/cell]
+[cell]Ura Dora[/cell][cell]16[/cell]
+[/table]
+
+[b]Grouping[/b]
+Fu awarded for each grouping in your hand.
+[table=3]
+[cell]Type[/cell][cell]Normal[/cell][cell]Yakuhai[/cell]
+[cell]Any Run[/cell][cell]0[/cell][cell]N/A[/cell]
+[cell]Any Pair[/cell][cell]0[/cell][cell]2[/cell]
+[cell]Open Set[/cell][cell]2[/cell][cell]4[/cell]
+[cell]Closed Set[/cell][cell]4[/cell][cell]8[/cell]
+[cell]Open Quad[/cell][cell]8[/cell][cell]16[/cell]
+[cell]Closed Quad[/cell][cell]16[/cell][cell]32[/cell]
+[/table]
+
+[b]Waits[/b]
+Fu awarded for your final wait. See Guide/Waits for more info.
+[table=2]
+[cell]1-sided[/cell][cell]2[/cell]
+[cell]2-sided[/cell][cell]0[/cell]
+[cell]>=3-sided[/cell][cell]0[/cell]
+[/table]"
+
+[node name="Upgrades" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Upgrades"]
+layout_mode = 0
+offset_right = 17.0
+offset_bottom = 40.0
+
 [node name="Yaku" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/Yaku"]
@@ -839,159 +1019,6 @@ text = "[b]Have not done this tab lol[/b]
 sample text sample text
 "
 
-[node name="Run" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
-visible = false
-layout_mode = 2
-
-[node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/Run"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("28_jde07")
-tab_alignment = 1
-
-[node name="Fu" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer"]
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Fu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/table_h_separation = 10
-bbcode_enabled = true
-text = "[b]Special[/b]
-Assorted Fu awards.
-Base: 20
-Closed Ron: 10
-Win by tsumo: 2
-Chiitoitsu: exactly 25
-
-[b]Dora[/b]
-[table=2]
-[cell]Aka Dora[/cell][cell]16[/cell]
-[cell]Kan Dora[/cell][cell]16[/cell]
-[cell]Ura Dora[/cell][cell]16[/cell]
-[/table]
-
-[b]Grouping[/b]
-Fu awarded for each grouping in your hand.
-[table=3]
-[cell]Type[/cell][cell]Normal[/cell][cell]Yakuhai[/cell]
-[cell]Any Run[/cell][cell]0[/cell][cell]N/A[/cell]
-[cell]Any Pair[/cell][cell]0[/cell][cell]2[/cell]
-[cell]Open Set[/cell][cell]2[/cell][cell]4[/cell]
-[cell]Closed Set[/cell][cell]4[/cell][cell]8[/cell]
-[cell]Open Quad[/cell][cell]8[/cell][cell]16[/cell]
-[cell]Closed Quad[/cell][cell]16[/cell][cell]32[/cell]
-[/table]
-
-[b]Waits[/b]
-Fu awarded for your final wait. See Guide/Waits for more info.
-[table=2]
-[cell]1-sided[/cell][cell]2[/cell]
-[cell]2-sided[/cell][cell]0[/cell]
-[cell]>=3-sided[/cell][cell]0[/cell]
-[/table]"
-
-[node name="Tiles" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer"]
-visible = false
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Spacer" type="Control" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer"]
-custom_minimum_size = Vector2(8, 0)
-layout_mode = 2
-
-[node name="TilesDisplay" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer"]
-layout_mode = 2
-script = ExtResource("13_egxkc")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
-layout_mode = 2
-bbcode_enabled = true
-text = "[b]Man[/b]"
-fit_content = true
-
-[node name="MenuTileHolder" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-theme_override_constants/separation = 4
-script = ExtResource("11_gc23v")
-
-[node name="RichTextLabel2" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
-layout_mode = 2
-text = "4+0 4+0 4+0 4+0 3+1 4+0 4+0 4+0 4+0 "
-
-[node name="RichTextLabel3" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
-layout_mode = 2
-bbcode_enabled = true
-text = "[b]Pin[/b]"
-fit_content = true
-
-[node name="MenuTileHolder2" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-theme_override_constants/separation = 4
-script = ExtResource("11_gc23v")
-suit = 2
-
-[node name="RichTextLabel4" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
-layout_mode = 2
-text = "4+0 4+0 4+0 4+0 3+1 4+0 4+0 4+0 4+0 "
-
-[node name="RichTextLabel5" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
-layout_mode = 2
-bbcode_enabled = true
-text = "[b]Sou[/b]"
-fit_content = true
-
-[node name="MenuTileHolder3" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-theme_override_constants/separation = 4
-script = ExtResource("11_gc23v")
-suit = 4
-
-[node name="RichTextLabel6" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
-layout_mode = 2
-text = "4+0 4+0 4+0 4+0 3+1 4+0 4+0 4+0 4+0 "
-
-[node name="RichTextLabel7" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
-layout_mode = 2
-bbcode_enabled = true
-text = "[b]Honor[/b]"
-fit_content = true
-
-[node name="MenuTileHolder4" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-theme_override_constants/separation = 4
-script = ExtResource("11_gc23v")
-suit = 8
-
-[node name="RichTextLabel8" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
-layout_mode = 2
-text = "4+0 4+0 4+0 4+0 4+0 4+0 4+0"
-
-[node name="Upgrades" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer"]
-visible = false
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Upgrades"]
-layout_mode = 0
-offset_right = 17.0
-offset_bottom = 40.0
-
 [node name="Guide" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
 visible = false
 layout_mode = 2
@@ -1071,8 +1098,8 @@ grow_horizontal = 2
 grow_vertical = 2
 bbcode_enabled = true
 text = "The base value of a hand is defined by:
-	fu×2^(2+han),
-rounded up to the nearest 10. This is then multiplied by 6 if in the East seat, else by 4.
+	fu×2^(2+han)
+This is then multiplied by 6 if in the East seat, else by 4, then finally rounded up to the nearest 10.
 
 Han, aka \"doublers\", are the real determining factor in a score. They are the sum of han from yaku met and the amount of dora tiles in hand.
 

@@ -16,9 +16,9 @@ content_margin_bottom = 0.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w20fb"]
 bg_color = Color(0.266667, 0.2, 0.2, 1)
-border_width_left = 1
-border_width_right = 1
-border_width_bottom = 1
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 2
 border_color = Color(0.133333, 0.133333, 0.133333, 1)
 anti_aliasing = false
 

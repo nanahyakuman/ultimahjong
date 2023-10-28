@@ -11,16 +11,11 @@ class_name MahjongManager
 @onready var call_sfx_player = $CallMade
 @onready var root = $"../../.."
 @onready var anim_timer = $AnimTimer
+@onready var upgrades = $Upgrades
 
-# how many discards inbetween each player draw
-var OPPONENT_DISCARDS = 3
-# how many kan tiles to draw
-var KAN_SIZE = 5
 # base size of the hand
-var BASE_HAND_SIZE = 13
-#  amount of tiles to kill at the start. (it's the present value * 3).
-# this should be an even number or the dead wall display will break
-var TILES_DEAD_PER_4_PLAYER_DRAWS = 12
+const BASE_HAND_SIZE = 13
+
 
 var wall = [] # of `MTile`s
 var hand = [] # of `MTile`s
@@ -60,7 +55,7 @@ func start_round():
 	
 	await anim_timer.start_mod(.15)
 	
-	for i in KAN_SIZE:
+	for i in upgrades.get_kan_size():
 		await anim_timer.start_mod(.1)
 		tile_sfx_player.play()
 		draw_kan_dora()
@@ -110,7 +105,7 @@ func draw_hand():
 		hand.append(get_next_from_wall())
 		call_sfx_player.play()
 		update_hand_label()
-		for j in TILES_DEAD_PER_4_PLAYER_DRAWS/4:
+		for j in (upgrades.get_dead_tiles())/4:
 			await anim_timer.start_mod(.15)
 			get_next_from_wall()
 			get_next_from_wall()
@@ -118,11 +113,11 @@ func draw_hand():
 			get_next_from_wall()
 			gui_manager.increment_dead_wall_count(4)
 			call_sfx_player.play()
-		if TILES_DEAD_PER_4_PLAYER_DRAWS%4 != 0:
+		if (upgrades.get_dead_tiles())%4 != 0:
 			await anim_timer.start_mod(.15)
-			for j in TILES_DEAD_PER_4_PLAYER_DRAWS%4:
+			for j in (upgrades.get_dead_tiles())%4:
 				get_next_from_wall()
-			gui_manager.increment_dead_wall_count(TILES_DEAD_PER_4_PLAYER_DRAWS%4)
+			gui_manager.increment_dead_wall_count((upgrades.get_dead_tiles())%4)
 			call_sfx_player.play()
 	
 	if BASE_HAND_SIZE%4 != 0:
@@ -132,21 +127,21 @@ func draw_hand():
 			hand.append(get_next_from_wall())
 		update_hand_label()
 	
-	var temp = []
-	
-	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-	temp.append(MTile.new(MTile.SUITS.MAN, 2))
-	temp.append(MTile.new(MTile.SUITS.MAN, 2))
-	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+#	var temp = []
+#
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
@@ -161,17 +156,20 @@ func draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.MAN, 9))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 9, true))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 9))
-	hand = temp
+
+#	hand = temp
 	update_hand_label()
 	
 
 func draw_kan_dora():
 	kan_dora.append(get_next_from_wall())
 	ura_dora.append(get_next_from_wall())
-	gui_manager.update_kan_dora(kan_dora, KAN_SIZE - revealed_kan_dora)
+	gui_manager.update_kan_dora(kan_dora, upgrades.get_kan_size() - revealed_kan_dora)
+	
+	revealed_kan_dora = upgrades.get_kan_revealed()
 	
 	var revealed_dora_ids = []
-	for i in range(KAN_SIZE-revealed_kan_dora, kan_dora.size()):
+	for i in range(upgrades.get_kan_size() - revealed_kan_dora, kan_dora.size()):
 		for id in kan_dora[i].get_dora_id():
 			revealed_dora_ids.append(id)
 	TileGraphicKnower.update_dora_ids(revealed_dora_ids)
@@ -181,7 +179,7 @@ func draw_kan_dora():
 ## which recursively calls either itself or `do_tsumo` or "do_post_call_discard`
 ## depending on if calls are made.
 func start_rotation(discard_override = null):
-	remaining_opp_discards = discard_override if discard_override != null else OPPONENT_DISCARDS
+	remaining_opp_discards = discard_override if discard_override != null else upgrades.get_discard_count()
 	do_opp_discard()
 
 func do_tsumo():
@@ -530,11 +528,11 @@ func end_round(win_is_tsumo_not_ron = false):
 #	if called_hand.size() == 0:
 #		for t in revealed_kan_dora:
 #			doras.append(ura_dora[-t].get_dora_id())
-	for i in range(KAN_SIZE-revealed_kan_dora, kan_dora.size()):
+	for i in range(upgrades.get_kan_size()-revealed_kan_dora, kan_dora.size()):
 		for id in kan_dora[i].get_dora_id():
 			omote_doras.append(id)
-	if hand_is_open:
-		for i in range(KAN_SIZE-revealed_kan_dora, kan_dora.size()):
+	if !hand_is_open():
+		for i in range(upgrades.get_kan_size()-revealed_kan_dora, kan_dora.size()):
 			for id in ura_dora[i].get_dora_id():
 				ura_doras.append(id)
 	var doras = [omote_doras, ura_doras]
@@ -563,7 +561,10 @@ func end_round(win_is_tsumo_not_ron = false):
 
 
 func hand_is_open():
-	return called_hand.size() > 0
+	for g in called_hand:
+		if g.open:
+			return true
+	return false
 
 
 func first_by_id(id: int, tiles: Array) -> int:

@@ -2,6 +2,7 @@ extends HBoxContainer
 
 @onready var mahjong_manager = %MahjongManager
 @onready var tile_counter = mahjong_manager.tile_counter
+@onready var upgrades = mahjong_manager.upgrades
 @onready var shop_root = %ShopRoot
 
 @export var purchaseable: PackedScene
@@ -26,7 +27,10 @@ func start():
 		add_child(a)
 		var hidden = mini(randi()%(PER_BUTTON+1),randi()%(PER_BUTTON+1))
 		hidden = mini(randi()%(PER_BUTTON+1), hidden)
-		a.assign_tiles(akas[i], hidden)
+		if akas:
+			a.assign_tiles(akas[i], hidden)
+		else:
+			a.assign_tiles([], 0)
 		a.assign_type(type)
 		a.calc_cost()
 	
@@ -54,5 +58,9 @@ func pressed(node: Purchaseable):
 		Purchaseable.TYPES.ADD:
 			for t in node.tiles:
 				tile_counter.increment_tile(t)
+		Purchaseable.TYPES.DEAD_REDUCE:
+			upgrades.dead_wall_size_reduce += 2
+		Purchaseable.TYPES.KAN_REVEAL:
+			upgrades.additional_revealed_kandora += 1
 	
 	return true

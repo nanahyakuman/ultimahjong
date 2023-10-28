@@ -8,6 +8,10 @@ const DEF_SPECIALS = [SPECIALS.EAST, SPECIALS.SOUTH, SPECIALS.WEST, SPECIALS.NOR
 # for easy lookup with `has()`
 const DRAGONS = [SPECIALS.HAKU, SPECIALS.HATSU, SPECIALS.CHUN, SPECIALS.KIN]
 
+# human readable name
+const SUIT_NAMES = ["NONE", "MAN", "PIN", 0, "SOU"]
+const SPECIAL_NAMES = ["NONE", "EAST", "SOUTH", "WEST", "NORTH", "UP", "HAKU", "HATSU", "CHUN", "KIN"]
+
 var suit: int
 var value: int
 
@@ -20,6 +24,9 @@ func _init(s:int,v:int,a:bool = false):
 
 func get_id():
 	return MTile.gen_id(suit, value)
+
+func get_name():
+	return MTile.gen_name(self)
 
 #  `chi_sets` returns neighbors and superneighbors in order, to make
 # it easy to check for chis.
@@ -73,3 +80,9 @@ static func gen_order(t: MTile):
 
 static func tile_compare(a:MTile, b:MTile):
 	return gen_order(a) < gen_order(b)
+
+static func gen_name(tile: MTile):
+	if tile.suit == SUITS.SPECIAL:
+		return SPECIAL_NAMES[tile.value]
+	else:
+		return str(tile.value + SUIT_NAMES[tile.suit])

@@ -8,7 +8,9 @@ var MONEY_PER_ROUND = 10
 @onready var cash_label = $"../GUIManager/TableTop/HBoxContainer/CashLabel"
 @onready var to_be_started = [
 	$VBoxContainer/AkaPurchaseables,
-	$VBoxContainer/TilePurchaseables
+	$VBoxContainer/TilePurchaseables,
+	$VBoxContainer/DeadWallPurchaseables,
+	$VBoxContainer/KanRevealPurchaseables2
 ]
 
 func start():
