@@ -55,10 +55,14 @@ func assign_visible_side(side: int):
 	visible_side = side
 	if side == -1:
 		sides.visible = false
+		sim_tile_highlight.frame = 4
 	elif !_reversed:
 		sides.frame = side
+		sim_tile_highlight.frame = side
 	else:
 		sides.frame = 4 + side
+		sim_tile_highlight.frame = side
+	
 	
 	sprite.visible = !_reversed
 

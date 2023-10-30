@@ -31,9 +31,9 @@ make ura dora more clear
 enter riichi
 upgrade fu
 fu tab updating
-reduce dead wall size upgrade
 visually indicate closed kans
 winning by tsumo off a post-kan draw might be broken
+
 
 yaku to implement
 	menzentsumo

@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cilh5sx8o5o8k"]
+[gd_scene load_steps=48 format=3 uid="uid://cilh5sx8o5o8k"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -27,6 +27,7 @@
 [ext_resource type="Script" path="res://CallGraphic.gd" id="13_wfhtv"]
 [ext_resource type="Script" path="res://GraphicTileCounter.gd" id="13_x2gyd"]
 [ext_resource type="Texture2D" uid="uid://ch4nr70j7xj74" path="res://image/tilecounter_end_odd.png" id="15_tgg3l"]
+[ext_resource type="Script" path="res://CursorTextRequester.gd" id="16_8lthm"]
 [ext_resource type="Script" path="res://ShopRoot.gd" id="19_bnl3p"]
 [ext_resource type="Texture2D" uid="uid://bxt2na0s3mabw" path="res://image/call_indicator_gold.png" id="19_idqi3"]
 [ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="20_ib16c"]
@@ -36,9 +37,10 @@
 [ext_resource type="Script" path="res://NextRoundButton.gd" id="21_roajs"]
 [ext_resource type="Script" path="res://ScoringRoot.gd" id="21_yhd2i"]
 [ext_resource type="FontFile" uid="uid://dmoumxbcf3gn" path="res://text/font/Body2.png" id="28_jde07"]
-[ext_resource type="Texture2D" uid="uid://c30qiclh2lxb4" path="res://image/cursor.png" id="30_7lply"]
 [ext_resource type="Script" path="res://Cursor.gd" id="31_y04dm"]
 [ext_resource type="Texture2D" uid="uid://blxlrv0jsh5hx" path="res://image/tilecounter_end_even.png" id="33_ykpb6"]
+[ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="38_n0b1y"]
+[ext_resource type="Texture2D" uid="uid://ng8eqocmaltm" path="res://image/sidebar_tiles_9pr.png" id="39_1otd6"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_122ig"]
 content_margin_left = 8.0
@@ -54,6 +56,35 @@ axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l6in4"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_02wl1"]
+content_margin_top = 0.0
+content_margin_bottom = 2.0
+texture = ExtResource("39_1otd6")
+texture_margin_left = 2.0
+texture_margin_top = 3.0
+texture_margin_right = 2.0
+texture_margin_bottom = 1.0
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t3qve"]
+content_margin_left = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vhwba"]
+content_margin_top = 1.0
+content_margin_bottom = 4.0
+texture = ExtResource("38_n0b1y")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_ytvxj"]
+line_spacing = 0.0
 
 [node name="Root" type="Control"]
 texture_filter = 1
@@ -271,6 +302,7 @@ script = ExtResource("8_4hll1")
 [node name="Tsumo" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager/All/SideSpacers/Tiles/HBoxContainer"]
 custom_minimum_size = Vector2(16, 32)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 
 [node name="Spacer2" type="Control" parent="HBoxContainer/MahjongRoot/GUIManager/All/SideSpacers"]
 custom_minimum_size = Vector2(16, 16)
@@ -300,6 +332,8 @@ layout_mode = 2
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_vertical = 4
+script = ExtResource("16_8lthm")
+hover_text = "The Prevalent Wind."
 
 [node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/MahjongRoot/GUIManager/All/TextureRect/HBoxContainer/RoundWind"]
 texture = ExtResource("8_heinv")
@@ -310,6 +344,8 @@ vframes = 4
 custom_minimum_size = Vector2(64, 24)
 layout_mode = 2
 size_flags_vertical = 4
+script = ExtResource("16_8lthm")
+hover_text = "The Sitting Wind."
 
 [node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/MahjongRoot/GUIManager/All/TextureRect/HBoxContainer/SittingWind"]
 texture = ExtResource("8_00qj1")
@@ -513,6 +549,7 @@ texture = ExtResource("13_qhnc0")
 script = ExtResource("13_wfhtv")
 
 [node name="ScoringRoot" type="Control" parent="HBoxContainer/MahjongRoot"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -611,6 +648,7 @@ script = ExtResource("21_8bhal")
 
 [node name="ShopRoot" type="Control" parent="HBoxContainer/MahjongRoot"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -655,7 +693,6 @@ alignment = 1
 script = ExtResource("20_wmn33")
 purchaseable = ExtResource("21_3mckx")
 BUTTONS = 2
-PER_BUTTON = 2
 
 [node name="TilePurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
 layout_mode = 2
@@ -665,7 +702,7 @@ script = ExtResource("20_wmn33")
 purchaseable = ExtResource("21_3mckx")
 type = 1
 BUTTONS = 2
-PER_BUTTON = 2
+PER_BUTTON = 4
 
 [node name="DeadWallPurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
 layout_mode = 2
@@ -769,25 +806,27 @@ theme_override_fonts/font = ExtResource("28_jde07")
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Spacer" type="Control" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer"]
-custom_minimum_size = Vector2(8, 0)
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
 
 [node name="TilesDisplay" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer"]
 layout_mode = 2
 script = ExtResource("13_egxkc")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+[node name="Control" type="Control" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
-bbcode_enabled = true
-text = "[b]Man[/b]"
-fit_content = true
 
-[node name="MenuTileHolder" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_02wl1")
+
+[node name="MenuTileHolder" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay/PanelContainer"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 4
@@ -795,15 +834,14 @@ script = ExtResource("11_gc23v")
 
 [node name="RichTextLabel2" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_t3qve")
 text = "4+0 4+0 4+0 4+0 3+1 4+0 4+0 4+0 4+0 "
 
-[node name="RichTextLabel3" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+[node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
 layout_mode = 2
-bbcode_enabled = true
-text = "[b]Pin[/b]"
-fit_content = true
+theme_override_styles/panel = SubResource("StyleBoxTexture_02wl1")
 
-[node name="MenuTileHolder2" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+[node name="MenuTileHolder" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay/PanelContainer2"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 4
@@ -812,15 +850,14 @@ suit = 2
 
 [node name="RichTextLabel4" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_t3qve")
 text = "4+0 4+0 4+0 4+0 3+1 4+0 4+0 4+0 4+0 "
 
-[node name="RichTextLabel5" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+[node name="PanelContainer3" type="PanelContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
 layout_mode = 2
-bbcode_enabled = true
-text = "[b]Sou[/b]"
-fit_content = true
+theme_override_styles/panel = SubResource("StyleBoxTexture_02wl1")
 
-[node name="MenuTileHolder3" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+[node name="MenuTileHolder" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay/PanelContainer3"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 4
@@ -829,15 +866,14 @@ suit = 4
 
 [node name="RichTextLabel6" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_t3qve")
 text = "4+0 4+0 4+0 4+0 3+1 4+0 4+0 4+0 4+0 "
 
-[node name="RichTextLabel7" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+[node name="PanelContainer4" type="PanelContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
 layout_mode = 2
-bbcode_enabled = true
-text = "[b]Honor[/b]"
-fit_content = true
+theme_override_styles/panel = SubResource("StyleBoxTexture_02wl1")
 
-[node name="MenuTileHolder4" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+[node name="MenuTileHolder" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay/PanelContainer4"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 4
@@ -846,6 +882,7 @@ suit = 8
 
 [node name="RichTextLabel8" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_t3qve")
 text = "4+0 4+0 4+0 4+0 4+0 4+0 4+0"
 
 [node name="Fu" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer"]
@@ -1112,11 +1149,20 @@ tab_size = 2
 visible = false
 layout_mode = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="CursorText" type="PanelContainer" parent="."]
+unique_name_in_owner = true
 visible = false
-texture = ExtResource("30_7lply")
-centered = false
+layout_mode = 0
+offset_right = 198.0
+offset_bottom = 17.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_vhwba")
 script = ExtResource("31_y04dm")
+
+[node name="Label" type="Label" parent="CursorText"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Reduce the size of the dead wall by 1."
+label_settings = SubResource("LabelSettings_ytvxj")
 
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" to="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" method="_on_pressed"]
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" to="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" method="_on_pressed"]

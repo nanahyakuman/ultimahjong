@@ -101,6 +101,8 @@ centered = false
 visible = false
 position = Vector2(8, 13)
 texture = ExtResource("4_2lunx")
+hframes = 5
+frame = 3
 
 [node name="RedTileHighlight" type="Sprite2D" parent="."]
 visible = false

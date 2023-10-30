@@ -59,7 +59,11 @@ layout_mode = 2
 
 [node name="TileContainer" type="HBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 alignment = 1
 
 [node name="TileGraphic" parent="HBoxContainer/TileContainer" instance=ExtResource("5_v11np")]
 layout_mode = 2
+
+[connection signal="mouse_entered" from="." to="." method="_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_mouse_exit"]

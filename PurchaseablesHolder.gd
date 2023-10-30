@@ -4,6 +4,7 @@ extends HBoxContainer
 @onready var tile_counter = mahjong_manager.tile_counter
 @onready var upgrades = mahjong_manager.upgrades
 @onready var shop_root = %ShopRoot
+@onready var cursor_text = %CursorText
 
 @export var purchaseable: PackedScene
 
@@ -64,3 +65,7 @@ func pressed(node: Purchaseable):
 			upgrades.additional_revealed_kandora += 1
 	
 	return true
+
+
+func hovered(node: Purchaseable, yes: bool):
+	cursor_text.set_text(node.HOVER_TEXTS[node.type] if yes else "")

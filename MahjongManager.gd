@@ -12,6 +12,7 @@ class_name MahjongManager
 @onready var root = $"../../.."
 @onready var anim_timer = $AnimTimer
 @onready var upgrades = $Upgrades
+@onready var hand_gui = $"../GUIManager/All/SideSpacers/Tiles/HBoxContainer/Hand"
 
 # base size of the hand
 const BASE_HAND_SIZE = 13
@@ -33,7 +34,8 @@ var prevalent_wind = -1
 var seat_wind = -3 # incremented at start of round
 
 enum {STATE_ACTIONABLE, STATE_ANIMATING, STATE_CALLS}
-var state = STATE_ANIMATING
+# use `set_state` onegaishimasu
+var _state = STATE_ANIMATING
 #  i dont like this being global but its the easist way to make
 # this work
 var remaining_opp_discards
@@ -95,37 +97,35 @@ func init_wall():
 	
 
 func draw_hand():
-	# the chaining looks dopey but it lets us draw by sets of 
-	# 4 (admittedly mostly for effect).
-	for i in int(BASE_HAND_SIZE/4):
+	for j in upgrades.get_dead_tiles()/4:
 		await anim_timer.start_mod(.15)
-		hand.append(get_next_from_wall())
-		hand.append(get_next_from_wall())
-		hand.append(get_next_from_wall())
+		get_next_from_wall()
+		get_next_from_wall()
+		get_next_from_wall()
+		get_next_from_wall()
+		gui_manager.increment_dead_wall_count(4)
+		call_sfx_player.play()
+	
+	if upgrades.get_dead_tiles()%4 != 0:
+		await anim_timer.start_mod(.15)
+		for j in upgrades.get_dead_tiles()%4:
+			get_next_from_wall()
+		gui_manager.increment_dead_wall_count(upgrades.get_dead_tiles()%4)
+		call_sfx_player.play()
+	
+	await anim_timer.start_mod(.15)
+	
+	for i in BASE_HAND_SIZE:
+		await anim_timer.start_mod(.07)
 		hand.append(get_next_from_wall())
 		call_sfx_player.play()
-		update_hand_label()
-		for j in (upgrades.get_dead_tiles())/4:
-			await anim_timer.start_mod(.15)
-			get_next_from_wall()
-			get_next_from_wall()
-			get_next_from_wall()
-			get_next_from_wall()
-			gui_manager.increment_dead_wall_count(4)
-			call_sfx_player.play()
-		if (upgrades.get_dead_tiles())%4 != 0:
-			await anim_timer.start_mod(.15)
-			for j in (upgrades.get_dead_tiles())%4:
-				get_next_from_wall()
-			gui_manager.increment_dead_wall_count((upgrades.get_dead_tiles())%4)
-			call_sfx_player.play()
+		update_hand_label(true)
 	
-	if BASE_HAND_SIZE%4 != 0:
-		await anim_timer.start_mod(.15)
-		tile_sfx_player.play()
-		for i in BASE_HAND_SIZE%4:
-			hand.append(get_next_from_wall())
-		update_hand_label()
+	await anim_timer.start_mod(.15)
+	call_sfx_player.play()
+	update_hand_label()
+	
+#	print(wall.size())
 	
 #	var temp = []
 #
@@ -158,7 +158,7 @@ func draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.MAN, 9))
 
 #	hand = temp
-	update_hand_label()
+#	update_hand_label()
 	
 
 func draw_kan_dora():
@@ -183,7 +183,6 @@ func start_rotation(discard_override = null):
 	do_opp_discard()
 
 func do_tsumo():
-	state = STATE_ACTIONABLE
 	tsumo = get_next_from_wall()
 #	tsumo = MTile.new(MTile.SUITS.MAN, 1)
 	if !tsumo:
@@ -191,18 +190,20 @@ func do_tsumo():
 	gui_manager.update_tsumo([tsumo])
 	tile_sfx_player.play()
 	
+	set_state(STATE_ACTIONABLE)
+	
 	# tsumo agari, also kan check
 	do_if_can_tsumo()
 
 
 func do_post_call_discard():
-	state = STATE_ACTIONABLE
+	set_state(STATE_ACTIONABLE)
 
 
 #  discard 1 tile, prompt calls if appropriate, recurse/go to player
 # draw if not
 func do_opp_discard():
-	state = STATE_ANIMATING
+	set_state(STATE_ANIMATING)
 	await anim_timer.start_mod(.2)
 	
 	if remaining_opp_discards == 0:
@@ -233,7 +234,7 @@ func do_opp_discard():
 	if call_bitmask != 0:
 		#  switching state like this means that only calls are taken as 
 		# input
-		state = STATE_CALLS
+		set_state(STATE_CALLS)
 		calls_manager.enable_calls(call_bitmask, tiles_involved_in_call)
 	else:
 		do_opp_discard()
@@ -397,13 +398,13 @@ func do_if_can_tsumo():
 		involved[CALL_BITMASK.CLOSED_KAN] = firstthree
 	
 	if btm:
-		state = STATE_CALLS
+		set_state(STATE_CALLS)
 		calls_manager.enable_calls(btm, involved)
 
 
 # called when a cpkr call is made, including passing the call
 func call_graphic_clicked(bitmask: int, tiles_involved: Array):
-	assert(state == STATE_CALLS, "call somehow made in non-calling state. this is bad!")
+	assert(_state == STATE_CALLS, "call somehow made in non-calling state. this is bad!")
 	
 	var new_grouping
 	match bitmask:
@@ -411,7 +412,7 @@ func call_graphic_clicked(bitmask: int, tiles_involved: Array):
 			#  if were cancelling tsumo, just continue play,
 			# else continue discarding
 			if tsumo != null:
-				state = STATE_ACTIONABLE
+				set_state(STATE_ACTIONABLE)
 			else:
 				do_opp_discard()
 			return
@@ -464,7 +465,7 @@ func call_graphic_clicked(bitmask: int, tiles_involved: Array):
 
 # right click to close call menu
 func _input(event):
-	if state == STATE_CALLS:
+	if _state == STATE_CALLS:
 		if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 				call_graphic_clicked(CALL_BITMASK.NONE, [])
@@ -479,7 +480,7 @@ func _input(event):
 # for tiles in hand, we know that if a tile is clicked
 # it's in hand.
 func tile_graphic_clicked(tile: MTile):
-	if state == STATE_ACTIONABLE:
+	if _state == STATE_ACTIONABLE:
 		draw_and_discard(tile)
 
 func draw_and_discard_index(i: int):
@@ -505,8 +506,9 @@ func draw_and_discard(discardee: MTile):
 	TileGraphicKnower.highlight_matching_tiles(discardee, false)
 	start_rotation()
 
-func update_hand_label():
-	hand.sort_custom(Callable(MTile, "tile_compare"))
+func update_hand_label(override_sort = false):
+	if !override_sort:
+		hand.sort_custom(Callable(MTile, "tile_compare"))
 	gui_manager.update_hand(hand)
 
 
@@ -559,6 +561,14 @@ func end_round(win_is_tsumo_not_ron = false):
 	# moved to root temporarily(?)
 	#TileGraphicKnower.update_dora_ids([])
 
+
+func set_state(new_state: int):
+	if _state == new_state:
+		return
+	
+	_state = new_state
+	
+	hand_gui.do_hover_cursor(_state == STATE_ACTIONABLE)
 
 func hand_is_open():
 	for g in called_hand:

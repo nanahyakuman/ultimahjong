@@ -7,6 +7,7 @@ class_name Purchaseable
 @onready var label = $PanelBuster/Label
 
 enum TYPES {AKA, ADD, DEAD_REDUCE, KAN_REVEAL}
+const HOVER_TEXTS = ["Convert tiles to aka.", "Add tiles to wall.", "Reduce the number of tiles killed at the start of a round.", "Start with additional kan dora revealed."]
 var type = null
 var tiles = []
 var hidden_mask = []
@@ -65,4 +66,11 @@ func _gui_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			if get_parent().pressed(self):
+				get_parent().hovered(self, false)
 				queue_free()
+	
+func _mouse_entered():
+	get_parent().hovered(self, true)
+
+func _mouse_exit():
+	get_parent().hovered(self, false)
