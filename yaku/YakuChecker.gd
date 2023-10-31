@@ -1,6 +1,7 @@
 extends Node
 class_name YakuChecker
 @onready var mahjong_manager = %MahjongManager
+@onready var ALL_YAKU = $"../YakuFu"
 
 
 # hand should be sorted by MTile id.
@@ -185,14 +186,13 @@ func get_fu(groupings: Array, doras: Array):
 	
 	for g in groupings:
 		if g.type == Grouping.RUN:
-			fus.append(ALL_YAKU.FU["Run"])
-			continue
-		if g.type == Grouping.SET:
+			fus.append(ALL_YAKU.FU["Run"].duplicate())
+		elif g.type == Grouping.SET:
 			# stitch name together.
 			var nam = ""
-			if g.tiles[0].suit == MTile.SUITS.SPECIAL:
-				if get_yakuhai_vals().has(g.tiles[0].value):
-					nam = "Yakuhai "
+#			if g.tiles[0].suit == MTile.SUITS.SPECIAL:
+#				if get_yakuhai_vals().has(g.tiles[0].value):
+#					nam = "Yakuhai "
 			
 			if g.open:
 				nam = nam + "Open "
@@ -204,15 +204,26 @@ func get_fu(groupings: Array, doras: Array):
 			else:
 				nam = nam + "Quad"
 			
-			fus.append(ALL_YAKU.FU[nam])
-			continue
+			fus.append(ALL_YAKU.FU[nam].duplicate())
 		
-		if g.type == Grouping.PAIR:
-			if g.tiles[0].suit == MTile.SUITS.SPECIAL and get_yakuhai_vals().has(g.tiles[0].value):
-				fus.append(ALL_YAKU.FU["Yakuhai Pair"])
-			else:
-				fus.append(ALL_YAKU.FU["Pair"])
-			continue
+		elif g.type == Grouping.PAIR:
+#			if g.tiles[0].suit == MTile.SUITS.SPECIAL and get_yakuhai_vals().has(g.tiles[0].value):
+#				fus.append(ALL_YAKU.FU["Yakuhai Pair"])
+#			else:
+			fus.append(ALL_YAKU.FU["Pair"].duplicate())
+		
+		# apply yakuhai mult
+		var is_yakuhai = true
+		for t in g.tiles:
+			if t.suit == MTile.SUITS.SPECIAL:
+				if !get_yakuhai_vals().has(t.value):
+					is_yakuhai = false
+					break
+		
+		if is_yakuhai:
+			fus.back().fu *= ALL_YAKU.FU["Yakuhai Multiplier"].fu
+			fus.back().nam = "Yakuhai " + fus.back().nam
+	
 	
 	# doras is and array of arrays of MTile ids, seperated into front and ura
 	if doras.size() > 0:

@@ -18,11 +18,14 @@ class Han:
 
 class Fu:
 	var nam: String = ""
-	var fu: int = 0
+	var fu = 0
 	
-	func _init(_name: String, _fu: int):
+	func _init(_name: String, _fu):
 		nam = _name
 		fu = _fu
+	
+	func duplicate():
+		return Fu.new(nam, fu)
 
 
 var fus = []

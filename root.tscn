@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://cilh5sx8o5o8k"]
+[gd_scene load_steps=50 format=3 uid="uid://cilh5sx8o5o8k"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://HandGUI.gd" id="8_4hll1"]
 [ext_resource type="Texture2D" uid="uid://qfsu5y82t8jk" path="res://image/prevwindindicator.png" id="8_heinv"]
 [ext_resource type="Texture2D" uid="uid://cerxwhe2cssp0" path="res://image/tableedge.png" id="8_hy522"]
+[ext_resource type="Script" path="res://AllYaku.gd" id="8_t018g"]
 [ext_resource type="Script" path="res://GUIManager.gd" id="9_1ntl1"]
 [ext_resource type="Script" path="res://AnimTimer.gd" id="9_r8218"]
 [ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tablediv.png" id="10_kbaim"]
@@ -41,6 +42,7 @@
 [ext_resource type="Texture2D" uid="uid://blxlrv0jsh5hx" path="res://image/tilecounter_end_even.png" id="33_ykpb6"]
 [ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="38_n0b1y"]
 [ext_resource type="Texture2D" uid="uid://ng8eqocmaltm" path="res://image/sidebar_tiles_9pr.png" id="39_1otd6"]
+[ext_resource type="Script" path="res://FuTab.gd" id="41_je4uv"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_122ig"]
 content_margin_left = 8.0
@@ -138,6 +140,9 @@ script = ExtResource("5_abq0l")
 
 [node name="Upgrades" type="Node" parent="HBoxContainer/MahjongRoot/MahjongManager"]
 script = ExtResource("7_i15dy")
+
+[node name="YakuFu" type="Node" parent="HBoxContainer/MahjongRoot/MahjongManager"]
+script = ExtResource("8_t018g")
 
 [node name="TileOnTable" type="AudioStreamPlayer" parent="HBoxContainer/MahjongRoot/MahjongManager"]
 stream = ExtResource("6_5a2qq")
@@ -803,6 +808,7 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("28_jde07")
 
 [node name="Tiles" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles"]
@@ -886,10 +892,23 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_t3qve")
 text = "4+0 4+0 4+0 4+0 4+0 4+0 4+0"
 
 [node name="Fu" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer"]
-visible = false
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Fu"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Fu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Fu/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("41_je4uv")
+
+[node name="FuInfo" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Fu"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
