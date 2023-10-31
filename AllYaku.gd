@@ -51,14 +51,19 @@ var FU = {
 	
 	"SPACER_4": "[b]Dora",
 	
-	"Kan Dora": ScoringInfo.Fu.new("Kan Dora", 16),
-	"Ura Dora": ScoringInfo.Fu.new("Ura Dora", 16),
-	"Aka Dora": ScoringInfo.Fu.new("Aka Dora", 16),
+	"Kan Dora": ScoringInfo.Fu.new("Kan Dora", 8),
+	"Ura Dora": ScoringInfo.Fu.new("Ura Dora", 8),
+	"Aka Dora": ScoringInfo.Fu.new("Aka Dora", 8),
 }
 
+func _ready():
+	upgrade_fu("Closed Quad")
+	upgrade_fu("Closed Quad")
+	upgrade_fu("Closed Quad")
 
 func upgrade_fu(str: String):
 	FU[str].fu += get_fu_upgrade(str)
+	FU[str].times_upgraded += 1
 
 func get_fu_upgrade(str: String):
 	assert(FU.has(str), "fu \"%s\"does not exist!" % str)
@@ -69,4 +74,4 @@ func get_fu_upgrade(str: String):
 	elif str == "Base":
 		return 10
 	else:
-		return 2 if FU[str] == 0 else FU[str].fu
+		return 2 if FU[str].fu == 0 else FU[str].fu

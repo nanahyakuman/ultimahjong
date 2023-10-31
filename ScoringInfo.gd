@@ -20,6 +20,9 @@ class Fu:
 	var nam: String = ""
 	var fu = 0
 	
+	# only used by gui
+	var times_upgraded = 0
+	
 	func _init(_name: String, _fu):
 		nam = _name
 		fu = _fu

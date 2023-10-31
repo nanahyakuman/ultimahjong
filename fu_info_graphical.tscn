@@ -1,23 +1,77 @@
-[gd_scene load_steps=2 format=3 uid="uid://gvrvk1decix3"]
+[gd_scene load_steps=8 format=3 uid="uid://chrviyh1vc468"]
 
+[ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="1_ghnnb"]
 [ext_resource type="Script" path="res://FuInfoGraphical.gd" id="1_scglx"]
+[ext_resource type="Texture2D" uid="uid://dp8gjpdoyawy6" path="res://image/fu9pr.png" id="2_bpcis"]
+[ext_resource type="Texture2D" uid="uid://bbim3cjgj6ilk" path="res://image/fuconnector.png" id="4_mmvfa"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ynvop"]
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 0.0
+texture = ExtResource("2_bpcis")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+expand_margin_left = 2.0
+expand_margin_right = 1.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_me8dk"]
+texture = ExtResource("4_mmvfa")
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xpi56"]
+content_margin_top = 2.0
+content_margin_bottom = 0.0
+texture = ExtResource("2_bpcis")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+expand_margin_left = 2.0
+expand_margin_right = 1.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [node name="FuInfoGraphical" type="HBoxContainer"]
+theme = ExtResource("1_ghnnb")
 script = ExtResource("1_scglx")
 
 [node name="Control2" type="Control" parent="."]
 custom_minimum_size = Vector2(18, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="."]
+[node name="PanelContainer2" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ynvop")
+
+[node name="Label" type="Label" parent="PanelContainer2"]
 layout_mode = 2
 text = "Base Fu:"
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="PanelContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_me8dk")
 
-[node name="PointsLabel" type="Label" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 2
+alignment = 1
+
+[node name="UpgradeHolder" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_xpi56")
+
+[node name="PointsLabel" type="Label" parent="PanelContainer"]
 layout_mode = 2
 text = "20"
 horizontal_alignment = 2

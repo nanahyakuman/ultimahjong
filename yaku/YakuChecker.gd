@@ -219,6 +219,9 @@ func get_fu(groupings: Array, doras: Array):
 				if !get_yakuhai_vals().has(t.value):
 					is_yakuhai = false
 					break
+			else:
+				is_yakuhai = false
+				break
 		
 		if is_yakuhai:
 			fus.back().fu *= ALL_YAKU.FU["Yakuhai Multiplier"].fu

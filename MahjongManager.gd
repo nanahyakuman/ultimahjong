@@ -127,21 +127,21 @@ func draw_hand():
 	
 #	print(wall.size())
 	
-	var temp = []
-
-	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-	temp.append(MTile.new(MTile.SUITS.MAN, 2))
-	temp.append(MTile.new(MTile.SUITS.MAN, 2))
-	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+#	var temp = []
+#
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
@@ -157,8 +157,8 @@ func draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.MAN, 9, true))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 9))
 
-	hand = temp
-	update_hand_label()
+#	hand = temp
+#	update_hand_label()
 	
 
 func draw_kan_dora():

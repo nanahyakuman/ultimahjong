@@ -808,7 +808,6 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("28_jde07")
 
 [node name="Tiles" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles"]
@@ -892,6 +891,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_t3qve")
 text = "4+0 4+0 4+0 4+0 4+0 4+0 4+0"
 
 [node name="Fu" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Fu"]
@@ -902,7 +902,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Fu/ScrollContainer"]
+[node name="FuTab" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Fu/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("41_je4uv")
