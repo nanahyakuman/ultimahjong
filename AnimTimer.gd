@@ -1,7 +1,7 @@
 extends Timer
 
 var anim_speed_mod = 2.0
-var skip = true
+var skip = false
 
 func start_get(time: float):
 	if skip:

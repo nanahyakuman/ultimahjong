@@ -23,7 +23,7 @@ var FU = {
 	"Base": ScoringInfo.Fu.new("Base", 20),
 	"Menzenkafu": ScoringInfo.Fu.new("Menzenkafu", 10),
 	"Tsumo": ScoringInfo.Fu.new("Tsumo", 2),
-	"Chiitoitsu": ScoringInfo.Fu.new("Chiitoitsu", 25),
+	"Chiitoitsu": ScoringInfo.Fu.new("Chiitoitsu", 5),
 	
 	"SPACER_2": "[b]Groupings[/b]",
 	
@@ -56,10 +56,10 @@ var FU = {
 	"Aka Dora": ScoringInfo.Fu.new("Aka Dora", 8),
 }
 
-func _ready():
-	upgrade_fu("Closed Quad")
-	upgrade_fu("Closed Quad")
-	upgrade_fu("Closed Quad")
+#func _ready():
+#	upgrade_fu("Closed Quad")
+#	upgrade_fu("Closed Quad")
+#	upgrade_fu("Closed Quad")
 
 func upgrade_fu(str: String):
 	FU[str].fu += get_fu_upgrade(str)

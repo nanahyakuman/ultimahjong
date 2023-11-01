@@ -40,6 +40,7 @@ var _state = STATE_ANIMATING
 # this work
 var remaining_opp_discards
 
+var in_riichi = false
 
 func start_round():
 	gui_manager.update_discard([])
@@ -50,6 +51,8 @@ func start_round():
 	gui_manager.update_hand([])
 	gui_manager.reset_dead_wall_count()
 	gui_manager.update_wall_count(0)
+	
+	in_riichi = false
 	
 	increment_winds()
 	
@@ -127,21 +130,21 @@ func draw_hand():
 	
 #	print(wall.size())
 	
-#	var temp = []
-#
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+	var temp = []
+
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
@@ -157,8 +160,8 @@ func draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.MAN, 9, true))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 9))
 
-#	hand = temp
-#	update_hand_label()
+	hand = temp
+	update_hand_label()
 	
 
 func draw_kan_dora():
@@ -234,8 +237,8 @@ func do_opp_discard():
 	if call_bitmask != 0:
 		#  switching state like this means that only calls are taken as 
 		# input
-		set_state(STATE_CALLS)
 		calls_manager.enable_calls(call_bitmask, tiles_involved_in_call)
+		set_state(STATE_CALLS)
 	else:
 		do_opp_discard()
 	
@@ -249,7 +252,8 @@ enum CALL_BITMASK {
 	KAN = 		0b10000,
 	RON = 		0b100000,
 	TSM = 		0b1000000,
-	CLOSED_KAN= 0b10000000
+	CLOSED_KAN= 0b10000000,
+	RCH =		0b100000000
 }
 # returns a bitmask for what can be called
 func can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
@@ -258,109 +262,110 @@ func can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
 	# the dict of involved tiles
 	tiles_involved.merge({CALL_BITMASK.CHI_L:[], CALL_BITMASK.CHI_M:[], CALL_BITMASK.CHI_R:[], CALL_BITMASK.PON:[], CALL_BITMASK.KAN:[]})
 	
-	# pon and kan
-	var identical_count = 0
-	var did = disc.get_id()
-	for t in hand:
-		var tid = t.get_id()
-		if did == tid:
-			identical_count += 1
-			tiles_involved[CALL_BITMASK.PON].append(t)
-			tiles_involved[CALL_BITMASK.KAN].append(t)
-	
-	if identical_count >= 2:
-		bitmask |= CALL_BITMASK.PON
-		if identical_count >= 3:
-			bitmask |= CALL_BITMASK.KAN
-			tiles_involved[CALL_BITMASK.PON].resize(2)
-			tiles_involved[CALL_BITMASK.KAN].resize(3)
-		else:
-			tiles_involved[CALL_BITMASK.KAN].clear()
-	else:
-		tiles_involved[CALL_BITMASK.PON].clear()
-		tiles_involved[CALL_BITMASK.KAN].clear()
-	
-	
-	# chi. only callable on last discard in cycle
-	if remaining_opp_discards == 0:
-		var adjs = {}
-		for i in disc.get_adj_ids(disc.suit, disc.value, true):
-			adjs[i] = 0
-		
+	if !in_riichi:
+		# pon and kan
+		var identical_count = 0
+		var did = disc.get_id()
 		for t in hand:
 			var tid = t.get_id()
-			var extant = adjs.keys().find(tid)
-			if extant != -1:
-				adjs[tid] += 1
-				
-				if extant == 0:
-					tiles_involved[CALL_BITMASK.CHI_R].append(t)
-				elif extant == 1:
-					tiles_involved[CALL_BITMASK.CHI_R].append(t)
-					tiles_involved[CALL_BITMASK.CHI_M].append(t)
-				elif extant == 2:
-					tiles_involved[CALL_BITMASK.CHI_M].append(t)
-					tiles_involved[CALL_BITMASK.CHI_L].append(t)
-				else:
-					tiles_involved[CALL_BITMASK.CHI_L].append(t)
+			if did == tid:
+				identical_count += 1
+				tiles_involved[CALL_BITMASK.PON].append(t)
+				tiles_involved[CALL_BITMASK.KAN].append(t)
 		
-		if adjs.size() >= 4:
-			if adjs[did-2] > 0 and adjs[did-1]:
-				bitmask |= CALL_BITMASK.CHI_R
+		if identical_count >= 2:
+			bitmask |= CALL_BITMASK.PON
+			if identical_count >= 3:
+				bitmask |= CALL_BITMASK.KAN
+				tiles_involved[CALL_BITMASK.PON].resize(2)
+				tiles_involved[CALL_BITMASK.KAN].resize(3)
+			else:
+				tiles_involved[CALL_BITMASK.KAN].clear()
+		else:
+			tiles_involved[CALL_BITMASK.PON].clear()
+			tiles_involved[CALL_BITMASK.KAN].clear()
+		
+		
+		# chi. only callable on last discard in cycle
+		if remaining_opp_discards == 0:
+			var adjs = {}
+			for i in disc.get_adj_ids(disc.suit, disc.value, true):
+				adjs[i] = 0
+			
+			for t in hand:
+				var tid = t.get_id()
+				var extant = adjs.keys().find(tid)
+				if extant != -1:
+					adjs[tid] += 1
+					
+					if extant == 0:
+						tiles_involved[CALL_BITMASK.CHI_R].append(t)
+					elif extant == 1:
+						tiles_involved[CALL_BITMASK.CHI_R].append(t)
+						tiles_involved[CALL_BITMASK.CHI_M].append(t)
+					elif extant == 2:
+						tiles_involved[CALL_BITMASK.CHI_M].append(t)
+						tiles_involved[CALL_BITMASK.CHI_L].append(t)
+					else:
+						tiles_involved[CALL_BITMASK.CHI_L].append(t)
+			
+			if adjs.size() >= 4:
+				if adjs[did-2] > 0 and adjs[did-1]:
+					bitmask |= CALL_BITMASK.CHI_R
+				else:
+					tiles_involved[CALL_BITMASK.CHI_R].clear()
+				if adjs[did-1] > 0 and adjs[did+1]:
+					bitmask |= CALL_BITMASK.CHI_M
+				else:
+					tiles_involved[CALL_BITMASK.CHI_M].clear()
+				if adjs[did+1] > 0 and adjs[did+2]:
+					bitmask |= CALL_BITMASK.CHI_L
+				else:
+					tiles_involved[CALL_BITMASK.CHI_L].clear()
 			else:
 				tiles_involved[CALL_BITMASK.CHI_R].clear()
-			if adjs[did-1] > 0 and adjs[did+1]:
-				bitmask |= CALL_BITMASK.CHI_M
-			else:
 				tiles_involved[CALL_BITMASK.CHI_M].clear()
-			if adjs[did+1] > 0 and adjs[did+2]:
-				bitmask |= CALL_BITMASK.CHI_L
-			else:
 				tiles_involved[CALL_BITMASK.CHI_L].clear()
-		else:
-			tiles_involved[CALL_BITMASK.CHI_R].clear()
-			tiles_involved[CALL_BITMASK.CHI_M].clear()
-			tiles_involved[CALL_BITMASK.CHI_L].clear()
-	
-	#  erase redundant entries in a chi. i hate to triplicate code but something
-	# about putting this in a loop breaks it. i think godot tries to intuitively
-	# concatenate array arrays or sumn.
-	var a = tiles_involved[CALL_BITMASK.CHI_R]
-	var marked = {}
-	for t in a:
-		var tid = t.get_id()
-		var count = count_by_id(tid, a)
-		if count > 1:
-			marked[tid] = count - 1
-	for m in marked.keys():
-		for i in marked[m]:
-			var tbd = first_by_id(m, a)
-			a.remove_at(tbd)
-	
-	a = tiles_involved[CALL_BITMASK.CHI_M]
-	marked = {}
-	for t in a:
-		var tid = t.get_id()
-		var count = count_by_id(tid, a)
-		if count > 1:
-			marked[tid] = count - 1
-	for m in marked.keys():
-		for i in marked[m]:
-			var tbd = first_by_id(m, a)
-			a.remove_at(tbd)
-	
-	a = tiles_involved[CALL_BITMASK.CHI_L]
-	marked = {}
-	for t in a:
-		var tid = t.get_id()
-		var count = count_by_id(tid, a)
-		if count > 1:
-			marked[tid] = count - 1
-	for m in marked.keys():
-		for i in marked[m]:
-			var tbd = first_by_id(m, a)
-			a.remove_at(tbd)
-	
+		
+		#  erase redundant entries in a chi. i hate to triplicate code but something
+		# about putting this in a loop breaks it. i think godot tries to intuitively
+		# concatenate array arrays or sumn.
+		var a = tiles_involved[CALL_BITMASK.CHI_R]
+		var marked = {}
+		for t in a:
+			var tid = t.get_id()
+			var count = count_by_id(tid, a)
+			if count > 1:
+				marked[tid] = count - 1
+		for m in marked.keys():
+			for i in marked[m]:
+				var tbd = first_by_id(m, a)
+				a.remove_at(tbd)
+		
+		a = tiles_involved[CALL_BITMASK.CHI_M]
+		marked = {}
+		for t in a:
+			var tid = t.get_id()
+			var count = count_by_id(tid, a)
+			if count > 1:
+				marked[tid] = count - 1
+		for m in marked.keys():
+			for i in marked[m]:
+				var tbd = first_by_id(m, a)
+				a.remove_at(tbd)
+		
+		a = tiles_involved[CALL_BITMASK.CHI_L]
+		marked = {}
+		for t in a:
+			var tid = t.get_id()
+			var count = count_by_id(tid, a)
+			if count > 1:
+				marked[tid] = count - 1
+		for m in marked.keys():
+			for i in marked[m]:
+				var tbd = first_by_id(m, a)
+				a.remove_at(tbd)
+		
 	
 	#ron
 	var full_hand = [disc]
@@ -383,23 +388,24 @@ func do_if_can_tsumo():
 	if yaku_checker.hand_get_han(full_hand, called_hand, true).get_total_han() > 0:
 		btm |= CALL_BITMASK.TSM
 	
-	# closed tsumo kan
-	var tsid = tsumo.get_id()
-	var kantiles = []
-	for t in hand:
-		if t.get_id() == tsid:
-			kantiles.append(t)
-	if kantiles.size() >= 3:
-		btm |= CALL_BITMASK.CLOSED_KAN
-		# append involved tiles
-		var firstthree = []
-		for i in 3:
-			firstthree.append(kantiles[i])
-		involved[CALL_BITMASK.CLOSED_KAN] = firstthree
+	# closed tsumo kan. note we ban riichi kans
+	if !in_riichi:
+		var tsid = tsumo.get_id()
+		var kantiles = []
+		for t in hand:
+			if t.get_id() == tsid:
+				kantiles.append(t)
+		if kantiles.size() >= 3:
+			btm |= CALL_BITMASK.CLOSED_KAN
+			# append involved tiles
+			var firstthree = []
+			for i in 3:
+				firstthree.append(kantiles[i])
+			involved[CALL_BITMASK.CLOSED_KAN] = firstthree
 	
 	if btm:
-		set_state(STATE_CALLS)
 		calls_manager.enable_calls(btm, involved)
+		set_state(STATE_CALLS)
 
 
 # called when a cpkr call is made, including passing the call
@@ -432,6 +438,9 @@ func call_graphic_clicked(bitmask: int, tiles_involved: Array):
 			new_grouping = Grouping.new(Grouping.SET, tiles_involved)
 		CALL_BITMASK.CLOSED_KAN:
 			new_grouping = Grouping.new(Grouping.SET, tiles_involved)
+		CALL_BITMASK.RCH:
+			do_riichi()
+			return
 	
 	if new_grouping is Grouping:
 		for t in new_grouping.tiles:
@@ -468,8 +477,8 @@ func _input(event):
 	if _state == STATE_CALLS:
 		if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-				call_graphic_clicked(CALL_BITMASK.NONE, [])
 				calls_manager.enable_calls(0, {})
+				call_graphic_clicked(CALL_BITMASK.NONE, [])
 	
 #	if event is InputEventMouseButton:
 #		increment_winds()
@@ -481,13 +490,16 @@ func _input(event):
 # it's in hand.
 func tile_graphic_clicked(tile: MTile):
 	if _state == STATE_ACTIONABLE:
-		draw_and_discard(tile)
+		if in_riichi:
+			draw_and_discard(tsumo)
+		else:
+			draw_and_discard(tile)
 
-func draw_and_discard_index(i: int):
-	if i == 13:
-		draw_and_discard(tsumo)
-	else:
-		draw_and_discard(hand[i])
+#func draw_and_discard_index(i: int):
+#	if i == 13:
+#		draw_and_discard(tsumo)
+#	else:
+#		draw_and_discard(hand[i])
 
 #  if there is a tsumo, we must be drawing.
 # if not, we must just be discarding afer a call
@@ -504,7 +516,28 @@ func draw_and_discard(discardee: MTile):
 	tile_sfx_player.play()
 	
 	TileGraphicKnower.highlight_matching_tiles(discardee, false)
+	
+	if !try_enter_riichi():
+		start_rotation()
+
+func try_enter_riichi():
+	if hand_is_open() or in_riichi:
+		return false
+	for t in tile_counter.get_all_tiles():
+		var full_hand = [t]
+		full_hand.append_array(hand)
+		full_hand.sort()
+		if yaku_checker.hand_get_han(full_hand, called_hand, false).get_total_han() > 0:
+			calls_manager.enable_calls(CALL_BITMASK.RCH, {})
+			set_state(STATE_CALLS)
+			return true
+	return false
+
+# entered from calls
+func do_riichi():
+	in_riichi = true
 	start_rotation()
+
 
 func update_hand_label(override_sort = false):
 	if !override_sort:
@@ -569,6 +602,7 @@ func set_state(new_state: int):
 	_state = new_state
 	
 	hand_gui.do_hover_cursor(_state == STATE_ACTIONABLE)
+
 
 func hand_is_open():
 	for g in called_hand:

@@ -32,10 +32,10 @@ func initialize_tiles():
 		tile_data.append(MTileData.new(MTile.SUITS.SPECIAL, i, 4, 0))
 
 
-func get_all_tiles():
+func get_all_tiles(only_unique = false):
 	var ret = []
 	for td in tile_data:
-		for t in td.count:
+		for t in td.count if !only_unique else 1:
 			ret.append(MTile.new(td.suit, td.value, td.aka_count>t))
 	return ret
 

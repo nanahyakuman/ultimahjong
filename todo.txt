@@ -28,12 +28,13 @@ cant hover tiles in made calls
 more expensive shop items
 tsumo call tile hover broken, highlights most recent discard instead of tsumo
 make ura dora more clear
+buy fu
 enter riichi
-upgrade fu
-fu tab updating
-visually indicate closed kans
+visually indicate closed kans, calls in general
 winning by tsumo off a post-kan draw might be broken
-
+"shape of the game" guide tab
+kandora appear
+score riichi
 
 yaku to implement
 	menzentsumo

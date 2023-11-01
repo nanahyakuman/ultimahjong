@@ -21,3 +21,7 @@ func _ready():
 			add_child(a)
 			a.set_string(str, yakufu)
 			a.set_upgrade_count(yakufu.FU[str].times_upgraded)
+	
+	var a = Control.new()
+	a.custom_minimum_size.y = 8
+	add_child(a)
