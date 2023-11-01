@@ -5,7 +5,7 @@ class_name YakuChecker
 
 
 # hand should be sorted by MTile id.
-func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, doras = [], do_fu = false) -> ScoringInfo:
+func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, doras = [], do_fu = false, riichi = false) -> ScoringInfo:
 	var is_open = already_opened_groupings.size() > 0
 	
 	var scoring_info = ScoringInfo.new()
@@ -20,6 +20,10 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, 
 #		print("\n")
 	
 	if groupings_meet_basic_reqs(groupings):
+		# riichi
+		if riichi:
+			scoring_info.hans.append(ALL_YAKU.YAKUS["Riichi"])
+		
 		# check half and full flushes.
 		var suit = 0
 		var suit_it = 0
@@ -86,6 +90,10 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, 
 		scoring_info.fus = get_fu(groupings, doras)
 	
 	return scoring_info
+
+func hand_meets_basic_reqs(hand: Array) -> bool:
+	var groupings = get_maximal_groupings(hand)
+	return groupings_meet_basic_reqs(groupings)
 
 func groupings_meet_basic_reqs(groupings: Array) -> bool:
 	var setruns = 0
@@ -186,7 +194,10 @@ func get_fu(groupings: Array, doras: Array):
 	
 	for g in groupings:
 		if g.type == Grouping.RUN:
-			fus.append(ALL_YAKU.FU["Run"].duplicate())
+			if g.open:
+				fus.append(ALL_YAKU.FU["Open Run"].duplicate())
+			else:
+				fus.append(ALL_YAKU.FU["Closed Run"].duplicate())
 		elif g.type == Grouping.SET:
 			# stitch name together.
 			var nam = ""

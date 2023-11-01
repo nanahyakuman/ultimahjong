@@ -1,6 +1,7 @@
 extends Node
 
 var YAKUS = {
+	"Riichi": ScoringInfo.Han.new("Riichi", 1, "RIICHI_DESC!!"),
 	"Tan'yao": ScoringInfo.Han.new("Tan'yao", 1, "No terminals or honors in hand."),
 	"Yakuhai": ScoringInfo.Han.new("Yakuhai", 1, "Set or quad of seat wind, prevalent wind, or any dragon."),
 	"Menzentsumo": ScoringInfo.Han.new("Menzentsumo", 1, "Closed hand, win by tsumo."),
@@ -27,18 +28,13 @@ var FU = {
 	
 	"SPACER_2": "[b]Groupings[/b]",
 	
-	"Run": ScoringInfo.Fu.new("Run", 0),
-	## yakuhai runs dont exist
 	"Pair": ScoringInfo.Fu.new("Pair", 0),
-	#"Yakuhai Pair": ScoringInfo.Fu.new("Yakuhai Pair", 2),
+	"Open Run": ScoringInfo.Fu.new("Open Run", 0),
+	"Closed Run": ScoringInfo.Fu.new("Closed Run", 0),
 	"Open Set": ScoringInfo.Fu.new("Open Set", 2),
-	#"Yakuhai Open Set": ScoringInfo.Fu.new("Yakuhai Open Set", 4),
 	"Closed Set": ScoringInfo.Fu.new("Closed Set", 4),
-	#"Yakuhai Closed Set": ScoringInfo.Fu.new("Yakuhai Closed Set", 8),
 	"Open Quad": ScoringInfo.Fu.new("Open Quad", 8),
-	#"Yakuhai Open Quad": ScoringInfo.Fu.new("Yakuhai Open Quad", 16),
 	"Closed Quad": ScoringInfo.Fu.new("Closed Quad", 16),
-	#"Yakuhai Closed Quad": ScoringInfo.Fu.new("Yakuhai Closed Quad", 32),
 	#  weird because it's not a fu of its own but this allows us to hijack
 	# existing gui code.
 	"Yakuhai Multiplier": ScoringInfo.Fu.new(" (Yakuhai)", 1.5),

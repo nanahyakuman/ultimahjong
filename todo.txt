@@ -35,6 +35,7 @@ winning by tsumo off a post-kan draw might be broken
 "shape of the game" guide tab
 kandora appear
 score riichi
+kan machine broke?? not clearing tiles properly
 
 yaku to implement
 	menzentsumo
