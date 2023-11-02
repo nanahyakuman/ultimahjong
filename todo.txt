@@ -35,7 +35,8 @@ winning by tsumo off a post-kan draw might be broken
 "shape of the game" guide tab
 kandora appear
 score riichi
-kan machine broke?? not clearing tiles properly
+probably not a bad idea to formally switch to ttf fonts ngl. no baseline is
+messing with multilingual support
 
 yaku to implement
 	menzentsumo

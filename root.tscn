@@ -819,6 +819,7 @@ grow_vertical = 2
 tab_alignment = 1
 
 [node name="Run" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/Run"]
@@ -984,7 +985,6 @@ offset_right = 17.0
 offset_bottom = 40.0
 
 [node name="Yaku" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/Yaku"]
@@ -1008,13 +1008,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 bbcode_enabled = true
-text = "[b]Tan'yao [color=989fa5](menzenchin)[/color][/b]
+text = "[b]Tan'yao タンヤオ[/b]
 No terminals or honors.
 
-[b]Riichi[/b]
+[b]Riichi 立直[/b]
 1 tile short of a completed hand. Once entered, hand cannot be modified.
 
-[b]Yakuhai[/b]
+[b]Yakuhai 役牌[/b]
 Set or quad of (dragons)/(seat wind)/(prevalent wind). Stacks with self for multiple valid groupings.
 "
 

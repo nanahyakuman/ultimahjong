@@ -37,7 +37,7 @@ var FU = {
 	"Closed Quad": ScoringInfo.Fu.new("Closed Quad", 16),
 	#  weird because it's not a fu of its own but this allows us to hijack
 	# existing gui code.
-	"Yakuhai Multiplier": ScoringInfo.Fu.new(" (Yakuhai)", 1.5),
+	"Yao Multiplier": ScoringInfo.Fu.new("(Yao)", 1.5),
 	
 	"SPACER_3": "[b]Waits",
 	

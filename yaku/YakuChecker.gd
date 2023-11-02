@@ -223,20 +223,16 @@ func get_fu(groupings: Array, doras: Array):
 #			else:
 			fus.append(ALL_YAKU.FU["Pair"].duplicate())
 		
-		# apply yakuhai mult
-		var is_yakuhai = true
+		# apply yao mult
+		var is_yao = true
 		for t in g.tiles:
-			if t.suit == MTile.SUITS.SPECIAL:
-				if !get_yakuhai_vals().has(t.value):
-					is_yakuhai = false
-					break
-			else:
-				is_yakuhai = false
+			if t.suit != MTile.SUITS.SPECIAL:
+				is_yao = false
 				break
 		
-		if is_yakuhai:
-			fus.back().fu *= ALL_YAKU.FU["Yakuhai Multiplier"].fu
-			fus.back().nam = "Yakuhai " + fus.back().nam
+		if is_yao:
+			fus.back().fu *= ALL_YAKU.FU["Yao Multiplier"].fu
+			fus.back().nam = "Yao " + fus.back().nam
 	
 	
 	# doras is and array of arrays of MTile ids, seperated into front and ura
