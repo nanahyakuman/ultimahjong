@@ -9,6 +9,8 @@ var YAKUS = {
 	"Open Hon'itsu": ScoringInfo.Han.new("Open Hon'itsu", 2, "Hand only contains honors and tiles of a single suit."),
 	"Chin'itsu": ScoringInfo.Han.new("Chin'itsu", 6, "Hand only contains tiles of a single suit."),
 	"Open Chin'itsu": ScoringInfo.Han.new("Open Chin'itsu", 5, "Hand only contains tiles of a single suit."),
+	"Toitoi": ScoringInfo.Han.new("Toitoi", 2, "Hand consists of 4 set/quads and a pair."),
+	"Iipeikou": ScoringInfo.Han.new("Iipeikou", 1, "ipk"),
 
 #	"Kan Dora": ScoringInfo.Han.new("Kan Dora", 1, ""),
 #	"Ura Dora": ScoringInfo.Han.new("Ura Dora", 1, ""),
@@ -37,7 +39,7 @@ var FU = {
 	"Closed Quad": ScoringInfo.Fu.new("Closed Quad", 16),
 	#  weird because it's not a fu of its own but this allows us to hijack
 	# existing gui code.
-	"Yao Multiplier": ScoringInfo.Fu.new("(Yao)", 1.5),
+	"Yao Multiplier": ScoringInfo.Fu.new("(Yao)", 2),
 	
 	"SPACER_3": "[b]Waits",
 	

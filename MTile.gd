@@ -69,6 +69,7 @@ func get_dora_id():
 		ret.append(MTile.gen_id(suit, v))
 	return ret
 
+# does not care about aka
 static func gen_id(s: int, v: int):
 	return s * 100 + v * 1
 
@@ -85,4 +86,4 @@ static func gen_name(tile: MTile):
 	if tile.suit == SUITS.SPECIAL:
 		return SPECIAL_NAMES[tile.value]
 	else:
-		return str(tile.value + SUIT_NAMES[tile.suit])
+		return str(tile.value) + SUIT_NAMES[tile.suit]

@@ -128,9 +128,7 @@ func draw_hand():
 	call_sfx_player.play()
 	update_hand_label()
 	
-#	print(wall.size())
-	
-#	var temp = []
+	var temp = []
 #
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
@@ -160,8 +158,23 @@ func draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.MAN, 9, true))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 9))
 #
-#	hand = temp
-#	update_hand_label()
+	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+	temp.append(MTile.new(MTile.SUITS.MAN, 3))
+	temp.append(MTile.new(MTile.SUITS.MAN, 3))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+
+	if temp:
+		hand = temp
+	update_hand_label()
 	
 
 func draw_kan_dora():
@@ -179,6 +192,8 @@ func draw_kan_dora():
 
 func reveal_dora():
 	revealed_kan_dora += 1
+	
+	gui_manager.update_kan_dora(kan_dora, upgrades.get_kan_size() - revealed_kan_dora)
 	
 	var revealed_dora_ids = []
 	for i in range(upgrades.get_kan_size() - revealed_kan_dora, kan_dora.size()):
@@ -284,7 +299,7 @@ func can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
 		return bitmask
 	
 	
-	# the dict of involved tiles
+	# the dict of involved tiles is passed by ref.
 	tiles_involved.merge({CALL_BITMASK.CHI_L:[], CALL_BITMASK.CHI_M:[], CALL_BITMASK.CHI_R:[], CALL_BITMASK.PON:[], CALL_BITMASK.KAN:[]})
 	
 	# pon and kan
@@ -425,8 +440,12 @@ func do_if_can_tsumo():
 
 
 # called when a cpkr call is made, including passing the call
-func call_graphic_clicked(bitmask: int, tiles_involved: Array):
+func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 	assert(_state == STATE_CALLS, "call somehow made in non-calling state. this is bad!")
+	
+	# clear gui but dont let it delete the info referenced
+	var tiles_involved = _tiles_involved.duplicate()
+	calls_manager.enable_calls(0, {})
 	
 	var new_grouping
 	match bitmask:

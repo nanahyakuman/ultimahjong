@@ -7,6 +7,7 @@ class_name TileGraphic
 @onready var adj_tile_highlight = $RedTileHighlight
 @onready var call_tile_highlight = $RedTileHighlight2
 @onready var dora_sprite = $Sprite2D/TileDora
+@onready var flicker = $Flicker
 
 @export var tile_size = Vector2(16,32)
 var in_hand = false
@@ -111,6 +112,7 @@ func _highlight_requested(id: int, val: bool, is_adj: bool):
 		if id == tile.get_id():
 			if !is_adj:
 				sim_tile_highlight.visible = val
+				flicker.visible = val
 			else:
 				adj_tile_highlight.visible = val
 

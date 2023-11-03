@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8eiqqlppwabi"
-path="res://.godot/imported/tilecounter.png-372cad9bd4512b2c2d4001f0d61a6e8e.ctex"
+uid="uid://u6ntxifjpoth"
+path="res://.godot/imported/handcursordark.png-bd27cb40706d9ddbda4283e26839e1d0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://image/tilecounter.png"
-dest_files=["res://.godot/imported/tilecounter.png-372cad9bd4512b2c2d4001f0d61a6e8e.ctex"]
+source_file="res://image/cursor/handcursordark.png"
+dest_files=["res://.godot/imported/handcursordark.png-bd27cb40706d9ddbda4283e26839e1d0.ctex"]
 
 [params]
 

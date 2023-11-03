@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://cilh5sx8o5o8k"]
+[gd_scene load_steps=54 format=3 uid="uid://dfr0xt7vhfy2u"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -18,16 +18,13 @@
 [ext_resource type="Script" path="res://AllYaku.gd" id="8_t018g"]
 [ext_resource type="Script" path="res://GUIManager.gd" id="9_1ntl1"]
 [ext_resource type="Script" path="res://AnimTimer.gd" id="9_r8218"]
-[ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tablediv.png" id="10_kbaim"]
 [ext_resource type="Texture2D" uid="uid://6selxoc8faj5" path="res://image/table_top.png" id="11_a4xxf"]
 [ext_resource type="Script" path="res://MenuTileHolder.gd" id="11_gc23v"]
 [ext_resource type="Script" path="res://CallsGraphical.gd" id="11_oemle"]
-[ext_resource type="Texture2D" uid="uid://8eiqqlppwabi" path="res://image/tilecounter.png" id="11_s1nfs"]
 [ext_resource type="Script" path="res://TilesDisplay.gd" id="13_egxkc"]
 [ext_resource type="Texture2D" uid="uid://dbnpkxetohid0" path="res://image/call_ignore.png" id="13_qhnc0"]
 [ext_resource type="Script" path="res://CallGraphic.gd" id="13_wfhtv"]
 [ext_resource type="Script" path="res://GraphicTileCounter.gd" id="13_x2gyd"]
-[ext_resource type="Texture2D" uid="uid://ch4nr70j7xj74" path="res://image/tilecounter_end_odd.png" id="15_tgg3l"]
 [ext_resource type="Script" path="res://CursorTextRequester.gd" id="16_8lthm"]
 [ext_resource type="Script" path="res://ShopRoot.gd" id="19_bnl3p"]
 [ext_resource type="Texture2D" uid="uid://bxt2na0s3mabw" path="res://image/call_indicator_gold.png" id="19_idqi3"]
@@ -38,8 +35,11 @@
 [ext_resource type="Script" path="res://NextRoundButton.gd" id="21_roajs"]
 [ext_resource type="Script" path="res://ScoringRoot.gd" id="21_yhd2i"]
 [ext_resource type="FontFile" uid="uid://dmoumxbcf3gn" path="res://text/font/Body2.png" id="28_jde07"]
+[ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tilecounter/tablediv.png" id="31_h31my"]
 [ext_resource type="Script" path="res://Cursor.gd" id="31_y04dm"]
-[ext_resource type="Texture2D" uid="uid://blxlrv0jsh5hx" path="res://image/tilecounter_end_even.png" id="33_ykpb6"]
+[ext_resource type="Texture2D" uid="uid://8eiqqlppwabi" path="res://image/tilecounter/tilecounter.png" id="33_6btw0"]
+[ext_resource type="Texture2D" uid="uid://ch4nr70j7xj74" path="res://image/tilecounter/tilecounter_end_odd.png" id="34_tbbuy"]
+[ext_resource type="Texture2D" uid="uid://blxlrv0jsh5hx" path="res://image/tilecounter/tilecounter_end_even.png" id="35_5xuo4"]
 [ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="38_n0b1y"]
 [ext_resource type="Texture2D" uid="uid://ng8eqocmaltm" path="res://image/sidebar_tiles_9pr.png" id="39_1otd6"]
 [ext_resource type="Script" path="res://FuTab.gd" id="41_je4uv"]
@@ -769,30 +769,40 @@ script = ExtResource("21_roajs")
 
 [node name="GraphicTileCounter" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("10_kbaim")
+texture = ExtResource("31_h31my")
 stretch_mode = 1
 script = ExtResource("13_x2gyd")
 
 [node name="TileCounter" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
 layout_mode = 0
 offset_right = 8.0
-texture = ExtResource("11_s1nfs")
+texture = ExtResource("33_6btw0")
 expand_mode = 1
 stretch_mode = 1
+script = ExtResource("16_8lthm")
+hover_text = "Tiles left to draw in the wall."
 
 [node name="End" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
 layout_mode = 1
 offset_right = 8.0
 offset_bottom = 16.0
-texture = ExtResource("15_tgg3l")
+texture = ExtResource("34_tbbuy")
 stretch_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/GraphicTileCounter"]
+layout_mode = 0
+offset_left = 11.0
+offset_right = 51.0
+offset_bottom = 15.0
+rotation = 1.5708
+text = "70"
 
 [node name="DeadTileEnd" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
 layout_mode = 1
 offset_top = 350.0
 offset_right = 8.0
 offset_bottom = 366.0
-texture = ExtResource("33_ykpb6")
+texture = ExtResource("35_5xuo4")
 stretch_mode = 2
 
 [node name="DeadTileCounter" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
@@ -801,9 +811,11 @@ offset_top = 353.0
 offset_right = 8.0
 offset_bottom = 362.0
 scale = Vector2(1, -1)
-texture = ExtResource("11_s1nfs")
+texture = ExtResource("33_6btw0")
 expand_mode = 1
 stretch_mode = 1
+script = ExtResource("16_8lthm")
+hover_text = "Dead tiles, will never be drawn."
 
 [node name="Sidebar" type="ColorRect" parent="HBoxContainer"]
 layout_mode = 2

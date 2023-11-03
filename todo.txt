@@ -29,32 +29,38 @@ more expensive shop items
 tsumo call tile hover broken, highlights most recent discard instead of tsumo
 make ura dora more clear
 buy fu
-enter riichi
 visually indicate closed kans, calls in general
-winning by tsumo off a post-kan draw might be broken
+	just create a new func that passes groupings instead of arrays
 "shape of the game" guide tab
 kandora appear
 probably not a bad idea to formally switch to ttf fonts ngl. no baseline is
-messing with multilingual support
+	messing with multilingual support
+illegal ? showed up as addtile purchaseable. 1m??1s7s
+closed fu as a mult instead of seperate?
+scoring calc not showing up why?? round E-S
+rework get han to take in a list of yaku instead of seperate bools for all of them
+ron should register an ope set
+you can currently make runs of dragons!!!!
+
 
 yaku to implement
 	menzentsumo
-	riichi
+x	riichi
 	ippatsu
 	pinfu?
-	iipeikou
+x	iipeikou
 	last draw
 	last discard
 	dead wall draw?
 	--chankan
-	tanyao
-	yakuhai
+x	tanyao
+x	yakuhai
 	
 	double riichi
 	chantaiyao
 	sanshoku doujun
 	ittsuu
-	toitoi
+x	toitoi
 	san-an-kou
 	sanshoku doukou
 	sankantsu

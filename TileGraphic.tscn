@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dhu60farhkon0"]
+[gd_scene load_steps=17 format=3 uid="uid://dhu60farhkon0"]
 
 [ext_resource type="Script" path="res://TileGraphic.gd" id="1_w2ft1"]
 [ext_resource type="Texture2D" uid="uid://bf8b1q22m2w0s" path="res://image/tilesides.png" id="3_rn2kv"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://3xyv2a3mk865" path="res://image/tile_highlight_r.png" id="5_b2fx8"]
 [ext_resource type="Texture2D" uid="uid://cq5xymufy75on" path="res://image/tilerear.png" id="5_xhwoj"]
 [ext_resource type="Texture2D" uid="uid://dajdvnl62pg7i" path="res://image/tile_dora.png" id="6_w2hg6"]
+[ext_resource type="Texture2D" uid="uid://diuf8wlp0jwam" path="res://image/tile_flicker.png" id="7_gponq"]
+[ext_resource type="Script" path="res://TileGraphicFlicker.gd" id="8_r54qq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gf2xo"]
 atlas = ExtResource("6_w2hg6")
@@ -96,6 +98,13 @@ visible = false
 sprite_frames = SubResource("SpriteFrames_446f8")
 animation = &"new_animation_1"
 centered = false
+
+[node name="Flicker" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(8, 13)
+texture = ExtResource("7_gponq")
+hframes = 2
+script = ExtResource("8_r54qq")
 
 [node name="BlueTileHighlight" type="Sprite2D" parent="."]
 visible = false

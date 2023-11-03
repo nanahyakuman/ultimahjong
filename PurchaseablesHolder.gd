@@ -61,11 +61,11 @@ func pressed(node: Purchaseable):
 		Purchaseable.TYPES.AKA:
 			for t in node.tiles:
 				tile_counter.increment_aka(t)
-				await anim_timer.start_mod(.1)
+				await anim_timer.start_mod(.15)
 		Purchaseable.TYPES.ADD:
 			for t in node.tiles:
 				tile_counter.increment_tile(t)
-				await anim_timer.start_mod(.1)
+				await anim_timer.start_mod(.15)
 		Purchaseable.TYPES.DEAD_REDUCE:
 			upgrades.dead_wall_size_reduce += 2
 		Purchaseable.TYPES.KAN_REVEAL:

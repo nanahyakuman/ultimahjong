@@ -14,12 +14,12 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, 
 	var groupings = get_maximal_groupings(remaining_hand)
 	groupings.append_array(already_opened_groupings)
 	
-#	for g in groupings:
-#		for t in g.tiles:
-#			print(t.get_id(), " ")
-#		print("\n")
 	
 	if groupings_meet_basic_reqs(groupings):
+		for g in groupings:
+			g.print_self()
+		print()
+		
 		# riichi
 		if riichi:
 			scoring_info.hans.append(ALL_YAKU.YAKUS["Riichi"])
@@ -84,6 +84,25 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, 
 					tanyao = false
 		if tanyao:
 			scoring_info.hans.append(ALL_YAKU.YAKUS["Tan'yao"])
+		
+		# toitoi
+		var sets = 0
+		for g in groupings:
+			if g.type == Grouping.SET:
+				sets += 1
+		if sets >= 4:
+			scoring_info.hans.append(ALL_YAKU.YAKUS["Toitoi"])
+		
+		# iipeikou
+		if !is_open:
+			for i in groupings.size():
+				for j in range(i+1, groupings.size()):
+					var g = groupings[i]
+					var g2 = groupings[j]
+					
+					if g.type == Grouping.RUN and g2.type == Grouping.RUN:
+						if g.tiles[0].get_id() == g2.tiles[0].get_id():
+							scoring_info.hans.append(ALL_YAKU.YAKUS["Iipeikou"])
 	
 	
 	if do_fu:
@@ -139,6 +158,9 @@ func get_maximal_groupings(remaining_hand: Array) -> Array: #return array of `Gr
 
 func is_of_run(tile: MTile, hand:Array):
 	#var id = tile.get_id()
+	if tile.suit == MTile.SUITS.SPECIAL:
+		return
+	
 	var next_id = MTile.gen_id(tile.suit, tile.value+1)
 	var nexter_id = MTile.gen_id(tile.suit, tile.value+2)
 	
