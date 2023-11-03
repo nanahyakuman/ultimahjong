@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://cilh5sx8o5o8k"]
+[gd_scene load_steps=54 format=3 uid="uid://cilh5sx8o5o8k"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -43,6 +43,10 @@
 [ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="38_n0b1y"]
 [ext_resource type="Texture2D" uid="uid://ng8eqocmaltm" path="res://image/sidebar_tiles_9pr.png" id="39_1otd6"]
 [ext_resource type="Script" path="res://FuTab.gd" id="41_je4uv"]
+[ext_resource type="Texture2D" uid="uid://xoodhoigui53" path="res://image/optionsbutton.png" id="42_n7prw"]
+[ext_resource type="Script" path="res://OptionsButton.gd" id="43_jd3i2"]
+[ext_resource type="Script" path="res://QuitButton.gd" id="43_uwhsm"]
+[ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="44_cis8i"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_122ig"]
 content_margin_left = 8.0
@@ -151,9 +155,6 @@ pitch_scale = 0.3
 [node name="CallMade" type="AudioStreamPlayer" parent="HBoxContainer/MahjongRoot/MahjongManager"]
 stream = ExtResource("7_358eq")
 pitch_scale = 0.3
-
-[node name="AnimTimer" type="Timer" parent="HBoxContainer/MahjongRoot/MahjongManager"]
-script = ExtResource("9_r8218")
 
 [node name="GUIManager" type="Control" parent="HBoxContainer/MahjongRoot"]
 layout_mode = 1
@@ -819,7 +820,6 @@ grow_vertical = 2
 tab_alignment = 1
 
 [node name="Run" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/Run"]
@@ -985,6 +985,7 @@ offset_right = 17.0
 offset_bottom = 40.0
 
 [node name="Yaku" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/Yaku"]
@@ -1008,13 +1009,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 bbcode_enabled = true
-text = "[b]Tan'yao タンヤオ[/b]
+text = "[b]Tanyao[/b]
 No terminals or honors.
 
-[b]Riichi 立直[/b]
+[b]Riichi[/b]
 1 tile short of a completed hand. Once entered, hand cannot be modified.
 
-[b]Yakuhai 役牌[/b]
+[b]Yakuhai[/b]
 Set or quad of (dragons)/(seat wind)/(prevalent wind). Stacks with self for multiple valid groupings.
 "
 
@@ -1191,12 +1192,63 @@ tab_size = 2
 visible = false
 layout_mode = 2
 
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Options"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="OptionsButton" type="TextureButton" parent="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("42_n7prw")
+script = ExtResource("43_jd3i2")
+
+[node name="Label" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer/VBoxContainer/OptionsButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.133333, 0.133333, 0.133333, 1)
+theme_override_fonts/font = ExtResource("44_cis8i")
+text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuitButton" type="TextureButton" parent="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("42_n7prw")
+script = ExtResource("43_uwhsm")
+
+[node name="Label" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer/VBoxContainer/QuitButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.133333, 0.133333, 0.133333, 1)
+theme_override_fonts/font = ExtResource("44_cis8i")
+text = "Quit"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="CursorText" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 0
 offset_right = 198.0
-offset_bottom = 17.0
+offset_bottom = 12.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_vhwba")
 script = ExtResource("31_y04dm")
 
@@ -1206,5 +1258,11 @@ size_flags_horizontal = 4
 text = "Reduce the size of the dead wall by 1."
 label_settings = SubResource("LabelSettings_ytvxj")
 
+[node name="AnimTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+script = ExtResource("9_r8218")
+
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" to="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" method="_on_pressed"]
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" to="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" method="_on_pressed"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer/VBoxContainer/OptionsButton" to="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer/VBoxContainer/OptionsButton" method="_on_pressed"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer/VBoxContainer/QuitButton" to="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer/VBoxContainer/QuitButton" method="_on_pressed"]

@@ -10,7 +10,7 @@ class_name MahjongManager
 @onready var tile_sfx_player = $TileOnTable
 @onready var call_sfx_player = $CallMade
 @onready var root = $"../../.."
-@onready var anim_timer = $AnimTimer
+@onready var anim_timer = $%AnimTimer
 @onready var upgrades = $Upgrades
 @onready var hand_gui = $"../GUIManager/All/SideSpacers/Tiles/HBoxContainer/Hand"
 
@@ -177,6 +177,14 @@ func draw_kan_dora():
 			revealed_dora_ids.append(id)
 	TileGraphicKnower.update_dora_ids(revealed_dora_ids)
 
+func reveal_dora():
+	revealed_kan_dora += 1
+	
+	var revealed_dora_ids = []
+	for i in range(upgrades.get_kan_size() - revealed_kan_dora, kan_dora.size()):
+		for id in kan_dora[i].get_dora_id():
+			revealed_dora_ids.append(id)
+	TileGraphicKnower.update_dora_ids(revealed_dora_ids)
 
 ##  this is dopey but `start_rotation` calls `do_opp_discard`,
 ## which recursively calls either itself or `do_tsumo` or "do_post_call_discard`
@@ -446,6 +454,8 @@ func call_graphic_clicked(bitmask: int, tiles_involved: Array):
 			new_grouping = Grouping.new(Grouping.SET, tiles_involved)
 		CALL_BITMASK.KAN:
 			new_grouping = Grouping.new(Grouping.SET, tiles_involved)
+			reveal_dora()
+			
 		CALL_BITMASK.CLOSED_KAN:
 			new_grouping = Grouping.new(Grouping.SET, tiles_involved)
 		CALL_BITMASK.RCH:

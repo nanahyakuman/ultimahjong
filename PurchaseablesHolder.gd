@@ -5,6 +5,7 @@ extends HBoxContainer
 @onready var upgrades = mahjong_manager.upgrades
 @onready var shop_root = %ShopRoot
 @onready var cursor_text = %CursorText
+@onready var anim_timer = %AnimTimer
 
 @export var purchaseable: PackedScene
 
@@ -50,19 +51,27 @@ func pressed(node: Purchaseable):
 	if shop_root.money < node.cost:
 		return false
 	
+	if shop_root.state != shop_root.STATE_ACTIVE:
+		return false
+	
 	shop_root.adjust_money(-node.cost)
+	shop_root.state = shop_root.STATE_ANIMATING
 	
 	match node.type:
 		Purchaseable.TYPES.AKA:
 			for t in node.tiles:
 				tile_counter.increment_aka(t)
+				await anim_timer.start_mod(.1)
 		Purchaseable.TYPES.ADD:
 			for t in node.tiles:
 				tile_counter.increment_tile(t)
+				await anim_timer.start_mod(.1)
 		Purchaseable.TYPES.DEAD_REDUCE:
 			upgrades.dead_wall_size_reduce += 2
 		Purchaseable.TYPES.KAN_REVEAL:
 			upgrades.additional_revealed_kandora += 1
+	
+	shop_root.state = shop_root.STATE_ACTIVE
 	
 	return true
 

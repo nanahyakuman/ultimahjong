@@ -58,6 +58,10 @@ func calc_cost():
 			cost /= 2
 		
 		cost = floori(cost)
+	elif type == TYPES.DEAD_REDUCE:
+		cost = 3
+	elif type == TYPES.KAN_REVEAL:
+		cost = 6
 	
 	label.text = "%d" % cost
 

@@ -34,7 +34,6 @@ visually indicate closed kans, calls in general
 winning by tsumo off a post-kan draw might be broken
 "shape of the game" guide tab
 kandora appear
-score riichi
 probably not a bad idea to formally switch to ttf fonts ngl. no baseline is
 messing with multilingual support
 

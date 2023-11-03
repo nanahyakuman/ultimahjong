@@ -4,6 +4,9 @@ var money = 0
 
 var MONEY_PER_ROUND = 10
 
+enum {STATE_ANIMATING, STATE_ACTIVE}
+var state
+
 @onready var root = $"../../.."
 @onready var cash_label = $"../GUIManager/TableTop/HBoxContainer/CashLabel"
 @onready var to_be_started = [
@@ -14,6 +17,8 @@ var MONEY_PER_ROUND = 10
 ]
 
 func start():
+	state = STATE_ACTIVE
+	
 	adjust_money(MONEY_PER_ROUND)
 	
 	for s in to_be_started:

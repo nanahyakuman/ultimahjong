@@ -47,9 +47,9 @@ var FU = {
 	
 	"SPACER_4": "[b]Dora",
 	
-	"Kan Dora": ScoringInfo.Fu.new("Kan Dora", 8),
-	"Ura Dora": ScoringInfo.Fu.new("Ura Dora", 8),
-	"Aka Dora": ScoringInfo.Fu.new("Aka Dora", 8),
+	"Kan Dora": ScoringInfo.Fu.new("Kan Dora", 16),
+	"Ura Dora": ScoringInfo.Fu.new("Ura Dora", 16),
+	"Aka Dora": ScoringInfo.Fu.new("Aka Dora", 16),
 }
 
 #func _ready():
