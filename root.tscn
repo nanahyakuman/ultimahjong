@@ -91,6 +91,7 @@ axis_stretch_vertical = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_ytvxj"]
 line_spacing = 0.0
+font_color = Color(1, 1, 0.933333, 1)
 
 [node name="Root" type="Control"]
 texture_filter = 1
@@ -872,6 +873,7 @@ custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 4
 script = ExtResource("11_gc23v")
+suit = 1
 
 [node name="RichTextLabel2" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
 layout_mode = 2
@@ -903,7 +905,6 @@ custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 4
 script = ExtResource("11_gc23v")
-suit = 4
 
 [node name="RichTextLabel6" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
 layout_mode = 2

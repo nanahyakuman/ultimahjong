@@ -1,11 +1,12 @@
 extends Node
 class_name Grouping
 
-# set covers both pon and kan
+# set covers both pon and kan, use `tiles.size()` to differentiate.
 enum {NONE, PAIR, SET, RUN}
 const TYPE_STRS = ["NONE","PAIR","SET","RUN"]
 var type = NONE
-# tiles MUST be sorted!!!
+#  tiles MUST be sorted!!! as a result, a `RUN` with a 2s in `tiles[0]` is implicitly
+# a 234s
 var tiles = []
 var open = false
 

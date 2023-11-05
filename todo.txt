@@ -14,8 +14,7 @@ end of every round can purchase:
 		exchange a tile in hand for a current kandora
 		rearrange next five tiles
 	bonuses
-		1 han for every ~six tiles in your hand without any red ink
- yaku weaken every time you call one, min 1 han?
+		1 han for every ~six tiles in your hand without any red ink toka
  dead wall can be expanded as long as there are free tiles left
  overall structure is 17 rounds, starting on E-E and rotating through everything until
 final boss on the E-E repeat. probably no repeated seats.
@@ -35,16 +34,22 @@ visually indicate closed kans, calls in general
 kandora appear
 probably not a bad idea to formally switch to ttf fonts ngl. no baseline is
 	messing with multilingual support
-illegal ? showed up as addtile purchaseable. 1m??1s7s
+illegal ? showed up as addtile purchaseable. 1m??1s7s, ??112s, ??15p[]. i think its
+	related to the "adjacency" code creating 0-value tiles
 closed fu as a mult instead of seperate?
 scoring calc not showing up why?? round E-S
 rework get han to take in a list of yaku instead of seperate bools for all of them
-ron should register an ope set
-you can currently make runs of dragons!!!!
+ron should register an open set
+some debug keys
+	end round, reroll hand, set hand to {x}
+rework yakuchecker to return all valid hands
+record sounds
+redo yakuchecker to prescan relevant stuff
+	identical sets
 
 
 yaku to implement
-	menzentsumo
+x	menzentsumo
 x	riichi
 	ippatsu
 	pinfu?

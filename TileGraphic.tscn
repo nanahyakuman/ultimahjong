@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://TileGraphic.gd" id="1_w2ft1"]
 [ext_resource type="Texture2D" uid="uid://bf8b1q22m2w0s" path="res://image/tilesides.png" id="3_rn2kv"]
 [ext_resource type="Texture2D" uid="uid://baxb03osrtkhb" path="res://image/tile_highlight_b.png" id="4_2lunx"]
-[ext_resource type="Texture2D" uid="uid://ccdv7r4ga7o3t" path="res://image/tiles.png" id="4_mak2b"]
+[ext_resource type="Texture2D" uid="uid://jt1w7bq0ji8r" path="res://image/tile_numerals.png" id="4_vwd4i"]
 [ext_resource type="Texture2D" uid="uid://3xyv2a3mk865" path="res://image/tile_highlight_r.png" id="5_b2fx8"]
 [ext_resource type="Texture2D" uid="uid://cq5xymufy75on" path="res://image/tilerear.png" id="5_xhwoj"]
 [ext_resource type="Texture2D" uid="uid://dajdvnl62pg7i" path="res://image/tile_dora.png" id="6_w2hg6"]
@@ -88,7 +88,7 @@ region_rect = Rect2(80, 64, 16, 32)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_repeat = 1
-texture = ExtResource("4_mak2b")
+texture = ExtResource("4_vwd4i")
 centered = false
 region_enabled = true
 region_rect = Rect2(80, 64, 16, 32)

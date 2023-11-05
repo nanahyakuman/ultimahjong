@@ -16,9 +16,9 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, 
 	
 	
 	if groupings_meet_basic_reqs(groupings):
-		for g in groupings:
-			g.print_self()
-		print()
+#		for g in groupings:
+#			g.print_self()
+#		print()
 		
 		# riichi
 		if riichi:
@@ -73,17 +73,18 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, 
 		for g in groupings:
 			if g.type == Grouping.SET:
 				if g.tiles[0].suit == MTile.SUITS.SPECIAL:
-					if get_yakuhai_vals().has(g.tiles[0].value):
+					for i in get_yakuhai_vals().count(g.tiles[0].value):
 						scoring_info.hans.append(ALL_YAKU.YAKUS["Yakuhai"])
 		
 		# tanyao
-		var tanyao = true
-		for g in groupings:
-			for t in g.tiles:
-				if t.suit == MTile.SUITS.SPECIAL or t.value == 1 or t.value == 9:
-					tanyao = false
-		if tanyao:
-			scoring_info.hans.append(ALL_YAKU.YAKUS["Tan'yao"])
+		if !is_open:
+			var tanyao = true
+			for g in groupings:
+				for t in g.tiles:
+					if t.suit == MTile.SUITS.SPECIAL or t.value == 1 or t.value == 9:
+						tanyao = false
+			if tanyao:
+				scoring_info.hans.append(ALL_YAKU.YAKUS["Tan'yao"])
 		
 		# toitoi
 		var sets = 0
@@ -125,6 +126,8 @@ func groupings_meet_basic_reqs(groupings: Array) -> bool:
 	
 	return (setruns >= 4) and (pairs >= 1) 
 
+
+
 #  this is at least 3x slower than it could theoretically be but it should
 # cover all possible arrangements. a better implementation would pregenerate
 # all sets and pairs and check for their maximal set instead of starting
@@ -156,8 +159,9 @@ func get_maximal_groupings(remaining_hand: Array) -> Array: #return array of `Gr
 	
 	return maximal_groupings
 
+# actually only scans rightwards, so [234m] in sequence returns a set for 2m, but not 3m or 4m
 func is_of_run(tile: MTile, hand:Array):
-	#var id = tile.get_id()
+	# no runs of specials atm
 	if tile.suit == MTile.SUITS.SPECIAL:
 		return
 	
@@ -183,7 +187,7 @@ func is_of_run(tile: MTile, hand:Array):
 		return [tile, has_next, has_nexter]
 	return null
 
-# "size" allows this function to detect atama and kan
+#  "size" allows this function to detect atama and kan.
 func is_of_set(tile: MTile, hand:Array, size: int = 3):
 	var id = tile.get_id()
 	
@@ -194,7 +198,7 @@ func is_of_set(tile: MTile, hand:Array, size: int = 3):
 			count += 1
 			tiles_in_set.append(t)
 	
-	return tiles_in_set if count == size else null
+	return tiles_in_set.resize(size) if count >= size else null
 
 
 
