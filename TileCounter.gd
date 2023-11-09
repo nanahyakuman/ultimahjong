@@ -30,6 +30,9 @@ func initialize_tiles():
 	
 	for i in MTile.DEF_SPECIALS:
 		tile_data.append(MTileData.new(MTile.SUITS.SPECIAL, i, 4, 0))
+	
+	for i in 8:
+		tile_data.append(MTileData.new(MTile.SUITS.FLOWER, i, 1, 0))
 
 
 func get_all_tiles(only_unique = false):

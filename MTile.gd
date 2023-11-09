@@ -1,6 +1,6 @@
 class_name MTile
 
-enum SUITS {NONE=0, MAN=4, PIN=1, SOU=2, SPECIAL=8}
+enum SUITS {NONE=0, MAN=4, PIN=1, SOU=2, SPECIAL=8, FLOWER=16}
 # specials are 1-indexed becuase so are the suits
 enum SPECIALS {NONE, EAST, SOUTH, WEST, NORTH, UP, HAKU, HATSU, CHUN, KIN}
 const DEF_SPECIALS = [SPECIALS.EAST, SPECIALS.SOUTH, SPECIALS.WEST, SPECIALS.NORTH, SPECIALS.HAKU, SPECIALS.HATSU, SPECIALS.CHUN]
@@ -31,7 +31,7 @@ func get_name():
 #  `chi_sets` returns neighbors and superneighbors in order, to make
 # it easy to check for chis.
 func get_adj_ids(s = suit, v = value, chi_sets = false):
-	if suit == SUITS.SPECIAL:
+	if suit == SUITS.SPECIAL or suit == SUITS.FLOWER:
 		return []
 	else:
 		if !chi_sets:
@@ -61,6 +61,8 @@ func get_dora_id():
 				val += [SPECIALS.HAKU, SPECIALS.HATSU, SPECIALS.CHUN]
 			SPECIALS.UP:
 				val += [SPECIALS.UP]
+	elif suit == SUITS.FLOWER:
+		pass
 	else:
 		val.append((((value + 1) - 1) % 9) + 1)
 	

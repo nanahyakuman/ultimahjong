@@ -42,10 +42,11 @@ rework get han to take in a list of yaku instead of seperate bools for all of th
 ron should register an open set
 some debug keys
 	end round, reroll hand, set hand to {x}
-rework yakuchecker to return all valid hands
 record sounds
-redo yakuchecker to prescan relevant stuff
-	identical sets
+yakuhai yaku stopped registering??
+eventually probably gonna need to rewrite grouper/scorer code to just do all valid combos, sadly
+only "tiles.png" is laid out properly. possibly rework tiles to be strip-based instead
+	of full sheets, there's gonna be a lot of redundant tiles between sets anyway.
 
 
 yaku to implement

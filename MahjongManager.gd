@@ -408,7 +408,7 @@ func can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
 	
 	return bitmask
 
-# check if can tsumo, prompt if so
+# check if can tsumo agari, kan, flower, etc/
 func do_if_can_tsumo():
 	var full_hand = [tsumo]
 	full_hand.append_array(hand)
@@ -434,6 +434,9 @@ func do_if_can_tsumo():
 			for i in 3:
 				firstthree.append(kantiles[i])
 			involved[CALL_BITMASK.CLOSED_KAN] = firstthree
+	
+	#flowers:
+	
 	
 	if btm:
 		calls_manager.enable_calls(btm, involved)
@@ -666,3 +669,4 @@ func count_by_id(id: int, tiles: Array) -> int:
 		if tiles[t].get_id() == id:
 			count += 1
 	return count
+

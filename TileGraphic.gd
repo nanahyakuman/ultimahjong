@@ -42,7 +42,7 @@ func get_tile_segment(t: MTile) -> Rect2:
 	var x = (t.value-1) * tile_size.x
 	var y = roundi(log(t.suit)/log(2)) * tile_size.y
 	if tile.aka:
-		y += tile_size.y * 4
+		y += tile_size.y * 5
 	
 	# this texture is only visible if you messed up somehow
 	if t.suit == MTile.SUITS.NONE or t.value == 0:

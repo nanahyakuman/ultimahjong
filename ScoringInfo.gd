@@ -45,3 +45,8 @@ func get_total_fu() -> int:
 	for f in fus:
 		ret += f.fu
 	return ret
+
+func get_total_points():
+	var points = int(get_total_fu() * pow(2.0, get_total_han() + 2.0))
+	points = ceili(points / 10.0) * 10
+	return points

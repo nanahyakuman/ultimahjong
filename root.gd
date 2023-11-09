@@ -28,8 +28,7 @@ func end_round(scoring_info: ScoringInfo, multiplier: int):
 	var fu = scoring_info.get_total_fu()
 	var han = scoring_info.get_total_han()
 	
-	var points = int(fu * pow(2.0, han + 2.0))
-	points = ceili(points / 10.0) * 10
+	var points = scoring_info.get_total_points()
 	points *= multiplier
 	
 	# 0 points for exhaustive
@@ -50,4 +49,3 @@ func start_shop():
 	scoring_root.visible = false
 	shop_root.visible = true
 	shop_root.start()
-	
