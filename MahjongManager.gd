@@ -13,6 +13,8 @@ class_name MahjongManager
 @onready var anim_timer = $%AnimTimer
 @onready var upgrades = $Upgrades
 @onready var hand_gui = $"../GUIManager/All/SideSpacers/Tiles/HBoxContainer/Hand"
+# gui holds this guy, it's gross but probably easier overall
+@onready var items = %Items
 
 # base size of the hand
 const BASE_HAND_SIZE = 13
@@ -102,17 +104,15 @@ func init_wall():
 func draw_hand():
 	for j in upgrades.get_dead_tiles()/4:
 		await anim_timer.start_mod(.15)
-		get_next_from_wall()
-		get_next_from_wall()
-		get_next_from_wall()
-		get_next_from_wall()
+		for k in 4:
+			get_next_from_wall(true)
 		gui_manager.increment_dead_wall_count(4)
 		call_sfx_player.play()
 	
 	if upgrades.get_dead_tiles()%4 != 0:
 		await anim_timer.start_mod(.15)
 		for j in upgrades.get_dead_tiles()%4:
-			get_next_from_wall()
+			get_next_from_wall(true)
 		gui_manager.increment_dead_wall_count(upgrades.get_dead_tiles()%4)
 		call_sfx_player.play()
 	
@@ -120,7 +120,7 @@ func draw_hand():
 	
 	for i in BASE_HAND_SIZE:
 		await anim_timer.start_mod(.07)
-		hand.append(get_next_from_wall())
+		hand.append(get_next_from_wall(true))
 		call_sfx_player.play()
 		update_hand_label(true)
 	
@@ -179,8 +179,8 @@ func draw_hand():
 	
 
 func draw_kan_dora():
-	kan_dora.append(get_next_from_wall())
-	ura_dora.append(get_next_from_wall())
+	kan_dora.append(get_next_from_wall(true))
+	ura_dora.append(get_next_from_wall(true))
 	gui_manager.update_kan_dora(kan_dora, upgrades.get_kan_size() - revealed_kan_dora)
 	
 	revealed_kan_dora = upgrades.get_kan_revealed()
@@ -213,9 +213,11 @@ func start_rotation(discard_override = null):
 func assign_discard_count(discard_override = null):
 	remaining_opp_discards = discard_override if discard_override != null else upgrades.get_discard_count()
 
-func do_tsumo():
-	tsumo = get_next_from_wall()
-#	tsumo = MTile.new(MTile.SUITS.MAN, 1)
+func do_tsumo(override: MTile = null):
+	if override:
+		tsumo = override
+	else:
+		tsumo = get_next_from_wall()
 	if !tsumo:
 		return
 	gui_manager.update_tsumo([tsumo])
@@ -592,12 +594,18 @@ func update_hand_label(override_sort = false):
 	gui_manager.update_hand(hand)
 
 
-func get_next_from_wall():
+# `does_not_count` just prevents certain tile draws from decrementing counters
+func get_next_from_wall(does_not_count = false):
 	if wall.size() == 0:
 		end_round()
 		return null
 	var ret = wall.pop_back()
 	gui_manager.update_wall_count(wall.size())
+	
+	if !does_not_count:
+		for m in items.get_children():
+			m.decrement()
+	
 	return ret
 
 

@@ -9,8 +9,8 @@ const DEF_SPECIALS = [SPECIALS.EAST, SPECIALS.SOUTH, SPECIALS.WEST, SPECIALS.NOR
 const DRAGONS = [SPECIALS.HAKU, SPECIALS.HATSU, SPECIALS.CHUN, SPECIALS.KIN]
 
 # human readable name
-const SUIT_NAMES = ["NONE", "PIN", "SOU", 0, "MAN"]
-const SPECIAL_NAMES = ["NONE", "EAST", "SOUTH", "WEST", "NORTH", "UP", "HAKU", "HATSU", "CHUN", "KIN"]
+const SUIT_NAMES = ["NONE", "-Pin", "-Sou", 0, "-Man"]
+const SPECIAL_NAMES = ["NONE", "East", "South", "West", "North", "Rising", "White", "Green", "Red", "Gold"]
 
 var suit: int
 var value: int

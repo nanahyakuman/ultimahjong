@@ -14,8 +14,8 @@ const SIZE = 22
 @onready var kan_pile = $All/SideSpacers/Tiles/KanPile/Top
 @onready var kan_pile_bot = $All/SideSpacers/Tiles/KanPile/Bot
 @onready var graphic_tile_counter = $"../../GraphicTileCounter"
-@onready var prev_wind = $All/TextureRect/HBoxContainer/RoundWind/Sprite2D
-@onready var seat_wind = $All/TextureRect/HBoxContainer/SittingWind/Sprite2D
+@onready var prev_wind = $All/TableBottom/HBoxContainer/RoundWind/Sprite2D
+@onready var seat_wind = $All/TableBottom/HBoxContainer/SittingWind/Sprite2D
 @onready var made_calls = $MadeCalls
 
 # tracked so calls can highlight it. only modifed by `hand`.

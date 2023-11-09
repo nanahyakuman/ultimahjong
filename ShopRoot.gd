@@ -12,8 +12,8 @@ var state
 @onready var to_be_started = [
 	$VBoxContainer/AkaPurchaseables,
 	$VBoxContainer/TilePurchaseables,
-	$VBoxContainer/DeadWallPurchaseables,
-	$VBoxContainer/KanRevealPurchaseables2
+	$VBoxContainer/HBoxContainer/DeadWallPurchaseables,
+	$VBoxContainer/HBoxContainer/KanRevealPurchaseables,
 ]
 
 func start():

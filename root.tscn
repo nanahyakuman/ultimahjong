@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://dfr0xt7vhfy2u"]
+[gd_scene load_steps=51 format=3 uid="uid://dfr0xt7vhfy2u"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -28,6 +28,7 @@
 [ext_resource type="Script" path="res://CursorTextRequester.gd" id="16_8lthm"]
 [ext_resource type="Script" path="res://ShopRoot.gd" id="19_bnl3p"]
 [ext_resource type="Texture2D" uid="uid://bxt2na0s3mabw" path="res://image/call_indicator_gold.png" id="19_idqi3"]
+[ext_resource type="PackedScene" uid="uid://dxdkyqgyyijvx" path="res://item.tscn" id="19_yekpg"]
 [ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="20_ib16c"]
 [ext_resource type="Script" path="res://PurchaseablesHolder.gd" id="20_wmn33"]
 [ext_resource type="PackedScene" uid="uid://cpirwiftxeu8s" path="res://purchaseable.tscn" id="21_3mckx"]
@@ -36,11 +37,9 @@
 [ext_resource type="Script" path="res://ScoringRoot.gd" id="21_yhd2i"]
 [ext_resource type="FontFile" uid="uid://dmoumxbcf3gn" path="res://text/font/Body2.png" id="28_jde07"]
 [ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tilecounter/tablediv.png" id="31_h31my"]
-[ext_resource type="Script" path="res://Cursor.gd" id="31_y04dm"]
 [ext_resource type="Texture2D" uid="uid://8eiqqlppwabi" path="res://image/tilecounter/tilecounter.png" id="33_6btw0"]
 [ext_resource type="Texture2D" uid="uid://ch4nr70j7xj74" path="res://image/tilecounter/tilecounter_end_odd.png" id="34_tbbuy"]
 [ext_resource type="Texture2D" uid="uid://blxlrv0jsh5hx" path="res://image/tilecounter/tilecounter_end_even.png" id="35_5xuo4"]
-[ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="38_n0b1y"]
 [ext_resource type="Texture2D" uid="uid://ng8eqocmaltm" path="res://image/sidebar_tiles_9pr.png" id="39_1otd6"]
 [ext_resource type="Script" path="res://FuTab.gd" id="41_je4uv"]
 [ext_resource type="Texture2D" uid="uid://xoodhoigui53" path="res://image/optionsbutton.png" id="42_n7prw"]
@@ -77,21 +76,6 @@ expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t3qve"]
 content_margin_left = 2.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vhwba"]
-content_margin_top = 1.0
-content_margin_bottom = 4.0
-texture = ExtResource("38_n0b1y")
-texture_margin_left = 4.0
-texture_margin_top = 4.0
-texture_margin_right = 4.0
-texture_margin_bottom = 4.0
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-
-[sub_resource type="LabelSettings" id="LabelSettings_ytvxj"]
-line_spacing = 0.0
-font_color = Color(1, 1, 0.933333, 1)
 
 [node name="Root" type="Control"]
 texture_filter = 1
@@ -315,13 +299,13 @@ mouse_default_cursor_shape = 2
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/All"]
+[node name="TableBottom" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/All"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 texture = ExtResource("8_hy522")
 stretch_mode = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager/All/TextureRect"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -332,32 +316,43 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 6
 
-[node name="Spacer" type="Control" parent="HBoxContainer/MahjongRoot/GUIManager/All/TextureRect/HBoxContainer"]
+[node name="Spacer" type="Control" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer"]
 layout_mode = 2
 
-[node name="RoundWind" type="Control" parent="HBoxContainer/MahjongRoot/GUIManager/All/TextureRect/HBoxContainer"]
+[node name="RoundWind" type="Control" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer"]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_vertical = 4
 script = ExtResource("16_8lthm")
 hover_text = "The Prevalent Wind."
 
-[node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/MahjongRoot/GUIManager/All/TextureRect/HBoxContainer/RoundWind"]
+[node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/RoundWind"]
 texture = ExtResource("8_heinv")
 centered = false
 vframes = 4
 
-[node name="SittingWind" type="Control" parent="HBoxContainer/MahjongRoot/GUIManager/All/TextureRect/HBoxContainer"]
+[node name="SittingWind" type="Control" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer"]
 custom_minimum_size = Vector2(64, 24)
 layout_mode = 2
 size_flags_vertical = 4
 script = ExtResource("16_8lthm")
 hover_text = "The Sitting Wind."
 
-[node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/MahjongRoot/GUIManager/All/TextureRect/HBoxContainer/SittingWind"]
+[node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/SittingWind"]
 texture = ExtResource("8_00qj1")
 centered = false
 vframes = 4
+
+[node name="Items" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+alignment = 2
+
+[node name="Item" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("19_yekpg")]
+layout_mode = 2
+type = 1
 
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
 layout_mode = 1
@@ -734,7 +729,12 @@ type = 1
 BUTTONS = 2
 PER_BUTTON = 4
 
-[node name="DeadWallPurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="DeadWallPurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1
@@ -744,7 +744,7 @@ type = 2
 BUTTONS = 1
 PER_BUTTON = 0
 
-[node name="KanRevealPurchaseables2" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
+[node name="KanRevealPurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1
@@ -1256,20 +1256,6 @@ theme_override_fonts/font = ExtResource("44_cis8i")
 text = "Quit"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="CursorText" type="PanelContainer" parent="."]
-unique_name_in_owner = true
-layout_mode = 0
-offset_right = 198.0
-offset_bottom = 12.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_vhwba")
-script = ExtResource("31_y04dm")
-
-[node name="Label" type="Label" parent="CursorText"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Reduce the size of the dead wall by 1."
-label_settings = SubResource("LabelSettings_ytvxj")
 
 [node name="AnimTimer" type="Timer" parent="."]
 unique_name_in_owner = true

@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 FuncKeys="*res://global/FuncKeys.gd"
 TileGraphicKnower="*res://global/TileGraphicKnower.gd"
 COL="*res://global/Colors.gd"
+CursorText="*res://global/cursor_text.tscn"
 
 [display]
 

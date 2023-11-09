@@ -32,7 +32,7 @@ func initialize_tiles():
 		tile_data.append(MTileData.new(MTile.SUITS.SPECIAL, i, 4, 0))
 	
 	for i in 8:
-		tile_data.append(MTileData.new(MTile.SUITS.FLOWER, i, 1, 0))
+		tile_data.append(MTileData.new(MTile.SUITS.FLOWER, i+1, 1, 0))
 
 
 func get_all_tiles(only_unique = false):
@@ -64,6 +64,8 @@ func get_random_non_aka_ids(amount_in_group: int, groups: int):
 				if t.get_id() == MTile.gen_id(mtd.suit,mtd.value):
 					theoretical_akas += 1
 			if theoretical_akas >= mtd.count:
+				continue
+			if mtd.suit == MTile.SUITS.FLOWER:
 				continue
 			
 			subret.append(MTile.new(mtd.suit,mtd.value))

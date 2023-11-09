@@ -10,7 +10,8 @@ func _ready():
 		for mtd in tile_counter.tile_data:
 			if mtd.suit == suit and mtd.value == i+1:
 				var t = tile_graphic.instantiate()
+				t.verbose = true
 				add_child(t)
 				t.assign_suit_value(MTile.new(suit,i+1))
 				break
-		
+

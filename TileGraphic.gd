@@ -3,9 +3,9 @@ class_name TileGraphic
 
 @onready var sprite = $Sprite2D
 @onready var sides = $Tilesides
-@onready var sim_tile_highlight = $BlueTileHighlight
-@onready var adj_tile_highlight = $RedTileHighlight
-@onready var call_tile_highlight = $RedTileHighlight2
+@onready var sim_tile_highlight = $SimTileHighlight
+@onready var adj_tile_highlight = $AdjTileHighlight
+@onready var call_tile_highlight = $CallTileHighlight
 @onready var dora_sprite = $Sprite2D/TileDora
 @onready var flicker = $Flicker
 
@@ -19,6 +19,9 @@ enum {SIDE_RIGHT, SIDE_TOP, SIDE_LEFT, SIDE_BOT}
 var visible_side = SIDE_BOT
 var _reversed = false
 var _face_upsidedown = false
+
+# hover text name
+@export var verbose = false
 
 func _ready():
 	TileGraphicKnower.highlight.connect(self._highlight_requested)
@@ -56,13 +59,16 @@ func assign_visible_side(side: int):
 	visible_side = side
 	if side == -1:
 		sides.visible = false
-		sim_tile_highlight.frame = 4
+		sim_tile_highlight.frame_coords.x = 4
+		adj_tile_highlight.frame_coords.x = 4
 	elif !_reversed:
 		sides.frame = side
-		sim_tile_highlight.frame = side
+		sim_tile_highlight.frame_coords.x = side
+		adj_tile_highlight.frame_coords.x = side
 	else:
 		sides.frame = 4 + side
-		sim_tile_highlight.frame = side
+		sim_tile_highlight.frame_coords.x = side
+		adj_tile_highlight.frame_coords.x = side
 	
 	
 	sprite.visible = !_reversed
@@ -75,7 +81,7 @@ func get_reversed():
 	return _reversed
 
 func set_rotated(ud: bool):
-	var _face_upsidedown = ud
+	_face_upsidedown = ud
 	sprite.rotation = int(_face_upsidedown) * PI
 	sprite.position = Vector2(16,26) * int(_face_upsidedown)
 
@@ -90,8 +96,8 @@ func _gui_input(event):
 				emit_signal("tile_graphic_clicked", tile)
 				#TileGraphicKnower.highlight_matching_tiles(tile, true)
 			
-#			if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-#				print(tile.get_id())
+			if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+				print(tile.get_id())
 
 
 
@@ -101,20 +107,30 @@ func _on_mouse_entered():
 	# reversed tiles are hidden
 	if !_reversed:
 		TileGraphicKnower.highlight_matching_tiles(tile, true)
+	if verbose:
+		CursorText.set_text(tile.get_name())
 func _on_mouse_exited():
 	if !_reversed:
 		TileGraphicKnower.highlight_matching_tiles(tile, false)
+	if verbose:
+		CursorText.set_text("")
 
-func _highlight_requested(id: int, val: bool, is_adj: bool):
+func _highlight_requested(id: int, adjs: Array, val: bool):
 	if _reversed:
 		return
 	if tile:
 		if id == tile.get_id():
-			if !is_adj:
-				sim_tile_highlight.visible = val
-				flicker.visible = val
-			else:
-				adj_tile_highlight.visible = val
+			sim_tile_highlight.visible = val
+			flicker.visible = val
+			return
+		# left or right visibility
+		var find = adjs.find(tile.get_id())
+		if find != -1:
+			adj_tile_highlight.visible = val
+			adj_tile_highlight.scale.x = 1-(find*2)
+			adj_tile_highlight.position.x = 8-find
+			#flicker.visible = val
+			
 
 func direct_request_highlight(val: bool):
 	call_tile_highlight.visible = val

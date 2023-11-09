@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxdkyqgyyijvx"]
+
+[ext_resource type="Script" path="res://item.gd" id="1_2a2qp"]
+[ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="1_6ek5j"]
+[ext_resource type="Texture2D" uid="uid://cw1dmiad2vqgy" path="res://image/item/item.png" id="1_tsqfh"]
+[ext_resource type="Texture2D" uid="uid://cdmm4yumwpnvp" path="res://image/item/counter9pr.png" id="4_3qxpy"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jucxd"]
+content_margin_left = 2.0
+content_margin_top = 0.0
+content_margin_right = 1.0
+content_margin_bottom = 0.0
+texture = ExtResource("4_3qxpy")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 4.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Item" type="Control"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 3
+anchors_preset = 0
+theme = ExtResource("1_6ek5j")
+script = ExtResource("1_2a2qp")
+hover_text = "boku, item dayo!"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_tsqfh")
+centered = false
+hframes = 2
+vframes = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -9.0
+offset_top = -7.0
+offset_right = -1.0
+offset_bottom = 8.0
+grow_horizontal = 0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_jucxd")
+
+[node name="CounterLabel" type="Label" parent="PanelContainer"]
+layout_mode = 2
+text = "7"
