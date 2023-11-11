@@ -15,12 +15,15 @@ func _ready():
 func update_display():
 	var counts = tile_counter.tile_data
 	
-	var suits = [MTile.SUITS.MAN, MTile.SUITS.PIN, MTile.SUITS.SOU, MTile.SUITS.SPECIAL]
+	var suits = [MTile.SUITS.PIN, MTile.SUITS.SOU, MTile.SUITS.MAN, MTile.SUITS.SPECIAL]
 	
 	var strs = ["","","",""]
 	
 	for i in counts:
-		strs[suits.find(i.suit)] += "%s+%s " % [i.count-i.aka_count, i.aka_count]
+		var find = suits.find(i.suit)
+		if find == -1:
+			continue
+		strs[find] += "%s+%s " % [i.count-i.aka_count, i.aka_count]
 	
 	for i in strs.size():
 		menu_counts[i].text = strs[i]

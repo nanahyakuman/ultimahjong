@@ -31,6 +31,8 @@ class Fu:
 		return Fu.new(nam, fu)
 
 
+
+
 var fus = []
 var hans = []
 
@@ -48,5 +50,5 @@ func get_total_fu() -> int:
 
 func get_total_points():
 	var points = int(get_total_fu() * pow(2.0, get_total_han() + 2.0))
-	points = ceili(points / 10.0) * 10
+	points = ceili(points / 100.0) * 100
 	return points

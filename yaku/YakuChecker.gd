@@ -5,12 +5,12 @@ class_name YakuChecker
 
 
 # hand should be sorted by MTile id. this is slow
-func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, doras = [], do_fu = false, riichi = false) -> ScoringInfo:
+func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, doras = [], do_fu = false, other_met_yaku: ScoringInfo = null) -> ScoringInfo:
 	var is_open = already_opened_groupings.size() > 0
 	
 	
 	var remaining_hand = hand.duplicate()
-	var groupingss = [get_maximal_groupings(remaining_hand,false),get_maximal_groupings(remaining_hand,true)]
+	var groupingss = [_get_maximal_groupings(remaining_hand,false),_get_maximal_groupings(remaining_hand,true)]
 	
 	var max = null
 	
@@ -23,10 +23,6 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, 
 	#		for g in groupings:
 	#			g.print_self()
 	#		print()
-			
-			# riichi
-			if riichi:
-				scoring_info.hans.append(ALL_YAKU.YAKUS["Riichi"])
 			
 			# check half and full flushes.
 			var suit = 0
@@ -119,11 +115,14 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, 
 			if scoring_info.get_total_points() > max.get_total_points():
 				max = scoring_info
 	
+	if other_met_yaku and max.hans.size() > 0:
+		max.hans.append_array(other_met_yaku.hans)
+	
 	return max
 
 # does not check chitoitsu
 func hand_meets_basic_reqs(hand: Array) -> bool:
-	var groupings = get_maximal_groupings(hand)
+	var groupings = _get_maximal_groupings(hand)
 	return groupings_meet_basic_reqs(groupings)
 
 func groupings_meet_basic_reqs(groupings: Array) -> bool:
@@ -139,43 +138,65 @@ func groupings_meet_basic_reqs(groupings: Array) -> bool:
 
 
 
-#  lil slow ngl
-func get_maximal_groupings(remaining_hand: Array, prioritize_runs_not_sets: bool = false) -> Array: #return array of `Grouping`s
+#  lil slow ngl. if `remaining_hand` does not fully resolve, returns an empty array.
+# e.g. 1234m returns nothing bc the 4 is hanging. this will work for hands of arbitrary sizes,
+# if that's helpful.
+func _get_maximal_groupings(remaining_hand: Array, prioritize_runs_not_sets: bool = false, prefix = "") -> Array: #return array of `Grouping`s
+#	var a = []
+#	for t in remaining_hand:
+#		a.append(t.get_name())
+#	print(remaining_hand.size(), ": ", prefix, a)
+	
 	var maximal_groupings = []
 	
-	if remaining_hand.size() == 2:
-		if remaining_hand[0].get_id() == remaining_hand[1].get_id():
-			return [Grouping.new(Grouping.PAIR, remaining_hand)]
+	#  if it's 0, this is a positive escape case because counts will align.
+	# if it's 1, this is a negative because counts will not.
+	if remaining_hand.size() < 2:
+		return []
 	
-	var tested_ids = []
+	var t = remaining_hand[0]
 	
-	for t in remaining_hand:
-		#  dont retest tiles that are already managed. this should be fine
-		# becuase we recurse, "clearing" the array every iteration.
-		if tested_ids.has(t.get_id()):
-			continue
-		tested_ids.append(t.get_id())
-		
-		for type_index in 2:
-			var group
-			#  ugly but should solve issues where we need to check for both runs and sets.
-			# prioritize runs otherwise
-			if type_index + int(prioritize_runs_not_sets) % 2 != 0:
+	for type_index in 3:
+		var group = null
+		var type = null
+		#  ugly but should solve issues where we need to check for both runs and sets.
+		# prioritize runs otherwise
+		if !prioritize_runs_not_sets:
+			if type_index == 0:
 				group = is_of_set(t, remaining_hand)
-			else:
+				type = Grouping.SET
+			elif type_index == 1:
 				group = is_of_run(t, remaining_hand)
-			if group:
-				var theoretically_mananged_tiles = remaining_hand.duplicate()
-				for tg in group:
-					theoretically_mananged_tiles.erase(tg)
-				
-				var recurse = get_maximal_groupings(theoretically_mananged_tiles)
-				if recurse.size() + 1 >= maximal_groupings.size():
-					maximal_groupings = recurse.duplicate()
-					var type = Grouping.RUN if type_index == 0 else Grouping.SET
-					maximal_groupings.append(Grouping.new(type, group))
+				type = Grouping.RUN
+		else:
+			if type_index == 0:
+				group = is_of_run(t, remaining_hand)
+				type = Grouping.RUN
+			elif type_index == 1:
+				group = is_of_set(t, remaining_hand)
+				type = Grouping.SET
+		# pairs
+		if type_index == 2:
+			group = is_of_set(t, remaining_hand, 2)
+			type = Grouping.PAIR
+		
+		# recurse if we find a group
+		if group:
+			var theoretically_mananged_tiles = remaining_hand.duplicate()
+			for tg in group:
+				theoretically_mananged_tiles.erase(tg)
+			
+			var recurse = _get_maximal_groupings(theoretically_mananged_tiles, prioritize_runs_not_sets, prefix + "  ")
+			var new_group = Grouping.new(type,group)
+			var theoretical_all = [new_group]
+			theoretical_all.append_array(recurse)
+			# only care if we use all tiles
+			if size_of_groupings(theoretical_all) == remaining_hand.size():
+				maximal_groupings = recurse.duplicate()
+				maximal_groupings.append(new_group)
+				return maximal_groupings
 	
-	return maximal_groupings
+	return []
 
 # actually only scans rightwards, so [234m] in sequence returns a set for 2m, but not 3m or 4m
 func is_of_run(tile: MTile, hand:Array):
@@ -221,7 +242,18 @@ func is_of_set(tile: MTile, hand:Array, size: int = 3):
 	# breaks things!!!!
 	return tiles_in_set if count >= size else null
 
-
+# get the amount of tiles in an array of groupings
+func size_of_groupings(gs: Array) -> int:
+	var count = 0
+	for g in gs:
+		match g.type:
+			Grouping.PAIR:
+				count += 2
+			Grouping.SET:
+				count += 3
+			Grouping.RUN:
+				count += 3
+	return count
 
 func get_dora(groupings: Array, dora_ids: Array):
 	var dora = 0
@@ -278,8 +310,8 @@ func get_fu(groupings: Array, doras: Array):
 				break
 		
 		if is_yao:
-			fus.back().fu *= ALL_YAKU.FU["Yao Multiplier"].fu
-			fus.back().nam = "Yao " + fus.back().nam
+			fus.back().fu *= ALL_YAKU.FU["Yaochuu Multiplier"].fu
+			fus.back().nam = "Yaochuu " + fus.back().nam
 	
 	
 	# doras is and array of arrays of MTile ids, seperated into front and ura

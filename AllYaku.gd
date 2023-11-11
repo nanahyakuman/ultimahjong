@@ -31,6 +31,7 @@ var FU = {
 	"SPACER_2": "[b]Groupings[/b]",
 	
 	"Pair": ScoringInfo.Fu.new("Pair", 0),
+	"Yakuhai Pair": ScoringInfo.Fu.new("Yakuhai Pair", 2),
 	"Open Run": ScoringInfo.Fu.new("Open Run", 0),
 	"Closed Run": ScoringInfo.Fu.new("Closed Run", 0),
 	"Open Set": ScoringInfo.Fu.new("Open Set", 2),
@@ -39,7 +40,7 @@ var FU = {
 	"Closed Quad": ScoringInfo.Fu.new("Closed Quad", 16),
 	#  weird because it's not a fu of its own but this allows us to hijack
 	# existing gui code.
-	"Yao Multiplier": ScoringInfo.Fu.new("(Yao)", 2),
+	"Yaochuu Multiplier": ScoringInfo.Fu.new("(Yaochuu)", 2),
 	
 	"SPACER_3": "[b]Waits",
 	

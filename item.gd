@@ -1,8 +1,11 @@
-extends CursorTextRequester
+extends Control
 
 @onready var counter_label = $PanelContainer/CounterLabel
 @onready var sprite_2d = $Sprite2D
 @onready var panel_container = $PanelContainer
+@onready var description = $Description
+@onready var hover_name = $Description/VBoxContainer/PanelContainer/HBoxContainer/PanelContainer/Name
+@onready var hover_text = $Description/VBoxContainer/Label
 var mahjong_manager
 
 enum TYPES {NONE, ERASER}
@@ -10,18 +13,22 @@ enum TYPES {NONE, ERASER}
 var cooldown_counter
 
 func _ready():
-	cooldown_counter = 0
-	sprite_2d.frame_coords.x = type
+	connect("mouse_entered", _mouse_entered)
+	connect("mouse_exited", _mouse_exited)
+	_mouse_exited()
 	
 	# hovertexting
 	match type:
 		TYPES.ERASER:
-			hover_text = "Current tsumo tile becomes a White Dragon (temporarily)."
+			hover_name.text = "Eraser"
+			hover_text.text = "Current tsumo tile becomes a White Dragon (temporarily)."
+	
+	cooldown_counter = 0
+	sprite_2d.frame_coords.x = type
 	
 	mahjong_manager = %MahjongManager
 	
 	decrement()
-	super._ready()
 
 func decrement():
 	cooldown_counter -= 1
@@ -42,7 +49,7 @@ func _use():
 			cooldown_counter = 9999
 		TYPES.ERASER:
 			mahjong_manager.do_tsumo(MTile.new(MTile.SUITS.SPECIAL,MTile.SPECIALS.HAKU))
-			cooldown_counter = 30
+			cooldown_counter = 95
 			
 	
 	assert(cooldown_counter > 0, "you forgot to reassign the cooldown counter!!")
@@ -54,3 +61,8 @@ func _gui_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			_use()
+
+func _mouse_entered():
+	description.visible = true
+func _mouse_exited():
+	description.visible = false

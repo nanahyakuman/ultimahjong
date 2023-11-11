@@ -41,8 +41,8 @@ some debug keys
 	end round, reroll hand, set hand to {x}
 record sounds
 yakuhai yaku stopped registering??
-only "tiles.png" is laid out properly
-buy flowers/seasons
+yakuhai pair fu
+addtile purchaseable getting illegal tiles again. ?157p
 
 USABLE ITEMS!!!!! draw-based timeout
 

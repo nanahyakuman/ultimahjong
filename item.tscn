@@ -1,9 +1,36 @@
-[gd_scene load_steps=6 format=3 uid="uid://dxdkyqgyyijvx"]
+[gd_scene load_steps=12 format=3 uid="uid://dxdkyqgyyijvx"]
 
 [ext_resource type="Script" path="res://item.gd" id="1_2a2qp"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="1_6ek5j"]
 [ext_resource type="Texture2D" uid="uid://cw1dmiad2vqgy" path="res://image/item/item.png" id="1_tsqfh"]
+[ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="4_1p2ne"]
 [ext_resource type="Texture2D" uid="uid://cdmm4yumwpnvp" path="res://image/item/counter9pr.png" id="4_3qxpy"]
+[ext_resource type="Texture2D" uid="uid://dqi3m54qu1jyy" path="res://image/title9pr.png" id="5_bjwiu"]
+[ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="5_weeoq"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8xg4c"]
+content_margin_top = 1.0
+content_margin_bottom = 4.0
+texture = ExtResource("4_1p2ne")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6rwdg"]
+texture = ExtResource("5_bjwiu")
+texture_margin_left = 2.0
+texture_margin_right = 2.0
+axis_stretch_horizontal = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vhro3"]
+bg_color = Color(0.266667, 0.2, 0.2, 1)
+border_width_bottom = 1
+border_color = Color(0.133333, 0.133333, 0.133333, 1)
+expand_margin_left = 2.0
+expand_margin_right = 1.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jucxd"]
 content_margin_left = 2.0
@@ -24,7 +51,6 @@ layout_mode = 3
 anchors_preset = 0
 theme = ExtResource("1_6ek5j")
 script = ExtResource("1_2a2qp")
-hover_text = "boku, item dayo!"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_tsqfh")
@@ -32,7 +58,53 @@ centered = false
 hframes = 2
 vframes = 2
 
+[node name="Description" type="PanelContainer" parent="."]
+z_index = 1
+z_as_relative = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -54.0
+offset_top = -2.0
+offset_right = 54.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_8xg4c")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Description"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Description/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_6rwdg")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Description/VBoxContainer/PanelContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Description/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vhro3")
+
+[node name="Name" type="Label" parent="Description/VBoxContainer/PanelContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("5_weeoq")
+text = "Unknown"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="Description/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+text = "Unknown Item!"
+horizontal_alignment = 1
+autowrap_mode = 2
+
 [node name="PanelContainer" type="PanelContainer" parent="."]
+z_index = 1
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0

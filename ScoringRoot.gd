@@ -4,6 +4,7 @@ extends Control
 @onready var fu_names = $Window/VBoxContainer/Fu/Names
 @onready var fu_points = $Window/VBoxContainer/Fu/Points
 @onready var calc = $Window/VBoxContainer/Calc
+@onready var total = $Window/VBoxContainer/Total
 
 
 # fu, han, and points can theoretically be derived here but
@@ -26,4 +27,5 @@ func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points:int, mu
 		fu_points.append_text(str(f.fu) + " fu\n")
 	
 	calc.clear()
-	calc.text = "[center][b][color=%s]%d[/color]×2[/b](2+[color=%s]%d[/color])[b]×%d=\n[color=%s]%d[/color]" % [COL.LBLUE, fu, COL.YELLOW, han, mult, COL.WHITE, points]
+	calc.text = "[center][b][color=%s]%d[/color]×2[/b](2+[color=%s]%d[/color])[b]×%d=" % [COL.LBLUE, fu, COL.YELLOW, han, mult]
+	total.set_text_colorized(str(points))

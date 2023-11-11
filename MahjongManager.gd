@@ -13,6 +13,7 @@ class_name MahjongManager
 @onready var anim_timer = $%AnimTimer
 @onready var upgrades = $Upgrades
 @onready var hand_gui = $"../GUIManager/All/SideSpacers/Tiles/HBoxContainer/Hand"
+@onready var ALL_YAKU = $YakuFu
 # gui holds this guy, it's gross but probably easier overall
 @onready var items = %Items
 
@@ -44,6 +45,8 @@ var remaining_opp_discards
 
 var in_riichi = false
 
+var met_yaku: ScoringInfo
+
 func start_round():
 	gui_manager.update_discard([])
 	gui_manager.update_tsumo([])
@@ -55,6 +58,8 @@ func start_round():
 	gui_manager.update_wall_count(0)
 	
 	in_riichi = false
+	
+	met_yaku = ScoringInfo.new()
 	
 	increment_winds()
 	
@@ -144,19 +149,19 @@ func draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 2, true))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 4))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 5, true))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 6))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 7))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 8))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 9))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 9, true))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 9))
+	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+	temp.append(MTile.new(MTile.SUITS.MAN, 3))
+	temp.append(MTile.new(MTile.SUITS.MAN, 4))
+	temp.append(MTile.new(MTile.SUITS.MAN, 5))
+	temp.append(MTile.new(MTile.SUITS.MAN, 6))
+	temp.append(MTile.new(MTile.SUITS.MAN, 7))
+	temp.append(MTile.new(MTile.SUITS.MAN, 8))
+	temp.append(MTile.new(MTile.SUITS.MAN, 9))
+	temp.append(MTile.new(MTile.SUITS.MAN, 9))
+	temp.append(MTile.new(MTile.SUITS.MAN, 9))
 #
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
@@ -220,6 +225,7 @@ func do_tsumo(override: MTile = null):
 		tsumo = get_next_from_wall()
 	if !tsumo:
 		return
+	
 	gui_manager.update_tsumo([tsumo])
 	tile_sfx_player.play()
 	
@@ -293,8 +299,8 @@ func can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
 	#ron check
 	var full_hand = [disc]
 	full_hand.append_array(hand)
-	full_hand.sort()
-	if yaku_checker.hand_get_han(full_hand, called_hand, false, [], false, in_riichi).get_total_han() > 0:
+	full_hand.sort_custom(Callable(MTile, "tile_compare"))
+	if yaku_checker.hand_get_han(full_hand, called_hand, false, [], false, met_yaku).get_total_han() > 0:
 		bitmask |= CALL_BITMASK.RON
 	
 	# the rest only apply if not in riichi
@@ -414,12 +420,12 @@ func can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
 func do_if_can_tsumo():
 	var full_hand = [tsumo]
 	full_hand.append_array(hand)
-	full_hand.sort()
+	full_hand.sort_custom(Callable(MTile, "tile_compare"))
 	
 	var btm = 0
 	var involved = {}
 	
-	if yaku_checker.hand_get_han(full_hand, called_hand, true, [], false, in_riichi).get_total_han() > 0:
+	if yaku_checker.hand_get_han(full_hand, called_hand, true, [], false, null).get_total_han() > 0:
 		btm |= CALL_BITMASK.TSM
 	
 	# closed tsumo kan. note we ban riichi kans
@@ -525,7 +531,7 @@ func _input(event):
 	if _state == STATE_CALLS:
 		if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-				calls_manager.enable_calls(0, {})
+				#calls_manager.enable_calls(0, {})
 				call_graphic_clicked(CALL_BITMASK.NONE, [])
 	
 #	if event is InputEventMouseButton:
@@ -574,7 +580,7 @@ func try_enter_riichi():
 	for t in tile_counter.get_all_tiles():
 		var full_hand = [t]
 		full_hand.append_array(hand)
-		full_hand.sort()
+		full_hand.sort_custom(Callable(MTile, "tile_compare"))
 		if yaku_checker.hand_meets_basic_reqs(full_hand):
 			calls_manager.enable_calls(CALL_BITMASK.RCH, {})
 			set_state(STATE_CALLS)
@@ -585,6 +591,7 @@ func try_enter_riichi():
 # entered from calls
 func do_riichi():
 	in_riichi = true
+	met_yaku.hans.append(ALL_YAKU.YAKUS["Riichi"])
 	start_rotation()
 
 
@@ -633,13 +640,13 @@ func end_round(win_is_tsumo_not_ron = false):
 		full_hand.append(tsumo)
 	else:
 		full_hand.append(opp_discard.back())
-	full_hand.sort()
+	full_hand.sort_custom(Callable(MTile, "tile_compare"))
 	
 	#  must have 14 tiles. this might need to be changed later
 	# for bigger hands
 	assert(full_hand.size() + called_hand.size() * 3 == 14)
 	
-	var score_info = yaku_checker.hand_get_han(full_hand, called_hand, win_is_tsumo_not_ron, doras, true, in_riichi)
+	var score_info = yaku_checker.hand_get_han(full_hand, called_hand, win_is_tsumo_not_ron, doras, true, met_yaku)
 	
 	var multiplier = 6 if seat_wind == WINDS.EAST else 4
 	
