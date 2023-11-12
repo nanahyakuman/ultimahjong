@@ -188,24 +188,26 @@ grow_vertical = 2
 theme_override_constants/separation = 6
 alignment = 1
 
-[node name="Spacer" type="Control" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer"]
-layout_mode = 2
-
 [node name="ScoreLabel" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme_override_colors/default_color = Color(0.933333, 0.866667, 0.8, 1)
 bbcode_enabled = true
 text = "[b]0000"
 fit_content = true
+script = ExtResource("27_yfh58")
+center = false
 
 [node name="CashLabel" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme_override_colors/default_color = Color(0.933333, 0.866667, 0.8, 1)
 bbcode_enabled = true
 text = "[b]$0"
 fit_content = true
+text_direction = 2
 
 [node name="All" type="VBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
 layout_mode = 1

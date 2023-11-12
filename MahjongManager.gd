@@ -22,6 +22,7 @@ const BASE_HAND_SIZE = 13
 
 
 var wall = [] # of `MTile`s
+var dead_wall = [] # of `MTile`s
 var hand = [] # of `MTile`s
 var called_hand = [] # of `grouping`s
 var tsumo # a Mtile or null. it's very important that this remains null when
@@ -43,7 +44,10 @@ var _state = STATE_ANIMATING
 # this work
 var remaining_opp_discards
 
+# trackers for yaku it makes sense for `MahjongManager` to handle
 var in_riichi = false
+var ippatsu_counter = 0
+var was_last_draw_from_dead_wall = false
 
 var met_yaku: ScoringInfo
 
@@ -62,6 +66,8 @@ func start_round():
 	met_yaku = ScoringInfo.new()
 	
 	increment_winds()
+	MusicManager.start_round()
+	
 	
 	await init_wall()
 	
@@ -84,6 +90,7 @@ func increment_winds():
 	if seat_wind == 0:
 		prevalent_wind += 1
 		prevalent_wind %= 4
+		MusicManager.queue_next_song()
 	gui_manager.update_winds(prevalent_wind, seat_wind)
 
 # default tiles
@@ -110,14 +117,14 @@ func draw_hand():
 	for j in upgrades.get_dead_tiles()/4:
 		await anim_timer.start_mod(.15)
 		for k in 4:
-			get_next_from_wall(true)
+			dead_wall.append(get_next_from_wall(true))
 		gui_manager.increment_dead_wall_count(4)
 		call_sfx_player.play()
 	
 	if upgrades.get_dead_tiles()%4 != 0:
 		await anim_timer.start_mod(.15)
 		for j in upgrades.get_dead_tiles()%4:
-			get_next_from_wall(true)
+			dead_wall.append(get_next_from_wall(true))
 		gui_manager.increment_dead_wall_count(upgrades.get_dead_tiles()%4)
 		call_sfx_player.play()
 	
@@ -135,33 +142,33 @@ func draw_hand():
 	
 	var temp = []
 #
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-
-	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
 	temp.append(MTile.new(MTile.SUITS.MAN, 2))
-	temp.append(MTile.new(MTile.SUITS.MAN, 3))
-	temp.append(MTile.new(MTile.SUITS.MAN, 4))
-	temp.append(MTile.new(MTile.SUITS.MAN, 5))
-	temp.append(MTile.new(MTile.SUITS.MAN, 6))
-	temp.append(MTile.new(MTile.SUITS.MAN, 7))
-	temp.append(MTile.new(MTile.SUITS.MAN, 8))
-	temp.append(MTile.new(MTile.SUITS.MAN, 9))
-	temp.append(MTile.new(MTile.SUITS.MAN, 9))
-	temp.append(MTile.new(MTile.SUITS.MAN, 9))
+	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+
+#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 4))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 5))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 6))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 7))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 8))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 9))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 9))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 9))
 #
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
@@ -177,8 +184,65 @@ func draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
 
+#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 4))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 4))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 6))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 6))
+#	temp.append(MTile.new(MTile.SUITS.PIN, 8))
+#	temp.append(MTile.new(MTile.SUITS.PIN, 8))
+#	temp.append(MTile.new(MTile.SUITS.PIN, 4))
+#	temp.append(MTile.new(MTile.SUITS.PIN, 4))
+#	temp.append(MTile.new(MTile.SUITS.PIN, 2))
+#	temp.append(MTile.new(MTile.SUITS.PIN, 2))
+
+#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 4))
+
+#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 4))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 5))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 6))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 7))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 8))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 9))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+
+#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
+#	temp.append(MTile.new(MTile.SUITS.PIN, 1))
+#	temp.append(MTile.new(MTile.SUITS.PIN, 2))
+#	temp.append(MTile.new(MTile.SUITS.PIN, 3))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 2))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 3))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+
 	if temp:
 		assert(temp.size() == 13)
+		temp.sort()
 		hand = temp
 	update_hand_label()
 	
@@ -225,6 +289,8 @@ func do_tsumo(override: MTile = null):
 		tsumo = get_next_from_wall()
 	if !tsumo:
 		return
+	
+	#tsumo = MTile.new(MTile.SUITS.MAN, 1)
 	
 	gui_manager.update_tsumo([tsumo])
 	tile_sfx_player.play()
@@ -522,7 +588,8 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 	
 	call_sfx_player.play()
 	if bitmask == CALL_BITMASK.KAN or bitmask == CALL_BITMASK.CLOSED_KAN:
-		do_tsumo()
+		was_last_draw_from_dead_wall = true
+		do_tsumo(dead_wall.pop_back())
 	else:
 		do_post_call_discard()
 
@@ -544,6 +611,7 @@ func _input(event):
 # it's in hand.
 func tile_graphic_clicked(tile: MTile):
 	if _state == STATE_ACTIONABLE:
+		was_last_draw_from_dead_wall = false
 		if in_riichi:
 			draw_and_discard(tsumo)
 		else:
@@ -591,7 +659,9 @@ func try_enter_riichi():
 # entered from calls
 func do_riichi():
 	in_riichi = true
+	ippatsu_counter = upgrades.get_discard_count() + 1
 	met_yaku.hans.append(ALL_YAKU.YAKUS["Riichi"])
+	MusicManager.start_tenpai()
 	start_rotation()
 
 
@@ -612,6 +682,8 @@ func get_next_from_wall(does_not_count = false):
 	if !does_not_count:
 		for m in items.get_children():
 			m.decrement()
+	
+	ippatsu_counter -= 1
 	
 	return ret
 
@@ -642,6 +714,14 @@ func end_round(win_is_tsumo_not_ron = false):
 		full_hand.append(opp_discard.back())
 	full_hand.sort_custom(Callable(MTile, "tile_compare"))
 	
+	# add yaku 
+	if ippatsu_counter >= 0:
+		met_yaku.hans.append(ALL_YAKU.YAKUS["Ippatsu"])
+	if wall.size() == 0:
+		met_yaku.hans.append(ALL_YAKU.YAKUS["Suitei"])
+	if was_last_draw_from_dead_wall:
+		met_yaku.hans.append(ALL_YAKU.YAKUS["Rinshan"])
+	
 	#  must have 14 tiles. this might need to be changed later
 	# for bigger hands
 	assert(full_hand.size() + called_hand.size() * 3 == 14)
@@ -652,6 +732,8 @@ func end_round(win_is_tsumo_not_ron = false):
 	
 	#print("%d  %d  %d" % [fu, han, multiplier])
 	root.end_round(score_info, multiplier)
+	
+	MusicManager.start_scoring()
 	
 	# moved to root temporarily(?)
 	#TileGraphicKnower.update_dora_ids([])

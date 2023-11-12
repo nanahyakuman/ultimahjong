@@ -5,24 +5,150 @@ class_name YakuChecker
 
 
 # hand should be sorted by MTile id. this is slow
-func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, doras = [], do_fu = false, other_met_yaku: ScoringInfo = null) -> ScoringInfo:
-	var is_open = already_opened_groupings.size() > 0
-	
-	
+func hand_get_han(hand: Array, already_made_groupings: Array, is_tsumo: bool, doras = [], do_fu = false, other_met_yaku: ScoringInfo = null) -> ScoringInfo:
+	# merge
 	var remaining_hand = hand.duplicate()
 	var groupingss = [_get_maximal_groupings(remaining_hand,false),_get_maximal_groupings(remaining_hand,true)]
 	
-	var max = null
+	# determine openness
+	var is_open = false
+	for g in already_made_groupings:
+		if g.open:
+			is_open = true
+			break
+	
+	# for addons that demand basic reqs(e.g. riichi)
+	var met_basic_reqs = false
+	
+	# highest scoring hand
+	var max = ScoringInfo.new()
 	
 	for groupings in groupingss:
-		groupings.append_array(already_opened_groupings)
+		groupings.append_array(already_made_groupings)
 		
 		var scoring_info = ScoringInfo.new()
 		
 		if groupings_meet_basic_reqs(groupings):
-	#		for g in groupings:
-	#			g.print_self()
-	#		print()
+			met_basic_reqs = true
+			
+			# generate metadata for faster scanning later on
+			var sets = []
+			var runs = []
+			var pairs = []
+			var duplicates = []
+			for g in groupings:
+				match g.type:
+					Grouping.RUN:
+						runs.append(g)
+					Grouping.SET:
+						sets.append(g)
+					Grouping.PAIR:
+						pairs.append(g)
+			
+			# have to use a manual iterator so we can advance it
+			var it = 0
+			while it < groupings.size():
+				for j in range(it+1, groupings.size()):
+					#  pass on if a dupe is found.
+					# this way 111122223333p returns two duplicates ([123.a]>123.b) and ([123.c]>123.d),
+					# (bracketed group is the actual one in `duplicates`)
+					if groupings[it].equivalent(groupings[j]):
+						duplicates.append(groupings[it])
+						it = j
+						break
+				it += 1
+			
+			
+			## LUCK-BASED (that `MahjongManager` doesn't already deal with)
+			if !is_open and is_tsumo:
+				scoring_info.hans.append(ALL_YAKU.YAKUS["Menzentsumo"])
+			
+			
+			## OTHER 1-HAN YAKU (put here for nicer ordering)
+			
+			# yakuhaki
+			for g in groupings:
+				var ykvals = get_yakuhai_vals()
+				if g.type == Grouping.SET:
+					if g.tiles[0].suit == MTile.SUITS.SPECIAL:
+						if ykvals.has(g.tiles[0].value):
+							scoring_info.hans.append(ALL_YAKU.YAKUS["Yakuhai"])
+			
+			# tanyao
+			if !is_open:
+				var tanyao = true
+				for g in groupings:
+					for t in g.tiles:
+						if t.suit == MTile.SUITS.SPECIAL or t.value == 1 or t.value == 9:
+							tanyao = false
+				if tanyao:
+					scoring_info.hans.append(ALL_YAKU.YAKUS["Tan'yao"])
+			
+			
+			## PAIR-BASED YAKU (the only one)
+			if pairs.size() >= 7:
+				scoring_info.hans.append(ALL_YAKU.YAKUS["Chiitoitsu"])
+			
+			
+			## SET-BASED YAKU (all req. at least 3 sets)
+			if sets.size() >= 3:
+				# toitoi
+				if sets.size() >= 4:
+					scoring_info.hans.append(ALL_YAKU.YAKUS["Toitoi"])
+				
+				# sanankou, sankantsu
+				var hidden_count = 0
+				var kan_count = 0
+				for s in sets:
+					if !s.open:
+						hidden_count += 1
+					if s.tiles.size() == 4:
+						kan_count += 1
+				
+				if hidden_count >= 3:
+					scoring_info.hans.append(ALL_YAKU.YAKUS["San'ankou"])
+				if kan_count >= 3:
+					scoring_info.hans.append(ALL_YAKU.YAKUS["Sankantsu"])
+			
+			
+			## RUN-BASED YAKU (note all require at least 2 runs)
+			if runs.size() >= 2:
+				# 1/2peikou
+				if !is_open:
+					var run_dupe_count = 0
+					for d in duplicates:
+						if duplicates[0].type == Grouping.RUN:
+							run_dupe_count += 1
+					if run_dupe_count == 1:
+						scoring_info.hans.append(ALL_YAKU.YAKUS["Iipeikou"])
+					if run_dupe_count > 1:
+						scoring_info.hans.append(ALL_YAKU.YAKUS["Ryanpeikou"])
+				
+				if runs.size() >= 3:
+					# ittsuu
+					# weird optimization but basically generates a bitmask for each run in each suit
+					var itsuu_suits = {MTile.SUITS.PIN: 0b000, MTile.SUITS.SOU: 0b000, MTile.SUITS.MAN: 0b000}
+					for g in runs:
+						for index in [0,1,2]:
+							if g.tiles[0].value == index*3 + 1:
+								itsuu_suits[g.tiles[0].suit] |= int(pow(2,index))
+					for s in itsuu_suits.keys():
+						if itsuu_suits[s] == 7:
+							scoring_info.hans.append(ALL_YAKU.YAKUS["Open Ittsuu" if is_open else "Ittsuu"])
+					
+					# sanshoku
+					# works similar to itsuu, but by val instead of suit
+					var sanshoku_vals = {}
+					for i in 9:
+						sanshoku_vals[i+1] = 0
+					for g in runs:
+						sanshoku_vals[g.tiles[0].value] |= g.tiles[0].suit
+					for v in sanshoku_vals.keys():
+						if sanshoku_vals[v] == 7:
+							scoring_info.hans.append(ALL_YAKU.YAKUS["Open Sanshoku" if is_open else "Sanshoku"])
+			
+			
+			## SUIT-BASED YAKU
 			
 			# check half and full flushes.
 			var suit = 0
@@ -54,69 +180,14 @@ func hand_get_han(hand: Array, already_opened_groupings: Array, is_tsumo: bool, 
 				elif is_half:
 					scoring_info.hans.append(ALL_YAKU.YAKUS[("" if not is_open else "Open ") + "Hon'itsu"])
 			
-			# menzentsumo
-			if !is_open and is_tsumo:
-				scoring_info.hans.append(ALL_YAKU.YAKUS["Menzentsumo"])
-			
-			# pinfu. doesnt account for ryanmen wait rn.
-	#		if !is_open:
-	#			var pinfu = true
-	#			for g in groupings:
-	#				if g.type == SET:
-	#					pinfu = false
-	#				if g.type == PAIR and g.tiles[0].SUIT == MTile.SUITS.SPECIAL:
-	#					pinfu = false
-	#			if pinfu:
-	#				han += 1
-			
-			# yakuhaki
-			for g in groupings:
-				var ykvals = get_yakuhai_vals()
-				if g.type == Grouping.SET:
-					if g.tiles[0].suit == MTile.SUITS.SPECIAL:
-						if ykvals.has(g.tiles[0].value):
-							scoring_info.hans.append(ALL_YAKU.YAKUS["Yakuhai"])
-			
-			# tanyao
-			if !is_open:
-				var tanyao = true
-				for g in groupings:
-					for t in g.tiles:
-						if t.suit == MTile.SUITS.SPECIAL or t.value == 1 or t.value == 9:
-							tanyao = false
-				if tanyao:
-					scoring_info.hans.append(ALL_YAKU.YAKUS["Tan'yao"])
-			
-			# toitoi
-			var sets = 0
-			for g in groupings:
-				if g.type == Grouping.SET:
-					sets += 1
-			if sets >= 4:
-				scoring_info.hans.append(ALL_YAKU.YAKUS["Toitoi"])
-			
-			# iipeikou
-			if !is_open:
-				for i in groupings.size():
-					for j in range(i+1, groupings.size()):
-						var g = groupings[i]
-						var g2 = groupings[j]
-						
-						if g.type == Grouping.RUN and g2.type == Grouping.RUN:
-							if g.tiles[0].get_id() == g2.tiles[0].get_id():
-								scoring_info.hans.append(ALL_YAKU.YAKUS["Iipeikou"])
-		
 		if do_fu:
 			scoring_info.fus = get_fu(groupings, doras)
 		
-		if !max:
+		if scoring_info.get_total_points() >= max.get_total_points():
 			max = scoring_info
-		else:
-			if scoring_info.get_total_points() > max.get_total_points():
-				max = scoring_info
 	
-	if other_met_yaku and max.hans.size() > 0:
-		max.hans.append_array(other_met_yaku.hans)
+	if other_met_yaku and met_basic_reqs:
+		max.hans = other_met_yaku.hans + max.hans
 	
 	return max
 
@@ -134,18 +205,20 @@ func groupings_meet_basic_reqs(groupings: Array) -> bool:
 		if g.type == Grouping.PAIR:
 			pairs += 1
 	
-	return (setruns >= 4) and (pairs >= 1) 
+	return ((setruns == 4) and (pairs == 1)) or (pairs == 7)
 
 
 
 #  lil slow ngl. if `remaining_hand` does not fully resolve, returns an empty array.
 # e.g. 1234m returns nothing bc the 4 is hanging. this will work for hands of arbitrary sizes,
 # if that's helpful.
-func _get_maximal_groupings(remaining_hand: Array, prioritize_runs_not_sets: bool = false, prefix = "") -> Array: #return array of `Grouping`s
+func _get_maximal_groupings(remaining_hand: Array, prioritize_runs_not_sets: bool = false) -> Array: #return array of `Grouping`s
 #	var a = []
 #	for t in remaining_hand:
 #		a.append(t.get_name())
 #	print(remaining_hand.size(), ": ", prefix, a)
+# note you need to reintroduce the "prefix" argument and increment it every iteration
+# to use this
 	
 	var maximal_groupings = []
 	
@@ -186,7 +259,7 @@ func _get_maximal_groupings(remaining_hand: Array, prioritize_runs_not_sets: boo
 			for tg in group:
 				theoretically_mananged_tiles.erase(tg)
 			
-			var recurse = _get_maximal_groupings(theoretically_mananged_tiles, prioritize_runs_not_sets, prefix + "  ")
+			var recurse = _get_maximal_groupings(theoretically_mananged_tiles, prioritize_runs_not_sets)
 			var new_group = Grouping.new(type,group)
 			var theoretical_all = [new_group]
 			theoretical_all.append_array(recurse)

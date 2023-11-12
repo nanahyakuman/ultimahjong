@@ -1,5 +1,6 @@
 class_name MTile
 
+# this needs to stay a bitmask or a lot of stuff will break!
 enum SUITS {NONE=0, MAN=4, PIN=1, SOU=2, SPECIAL=8, FLOWER=16}
 # specials are 1-indexed becuase so are the suits
 enum SPECIALS {NONE, EAST, SOUTH, WEST, NORTH, UP, HAKU, HATSU, CHUN, KIN}

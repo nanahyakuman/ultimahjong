@@ -1,8 +1,10 @@
 extends RichTextLabel
 
 var cols = [COL.LBLUE, COL.LGREEN, COL.LRED, COL.YELLOW, COL.TAN]
-var BASE = 2
+var BASE = 3
 var OFFSET = 1
+
+@export var center = true
 
 func set_text_colorized(tex: String):
 	var length = tex.length()
@@ -15,4 +17,4 @@ func set_text_colorized(tex: String):
 		tex = tex_out
 	
 	clear()
-	append_text("[center][b]" + tex_out)
+	append_text(("[center]" if center else "") + "[b]" + tex_out)

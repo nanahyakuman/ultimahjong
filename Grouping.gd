@@ -13,10 +13,9 @@ var open = false
 func _init(typ: int, ts: Array):
 	type = typ
 	tiles = ts.duplicate()
-	
-#	var tsorted = tiles.duplicate()
-#	tsorted.sort()
-#	assert(tiles.hash() == tsorted.hash())
+
+func equivalent(a: Grouping):
+	return a.type == type and a.tiles[0].get_id() == tiles[0].get_id()
 
 func print_self():
 	print(TYPE_STRS[type])

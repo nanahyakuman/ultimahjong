@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqghinde4d6go"]
+
+[ext_resource type="Script" path="res://global/MusicManager.gd" id="1_wc18y"]
+
+[node name="MusicManager" type="Node"]
+script = ExtResource("1_wc18y")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -80.0
+
+[node name="SFXAudioStreamPlayer" type="AudioStreamPlayer" parent="."]

@@ -43,39 +43,45 @@ record sounds
 yakuhai yaku stopped registering??
 yakuhai pair fu
 addtile purchaseable getting illegal tiles again. ?157p
+rework deadwall to be resizeable
 
-USABLE ITEMS!!!!! draw-based timeout
 
+
+
+music
+	just make like 4~8 tracksets
+	
+	finish and reexport all of 1
 
 
 yaku to implement
 x	menzentsumo
 x	riichi
-	ippatsu
-	pinfu?
+x	ippatsu
+	pinfu
 x	iipeikou
-	last draw
-	last discard
-	dead wall draw?
-	--chankan
+x	last draw
+x	last discard
+x	dead wall draw?
+-	chankan
 x	tanyao
 x	yakuhai
 	
 	double riichi
 	chantaiyao
-	sanshoku doujun
-	ittsuu
+x	sanshoku doujun
+x	ittsuu
 x	toitoi
-	san-an-kou
+x	san-an-kou
 	sanshoku doukou
-	sankantsu
-	chiitoitsu
+x	sankantsu
+x	chiitoitsu
 	terminals and honors
 	shousangen
 	
 x	honitsu
 	terminal in each meld
-	ryanpeikou
+x	ryanpeikou
 
 x	chinitsu
 

@@ -49,7 +49,7 @@ func _use():
 			cooldown_counter = 9999
 		TYPES.ERASER:
 			mahjong_manager.do_tsumo(MTile.new(MTile.SUITS.SPECIAL,MTile.SPECIALS.HAKU))
-			cooldown_counter = 95
+			cooldown_counter = 48
 			
 	
 	assert(cooldown_counter > 0, "you forgot to reassign the cooldown counter!!")

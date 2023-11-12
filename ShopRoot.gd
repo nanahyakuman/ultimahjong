@@ -21,6 +21,8 @@ func start():
 	
 	adjust_money(MONEY_PER_ROUND)
 	
+	MusicManager.start_shop()
+	
 	for s in to_be_started:
 		s.start()
 

@@ -2,7 +2,6 @@ extends Control
 
 @onready var mahjong_manager = %MahjongManager
 @onready var shop_root = $HBoxContainer/MahjongRoot/ShopRoot
-@onready var score_label = $HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer/ScoreLabel
 @onready var scoring_root = $HBoxContainer/MahjongRoot/ScoringRoot
 
 var score = 0.0
@@ -38,9 +37,6 @@ func end_round(scoring_info: ScoringInfo, multiplier: int):
 	score += points
 	
 	scoring_root.update_scoring(scoring_info, fu, han, points, multiplier)
-	
-	score_label.clear()
-	score_label.append_text("[b]" + str(score))
 
 
 func start_shop():
