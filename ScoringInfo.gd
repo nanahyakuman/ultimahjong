@@ -52,3 +52,9 @@ func get_total_points():
 	var points = int(get_total_fu() * pow(2.0, get_total_han() + 2.0))
 	points = ceili(points / 100.0) * 100
 	return points
+
+func pinfu_check():
+	for f in fus:
+		if f.fu > 0 and !["Base", "Kan Dora", "Ura Dora", "Aka Dora"].has(f.nam):
+			return false
+	return true

@@ -1,8 +1,8 @@
 extends Control
 
 @onready var mahjong_manager = %MahjongManager
-@onready var shop_root = $HBoxContainer/MahjongRoot/ShopRoot
-@onready var scoring_root = $HBoxContainer/MahjongRoot/ScoringRoot
+@onready var shop_root = %ShopRoot
+@onready var scoring_root = %ScoringRoot
 
 var score = 0.0
 

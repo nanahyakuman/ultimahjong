@@ -44,8 +44,10 @@ yakuhai yaku stopped registering??
 yakuhai pair fu
 addtile purchaseable getting illegal tiles again. ?157p
 rework deadwall to be resizeable
-
-
+couldnt enter riichi with a sanankou hand? made a closed kan but closed otherwise.
+	could still ron somehow? probably related to an "is_open" somewhere
+	1255666777p 1111m
+mtile string decoder for convenience
 
 
 music

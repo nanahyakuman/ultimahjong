@@ -180,11 +180,17 @@ func hand_get_han(hand: Array, already_made_groupings: Array, is_tsumo: bool, do
 				elif is_half:
 					scoring_info.hans.append(ALL_YAKU.YAKUS[("" if not is_open else "Open ") + "Hon'itsu"])
 			
-		if do_fu:
-			scoring_info.fus = get_fu(groupings, doras)
-		
-		if scoring_info.get_total_points() >= max.get_total_points():
-			max = scoring_info
+			
+			
+			if do_fu:
+				scoring_info.fus = get_fu(groupings, doras)
+			
+			# sneak pinfu in here
+			if !is_open and scoring_info.pinfu_check():
+				scoring_info.hans.append(ALL_YAKU.YAKUS["Pinfu"])
+			
+			if scoring_info.get_total_points() >= max.get_total_points():
+				max = scoring_info
 	
 	if other_met_yaku and met_basic_reqs:
 		max.hans = other_met_yaku.hans + max.hans

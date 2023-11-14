@@ -48,7 +48,8 @@ func _use():
 			#actual code here
 			cooldown_counter = 9999
 		TYPES.ERASER:
-			mahjong_manager.do_tsumo(MTile.new(MTile.SUITS.SPECIAL,MTile.SPECIALS.HAKU))
+			if mahjong_manager.tsumo:
+				mahjong_manager.do_tsumo(MTile.new(MTile.SUITS.SPECIAL,MTile.SPECIALS.HAKU))
 			cooldown_counter = 48
 			
 	

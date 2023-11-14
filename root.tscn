@@ -96,6 +96,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_j88jw")
 theme_override_constants/separation = 0
 
 [node name="MahjongRoot" type="Control" parent="HBoxContainer"]
@@ -137,10 +138,12 @@ script = ExtResource("8_t018g")
 [node name="TileOnTable" type="AudioStreamPlayer" parent="HBoxContainer/MahjongRoot/MahjongManager"]
 stream = ExtResource("6_5a2qq")
 pitch_scale = 0.3
+bus = &"SFX"
 
 [node name="CallMade" type="AudioStreamPlayer" parent="HBoxContainer/MahjongRoot/MahjongManager"]
 stream = ExtResource("7_358eq")
 pitch_scale = 0.3
+bus = &"SFX"
 
 [node name="GUIManager" type="Control" parent="HBoxContainer/MahjongRoot"]
 layout_mode = 1
@@ -577,6 +580,7 @@ texture = ExtResource("13_qhnc0")
 script = ExtResource("13_wfhtv")
 
 [node name="ScoringRoot" type="Control" parent="HBoxContainer/MahjongRoot"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

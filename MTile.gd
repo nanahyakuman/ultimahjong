@@ -90,3 +90,6 @@ static func gen_name(tile: MTile):
 		return SPECIAL_NAMES[tile.value]
 	else:
 		return str(tile.value) + SUIT_NAMES[tile.suit]
+
+#static func decode_string(str: String):
+#	pass

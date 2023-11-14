@@ -7,5 +7,7 @@ script = ExtResource("1_wc18y")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 volume_db = -80.0
+bus = &"Music"
 
 [node name="SFXAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
