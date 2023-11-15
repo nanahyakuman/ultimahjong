@@ -24,13 +24,13 @@ var YAKUS = {
 	"San'ankou": ScoringInfo.Han.new("San'ankou", 2, "sank"),
 	"Sankantsu": ScoringInfo.Han.new("Sankantsu", 2, "3k"),
 
-#	"Kan Dora": ScoringInfo.Han.new("Kan Dora", 1, ""),
-#	"Ura Dora": ScoringInfo.Han.new("Ura Dora", 1, ""),
-#	"Aka Dora": ScoringInfo.Han.new("Aka Dora", 1, ""),
+	"Kan Dora": ScoringInfo.Han.new("Kan Dora", 1, ""),
+	"Ura Dora": ScoringInfo.Han.new("Ura Dora", 1, ""),
+	"Aka Dora": ScoringInfo.Han.new("Aka Dora", 1, ""),
 }
 
 #  spacers are just so the ui can generate titles, shouldn't be accessed
-# otherwise. probably a little dubious but i cant recall any fu named 
+# otherwise. probably a little dubious but i don't recall any fu named 
 # "SPACER_1".
 var FU = {
 	"SPACER_1": "[b]Special[/b]",
@@ -38,7 +38,7 @@ var FU = {
 	"Base": ScoringInfo.Fu.new("Base", 20),
 	"Menzenkafu": ScoringInfo.Fu.new("Menzenkafu", 10),
 	"Tsumo": ScoringInfo.Fu.new("Tsumo", 2),
-	"Chiitoitsu": ScoringInfo.Fu.new("Chiitoitsu", 5),
+	"Chiitoitsu": ScoringInfo.Fu.new("Chiitoitsu", 25),
 	
 	"SPACER_2": "[b]Groupings[/b]",
 	
@@ -60,11 +60,11 @@ var FU = {
 	"2-sided Wait": ScoringInfo.Fu.new("2-sided Wait", 0),
 	">=3-sided Wait": ScoringInfo.Fu.new(">=3-sided Wait", 0),
 	
-	"SPACER_4": "[b]Dora",
-	
-	"Kan Dora": ScoringInfo.Fu.new("Kan Dora", 16),
-	"Ura Dora": ScoringInfo.Fu.new("Ura Dora", 16),
-	"Aka Dora": ScoringInfo.Fu.new("Aka Dora", 16),
+#	"SPACER_4": "[b]Dora",
+#
+#	"Kan Dora": ScoringInfo.Fu.new("Kan Dora", 16),
+#	"Ura Dora": ScoringInfo.Fu.new("Ura Dora", 16),
+#	"Aka Dora": ScoringInfo.Fu.new("Aka Dora", 16),
 }
 
 #func _ready():

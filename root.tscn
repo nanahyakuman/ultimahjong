@@ -358,7 +358,7 @@ alignment = 2
 
 [node name="Item" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("19_yekpg")]
 layout_mode = 2
-type = 1
+type = 4
 
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
 layout_mode = 1

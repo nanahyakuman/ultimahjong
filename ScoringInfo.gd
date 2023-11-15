@@ -46,15 +46,45 @@ func get_total_fu() -> int:
 	var ret = 0
 	for f in fus:
 		ret += f.fu
-	return ret
+		if f.nam == "Chiitoitsu":
+			return 25
+	return round_to_place(ret, 10)
+
+const MANGAN_HANS = {
+	6: 3000,
+	7: 3000,
+	
+	8: 4000,
+	9: 4000,
+	10: 4000,
+	
+	11: 6000,
+	12: 6000,
+	
+	13: 8000
+}
 
 func get_total_points():
-	var points = int(get_total_fu() * pow(2.0, get_total_han() + 2.0))
-	points = ceili(points / 100.0) * 100
+	var han = get_total_han()
+	
+	var points = int(get_total_fu() * pow(2.0, han + 2.0))
+	points = round_to_place(points, 100)
+	
+	if points >= 2000:
+		points = 2000
+		
+		if MANGAN_HANS.has(han):
+			points = MANGAN_HANS[han]
+		if han >= 13:
+			points = 8000 * ((hans%13) + 1)
+		
 	return points
 
 func pinfu_check():
 	for f in fus:
-		if f.fu > 0 and !["Base", "Kan Dora", "Ura Dora", "Aka Dora"].has(f.nam):
+		if f.fu > 0 and !["Base", "Kan Dora", "Ura Dora", "Aka Dora", "Menzenkafu"].has(f.nam):
 			return false
 	return true
+
+static func round_to_place(val, place: int) -> int:
+	return ceili(val / float(place)) * place

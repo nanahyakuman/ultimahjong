@@ -8,11 +8,12 @@ end of every round can purchase:
 		create runs with winds/dragons
 		call kita
 	spell cards, refresh every x draws
-		next tile will be honor
-		exchange one tile for a false haku
-		autocomplete a wait?
+	x	next tile will be --honor-- wind
+	x	exchange one tile for a false haku
+		autocomplete a wait? seems op
 		exchange a tile in hand for a current kandora
 		rearrange next five tiles
+		ron does not open your hand (adds menzentsumo to closed hands, makes sanankou easier, etc.)
 	bonuses
 		1 han for every ~six tiles in your hand without any red ink toka
  dead wall can be expanded as long as there are free tiles left

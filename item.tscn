@@ -55,7 +55,7 @@ script = ExtResource("1_2a2qp")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_tsqfh")
 centered = false
-hframes = 2
+hframes = 4
 vframes = 2
 
 [node name="Description" type="PanelContainer" parent="."]
@@ -106,14 +106,16 @@ autowrap_mode = 2
 [node name="PanelContainer" type="PanelContainer" parent="."]
 z_index = 1
 layout_mode = 1
-anchors_preset = 1
+anchors_preset = 3
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
-offset_left = -9.0
-offset_top = -7.0
-offset_right = -1.0
-offset_bottom = 8.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -10.0
+offset_bottom = 5.0
 grow_horizontal = 0
+grow_vertical = 0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_jucxd")
 

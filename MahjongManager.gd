@@ -37,7 +37,7 @@ enum WINDS {EAST, SOUTH, WEST, NORTH}
 var prevalent_wind = -1 
 var seat_wind = -3 # incremented at start of round
 
-enum {STATE_ACTIONABLE, STATE_ANIMATING, STATE_CALLS}
+enum {STATE_ACTIONABLE, STATE_ANIMATING, STATE_CALLS, STATE_SELECT_TILE}
 # use `set_state` onegaishimasu
 var _state = STATE_ANIMATING
 #  i dont like this being global but its the easist way to make
@@ -50,6 +50,11 @@ var ippatsu_counter = 0
 var was_last_draw_from_dead_wall = false
 
 var met_yaku: ScoringInfo
+
+#  a node that requests for a tile from the hand(+tsumo) to be selected
+var tile_select_requestor_node = null
+var remove_from_hand_on_selection = null
+
 
 func start_round():
 	gui_manager.update_discard([])
@@ -65,26 +70,26 @@ func start_round():
 	
 	met_yaku = ScoringInfo.new()
 	
-	increment_winds()
+	_increment_winds()
 	MusicManager.start_round()
 	
 	
-	await init_wall()
+	await _init_wall()
 	
 	await anim_timer.start_mod(.15)
 	
 	for i in upgrades.get_kan_size():
 		await anim_timer.start_mod(.1)
 		tile_sfx_player.play()
-		draw_kan_dora()
+		_draw_kan_dora()
 	
 	await anim_timer.start_mod(.15)
 	
-	await draw_hand()
+	await _draw_hand()
 	
-	start_rotation(seat_wind)
+	_start_rotation(seat_wind)
 
-func increment_winds():
+func _increment_winds():
 	seat_wind += 3
 	seat_wind %= 4
 	if seat_wind == 0:
@@ -94,7 +99,7 @@ func increment_winds():
 	gui_manager.update_winds(prevalent_wind, seat_wind)
 
 # default tiles
-func init_wall():
+func _init_wall():
 	wall = tile_counter.get_all_tiles()
 	wall.shuffle()
 	
@@ -113,18 +118,18 @@ func init_wall():
 	gui_manager.update_wall_count(wall.size())
 	
 
-func draw_hand():
+func _draw_hand():
 	for j in upgrades.get_dead_tiles()/4:
 		await anim_timer.start_mod(.15)
 		for k in 4:
-			dead_wall.append(get_next_from_wall(true))
+			dead_wall.append(_get_next_from_wall(true))
 		gui_manager.increment_dead_wall_count(4)
 		call_sfx_player.play()
 	
 	if upgrades.get_dead_tiles()%4 != 0:
 		await anim_timer.start_mod(.15)
 		for j in upgrades.get_dead_tiles()%4:
-			dead_wall.append(get_next_from_wall(true))
+			dead_wall.append(_get_next_from_wall(true))
 		gui_manager.increment_dead_wall_count(upgrades.get_dead_tiles()%4)
 		call_sfx_player.play()
 	
@@ -132,13 +137,13 @@ func draw_hand():
 	
 	for i in BASE_HAND_SIZE:
 		await anim_timer.start_mod(.07)
-		hand.append(get_next_from_wall(true))
+		hand.append(_get_next_from_wall(true))
 		call_sfx_player.play()
-		update_hand_label(true)
+		_update_hand_label(true)
 	
 	await anim_timer.start_mod(.15)
 	call_sfx_player.play()
-	update_hand_label()
+	_update_hand_label()
 	
 	var temp = []
 #
@@ -158,7 +163,7 @@ func draw_hand():
 
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 1, true))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 2))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 3))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 4))
@@ -258,25 +263,32 @@ func draw_hand():
 		assert(temp.size() == 13)
 		temp.sort()
 		hand = temp
-	update_hand_label()
+	_update_hand_label()
 	
 
-func draw_kan_dora():
-	kan_dora.append(get_next_from_wall(true))
-	ura_dora.append(get_next_from_wall(true))
-	gui_manager.update_kan_dora(kan_dora, upgrades.get_kan_size() - revealed_kan_dora)
+func _draw_kan_dora():
+	kan_dora.append(_get_next_from_wall(true))
+	ura_dora.append(_get_next_from_wall(true))
 	
 	revealed_kan_dora = upgrades.get_kan_revealed()
 	
-	var revealed_dora_ids = []
-	for i in range(upgrades.get_kan_size() - revealed_kan_dora, kan_dora.size()):
-		for id in kan_dora[i].get_dora_id():
-			revealed_dora_ids.append(id)
-	TileGraphicKnower.update_dora_ids(revealed_dora_ids)
+	update_revealed_kan_dora()
 
-func reveal_dora():
+func _reveal_dora():
 	revealed_kan_dora += 1
 	
+	update_revealed_kan_dora()
+
+# used by an item
+func get_and_overwrite_most_recent_kan_dora(tile: MTile) -> MTile:
+	var ret = kan_dora[upgrades.get_kan_size() - revealed_kan_dora]
+	kan_dora[upgrades.get_kan_size() - revealed_kan_dora] = tile
+	
+	update_revealed_kan_dora()
+	
+	return ret
+
+func update_revealed_kan_dora():
 	gui_manager.update_kan_dora(kan_dora, upgrades.get_kan_size() - revealed_kan_dora)
 	
 	var revealed_dora_ids = []
@@ -288,19 +300,19 @@ func reveal_dora():
 ##  this is dopey but `start_rotation` calls `do_opp_discard`,
 ## which recursively calls either itself or `do_tsumo` or "do_post_call_discard`
 ## depending on if calls are made.
-func start_rotation(discard_override = null):
-	assign_discard_count(discard_override)
-	do_opp_discard()
+func _start_rotation(discard_override = null):
+	_assign_discard_count(discard_override)
+	_do_opp_discard()
 
 # awkward to split this one line into own function but entering riicihi also needs it
-func assign_discard_count(discard_override = null):
+func _assign_discard_count(discard_override = null):
 	remaining_opp_discards = discard_override if discard_override != null else upgrades.get_discard_count()
 
-func do_tsumo(override: MTile = null):
+func _do_tsumo(override: MTile = null):
 	if override:
 		tsumo = override
 	else:
-		tsumo = get_next_from_wall()
+		tsumo = _get_next_from_wall()
 	if !tsumo:
 		return
 	
@@ -309,29 +321,29 @@ func do_tsumo(override: MTile = null):
 	gui_manager.update_tsumo([tsumo])
 	tile_sfx_player.play()
 	
-	set_state(STATE_ACTIONABLE)
+	_set_state(STATE_ACTIONABLE)
 	
 	# tsumo agari, also kan check
-	do_if_can_tsumo()
+	_do_if_can_tsumo()
 
 
-func do_post_call_discard():
-	set_state(STATE_ACTIONABLE)
+func _do_post_call_discard():
+	_set_state(STATE_ACTIONABLE)
 
 
 #  discard 1 tile, prompt calls if appropriate, recurse/go to player
 # draw if not
-func do_opp_discard():
-	set_state(STATE_ANIMATING)
+func _do_opp_discard():
+	_set_state(STATE_ANIMATING)
 	await anim_timer.start_mod(.2)
 	
 	if remaining_opp_discards == 0:
-		do_tsumo()
+		_do_tsumo()
 		return
 	remaining_opp_discards -= 1
 	
 	
-	var disc = get_next_from_wall()
+	var disc = _get_next_from_wall()
 	if !disc:
 		return
 	opp_discard.append(disc)
@@ -349,14 +361,14 @@ func do_opp_discard():
 	# seperate calls depending on shape. this is kinda weird but the
 	# involved tiles are highlighted anyway so it shouldn't be that
 	# hard to udnerstand
-	var call_bitmask = can_cpkr(disc, tiles_involved_in_call)
+	var call_bitmask = _can_cpkr(disc, tiles_involved_in_call)
 	if call_bitmask != 0:
 		#  switching state like this means that only calls are taken as 
 		# input
 		calls_manager.enable_calls(call_bitmask, tiles_involved_in_call)
-		set_state(STATE_CALLS)
+		_set_state(STATE_CALLS)
 	else:
-		do_opp_discard()
+		_do_opp_discard()
 	
 
 enum CALL_BITMASK {
@@ -372,7 +384,7 @@ enum CALL_BITMASK {
 	RCH =		0b100000000
 }
 # returns a bitmask for what can be called
-func can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
+func _can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
 	# ordered rkpccc
 	var bitmask = 0b0000
 	
@@ -497,7 +509,7 @@ func can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
 	return bitmask
 
 # check if can tsumo agari, kan, flower, etc/
-func do_if_can_tsumo():
+func _do_if_can_tsumo():
 	var full_hand = [tsumo]
 	full_hand.append_array(hand)
 	full_hand.sort_custom(Callable(MTile, "tile_compare"))
@@ -528,7 +540,7 @@ func do_if_can_tsumo():
 	
 	if btm:
 		calls_manager.enable_calls(btm, involved)
-		set_state(STATE_CALLS)
+		_set_state(STATE_CALLS)
 
 
 # called when a cpkr call is made, including passing the call
@@ -545,15 +557,15 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 			#  if were cancelling tsumo, just continue play,
 			# else continue discarding
 			if tsumo != null:
-				set_state(STATE_ACTIONABLE)
+				_set_state(STATE_ACTIONABLE)
 			else:
-				do_opp_discard()
+				_do_opp_discard()
 			return
 		CALL_BITMASK.TSM:
-			end_round(true)
+			_end_round(true)
 			return
 		CALL_BITMASK.RON:
-			end_round()
+			_end_round()
 			return
 		CALL_BITMASK.CHI_L:
 			new_grouping = Grouping.new(Grouping.RUN, tiles_involved)
@@ -565,12 +577,12 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 			new_grouping = Grouping.new(Grouping.SET, tiles_involved)
 		CALL_BITMASK.KAN:
 			new_grouping = Grouping.new(Grouping.SET, tiles_involved)
-			reveal_dora()
+			_reveal_dora()
 			
 		CALL_BITMASK.CLOSED_KAN:
 			new_grouping = Grouping.new(Grouping.SET, tiles_involved)
 		CALL_BITMASK.RCH:
-			do_riichi()
+			_do_riichi()
 			return
 	
 	if new_grouping is Grouping:
@@ -603,9 +615,9 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 	call_sfx_player.play()
 	if bitmask == CALL_BITMASK.KAN or bitmask == CALL_BITMASK.CLOSED_KAN:
 		was_last_draw_from_dead_wall = true
-		do_tsumo(dead_wall.pop_back())
+		_do_tsumo(dead_wall.pop_back())
 	else:
-		do_post_call_discard()
+		_do_post_call_discard()
 
 # right click to close call menu
 func _input(event):
@@ -627,9 +639,15 @@ func tile_graphic_clicked(tile: MTile):
 	if _state == STATE_ACTIONABLE:
 		was_last_draw_from_dead_wall = false
 		if in_riichi:
-			draw_and_discard(tsumo)
+			_draw_and_discard(tsumo)
 		else:
-			draw_and_discard(tile)
+			_draw_and_discard(tile)
+	elif _state == STATE_SELECT_TILE:
+		_set_state(STATE_ANIMATING)
+		if remove_from_hand_on_selection:
+			hand.erase(tile)
+		tile_select_requestor_node.tile_selected(tile)
+		
 
 #func draw_and_discard_index(i: int):
 #	if i == 13:
@@ -639,13 +657,13 @@ func tile_graphic_clicked(tile: MTile):
 
 #  if there is a tsumo, we must be drawing.
 # if not, we must just be discarding afer a call
-func draw_and_discard(discardee: MTile):
+func _draw_and_discard(discardee: MTile):
 	if tsumo:
 		hand.append(tsumo)
 		tsumo = null
 	hand.erase(discardee)
 	discard.append(discardee)
-	update_hand_label()
+	_update_hand_label()
 	gui_manager.update_discard(discard)
 	gui_manager.update_tsumo([])
 	
@@ -653,10 +671,18 @@ func draw_and_discard(discardee: MTile):
 	
 	TileGraphicKnower.highlight_matching_tiles(discardee, false)
 	
-	if !try_enter_riichi():
-		start_rotation()
+	if !_try_enter_riichi():
+		_start_rotation()
 
-func try_enter_riichi():
+#  for calling externally. assumes that a tile has already been cleared from the
+# hand somehow.
+func add_to_hand_and_update(tile: MTile):
+	hand.append(tile)
+	assert(hand.size() == 13, "Trying to add a tile to a hand that's already full!")
+	_update_hand_label()
+
+
+func _try_enter_riichi():
 	if hand_is_open() or in_riichi:
 		return false
 	for t in tile_counter.get_all_tiles():
@@ -665,30 +691,30 @@ func try_enter_riichi():
 		full_hand.sort_custom(Callable(MTile, "tile_compare"))
 		if yaku_checker.hand_meets_basic_reqs(full_hand):
 			calls_manager.enable_calls(CALL_BITMASK.RCH, {})
-			set_state(STATE_CALLS)
-			assign_discard_count()
+			_set_state(STATE_CALLS)
+			_assign_discard_count()
 			return true
 	return false
 
 # entered from calls
-func do_riichi():
+func _do_riichi():
 	in_riichi = true
 	ippatsu_counter = upgrades.get_discard_count() + 1
 	met_yaku.hans.append(ALL_YAKU.YAKUS["Riichi"])
 	MusicManager.start_tenpai()
-	start_rotation()
+	_start_rotation()
 
 
-func update_hand_label(override_sort = false):
+func _update_hand_label(override_sort = false):
 	if !override_sort:
 		hand.sort_custom(Callable(MTile, "tile_compare"))
 	gui_manager.update_hand(hand)
 
 
 # `does_not_count` just prevents certain tile draws from decrementing counters
-func get_next_from_wall(does_not_count = false):
+func _get_next_from_wall(does_not_count = false):
 	if wall.size() == 0:
-		end_round()
+		_end_round()
 		return null
 	var ret = wall.pop_back()
 	gui_manager.update_wall_count(wall.size())
@@ -702,7 +728,7 @@ func get_next_from_wall(does_not_count = false):
 	return ret
 
 
-func end_round(win_is_tsumo_not_ron = false):
+func _end_round(win_is_tsumo_not_ron = false):
 	# dora and uradora ids.
 	var omote_doras = []
 	var ura_doras = []
@@ -753,13 +779,26 @@ func end_round(win_is_tsumo_not_ron = false):
 	#TileGraphicKnower.update_dora_ids([])
 
 
-func set_state(new_state: int):
+func _set_state(new_state: int):
 	if _state == new_state:
 		return
 	
 	_state = new_state
 	
 	hand_gui.do_hover_cursor(_state == STATE_ACTIONABLE)
+
+
+# changes state, but otherwise just hacks into existing `tile_graphic_clicked` code
+func request_tile_select(requestor: Node, remove_from_hand: bool):
+	tile_select_requestor_node = requestor
+	remove_from_hand_on_selection = remove_from_hand
+	_set_state(STATE_SELECT_TILE)
+# called when formally complete, so anims can play out etc.
+func complete_tile_select():
+	tile_select_requestor_node = null
+	remove_from_hand_on_selection = null
+	_set_state(STATE_ACTIONABLE)
+
 
 
 func hand_is_open():
@@ -769,12 +808,12 @@ func hand_is_open():
 	return false
 
 
-func first_by_id(id: int, tiles: Array) -> int:
+static func first_by_id(id: int, tiles: Array) -> int:
 	for t in tiles.size():
 		if tiles[t].get_id() == id:
 			return t
 	return -1
-func count_by_id(id: int, tiles: Array) -> int:
+static func count_by_id(id: int, tiles: Array) -> int:
 	var count = 0
 	for t in tiles.size():
 		if tiles[t].get_id() == id:

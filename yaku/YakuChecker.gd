@@ -181,19 +181,39 @@ func hand_get_han(hand: Array, already_made_groupings: Array, is_tsumo: bool, do
 					scoring_info.hans.append(ALL_YAKU.YAKUS[("" if not is_open else "Open ") + "Hon'itsu"])
 			
 			
-			
+			# get fu
 			if do_fu:
-				scoring_info.fus = get_fu(groupings, doras)
+				#mezenka
+				if !is_open and !is_tsumo:
+					scoring_info.fus.append(ALL_YAKU.FU["Menzenkafu"].duplicate())
+				
+				# chiitoi fu
+				if pairs.size() >= 7:
+					scoring_info.fus.append(ALL_YAKU.FU["Chiitoitsu"].duplicate())
+				else:
+					scoring_info.fus = get_fu(groupings, doras)
 			
 			# sneak pinfu in here
 			if !is_open and scoring_info.pinfu_check():
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Pinfu"])
+			
+			# dora
+			if doras.size() > 0:
+				for g in groupings:
+					for t in g.tiles:
+						if doras[0].has(t.get_id()):
+							scoring_info.hans.append(ALL_YAKU.YAKUS["Kan Dora"])
+						if !is_open and doras[1].has(t.get_id()):
+							scoring_info.hans.append(ALL_YAKU.YAKUS["Ura Dora"])
+						if t.aka:
+							scoring_info.hans.append(ALL_YAKU.YAKUS["Aka Dora"])
 			
 			if scoring_info.get_total_points() >= max.get_total_points():
 				max = scoring_info
 	
 	if other_met_yaku and met_basic_reqs:
 		max.hans = other_met_yaku.hans + max.hans
+		
 	
 	return max
 
@@ -393,16 +413,17 @@ func get_fu(groupings: Array, doras: Array):
 			fus.back().nam = "Yaochuu " + fus.back().nam
 	
 	
-	# doras is and array of arrays of MTile ids, seperated into front and ura
-	if doras.size() > 0:
-		for g in groupings:
-			for t in g.tiles:
-				if doras[0].has(t.get_id()):
-					fus.append(ALL_YAKU.FU["Kan Dora"])
-				if doras[1].has(t.get_id()):
-					fus.append(ALL_YAKU.FU["Ura Dora"])
-				if t.aka:
-					fus.append(ALL_YAKU.FU["Aka Dora"])
+	#  doras is and array of arrays of MTile ids, seperated into front and ura.
+	# moved back to be han-scoring
+#	if doras.size() > 0:
+#		for g in groupings:
+#			for t in g.tiles:
+#				if doras[0].has(t.get_id()):
+#					fus.append(ALL_YAKU.FU["Kan Dora"])
+#				if doras[1].has(t.get_id()):
+#					fus.append(ALL_YAKU.FU["Ura Dora"])
+#				if t.aka:
+#					fus.append(ALL_YAKU.FU["Aka Dora"])
 	
 	
 	return fus
