@@ -5,7 +5,7 @@ class_name MTileStringConverter
 const SUITS = {MTile.SUITS.MAN: "m", MTile.SUITS.PIN: "p", MTile.SUITS.SOU: "s", MTile.SUITS.SPECIAL: "", MTile.SUITS.FLOWER: "f", null: ""}
 const SPECIALS_BY_VALUE = ["?", "東", "南", "西", "北", "登", "白", "發", "中", "金"]
 
-#  assumes the tiles are sorted. (techincally doesn't but
+#  tiles should be sorted. (techincally doesn't matter but
 # will return a dopey looking string if they're not)
 static func mtile_to_str(tiles: Array) -> String:
 	var ret = ""

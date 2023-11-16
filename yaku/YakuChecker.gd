@@ -419,8 +419,9 @@ func get_fu(groupings: Array, doras: Array):
 			if t.suit != MTile.SUITS.SPECIAL:
 				is_yao = false
 				break
-			if ![1,9].has(t.value):
+			elif ![1,9].has(t.value):
 				is_yao = false
+				break
 		
 		if is_yao:
 			fus.back().fu *= ALL_YAKU.FU["Yaochuu Multiplier"].fu
