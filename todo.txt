@@ -7,6 +7,7 @@ end of every round can purchase:
 		call atama?
 		create runs with winds/dragons
 		call kita
+		kuitan
 	spell cards, refresh every x draws
 	x	next tile will be --honor-- wind
 	x	exchange one tile for a false haku
@@ -25,19 +26,16 @@ final boss on the E-E repeat. probably no repeated seats.
 
 doraizing anim when you buy dora, clear feedback as to what it was
 cant hover tiles in made calls
-more expensive shop items
 tsumo call tile hover broken, highlights most recent discard instead of tsumo
 make ura dora more clear
-buy fu upgrades
+buy fu upgrades??
 visually indicate closed kans, calls in general
 	just create a new func that passes groupings instead of arrays
 "shape of the game" guide tab
 probably not a bad idea to formally switch to ttf fonts ngl. no baseline is
 	messing with multilingual support
 closed fu as a mult instead of seperate?
-scoring calc not showing up why?? round E-S
-rework get han to take in a list of yaku instead of seperate bools for all of them
-ron should register an open set
+ron agari should register an open set
 some debug keys
 	end round, reroll hand, set hand to {x}
 record sounds
@@ -49,7 +47,7 @@ couldnt enter riichi with a sanankou hand? made a closed kan but closed otherwis
 	could still ron somehow? probably related to an "is_open" somewhere
 	1255666777p 1111m
 mtile string decoder for convenience
-
+wait fu
 
 music
 	just make like 4~8 tracksets

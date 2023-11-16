@@ -96,7 +96,7 @@ func _use():
 		TYPES.KAN_SWAP:
 			mahjong_manager.request_tile_select(self, true)
 			
-			cooldown_counter = 64
+			cooldown_counter = 80
 	
 	assert(cooldown_counter > 0, "you forgot to reassign the cooldown counter!!")
 	cooldown_counter += 1
