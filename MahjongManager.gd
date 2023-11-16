@@ -308,7 +308,8 @@ func _start_rotation(discard_override = null):
 func _assign_discard_count(discard_override = null):
 	remaining_opp_discards = discard_override if discard_override != null else upgrades.get_discard_count()
 
-func _do_tsumo(override: MTile = null):
+# occasionally called by items that override the present tsumo tile
+func do_tsumo(override: MTile = null):
 	if override:
 		tsumo = override
 	else:
@@ -338,7 +339,7 @@ func _do_opp_discard():
 	await anim_timer.start_mod(.2)
 	
 	if remaining_opp_discards == 0:
-		_do_tsumo()
+		do_tsumo()
 		return
 	remaining_opp_discards -= 1
 	
@@ -389,10 +390,7 @@ func _can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
 	var bitmask = 0b0000
 	
 	#ron check
-	var full_hand = [disc]
-	full_hand.append_array(hand)
-	full_hand.sort_custom(Callable(MTile, "tile_compare"))
-	if yaku_checker.hand_get_han(full_hand, called_hand, false, [], false, met_yaku).get_total_han() > 0:
+	if yaku_checker.hand_get_han(get_hand_info(), [], false, met_yaku).get_total_han() > 0:
 		bitmask |= CALL_BITMASK.RON
 	
 	# the rest only apply if not in riichi
@@ -517,7 +515,7 @@ func _do_if_can_tsumo():
 	var btm = 0
 	var involved = {}
 	
-	if yaku_checker.hand_get_han(full_hand, called_hand, true, [], false, null).get_total_han() > 0:
+	if yaku_checker.hand_get_han(get_hand_info(), [], false, null).get_total_han() > 0:
 		btm |= CALL_BITMASK.TSM
 	
 	# closed tsumo kan. note we ban riichi kans
@@ -615,7 +613,7 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 	call_sfx_player.play()
 	if bitmask == CALL_BITMASK.KAN or bitmask == CALL_BITMASK.CLOSED_KAN:
 		was_last_draw_from_dead_wall = true
-		_do_tsumo(dead_wall.pop_back())
+		do_tsumo(dead_wall.pop_back())
 	else:
 		_do_post_call_discard()
 
@@ -732,11 +730,6 @@ func _end_round(win_is_tsumo_not_ron = false):
 	# dora and uradora ids.
 	var omote_doras = []
 	var ura_doras = []
-#	for t in revealed_kan_dora:
-#		doras.append(kan_dora[-t].get_dora_id())
-#	if called_hand.size() == 0:
-#		for t in revealed_kan_dora:
-#			doras.append(ura_dora[-t].get_dora_id())
 	for i in range(upgrades.get_kan_size()-revealed_kan_dora, kan_dora.size()):
 		for id in kan_dora[i].get_dora_id():
 			omote_doras.append(id)
@@ -746,14 +739,6 @@ func _end_round(win_is_tsumo_not_ron = false):
 				ura_doras.append(id)
 	var doras = [omote_doras, ura_doras]
 	
-	# attach winning tile to hand
-	var full_hand = hand.duplicate()
-	if win_is_tsumo_not_ron:
-		full_hand.append(tsumo)
-	else:
-		full_hand.append(opp_discard.back())
-	full_hand.sort_custom(Callable(MTile, "tile_compare"))
-	
 	# add yaku 
 	if ippatsu_counter >= 0:
 		met_yaku.hans.append(ALL_YAKU.YAKUS["Ippatsu"])
@@ -762,16 +747,16 @@ func _end_round(win_is_tsumo_not_ron = false):
 	if was_last_draw_from_dead_wall:
 		met_yaku.hans.append(ALL_YAKU.YAKUS["Rinshan"])
 	
-	#  must have 14 tiles. this might need to be changed later
-	# for bigger hands
-	assert(full_hand.size() + called_hand.size() * 3 == 14)
+#	#  must have 14 tiles. this might need to be changed later
+#	# for bigger hands
+#	assert(full_hand.size() + called_hand.size() * 3 == 14)
 	
-	var score_info = yaku_checker.hand_get_han(full_hand, called_hand, win_is_tsumo_not_ron, doras, true, met_yaku)
+	var score_info = yaku_checker.hand_get_han(get_hand_info(), doras, true, met_yaku)
 	
-	var multiplier = 6 if seat_wind == WINDS.EAST else 4
+	var multiplier_info = MultiplierInfo.new(seat_wind == WINDS.EAST, win_is_tsumo_not_ron)
 	
 	#print("%d  %d  %d" % [fu, han, multiplier])
-	root.end_round(score_info, multiplier)
+	root.end_round(score_info, multiplier_info)
 	
 	MusicManager.start_scoring()
 	
@@ -800,6 +785,16 @@ func complete_tile_select():
 	_set_state(STATE_ACTIONABLE)
 
 
+func get_hand_info() -> HandInformation:
+	var ret = HandInformation.new()
+	
+	ret.hand = hand
+	ret.tsumo = tsumo
+	ret.already_made_groupings = called_hand
+	if opp_discard.size() > 0:
+		ret.most_recent_discard = opp_discard[-1]
+	
+	return ret
 
 func hand_is_open():
 	for g in called_hand:

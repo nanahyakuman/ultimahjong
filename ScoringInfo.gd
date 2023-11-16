@@ -64,11 +64,10 @@ const MANGAN_HANS = {
 	13: 8000
 }
 
-func get_total_points():
+func get_base_points():
 	var han = get_total_han()
 	
 	var points = int(get_total_fu() * pow(2.0, han + 2.0))
-	points = round_to_place(points, 100)
 	
 	if points >= 2000:
 		points = 2000
@@ -76,7 +75,7 @@ func get_total_points():
 		if MANGAN_HANS.has(han):
 			points = MANGAN_HANS[han]
 		if han >= 13:
-			points = 8000 * ((hans%13) + 1)
+			points = 8000 * ((han/13) + 1)
 		
 	return points
 

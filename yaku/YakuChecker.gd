@@ -5,14 +5,26 @@ class_name YakuChecker
 
 
 # hand should be sorted by MTile id. this is slow
-func hand_get_han(hand: Array, already_made_groupings: Array, is_tsumo: bool, doras = [], do_fu = false, other_met_yaku: ScoringInfo = null) -> ScoringInfo:
+func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_met_yaku: ScoringInfo = null) -> ScoringInfo:
 	# merge
-	var remaining_hand = hand.duplicate()
+	var remaining_hand = hand_info.hand.duplicate()
+	
+	# determine if tsumo
+	var is_tsumo = false
+	if hand_info.tsumo:
+		remaining_hand.append(hand_info.tsumo)
+		is_tsumo = true
+	else:
+		remaining_hand.append(hand_info.most_recent_discard)
+	
+	remaining_hand.sort_custom(Callable(MTile, "tile_compare"))
+	
+	# get maximal hands, run based and set based
 	var groupingss = [_get_maximal_groupings(remaining_hand,false),_get_maximal_groupings(remaining_hand,true)]
 	
 	# determine openness
 	var is_open = false
-	for g in already_made_groupings:
+	for g in hand_info.already_made_groupings:
 		if g.open:
 			is_open = true
 			break
@@ -24,7 +36,7 @@ func hand_get_han(hand: Array, already_made_groupings: Array, is_tsumo: bool, do
 	var max = ScoringInfo.new()
 	
 	for groupings in groupingss:
-		groupings.append_array(already_made_groupings)
+		groupings.append_array(hand_info.already_made_groupings)
 		
 		var scoring_info = ScoringInfo.new()
 		
@@ -208,7 +220,7 @@ func hand_get_han(hand: Array, already_made_groupings: Array, is_tsumo: bool, do
 						if t.aka:
 							scoring_info.hans.append(ALL_YAKU.YAKUS["Aka Dora"])
 			
-			if scoring_info.get_total_points() >= max.get_total_points():
+			if scoring_info.get_base_points() >= max.get_base_points():
 				max = scoring_info
 	
 	if other_met_yaku and met_basic_reqs:
@@ -407,6 +419,8 @@ func get_fu(groupings: Array, doras: Array):
 			if t.suit != MTile.SUITS.SPECIAL:
 				is_yao = false
 				break
+			if ![1,9].has(t.value):
+				is_yao = false
 		
 		if is_yao:
 			fus.back().fu *= ALL_YAKU.FU["Yaochuu Multiplier"].fu

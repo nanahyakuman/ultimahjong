@@ -15,6 +15,7 @@ end of every round can purchase:
 		exchange a tile in hand for a current kandora
 		rearrange next five tiles
 		ron does not open your hand (adds menzentsumo to closed hands, makes sanankou easier, etc.)
+		riichi ryuukyoku rewards half points off the best hand you could've gotten
 	bonuses
 		1 han for every ~six tiles in your hand without any red ink toka
  dead wall can be expanded as long as there are free tiles left
@@ -35,19 +36,24 @@ visually indicate closed kans, calls in general
 probably not a bad idea to formally switch to ttf fonts ngl. no baseline is
 	messing with multilingual support
 closed fu as a mult instead of seperate?
-ron agari should register an open set
 some debug keys
-	end round, reroll hand, set hand to {x}
+	end round, reroll hand, set hand to {x}, printout hand
 record sounds
-yakuhai yaku stopped registering??
-yakuhai pair fu
 addtile purchaseable getting illegal tiles again. ?157p
 rework deadwall to be resizeable
 couldnt enter riichi with a sanankou hand? made a closed kan but closed otherwise.
 	could still ron somehow? probably related to an "is_open" somewhere
 	1255666777p 1111m
 mtile string decoder for convenience
-wait fu
+
+scoring releated:
+	miscouting yaochuu sets? maybe fixed just verify 1s/9s
+	wait fu
+	yakuhai pair fu
+	yakuhai yaku stopped registering?? verify
+	ron agari should register an open set!! this is messing up fu
+	still missing some yaku
+
 
 music
 	just make like 4~8 tracksets
