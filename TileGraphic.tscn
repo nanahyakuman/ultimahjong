@@ -1,16 +1,16 @@
-[gd_scene load_steps=19 format=3 uid="uid://dhu60farhkon0"]
+[gd_scene load_steps=19 format=3 uid="uid://dadklde1kjtjg"]
 
 [ext_resource type="Script" path="res://TileGraphic.gd" id="1_w2ft1"]
-[ext_resource type="Texture2D" uid="uid://bf8b1q22m2w0s" path="res://image/tilesides.png" id="3_rn2kv"]
-[ext_resource type="Texture2D" uid="uid://baxb03osrtkhb" path="res://image/tile_highlight_b.png" id="4_2lunx"]
-[ext_resource type="Texture2D" uid="uid://jt1w7bq0ji8r" path="res://image/tile_numerals.png" id="4_tgqdc"]
-[ext_resource type="Texture2D" uid="uid://3xyv2a3mk865" path="res://image/tile_highlight_r.png" id="5_b2fx8"]
-[ext_resource type="Texture2D" uid="uid://cq5xymufy75on" path="res://image/tilerear.png" id="5_xhwoj"]
-[ext_resource type="Texture2D" uid="uid://dajdvnl62pg7i" path="res://image/tile_dora.png" id="6_w2hg6"]
-[ext_resource type="Texture2D" uid="uid://diuf8wlp0jwam" path="res://image/tile_flicker.png" id="7_gponq"]
+[ext_resource type="Texture2D" uid="uid://bf8b1q22m2w0s" path="res://image/tile/tilesides.png" id="3_rn2kv"]
+[ext_resource type="Texture2D" uid="uid://baxb03osrtkhb" path="res://image/tile/fx/tile_highlight_b.png" id="4_2lunx"]
+[ext_resource type="Texture2D" uid="uid://ccdv7r4ga7o3t" path="res://image/tile/tiles.png" id="4_c6ib6"]
+[ext_resource type="Texture2D" uid="uid://3xyv2a3mk865" path="res://image/tile/fx/tile_highlight_r.png" id="5_b2fx8"]
+[ext_resource type="Texture2D" uid="uid://cq5xymufy75on" path="res://image/tile/tilerear.png" id="5_xhwoj"]
+[ext_resource type="Texture2D" uid="uid://dajdvnl62pg7i" path="res://image/tile/fx/tile_dora.png" id="6_w2hg6"]
+[ext_resource type="Texture2D" uid="uid://diuf8wlp0jwam" path="res://image/tile/fx/tile_flicker.png" id="7_gponq"]
 [ext_resource type="Script" path="res://TileGraphicFlicker.gd" id="8_r54qq"]
 [ext_resource type="Script" path="res://SimTileHighlight.gd" id="9_hkio8"]
-[ext_resource type="Texture2D" uid="uid://dremluumcx2sb" path="res://image/tile_highlight_r_1.png" id="11_7ok0s"]
+[ext_resource type="Texture2D" uid="uid://dremluumcx2sb" path="res://image/tile/fx/tile_highlight_r_1.png" id="11_7ok0s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gf2xo"]
 atlas = ExtResource("6_w2hg6")
@@ -90,7 +90,7 @@ region_rect = Rect2(80, 64, 16, 32)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_repeat = 1
-texture = ExtResource("4_tgqdc")
+texture = ExtResource("4_c6ib6")
 centered = false
 region_enabled = true
 region_rect = Rect2(80, 64, 16, 32)

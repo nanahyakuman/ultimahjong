@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8eiqqlppwabi"
-path="res://.godot/imported/tilecounter.png-7efe243ed7ecc49b8b7021d8d123b310.ctex"
+uid="uid://cq5xymufy75on"
+path="res://.godot/imported/tilerear.png-7fd8bb604936852c07af74db988596ae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://image/tilecounter/tilecounter.png"
-dest_files=["res://.godot/imported/tilecounter.png-7efe243ed7ecc49b8b7021d8d123b310.ctex"]
+source_file="res://image/tile/tilerear.png"
+dest_files=["res://.godot/imported/tilerear.png-7fd8bb604936852c07af74db988596ae.ctex"]
 
 [params]
 

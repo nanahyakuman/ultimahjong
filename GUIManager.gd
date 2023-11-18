@@ -17,6 +17,7 @@ const SIZE = 22
 @onready var prev_wind = $All/TableBottom/HBoxContainer/RoundWind/Sprite2D
 @onready var seat_wind = $All/TableBottom/HBoxContainer/SittingWind/Sprite2D
 @onready var made_calls = $MadeCalls
+@onready var score_label = $TableTop/HBoxContainer/ScoreLabel
 
 # tracked so calls can highlight it. only modifed by `hand`.
 var most_recent_discard = null
@@ -94,3 +95,6 @@ func increment_dead_wall_count(c: int):
 
 func reset_dead_wall_count():
 	graphic_tile_counter.reset_dead_wall_count()
+
+func update_score(score: int):
+	score_label.set_text_colorized(str(score))

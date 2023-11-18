@@ -8,16 +8,18 @@ end of every round can purchase:
 		create runs with winds/dragons
 		call kita
 		kuitan
+		see ura dora
+		ron does not open your hand (adds menzentsumo to closed hands, makes sanankou easier, etc.)
 	spell cards, refresh every x draws
 	x	next tile will be --honor-- wind
 	x	exchange one tile for a false haku
 		autocomplete a wait? seems op
 		exchange a tile in hand for a current kandora
 		rearrange next five tiles
-		ron does not open your hand (adds menzentsumo to closed hands, makes sanankou easier, etc.)
 		riichi ryuukyoku rewards half points off the best hand you could've gotten
 	bonuses
 		1 han for every ~six tiles in your hand without any red ink toka
+		every 5 consecutive discards from hand adds a han
  dead wall can be expanded as long as there are free tiles left
  overall structure is 17 rounds, starting on E-E and rotating through everything until
 final boss on the E-E repeat. probably no repeated seats.
@@ -40,25 +42,24 @@ some debug keys
 	end round, reroll hand, set hand to {x}, printout hand
 record sounds
 addtile purchaseable getting illegal tiles again. ?157p
-rework deadwall to be resizeable
-couldnt enter riichi with a sanankou hand? made a closed kan but closed otherwise.
-	could still ron somehow? probably related to an "is_open" somewhere
-	1255666777p 1111m
+rework deadwall to be resizeable inround?
 mtile string decoder for convenience
+	add open groupings and tsumo
+call flowers
 
 scoring releated:
-	miscouting yaochuu sets? maybe fixed just verify 1s/9s
-	wait fu
-	yakuhai pair fu
-	yakuhai yaku stopped registering?? verify
 	ron agari should register an open set!! this is messing up fu
 	still missing some yaku
 
 
 music
 	just make like 4~8 tracksets
+	we want oggs for clean looping but overwriting/deleting them sucks, so just finalize in fl and export once
 	
-	finish and reexport all of 1
+	finalize and reexport 1.
+		base- delay too loud and wahhh too samey
+		tenpai- drums??
+	
 
 
 yaku to implement

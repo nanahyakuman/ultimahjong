@@ -51,17 +51,17 @@ func get_total_fu() -> int:
 	return round_to_place(ret, 10)
 
 const MANGAN_HANS = {
-	6: 3000,
-	7: 3000,
+	6: 3000, # haneman
+	7: 3500, # taihanman
 	
-	8: 4000,
-	9: 4000,
-	10: 4000,
+	8: 4000, # baimain
+	9: 4666, # shoubaiman
+	10: 5333, # daibaiman
 	
-	11: 6000,
-	12: 6000,
+	11: 6000, # sanbaiman
+	12: 7000, # sanhanbaiman
 	
-	13: 8000
+	13: 8000 # yakuman
 }
 
 func get_base_points():

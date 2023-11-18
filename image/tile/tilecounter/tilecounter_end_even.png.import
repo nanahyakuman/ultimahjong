@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://blxlrv0jsh5hx"
-path="res://.godot/imported/tilecounter_end_even.png-524c896da5d4fbb8a0e5dbadcf68fdc8.ctex"
+path="res://.godot/imported/tilecounter_end_even.png-7a54c58b4ec7c10fdcbeeb32e258d357.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://image/tilecounter/tilecounter_end_even.png"
-dest_files=["res://.godot/imported/tilecounter_end_even.png-524c896da5d4fbb8a0e5dbadcf68fdc8.ctex"]
+source_file="res://image/tile/tilecounter/tilecounter_end_even.png"
+dest_files=["res://.godot/imported/tilecounter_end_even.png-7a54c58b4ec7c10fdcbeeb32e258d357.ctex"]
 
 [params]
 

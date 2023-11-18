@@ -2,31 +2,48 @@
 extends Resource
 class_name MTileStringConverter
 
+# character or emoji based encoding
+enum {CHARACTER, EMOJI}
+
 const SUITS = {MTile.SUITS.MAN: "m", MTile.SUITS.PIN: "p", MTile.SUITS.SOU: "s", MTile.SUITS.SPECIAL: "", MTile.SUITS.FLOWER: "f", null: ""}
 const SPECIALS_BY_VALUE = ["?", "東", "南", "西", "北", "登", "白", "發", "中", "金"]
 
+const EMOJIS = [
+	"🀙", "🀚", "🀛", "🀜", "🀝", "🀞", '🀟', "🀠", "🀡",
+	"🀐", "🀑", "🀒", "🀓", "🀔", "🀕", "🀖", "🀗", "🀘",
+	"🀇", "🀈", "🀉", "🀊", "🀋", "🀌", "🀍", "🀎", "🀏",
+	"🀀", "🀁", "🀂", "🀃", "⬆️", "🀆", "🀅", "🀄", "⭐",
+	"🀢", "🀣", "🀤", "🀥", "🀦", "🀧", "🀨", "🀩"
+]
+
 #  tiles should be sorted. (techincally doesn't matter but
 # will return a dopey looking string if they're not)
-static func mtile_to_str(tiles: Array) -> String:
-	var ret = ""
-	
-	var prev_suit = null
-	for t in tiles:
-		if t.suit != prev_suit:
-			ret += SUITS[prev_suit]
-		prev_suit = t.suit
+static func mtile_to_str(tiles: Array, type = CHARACTER) -> String:
+	if type == CHARACTER:
+		var ret = ""
 		
-		if t.suit != MTile.SUITS.SPECIAL:
-			ret += str(t.value)
-		else:
-			ret += SPECIALS_BY_VALUE[t.value]
+		var prev_suit = null
+		for t in tiles:
+			if t.suit != prev_suit:
+				ret += SUITS[prev_suit]
+			prev_suit = t.suit
+			
+			if t.suit != MTile.SUITS.SPECIAL:
+				ret += str(t.value)
+			else:
+				ret += SPECIALS_BY_VALUE[t.value]
+			
+			if t.aka:
+				ret += "'"
 		
-		if t.aka:
-			ret += "'"
-	
-	ret += SUITS[prev_suit]
-	
-	return ret
+		ret += SUITS[prev_suit]
+		
+		return ret
+	else:
+		var ret = ""
+		for t in tiles:
+			ret += EMOJIS[(log(t.suit)/log(2))*10 + t.value-1]
+		return ret
 
 static func str_to_mtile(str: String) -> Array:
 	var ret = []

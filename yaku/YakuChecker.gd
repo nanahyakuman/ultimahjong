@@ -9,13 +9,15 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 	# merge
 	var remaining_hand = hand_info.hand.duplicate()
 	
+	var final_tile = null
 	# determine if tsumo
 	var is_tsumo = false
 	if hand_info.tsumo:
-		remaining_hand.append(hand_info.tsumo)
+		final_tile = hand_info.tsumo
 		is_tsumo = true
 	else:
-		remaining_hand.append(hand_info.most_recent_discard)
+		final_tile = hand_info.most_recent_discard
+	remaining_hand.append(final_tile)
 	
 	remaining_hand.sort_custom(Callable(MTile, "tile_compare"))
 	
@@ -203,22 +205,13 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 				if pairs.size() >= 7:
 					scoring_info.fus.append(ALL_YAKU.FU["Chiitoitsu"].duplicate())
 				else:
-					scoring_info.fus = get_fu(groupings, doras)
+					scoring_info.fus = get_fu(groupings, doras, final_tile)
 			
 			# sneak pinfu in here
 			if !is_open and scoring_info.pinfu_check():
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Pinfu"])
 			
-			# dora
-			if doras.size() > 0:
-				for g in groupings:
-					for t in g.tiles:
-						if doras[0].has(t.get_id()):
-							scoring_info.hans.append(ALL_YAKU.YAKUS["Kan Dora"])
-						if !is_open and doras[1].has(t.get_id()):
-							scoring_info.hans.append(ALL_YAKU.YAKUS["Ura Dora"])
-						if t.aka:
-							scoring_info.hans.append(ALL_YAKU.YAKUS["Aka Dora"])
+			
 			
 			if scoring_info.get_base_points() >= max.get_base_points():
 				max = scoring_info
@@ -226,12 +219,27 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 	if other_met_yaku and met_basic_reqs:
 		max.hans = other_met_yaku.hans + max.hans
 		
+		# dora
+		var all_tiles = remaining_hand.duplicate()
+		for g in hand_info.already_made_groupings:
+			for t in g.tiles:
+				all_tiles.append(t)
+		if doras.size() > 0:
+			for t in all_tiles:
+				if t.aka:
+					max.hans.append(ALL_YAKU.YAKUS["Aka Dora"])
+				if doras[0].has(t.get_id()):
+					max.hans.append(ALL_YAKU.YAKUS["Kan Dora"])
+				if !is_open and doras[1].has(t.get_id()):
+					max.hans.append(ALL_YAKU.YAKUS["Ura Dora"])
+				
 	
 	return max
 
-# does not check chitoitsu
-func hand_meets_basic_reqs(hand: Array) -> bool:
+# `made_groupings` should only ever contain closed groups (i.e. kans)
+func hand_meets_basic_reqs(hand: Array, made_groupings: Array) -> bool:
 	var groupings = _get_maximal_groupings(hand)
+	groupings.append_array(made_groupings)
 	return groupings_meet_basic_reqs(groupings)
 
 func groupings_meet_basic_reqs(groupings: Array) -> bool:
@@ -377,10 +385,12 @@ func get_dora(groupings: Array, dora_ids: Array):
 	return dora
 
 # assumes the hand is valid and not chiitoitsu
-func get_fu(groupings: Array, doras: Array):
+func get_fu(groupings: Array, doras: Array, waited_tile: MTile):
 	var fus = []
 	
 	fus.append(ALL_YAKU.FU["Base"])
+	
+	var award_wait_fu = false
 	
 	for g in groupings:
 		if g.type == Grouping.RUN:
@@ -388,6 +398,13 @@ func get_fu(groupings: Array, doras: Array):
 				fus.append(ALL_YAKU.FU["Open Run"].duplicate())
 			else:
 				fus.append(ALL_YAKU.FU["Closed Run"].duplicate())
+				
+				# wait fu
+				for t in g.tiles:
+					if t.get_id() == waited_tile.get_id():
+						if (t.value == 3 and g.tiles[0].value == 1) or (t.value == 7 and g.tiles[0].value == 7) or g.tiles.find(t) == 1:
+							award_wait_fu = true
+				
 		elif g.type == Grouping.SET:
 			# stitch name together.
 			var nam = ""
@@ -406,27 +423,31 @@ func get_fu(groupings: Array, doras: Array):
 				nam = nam + "Quad"
 			
 			fus.append(ALL_YAKU.FU[nam].duplicate())
+			
+			# apply yao mult
+			var is_yao = false
+			if g.tiles[0].suit == MTile.SUITS.SPECIAL:
+				is_yao = true
+			elif [1,9].has(g.tiles[0].value):
+				is_yao = true
+			
+			if is_yao:
+				fus.back().fu *= ALL_YAKU.FU["Yaochuu Multiplier"].fu
+				fus.back().nam = "Yaochuu " + fus.back().nam
 		
 		elif g.type == Grouping.PAIR:
-#			if g.tiles[0].suit == MTile.SUITS.SPECIAL and get_yakuhai_vals().has(g.tiles[0].value):
-#				fus.append(ALL_YAKU.FU["Yakuhai Pair"])
-#			else:
-			fus.append(ALL_YAKU.FU["Pair"].duplicate())
+			if g.tiles[0].suit == MTile.SUITS.SPECIAL and get_yakuhai_vals().has(g.tiles[0].value):
+				fus.append(ALL_YAKU.FU["Yakuhai Pair"].duplicate())
+			else:
+				fus.append(ALL_YAKU.FU["Pair"].duplicate())
+			
+			if g.tiles[0].get_id() == waited_tile.get_id():
+				award_wait_fu = true
 		
-		# apply yao mult
-		var is_yao = true
-		for t in g.tiles:
-			if t.suit != MTile.SUITS.SPECIAL:
-				is_yao = false
-				break
-			elif ![1,9].has(t.value):
-				is_yao = false
-				break
 		
-		if is_yao:
-			fus.back().fu *= ALL_YAKU.FU["Yaochuu Multiplier"].fu
-			fus.back().nam = "Yaochuu " + fus.back().nam
 	
+	if award_wait_fu:
+		fus.append(ALL_YAKU.FU["1-sided Wait"].duplicate())
 	
 	#  doras is and array of arrays of MTile ids, seperated into front and ura.
 	# moved back to be han-scoring

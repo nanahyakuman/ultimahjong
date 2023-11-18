@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://diuf8wlp0jwam"
-path="res://.godot/imported/tile_flicker.png-6a81d2beaa71476ce47df03f5638e0c3.ctex"
+uid="uid://dajdvnl62pg7i"
+path="res://.godot/imported/tile_dora.png-8aeb398d18f2dad680310f7ae767dd56.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://image/tile_flicker.png"
-dest_files=["res://.godot/imported/tile_flicker.png-6a81d2beaa71476ce47df03f5638e0c3.ctex"]
+source_file="res://image/tile/fx/tile_dora.png"
+dest_files=["res://.godot/imported/tile_dora.png-8aeb398d18f2dad680310f7ae767dd56.ctex"]
 
 [params]
 

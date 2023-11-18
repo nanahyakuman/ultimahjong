@@ -6,7 +6,7 @@ extends TextureRect
 @onready var dead_tile_end = $DeadTileEnd
 @onready var label = $Label
 
-@onready var textures = [preload("res://image/tilecounter/tilecounter_end_odd.png"), preload("res://image/tilecounter/tilecounter_end_even.png"), preload("res://image/tilecounter/tilecounter_end_final.png")]
+@onready var textures = [preload("res://image/tile/tilecounter/tilecounter_end_odd.png"), preload("res://image/tile/tilecounter/tilecounter_end_even.png"), preload("res://image/tile/tilecounter/tilecounter_end_final.png")]
 
 @export var text_offset = Vector2(11,12)
 

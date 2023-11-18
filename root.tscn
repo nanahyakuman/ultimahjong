@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://dfr0xt7vhfy2u"]
+[gd_scene load_steps=52 format=3 uid="uid://ddu73u7jsg0tr"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://root.gd" id="2_r4pf7"]
 [ext_resource type="Script" path="res://yaku/YakuChecker.gd" id="4_k3lw2"]
 [ext_resource type="Script" path="res://TileCounter.gd" id="5_abq0l"]
-[ext_resource type="PackedScene" uid="uid://dhu60farhkon0" path="res://TileGraphic.tscn" id="6_3ag2w"]
+[ext_resource type="PackedScene" uid="uid://dadklde1kjtjg" path="res://TileGraphic.tscn" id="6_3ag2w"]
 [ext_resource type="AudioStream" uid="uid://crkug05d3uk76" path="res://audio/sfx/tap.wav" id="6_5a2qq"]
 [ext_resource type="AudioStream" uid="uid://fs4fwi2wiaj7" path="res://audio/sfx/taps.wav" id="7_358eq"]
 [ext_resource type="Script" path="res://Upgrades.gd" id="7_i15dy"]
@@ -37,10 +37,10 @@
 [ext_resource type="Script" path="res://ScoringRoot.gd" id="21_yhd2i"]
 [ext_resource type="Script" path="res://NumberColorizer.gd" id="27_yfh58"]
 [ext_resource type="FontFile" uid="uid://dmoumxbcf3gn" path="res://text/font/Body2.png" id="28_jde07"]
-[ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tilecounter/tablediv.png" id="31_h31my"]
-[ext_resource type="Texture2D" uid="uid://8eiqqlppwabi" path="res://image/tilecounter/tilecounter.png" id="33_6btw0"]
-[ext_resource type="Texture2D" uid="uid://ch4nr70j7xj74" path="res://image/tilecounter/tilecounter_end_odd.png" id="34_tbbuy"]
-[ext_resource type="Texture2D" uid="uid://blxlrv0jsh5hx" path="res://image/tilecounter/tilecounter_end_even.png" id="35_5xuo4"]
+[ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tile/tilecounter/tablediv.png" id="33_igaxs"]
+[ext_resource type="Texture2D" uid="uid://8eiqqlppwabi" path="res://image/tile/tilecounter/tilecounter.png" id="35_6x8j8"]
+[ext_resource type="Texture2D" uid="uid://ch4nr70j7xj74" path="res://image/tile/tilecounter/tilecounter_end_odd.png" id="36_glino"]
+[ext_resource type="Texture2D" uid="uid://blxlrv0jsh5hx" path="res://image/tile/tilecounter/tilecounter_end_even.png" id="37_nadvb"]
 [ext_resource type="Texture2D" uid="uid://ng8eqocmaltm" path="res://image/sidebar_tiles_9pr.png" id="39_1otd6"]
 [ext_resource type="Script" path="res://FuTab.gd" id="41_je4uv"]
 [ext_resource type="Texture2D" uid="uid://xoodhoigui53" path="res://image/optionsbutton.png" id="42_n7prw"]
@@ -783,14 +783,14 @@ script = ExtResource("21_roajs")
 
 [node name="GraphicTileCounter" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("31_h31my")
+texture = ExtResource("33_igaxs")
 stretch_mode = 1
 script = ExtResource("13_x2gyd")
 
 [node name="TileCounter" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
 layout_mode = 0
 offset_right = 8.0
-texture = ExtResource("33_6btw0")
+texture = ExtResource("35_6x8j8")
 expand_mode = 1
 stretch_mode = 1
 script = ExtResource("16_8lthm")
@@ -800,7 +800,7 @@ hover_text = "Tiles left to draw in the wall."
 layout_mode = 1
 offset_right = 8.0
 offset_bottom = 16.0
-texture = ExtResource("34_tbbuy")
+texture = ExtResource("36_glino")
 stretch_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer/GraphicTileCounter"]
@@ -816,7 +816,7 @@ layout_mode = 1
 offset_top = 350.0
 offset_right = 8.0
 offset_bottom = 366.0
-texture = ExtResource("35_5xuo4")
+texture = ExtResource("37_nadvb")
 stretch_mode = 2
 
 [node name="DeadTileCounter" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
@@ -825,7 +825,7 @@ offset_top = 353.0
 offset_right = 8.0
 offset_bottom = 362.0
 scale = Vector2(1, -1)
-texture = ExtResource("33_6btw0")
+texture = ExtResource("35_6x8j8")
 expand_mode = 1
 stretch_mode = 1
 script = ExtResource("16_8lthm")

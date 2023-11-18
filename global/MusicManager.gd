@@ -6,9 +6,10 @@ extends Node
 @onready var sfx_audio_stream_player = $SFXAudioStreamPlayer
 
 var FILE_PATHS = ["res://audio/music/1/"]
+var EXTENSION = ".mp3"
 var index = 9999
 
-enum {BASE, TENPAI, SHOP, HAN}
+enum {BASE, TENPAI, SHOP, HAN, WIN}
 var data = []
 
 const SEMITONE_RATIO = pow(2.0,1.0/12.0)
@@ -25,10 +26,11 @@ func queue_next_song():
 				FILE_PATHS.shuffle()
 	
 	data.clear()
-	data.append(load(FILE_PATHS[index]+"base.ogg"))
-	data.append(load(FILE_PATHS[index]+"tenpai.ogg"))
-	data.append(load(FILE_PATHS[index]+"shop.ogg"))
-	data.append(load(FILE_PATHS[index]+"han.ogg"))
+	data.append(load(FILE_PATHS[index]+"base"+EXTENSION))
+	data.append(load(FILE_PATHS[index]+"tenpai"+EXTENSION))
+	data.append(load(FILE_PATHS[index]+"shop"+EXTENSION))
+	data.append(load(FILE_PATHS[index]+"han"+EXTENSION))
+	data.append(load(FILE_PATHS[index]+"win"+EXTENSION))
 
 func start_round():
 	audio_stream_player.stop()
@@ -55,6 +57,12 @@ func play_han():
 	
 	sfx_audio_stream_player.play()
 
+func start_win():
+	audio_stream_player.stop()
+	audio_stream_player.stream = data[WIN]
+	audio_stream_player.play()
+	
+
 
 func start_shop():
 	audio_stream_player.stop()
@@ -62,3 +70,7 @@ func start_shop():
 	audio_stream_player.stream = data[SHOP]
 	await get_tree().create_timer(0.2).timeout
 	audio_stream_player.play()
+
+
+func stop_music():
+	audio_stream_player.stop()

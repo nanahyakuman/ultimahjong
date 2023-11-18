@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dajdvnl62pg7i"
-path="res://.godot/imported/tile_dora.png-63533bc09af69d63e1bd9576c6750eeb.ctex"
+uid="uid://ch4nr70j7xj74"
+path="res://.godot/imported/tilecounter_end_odd.png-142d0bf6c7302ae3c2bba62ce9577448.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://image/tile_dora.png"
-dest_files=["res://.godot/imported/tile_dora.png-63533bc09af69d63e1bd9576c6750eeb.ctex"]
+source_file="res://image/tile/tilecounter/tilecounter_end_odd.png"
+dest_files=["res://.godot/imported/tilecounter_end_odd.png-142d0bf6c7302ae3c2bba62ce9577448.ctex"]
 
 [params]
 

@@ -33,4 +33,5 @@ func adjust_money(amount: int):
 	
 
 func close():
+	MusicManager.stop_music()
 	root.start_round()

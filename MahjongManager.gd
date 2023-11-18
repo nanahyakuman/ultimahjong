@@ -71,7 +71,6 @@ func start_round():
 	met_yaku = ScoringInfo.new()
 	
 	_increment_winds()
-	MusicManager.start_round()
 	
 	
 	await _init_wall()
@@ -88,6 +87,8 @@ func start_round():
 	await _draw_hand()
 	
 	_start_rotation(seat_wind)
+	MusicManager.start_round()
+	
 
 func _increment_winds():
 	seat_wind += 3
@@ -177,8 +178,6 @@ func _draw_hand():
 #
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 3))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 3))
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
@@ -187,6 +186,8 @@ func _draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
 
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
@@ -472,36 +473,36 @@ func _can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
 	var marked = {}
 	for t in a:
 		var tid = t.get_id()
-		var count = count_by_id(tid, a)
+		var count = MahjongManager.count_by_id(tid, a)
 		if count > 1:
 			marked[tid] = count - 1
 	for m in marked.keys():
 		for i in marked[m]:
-			var tbd = first_by_id(m, a)
+			var tbd = MahjongManager.first_by_id(m, a)
 			a.remove_at(tbd)
 	
 	a = tiles_involved[CALL_BITMASK.CHI_M]
 	marked = {}
 	for t in a:
 		var tid = t.get_id()
-		var count = count_by_id(tid, a)
+		var count = MahjongManager.count_by_id(tid, a)
 		if count > 1:
 			marked[tid] = count - 1
 	for m in marked.keys():
 		for i in marked[m]:
-			var tbd = first_by_id(m, a)
+			var tbd = MahjongManager.first_by_id(m, a)
 			a.remove_at(tbd)
 	
 	a = tiles_involved[CALL_BITMASK.CHI_L]
 	marked = {}
 	for t in a:
 		var tid = t.get_id()
-		var count = count_by_id(tid, a)
+		var count = MahjongManager.count_by_id(tid, a)
 		if count > 1:
 			marked[tid] = count - 1
 	for m in marked.keys():
 		for i in marked[m]:
-			var tbd = first_by_id(m, a)
+			var tbd = MahjongManager.first_by_id(m, a)
 			a.remove_at(tbd)
 	
 	return bitmask
@@ -604,6 +605,8 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 		# closed kan stay closed
 		if bitmask != CALL_BITMASK.CLOSED_KAN:
 			new_grouping.open = true
+		else:
+			new_grouping.open = false
 		called_hand = [new_grouping] + called_hand
 		gui_manager.update_opp_discard(opp_discard)
 		gui_manager.update_hand(hand)
@@ -681,13 +684,14 @@ func add_to_hand_and_update(tile: MTile):
 
 
 func _try_enter_riichi():
-	if hand_is_open() or in_riichi:
+	if in_riichi or hand_is_open():
 		return false
 	for t in tile_counter.get_all_tiles():
 		var full_hand = [t]
 		full_hand.append_array(hand)
+		# this is safe because we assert that the hand is closed
 		full_hand.sort_custom(Callable(MTile, "tile_compare"))
-		if yaku_checker.hand_meets_basic_reqs(full_hand):
+		if yaku_checker.hand_meets_basic_reqs(full_hand, called_hand):
 			calls_manager.enable_calls(CALL_BITMASK.RCH, {})
 			_set_state(STATE_CALLS)
 			_assign_discard_count()

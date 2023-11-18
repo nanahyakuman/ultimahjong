@@ -1,4 +1,5 @@
 extends Control
+@onready var gui_manager = $"../GUIManager"
 @onready var han_names = $Window/VBoxContainer/Han/Names
 @onready var han_points = $Window/VBoxContainer/Han/Points
 @onready var fu_names = $Window/VBoxContainer/Fu/Names
@@ -35,14 +36,18 @@ func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points:int, mu
 		han_names.append_text(h.nam + "\n")
 		han_points.append_text(str(h.han) + " han\n")
 		if animate:
-			for i in h.han:
+			for i in h.han: 
 				MusicManager.play_han()
 				await anim_timer.start_get(.15)
 			await anim_timer.start_get(.3)
 		if !animate: #only queue once if not animating, should prevent weird transients
 			MusicManager.play_han()
 	
+	await anim_timer.start_get(.3)
+	
 	calc.text = "[center][b][color=%s]%d[/color]×2[/b](2+[color=%s]%d[/color])[b]×%d=" % [COL.LBLUE, fu, COL.YELLOW, han, mult]
 	total.set_text_colorized(str(points))
 	
-	score_label.set_text_colorized(str(points))
+	
+	if points > 0:
+		MusicManager.start_win()
