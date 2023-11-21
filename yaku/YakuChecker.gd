@@ -194,18 +194,18 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 				elif is_half:
 					scoring_info.hans.append(ALL_YAKU.YAKUS[("" if not is_open else "Open ") + "Hon'itsu"])
 			
-			
 			# get fu
 			if do_fu:
-				#mezenka
-				if !is_open and !is_tsumo:
-					scoring_info.fus.append(ALL_YAKU.FU["Menzenkafu"].duplicate())
-				
 				# chiitoi fu
 				if pairs.size() >= 7:
 					scoring_info.fus.append(ALL_YAKU.FU["Chiitoitsu"].duplicate())
 				else:
 					scoring_info.fus = get_fu(groupings, doras, final_tile)
+				
+					#mezenka
+					if !is_open and !is_tsumo:
+						scoring_info.fus.insert(1, ALL_YAKU.FU["Menzenkafu"].duplicate())
+				
 			
 			# sneak pinfu in here
 			if !is_open and scoring_info.pinfu_check():
@@ -227,14 +227,23 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 		if doras.size() > 0:
 			for t in all_tiles:
 				if t.aka:
-					max.hans.append(ALL_YAKU.YAKUS["Aka Dora"])
+					append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Aka Dora"])
 				if doras[0].has(t.get_id()):
-					max.hans.append(ALL_YAKU.YAKUS["Kan Dora"])
+					append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kan Dora"])
 				if !is_open and doras[1].has(t.get_id()):
-					max.hans.append(ALL_YAKU.YAKUS["Ura Dora"])
+					append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Ura Dora"])
 				
 	
 	return max
+
+func append_or_merge_yaku(array: Array, yaku: ScoringInfo.Han):
+	var nam = yaku.nam
+	for h in array:
+		if h.nam == nam:
+			h.han += yaku.han
+			return
+	# implicit else
+	array.append(yaku.duplicate())
 
 # `made_groupings` should only ever contain closed groups (i.e. kans)
 func hand_meets_basic_reqs(hand: Array, made_groupings: Array) -> bool:

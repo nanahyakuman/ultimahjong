@@ -17,7 +17,7 @@ const SIZE = 22
 @onready var prev_wind = $All/TableBottom/HBoxContainer/RoundWind/Sprite2D
 @onready var seat_wind = $All/TableBottom/HBoxContainer/SittingWind/Sprite2D
 @onready var made_calls = $MadeCalls
-@onready var score_label = $TableTop/HBoxContainer/ScoreLabel
+@onready var score_label = $TableTop/HBoxContainer/HBoxContainer/ScoreLabel
 
 # tracked so calls can highlight it. only modifed by `hand`.
 var most_recent_discard = null
@@ -42,8 +42,8 @@ func update_tsumo(tiles: Array):
 	_update_node(tsumo, tiles, true, TileGraphic.SIDE_TOP)
 
 func update_kan_dora(tiles: Array, covered: int):
-	_update_node(kan_pile, tiles, true, TileGraphic.SIDE_BOT, covered)
-	_update_node(kan_pile_bot, tiles, true, TileGraphic.SIDE_BOT, 9999)
+	_update_node(kan_pile, tiles, false, TileGraphic.SIDE_BOT, covered)
+	_update_node(kan_pile_bot, tiles, false, TileGraphic.SIDE_BOT, 9999)
 
 func update_made_calls(groupings: Array):
 	var tiles = []

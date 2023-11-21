@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://ddu73u7jsg0tr"]
+[gd_scene load_steps=55 format=3 uid="uid://ddu73u7jsg0tr"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -35,6 +35,8 @@
 [ext_resource type="Script" path="res://OpenShopButton.gd" id="21_8bhal"]
 [ext_resource type="Script" path="res://NextRoundButton.gd" id="21_roajs"]
 [ext_resource type="Script" path="res://ScoringRoot.gd" id="21_yhd2i"]
+[ext_resource type="Script" path="res://TileSelect.gd" id="26_gfhhk"]
+[ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="27_waxa7"]
 [ext_resource type="Script" path="res://NumberColorizer.gd" id="27_yfh58"]
 [ext_resource type="FontFile" uid="uid://dmoumxbcf3gn" path="res://text/font/Body2.png" id="28_jde07"]
 [ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tile/tilecounter/tablediv.png" id="33_igaxs"]
@@ -47,6 +49,17 @@
 [ext_resource type="Script" path="res://OptionsButton.gd" id="43_jd3i2"]
 [ext_resource type="Script" path="res://QuitButton.gd" id="43_uwhsm"]
 [ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="44_cis8i"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4okkq"]
+content_margin_top = 1.0
+content_margin_bottom = 0.0
+texture = ExtResource("27_waxa7")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_122ig"]
 content_margin_left = 8.0
@@ -191,7 +204,22 @@ grow_vertical = 2
 theme_override_constants/separation = 6
 alignment = 1
 
-[node name="ScoreLabel" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScoreLabel" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_colors/default_color = Color(0.933333, 0.866667, 0.8, 1)
+bbcode_enabled = true
+text = "[b]0000"
+fit_content = true
+script = ExtResource("27_yfh58")
+center = false
+
+[node name="NeededScoreLabel" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -578,6 +606,28 @@ text = "Tsumo"
 layout_mode = 2
 texture = ExtResource("13_qhnc0")
 script = ExtResource("13_wfhtv")
+
+[node name="TileSelect" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -97.0
+offset_right = 384.0
+offset_bottom = -81.0
+grow_vertical = 0
+theme_override_constants/separation = 4
+alignment = 1
+script = ExtResource("26_gfhhk")
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/MahjongRoot/GUIManager/TileSelect"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_4okkq")
+
+[node name="TileSelectLabel" type="Label" parent="HBoxContainer/MahjongRoot/GUIManager/TileSelect/PanelContainer"]
+layout_mode = 2
+text = "Select a tile to explode!!!!!"
 
 [node name="ScoringRoot" type="Control" parent="HBoxContainer/MahjongRoot"]
 unique_name_in_owner = true

@@ -15,6 +15,9 @@ class Han:
 		nam = _name
 		han = _han
 		desc = _desc
+	
+	func duplicate():
+		return Han.new(nam, han, desc)
 
 class Fu:
 	var nam: String = ""

@@ -7,7 +7,7 @@ extends Control
 @onready var calc = $Window/VBoxContainer/Calc
 @onready var total = $Window/VBoxContainer/Total
 @onready var anim_timer = %AnimTimer
-@onready var score_label = $"../GUIManager/TableTop/HBoxContainer/ScoreLabel"
+@onready var score_label = $"../GUIManager/TableTop/HBoxContainer/HBoxContainer/ScoreLabel"
 
 
 @export var animate = true

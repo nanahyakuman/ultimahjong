@@ -1,6 +1,7 @@
 end of every round can purchase:
-	new yaku or yaku refreshes?
-		await one tile
+	new yaku or yaku refreshes
+		black ryuuiiisou 248nesw. note theres no legal run so the extra tile compared
+			to ryuui is probably fine
 	special tiles (wild suit, wild digit, flowers that "kan" as dora instantly like sanma N)
 	new rules (south also counts as seat wind toka)?
 		get two ura every reveal
@@ -10,21 +11,22 @@ end of every round can purchase:
 		kuitan
 		see ura dora
 		ron does not open your hand (adds menzentsumo to closed hands, makes sanankou easier, etc.)
+		swap in akadora
+		riichi ryuukyoku rewards half points off the best hand you could've gotten
 	spell cards, refresh every x draws
 	x	next tile will be --honor-- wind
 	x	exchange one tile for a false haku
 		autocomplete a wait? seems op
-		exchange a tile in hand for a current kandora
+	x	exchange a tile in hand for a current kandora
 		rearrange next five tiles
-		riichi ryuukyoku rewards half points off the best hand you could've gotten
 	bonuses
 		1 han for every ~six tiles in your hand without any red ink toka
 		every 5 consecutive discards from hand adds a han
+		10 points for every tile left in wall?
  dead wall can be expanded as long as there are free tiles left
  overall structure is 17 rounds, starting on E-E and rotating through everything until
 final boss on the E-E repeat. probably no repeated seats.
-10 points for every tile left in wall?
-
+cancel using an item
 
 
 doraizing anim when you buy dora, clear feedback as to what it was
@@ -46,6 +48,10 @@ rework deadwall to be resizeable inround?
 mtile string decoder for convenience
 	add open groupings and tsumo
 call flowers
+tsumo cursor always hand
+"get_called_hand_size" type function, rn calling a flower/north doesnt count right, just
+	gets multed by 3
+couldnt chiitoi riichi. hand was something iipeikou-ey (like 22334p), idk if that was why
 
 scoring releated:
 	ron agari should register an open set!! this is messing up fu
@@ -59,7 +65,7 @@ music
 	finalize and reexport 1.
 		base- delay too loud and wahhh too samey
 		tenpai- drums??
-	
+
 
 
 yaku to implement

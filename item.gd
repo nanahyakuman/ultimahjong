@@ -8,10 +8,14 @@ class_name Item
 @onready var hover_name = $Description/VBoxContainer/PanelContainer/HBoxContainer/PanelContainer/Name
 @onready var hover_text = $Description/VBoxContainer/Label
 var mahjong_manager
+var tile_select
 
-enum TYPES {NONE, ERASER, WIND_MAGNET, BATTERY, KAN_SWAP}
+enum TYPES {NONE, ERASER, WIND_MAGNET, BATTERY, KAN_SWAP, PIN_DUPE, SOU_ADJ}
 @export var type = TYPES.NONE
 var cooldown_counter
+
+# rememvers selected tiles, for example if necessary to select two tiles
+var selected_tile_memory = []
 
 func _ready():
 	connect("mouse_entered", _mouse_entered)
@@ -32,12 +36,19 @@ func _ready():
 		TYPES.KAN_SWAP:
 			hover_name.text = "Kan Swap"
 			hover_text.text = "Replace the most recently revealed kan dora with a tile from hand."
+		TYPES.PIN_DUPE:
+			hover_name.text = "Pinplicator"
+			hover_text.text = "Convert a selected Pin into a selected Pin (temporarily)."
+		TYPES.SOU_ADJ:
+			hover_name.text = "Sou-so"
+			hover_text.text = "Convert a selected Sou into a selected Sou's predecessor (temporarily)."
 	
 	cooldown_counter = 0
 	sprite_2d.frame_coords.x = type
 	
 	mahjong_manager = %MahjongManager
-	
+	tile_select = %TileSelect
+
 	decrement()
 
 func decrement(amount: int = 1):
@@ -57,6 +68,7 @@ func _use():
 		TYPES.NONE:
 			#actual code here
 			cooldown_counter = 9999
+		
 		TYPES.ERASER:
 			if mahjong_manager.tsumo:
 				mahjong_manager.do_tsumo(MTile.new(MTile.SUITS.SPECIAL,MTile.SPECIALS.HAKU))
@@ -95,12 +107,40 @@ func _use():
 			
 		TYPES.KAN_SWAP:
 			mahjong_manager.request_tile_select(self, true)
+			tile_select.update_text("Select a tile to swap in.")
 			
 			cooldown_counter = 80
+		
+		TYPES.PIN_DUPE:
+			mahjong_manager.request_tile_select(self, true)
+			tile_select.update_text("Select a Pin to be swapped.")
+			
+			cooldown_counter = 52
+		
+		TYPES.SOU_ADJ:
+			mahjong_manager.request_tile_select(self, true)
+			tile_select.update_text("Select a Sou to be swapped.")
+			
+			cooldown_counter = 52
 	
 	assert(cooldown_counter > 0, "you forgot to reassign the cooldown counter!!")
 	cooldown_counter += 1
 	decrement()
+
+
+#  simple checker called by `MahjongManager to ask if a tile is valid. pindupe
+# for example only accepts pins. 
+#  default behavior is to return TRUE!
+func tile_valid(tile: MTile):
+	match type:
+		TYPES.PIN_DUPE:
+			if tile.suit != MTile.SUITS.PIN:
+				return false
+		TYPES.SOU_ADJ:
+			if tile.suit != MTile.SUITS.SOU:
+				return false
+	
+	return true
 
 
 #  some items require an item to be selected. we take advantage of `MahjongManager`'s
@@ -111,8 +151,40 @@ func tile_selected(tile: MTile):
 			var t = mahjong_manager.get_and_overwrite_most_recent_kan_dora(tile)
 			mahjong_manager.add_to_hand_and_update(t)
 			
+		TYPES.PIN_DUPE:
+			#  we dont actually even use the stored tile, lol. just an easy way to
+			# make a check. note that the PIN-type assurance is made in `tile_valid`.
+			if selected_tile_memory.size() == 0:
+				selected_tile_memory.append(tile)
+				
+				# override default update behavior to get two items
+				mahjong_manager.complete_tile_select()
+				mahjong_manager.request_tile_select(self, false)
+				tile_select.update_text("Select a Pin to become.")
+				return
+			else:
+				mahjong_manager.add_to_hand_and_update(tile)
+				selected_tile_memory.clear()
+		
+		TYPES.SOU_ADJ:
+			if selected_tile_memory.size() == 0:
+				selected_tile_memory.append(tile)
+				
+				# override default update behavior to get two items
+				mahjong_manager.complete_tile_select()
+				mahjong_manager.request_tile_select(self, false)
+				tile_select.update_text("Select a Sou to predecess.")
+				return
+			else:
+				var val = tile.value
+				val -= 1
+				if val <= 0:
+					val = 9
+				mahjong_manager.add_to_hand_and_update(MTile.new(MTile.SUITS.SOU, val))
+				selected_tile_memory.clear()
 	
 	mahjong_manager.complete_tile_select()
+	tile_select.update_text("")
 
 
 

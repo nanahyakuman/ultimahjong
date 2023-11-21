@@ -14,7 +14,7 @@ class_name MahjongManager
 @onready var upgrades = $Upgrades
 @onready var hand_gui = $"../GUIManager/All/SideSpacers/Tiles/HBoxContainer/Hand"
 @onready var ALL_YAKU = $YakuFu
-# gui holds this guy, it's gross but probably easier overall
+# gui holds these guys, it's gross but probably easier overall
 @onready var items = %Items
 
 # base size of the hand
@@ -162,19 +162,19 @@ func _draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1, true))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 4))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 5))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 6))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 7))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 8))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 9))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 9))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 9))
+	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+	temp.append(MTile.new(MTile.SUITS.SOU, 1, true))
+	temp.append(MTile.new(MTile.SUITS.SOU, 2))
+	temp.append(MTile.new(MTile.SUITS.SOU, 3))
+	temp.append(MTile.new(MTile.SUITS.SOU, 4))
+	temp.append(MTile.new(MTile.SUITS.SOU, 5))
+	temp.append(MTile.new(MTile.SUITS.SOU, 6, true))
+	temp.append(MTile.new(MTile.SUITS.SOU, 7))
+	temp.append(MTile.new(MTile.SUITS.SOU, 8))
+	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+	temp.append(MTile.new(MTile.SUITS.SOU, 9))
 #
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
@@ -633,7 +633,7 @@ func _input(event):
 
 
 #  for physical buttons. note only tiles we define as
-# `clickable` can even be clicked, and since this is only
+# in_hand` can even be clicked, and since this is only
 # for tiles in hand, we know that if a tile is clicked
 # it's in hand.
 func tile_graphic_clicked(tile: MTile):
@@ -644,9 +644,23 @@ func tile_graphic_clicked(tile: MTile):
 		else:
 			_draw_and_discard(tile)
 	elif _state == STATE_SELECT_TILE:
-		_set_state(STATE_ANIMATING)
+		# assure the tile is good before (maybe) deleting it and continuing forward
+#		if in_riichi and tile != tsumo:
+#			return
+		if !tile_select_requestor_node.tile_valid(tile):
+			return
+		
 		if remove_from_hand_on_selection:
-			hand.erase(tile)
+			if tsumo == tile:
+				tsumo = null
+			else:
+				# prevent from making any modifications to a riichi hand
+				if in_riichi:
+					return
+				else:
+					hand.erase(tile)
+		
+		_set_state(STATE_ANIMATING)
 		tile_select_requestor_node.tile_selected(tile)
 		
 
@@ -678,9 +692,15 @@ func _draw_and_discard(discardee: MTile):
 #  for calling externally. assumes that a tile has already been cleared from the
 # hand somehow.
 func add_to_hand_and_update(tile: MTile):
-	hand.append(tile)
-	assert(hand.size() == 13, "Trying to add a tile to a hand that's already full!")
+	if tsumo == null:
+		tsumo = tile
+	else:
+		hand.append(tile)
+	assert(hand.size() + called_hand.size() * 3 + int(tsumo != null) == 14, "hand size messed up!")
 	_update_hand_label()
+	gui_manager.update_tsumo([tsumo])
+	
+	_do_if_can_tsumo()
 
 
 func _try_enter_riichi():
@@ -786,7 +806,12 @@ func request_tile_select(requestor: Node, remove_from_hand: bool):
 func complete_tile_select():
 	tile_select_requestor_node = null
 	remove_from_hand_on_selection = null
-	_set_state(STATE_ACTIONABLE)
+	#  quick fix for weird ordering issue, gomenne ;3. we can enter call states
+	# if we switch out a tsumo to an agarihai, dont want to override that by accident
+	# and ordering is gonna be nightmarish no matter what so this goes here
+	if _state != STATE_CALLS:
+		_set_state(STATE_ACTIONABLE)
+	
 
 
 func get_hand_info() -> HandInformation:

@@ -24,6 +24,9 @@ func _ready():
 
 # this should support multiple "characters"
 func initialize_tiles():
+#	tile_data.append(MTileData.new(MTile.SUITS.MAN,1,4,0))
+#	tile_data.append(MTileData.new(MTile.SUITS.MAN,9,4,0))
+	
 	for i in [MTile.SUITS.MAN, MTile.SUITS.PIN, MTile.SUITS.SOU]:
 		for j in 9:
 			tile_data.append(MTileData.new(i,j+1,4, 1 if j+1 == 5 else 0))
