@@ -5,6 +5,8 @@ class Han:
 	var nam: String = ""
 	var han: int = 0
 	var desc: String = ""
+	var count: int = 1 # for things like dora that can be
+	# obtained multiple times
 	
 	func compare(a: Han, b: Han):
 		if a.han < b.han:
@@ -42,7 +44,7 @@ var hans = []
 func get_total_han() -> int:
 	var ret = 0
 	for h in hans:
-		ret += h.han
+		ret += h.han * h.count
 	return ret
 
 func get_total_fu() -> int:

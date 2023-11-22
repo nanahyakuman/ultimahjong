@@ -8,6 +8,7 @@ class_name TileGraphic
 @onready var call_tile_highlight = $CallTileHighlight
 @onready var dora_sprite = $Sprite2D/TileDora
 @onready var flicker = $Flicker
+@onready var custom_overlays = $Sprite2D/CustomOverlays
 
 @export var tile_size = Vector2(16,32)
 var in_hand = false
@@ -26,10 +27,9 @@ var _face_upsidedown = false
 func _ready():
 	TileGraphicKnower.highlight.connect(self._highlight_requested)
 	TileGraphicKnower.new_dora.connect(self._new_dora)
-	
 
-
-func assign_suit_value(t: MTile):
+# remaned this to be more accurate, remove comment after update!
+func assign_tile(t: MTile):
 	if !t:
 		return
 	
@@ -40,6 +40,13 @@ func assign_suit_value(t: MTile):
 	sprite.region_rect = get_tile_segment(tile)
 	
 	_new_dora(TileGraphicKnower.dora_ids)
+	
+	clear_custom_overlays()
+	if t.former:
+		assign_custom_overlay(t.suit)
+	
+	if t.pocchi:
+		assign_custom_overlay(OVERLAY_POCCHI)
 
 func get_tile_segment(t: MTile) -> Rect2:
 	var x = (t.value-1) * tile_size.x
@@ -138,3 +145,39 @@ func direct_request_highlight(val: bool):
 
 func _new_dora(ids: Array):
 	dora_sprite.visible = ids.has(tile.get_id())
+
+# custom overlays to indicate tiles that aren't actually real.
+enum {
+	OVERLAY_PINDUPE = MTile.SUITS.PIN, OVERLAY_SOUDUPE = MTile.SUITS.SOU, OVERLAY_MANDUPE = MTile.SUITS.MAN,
+	OVERLAY_POCCHI
+}
+func assign_custom_overlay(overlay_type: int):
+	var new_tex = null
+	match overlay_type:
+		OVERLAY_PINDUPE:
+			new_tex = load("res://image/tile/fx/pindupe_indicator.png")
+		OVERLAY_SOUDUPE:
+			new_tex = load("res://image/tile/fx/soudupe_indicator.png")
+		OVERLAY_MANDUPE:
+			new_tex = load("res://image/tile/fx/mandupe_indicator.png")
+		OVERLAY_POCCHI:
+			new_tex = load("res://image/tile/fx/pocchi.png")
+	
+	# try to take advantage of existing overlay, else create new one
+	if new_tex:
+		for c in custom_overlays.get_children():
+			if c.texture == null:
+				c.texture = new_tex
+				return
+		
+		var a = Sprite2D.new()
+		a.texture = new_tex
+		a.centered = false
+		custom_overlays.add_child(a)
+
+func clear_custom_overlays():
+	for c in custom_overlays.get_children():
+		c.texture = null
+
+
+

@@ -12,6 +12,6 @@ func _ready():
 				var t = tile_graphic.instantiate()
 				t.verbose = true
 				add_child(t)
-				t.assign_suit_value(MTile.new(suit,i+1))
+				t.assign_tile(MTile.new(suit,i+1))
 				break
 

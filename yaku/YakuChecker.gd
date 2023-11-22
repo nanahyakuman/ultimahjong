@@ -85,8 +85,8 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 				var ykvals = get_yakuhai_vals()
 				if g.type == Grouping.SET:
 					if g.tiles[0].suit == MTile.SUITS.SPECIAL:
-						if ykvals.has(g.tiles[0].value):
-							scoring_info.hans.append(ALL_YAKU.YAKUS["Yakuhai"])
+						for i in ykvals.count(g.tiles[0].value):
+							append_or_merge_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Yakuhai"])
 			
 			# tanyao
 			if !is_open:
@@ -201,7 +201,11 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 					scoring_info.fus.append(ALL_YAKU.FU["Chiitoitsu"].duplicate())
 				else:
 					scoring_info.fus = get_fu(groupings, doras, final_tile)
-				
+					
+					#tsumo
+					if is_tsumo:
+						scoring_info.fus.insert(1, ALL_YAKU.FU["Tsumo"].duplicate())
+					
 					#mezenka
 					if !is_open and !is_tsumo:
 						scoring_info.fus.insert(1, ALL_YAKU.FU["Menzenkafu"].duplicate())
@@ -240,7 +244,7 @@ func append_or_merge_yaku(array: Array, yaku: ScoringInfo.Han):
 	var nam = yaku.nam
 	for h in array:
 		if h.nam == nam:
-			h.han += yaku.han
+			h.count += 1
 			return
 	# implicit else
 	array.append(yaku.duplicate())

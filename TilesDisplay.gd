@@ -9,7 +9,7 @@ extends VBoxContainer
 func _ready():
 	tile_counter.connect("updated", update_display)
 	
-	#update_display()
+	update_display()
 
 # `tile_data` must be sorted
 func update_display():

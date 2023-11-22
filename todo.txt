@@ -1,8 +1,14 @@
 end of every round can purchase:
-	new yaku or yaku refreshes
-		black ryuuiiisou 248nesw. note theres no legal run so the extra tile compared
-			to ryuui is probably fine
+	--new yaku or yaku refreshes
+	--	black ryuuiiisou 248nesw. note theres no legal run so the extra tile compared
+	--		to ryuui is probably fine
 	special tiles (wild suit, wild digit, flowers that "kan" as dora instantly like sanma N)
+		wild suit
+		wild digit
+		flowers
+		"almighty" tile (リーチ自摸の場合、和了が出来。それに幡)
+			would probably have to remove dora dragons or at least dora haku
+		pocchi-ing a tile means you can switch it out for any other pocchi tile in deck?
 	new rules (south also counts as seat wind toka)?
 		get two ura every reveal
 		call atama?
@@ -11,7 +17,7 @@ end of every round can purchase:
 		kuitan
 		see ura dora
 		ron does not open your hand (adds menzentsumo to closed hands, makes sanankou easier, etc.)
-		swap in akadora
+		swap in akadora when in riichi
 		riichi ryuukyoku rewards half points off the best hand you could've gotten
 	spell cards, refresh every x draws
 	x	next tile will be --honor-- wind
@@ -19,7 +25,8 @@ end of every round can purchase:
 		autocomplete a wait? seems op
 	x	exchange a tile in hand for a current kandora
 		rearrange next five tiles
-	bonuses
+	x	aka a random tile
+	scoew bonuses
 		1 han for every ~six tiles in your hand without any red ink toka
 		every 5 consecutive discards from hand adds a han
 		10 points for every tile left in wall?
@@ -27,6 +34,8 @@ end of every round can purchase:
  overall structure is 17 rounds, starting on E-E and rotating through everything until
 final boss on the E-E repeat. probably no repeated seats.
 cancel using an item
+ryuukyoku tenpai payout
+
 
 
 doraizing anim when you buy dora, clear feedback as to what it was

@@ -10,9 +10,12 @@ class_name Item
 var mahjong_manager
 var tile_select
 
-enum TYPES {NONE, ERASER, WIND_MAGNET, BATTERY, KAN_SWAP, PIN_DUPE, SOU_ADJ}
+#  doesnt really matter but i like the idea that every item in the game has a diff cooldown,
+# even if only by 1
+enum TYPES {NONE, ERASER, WIND_MAGNET, BATTERY, KAN_SWAP, PIN_DUPE, SOU_ADJ, AKAFY, POCCHI}
+const COOLD = [0,     48,          15,      24,       80,       44,      52,    61,     59]
 @export var type = TYPES.NONE
-var cooldown_counter
+var cooldown_counter = 0
 
 # rememvers selected tiles, for example if necessary to select two tiles
 var selected_tile_memory = []
@@ -35,13 +38,21 @@ func _ready():
 			hover_text.text = "Reduce all other item's cooldown counters by 9."
 		TYPES.KAN_SWAP:
 			hover_name.text = "Kan Swap"
-			hover_text.text = "Replace the most recently revealed kan dora with a tile from hand."
+			hover_text.text = "Replace the most recently revealed kan dora with a tile from hand or tsumo."
 		TYPES.PIN_DUPE:
 			hover_name.text = "Pinplicator"
 			hover_text.text = "Convert a selected Pin into a selected Pin (temporarily)."
 		TYPES.SOU_ADJ:
 			hover_name.text = "Sou-so"
 			hover_text.text = "Convert a selected Sou into a selected Sou's predecessor (temporarily)."
+		TYPES.AKAFY:
+			hover_name.text = "Gem Factory"
+			hover_text.text = "A random non-aka tile in hand (not tsumo) becomes aka."
+		TYPES.POCCHI:
+			hover_name.text = "A·Rock"
+			hover_text.text = "Add a pocchi to the current tsumo tile (temporarily)."
+	
+	hover_text.text += " [%d]" % COOLD[type]
 	
 	cooldown_counter = 0
 	sprite_2d.frame_coords.x = type
@@ -70,11 +81,7 @@ func _use():
 			cooldown_counter = 9999
 		
 		TYPES.ERASER:
-			if mahjong_manager.tsumo:
-				mahjong_manager.do_tsumo(MTile.new(MTile.SUITS.SPECIAL,MTile.SPECIALS.HAKU))
-			else:
-				return
-			cooldown_counter = 48
+			mahjong_manager.do_tsumo(MTile.new(MTile.SUITS.SPECIAL,MTile.SPECIALS.HAKU))
 			
 		TYPES.WIND_MAGNET:
 			var winds = []
@@ -97,35 +104,48 @@ func _use():
 				mahjong_manager.wall[-mahjong_manager.upgrades.get_discard_count()-1] = wind
 				mahjong_manager.wall[find] = switch
 			
-			cooldown_counter = 16
-			
 		TYPES.BATTERY:
 			for m in get_parent().get_children():
 				m.decrement(9)
 			
-			cooldown_counter = 24
-			
 		TYPES.KAN_SWAP:
 			mahjong_manager.request_tile_select(self, true)
 			tile_select.update_text("Select a tile to swap in.")
+			return # more steps to follow so we skip over updating the counter
 			
-			cooldown_counter = 80
-		
 		TYPES.PIN_DUPE:
 			mahjong_manager.request_tile_select(self, true)
 			tile_select.update_text("Select a Pin to be swapped.")
+			return
 			
-			cooldown_counter = 52
-		
 		TYPES.SOU_ADJ:
 			mahjong_manager.request_tile_select(self, true)
 			tile_select.update_text("Select a Sou to be swapped.")
+			return
 			
-			cooldown_counter = 52
+		TYPES.AKAFY:
+			#  start at a random index and iterate until finmding a
+			# non-aka tile
+			var i = randi() % mahjong_manager.hand.size()
+			var ii = i
+			while true:
+				ii += 1
+				ii %= mahjong_manager.hand.size()
+				if !mahjong_manager.hand[ii].aka:
+					mahjong_manager.hand[ii].aka = true
+					mahjong_manager.update_hand_label()
+					break
+				# excape case for all aka
+				if i == ii:
+					break
+		
+		TYPES.POCCHI:
+			mahjong_manager.tsumo.pocchi = true
+			mahjong_manager.gui_manager.update_tsumo([mahjong_manager.tsumo])
 	
-	assert(cooldown_counter > 0, "you forgot to reassign the cooldown counter!!")
-	cooldown_counter += 1
-	decrement()
+	#  default item behaviour assumes the usage is immediate, if not
+	# call return in switch above.
+	update_counter()
 
 
 #  simple checker called by `MahjongManager to ask if a tile is valid. pindupe
@@ -180,12 +200,24 @@ func tile_selected(tile: MTile):
 				val -= 1
 				if val <= 0:
 					val = 9
-				mahjong_manager.add_to_hand_and_update(MTile.new(MTile.SUITS.SOU, val))
+				mahjong_manager.add_to_hand_and_update(MTile.new(MTile.SUITS.SOU, val, false, selected_tile_memory[0]))
 				selected_tile_memory.clear()
 	
+	# default completion behaviour
 	mahjong_manager.complete_tile_select()
 	tile_select.update_text("")
+	update_counter()
 
+
+func update_counter():
+	cooldown_counter = COOLD[type]
+	cooldown_counter += 1
+	decrement()
+
+# called from `MahjongManager` to hack into same code as cancelling a call.
+func cancel_selection():
+	tile_select.update_text("")
+	selected_tile_memory.clear()
 
 
 func _gui_input(event):

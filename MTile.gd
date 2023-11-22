@@ -10,7 +10,7 @@ const DEF_SPECIALS = [SPECIALS.EAST, SPECIALS.SOUTH, SPECIALS.WEST, SPECIALS.NOR
 const DRAGONS = [SPECIALS.HAKU, SPECIALS.HATSU, SPECIALS.CHUN, SPECIALS.KIN]
 const WINDS = [SPECIALS.EAST, SPECIALS.SOUTH, SPECIALS.WEST, SPECIALS.NORTH]
 
-# human readable name
+# to generate human readable name
 const SUIT_NAMES = ["NONE", "-Pin", "-Sou", 0, "-Man",0,0,0,0,0,0,0,0,0,0,0,"-Flower"]
 const SPECIAL_NAMES = ["NONE", "East", "South", "West", "North", "Rising", "White", "Green", "Red", "Gold"]
 
@@ -19,10 +19,20 @@ var value: int
 
 var aka: bool = false
 
-func _init(s:int,v:int,a:bool = false):
+#  im not entirely sure how i want this to work yet, but i def at least
+# want a shiropochhi, and i can see use cases for generalizing it.
+var pocchi: bool = false
+
+#  allows us to track tiles that have been modified so we can still
+# count them
+var former: MTile = null
+
+func _init(s:int,v:int,a:bool = false,f = null):
 	suit = s
 	value = v
 	aka = a
+	former = f
+
 
 func get_id():
 	return MTile.gen_id(suit, value)
@@ -80,6 +90,7 @@ static func gen_id(s: int, v: int):
 static func tile_from_id(id: int) -> MTile:
 	return MTile.new(int(id/100), id%100)
 
+# ordered so that aka are always first
 static func gen_order(t: MTile):
 	return gen_id(t.suit,t.value) * 10 - int(t.aka)
 

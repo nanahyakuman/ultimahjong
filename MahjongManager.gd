@@ -35,7 +35,7 @@ var revealed_kan_dora = 1
 
 enum WINDS {EAST, SOUTH, WEST, NORTH}
 var prevalent_wind = -1 
-var seat_wind = -3 # incremented at start of round
+var seat_wind = 0 # incremented at start of round
 
 enum {STATE_ACTIONABLE, STATE_ANIMATING, STATE_CALLS, STATE_SELECT_TILE}
 # use `set_state` onegaishimasu
@@ -93,7 +93,7 @@ func start_round():
 func _increment_winds():
 	seat_wind += 3
 	seat_wind %= 4
-	if seat_wind == 0:
+	if seat_wind == 3:
 		prevalent_wind += 1
 		prevalent_wind %= 4
 		MusicManager.queue_next_song()
@@ -140,11 +140,11 @@ func _draw_hand():
 		await anim_timer.start_mod(.07)
 		hand.append(_get_next_from_wall(true))
 		call_sfx_player.play()
-		_update_hand_label(true)
+		update_hand_label(true)
 	
 	await anim_timer.start_mod(.15)
 	call_sfx_player.play()
-	_update_hand_label()
+	update_hand_label()
 	
 	var temp = []
 #
@@ -154,27 +154,27 @@ func _draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.EAST))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.EAST))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.EAST))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 2))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 2))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 
-	temp.append(MTile.new(MTile.SUITS.SOU, 1))
-	temp.append(MTile.new(MTile.SUITS.SOU, 1))
-	temp.append(MTile.new(MTile.SUITS.SOU, 1, true))
-	temp.append(MTile.new(MTile.SUITS.SOU, 2))
-	temp.append(MTile.new(MTile.SUITS.SOU, 3))
-	temp.append(MTile.new(MTile.SUITS.SOU, 4))
-	temp.append(MTile.new(MTile.SUITS.SOU, 5))
-	temp.append(MTile.new(MTile.SUITS.SOU, 6, true))
-	temp.append(MTile.new(MTile.SUITS.SOU, 7))
-	temp.append(MTile.new(MTile.SUITS.SOU, 8))
-	temp.append(MTile.new(MTile.SUITS.SOU, 9))
-	temp.append(MTile.new(MTile.SUITS.SOU, 9))
-	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 1, true))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 2))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 3))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 4))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 5))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 6, true))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 7))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 8))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
 #
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
@@ -264,7 +264,7 @@ func _draw_hand():
 		assert(temp.size() == 13)
 		temp.sort()
 		hand = temp
-	_update_hand_label()
+	update_hand_label()
 	
 
 func _draw_kan_dora():
@@ -620,13 +620,15 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 	else:
 		_do_post_call_discard()
 
-# right click to close call menu
+# right click to close call menu, cancel item use
 func _input(event):
-	if _state == STATE_CALLS:
-		if event is InputEventMouseButton:
+	if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-				#calls_manager.enable_calls(0, {})
-				call_graphic_clicked(CALL_BITMASK.NONE, [])
+				if _state == STATE_CALLS:
+					call_graphic_clicked(CALL_BITMASK.NONE, [])
+				elif _state == STATE_SELECT_TILE:
+					tile_select_requestor_node.cancel_selection()
+					complete_tile_select()
 	
 #	if event is InputEventMouseButton:
 #		increment_winds()
@@ -678,7 +680,7 @@ func _draw_and_discard(discardee: MTile):
 		tsumo = null
 	hand.erase(discardee)
 	discard.append(discardee)
-	_update_hand_label()
+	update_hand_label()
 	gui_manager.update_discard(discard)
 	gui_manager.update_tsumo([])
 	
@@ -697,7 +699,7 @@ func add_to_hand_and_update(tile: MTile):
 	else:
 		hand.append(tile)
 	assert(hand.size() + called_hand.size() * 3 + int(tsumo != null) == 14, "hand size messed up!")
-	_update_hand_label()
+	update_hand_label()
 	gui_manager.update_tsumo([tsumo])
 	
 	_do_if_can_tsumo()
@@ -727,7 +729,8 @@ func _do_riichi():
 	_start_rotation()
 
 
-func _update_hand_label(override_sort = false):
+# some items call this after making mods
+func update_hand_label(override_sort = false):
 	if !override_sort:
 		hand.sort_custom(Callable(MTile, "tile_compare"))
 	gui_manager.update_hand(hand)
@@ -808,7 +811,8 @@ func complete_tile_select():
 	remove_from_hand_on_selection = null
 	#  quick fix for weird ordering issue, gomenne ;3. we can enter call states
 	# if we switch out a tsumo to an agarihai, dont want to override that by accident
-	# and ordering is gonna be nightmarish no matter what so this goes here
+	# and ordering is gonna be annoying no matter what so this weird check
+	# goes here as a least-bad solution
 	if _state != STATE_CALLS:
 		_set_state(STATE_ACTIONABLE)
 	

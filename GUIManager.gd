@@ -58,7 +58,7 @@ func _update_node(node: Node, tiles: Array, in_hand: bool = false, visible_side:
 	var ret = null
 	for t in tiles.size():
 		if t < existing_count:
-			node.get_child(t).assign_suit_value(tiles[t])
+			node.get_child(t).assign_tile(tiles[t])
 			node.get_child(t).set_reversed(reverse_count > t)
 		else:
 			get_new_tile(tiles[t], node, in_hand, visible_side, reverse_count > t)
@@ -76,7 +76,7 @@ func _update_node(node: Node, tiles: Array, in_hand: bool = false, visible_side:
 func get_new_tile(t: MTile, parent: Node, in_hand: bool, vis_side: int, reverse: bool):
 	var a = tile_graphic.instantiate()
 	parent.add_child(a)
-	a.assign_suit_value(t)
+	a.assign_tile(t)
 	a.in_hand = in_hand
 	a.connect("tile_graphic_clicked", mahjong_manager.tile_graphic_clicked)
 	a.assign_visible_side(vis_side)
