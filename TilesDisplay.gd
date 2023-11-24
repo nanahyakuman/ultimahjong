@@ -11,8 +11,11 @@ func _ready():
 	
 	update_display()
 
+### BROKEN BC OF STORAGE CHANGES ###
 # `tile_data` must be sorted
 func update_display():
+	return
+	
 	var counts = tile_counter.tile_data
 	
 	var suits = [MTile.SUITS.PIN, MTile.SUITS.SOU, MTile.SUITS.MAN, MTile.SUITS.SPECIAL]

@@ -46,11 +46,11 @@ func _ready():
 			hover_name.text = "Sou-so"
 			hover_text.text = "Convert a selected Sou into a selected Sou's predecessor (temporarily)."
 		TYPES.AKAFY:
-			hover_name.text = "Gem Factory"
+			hover_name.text = "Factory Seize"
 			hover_text.text = "A random non-aka tile in hand (not tsumo) becomes aka."
 		TYPES.POCCHI:
 			hover_name.text = "A·Rock"
-			hover_text.text = "Add a pocchi to the current tsumo tile (temporarily)."
+			hover_text.text = "Add a pocchi to the current tsumo tile (permanently)."
 	
 	hover_text.text += " [%d]" % COOLD[type]
 	
@@ -84,25 +84,11 @@ func _use():
 			mahjong_manager.do_tsumo(MTile.new(MTile.SUITS.SPECIAL,MTile.SPECIALS.HAKU))
 			
 		TYPES.WIND_MAGNET:
-			var winds = []
-			for i in range(mahjong_manager.wall.size()-1,-1,-1):
-				var t = mahjong_manager.wall[i]
-				if t.suit == MTile.SUITS.SPECIAL:
-					if MTile.WINDS.has(t.value):
-						winds.append(t)
+			var wind_ids = []
+			for w in MTile.WINDS:
+				wind_ids.append(MTile.gen_id(MTile.SUITS.SPECIAL, w))
 			
-			#  select a random wind tile from the deck and swap it
-			# for the next draw from the deck
-			if winds.size() != 0:
-				var index = randi()%winds.size()
-				var wind = winds[index]
-				var find = mahjong_manager.wall.find(wind)
-				
-				#  swap selected wind with next tsumo, preventing us from reshuffling
-				# the whole deck
-				var switch = mahjong_manager.wall[-mahjong_manager.upgrades.get_discard_count()-1]
-				mahjong_manager.wall[-mahjong_manager.upgrades.get_discard_count()-1] = wind
-				mahjong_manager.wall[find] = switch
+			mahjong_manager.swap_in_next_theoretical_tsumo(wind_ids)
 			
 		TYPES.BATTERY:
 			for m in get_parent().get_children():
@@ -159,7 +145,6 @@ func tile_valid(tile: MTile):
 		TYPES.SOU_ADJ:
 			if tile.suit != MTile.SUITS.SOU:
 				return false
-	
 	return true
 
 
@@ -183,7 +168,9 @@ func tile_selected(tile: MTile):
 				tile_select.update_text("Select a Pin to become.")
 				return
 			else:
-				mahjong_manager.add_to_hand_and_update(tile)
+				var new_t = tile.duplicate()
+				new_t.former = tile
+				mahjong_manager.add_to_hand_and_update(new_t)
 				selected_tile_memory.clear()
 		
 		TYPES.SOU_ADJ:

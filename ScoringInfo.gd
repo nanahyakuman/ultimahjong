@@ -66,7 +66,8 @@ const MANGAN_HANS = {
 	11: 6000, # sanbaiman
 	12: 7000, # sanhanbaiman
 	
-	13: 8000 # yakuman
+	#13: 8000 # yakuman
+	# after this we just add 500 to the base for every han
 }
 
 func get_base_points():
@@ -80,7 +81,7 @@ func get_base_points():
 		if MANGAN_HANS.has(han):
 			points = MANGAN_HANS[han]
 		if han >= 13:
-			points = 8000 * ((han/13) + 1)
+			points = 8000 + (han-13) * 500
 		
 	return points
 

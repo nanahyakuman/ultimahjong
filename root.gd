@@ -7,9 +7,14 @@ extends Control
 
 var score = 0.0
 
+var character_info = CharacterInfo.new()
+
 func _ready():
 	await get_tree().process_frame
 	
+	character_info.set_type(character_info.SANMA)
+	
+	mahjong_manager.initialize(character_info)
 	start_round()
 	
 #	await get_tree().create_timer(2.0).timeout

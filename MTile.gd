@@ -27,12 +27,25 @@ var pocchi: bool = false
 # count them
 var former: MTile = null
 
-func _init(s:int,v:int,a:bool = false,f = null):
+#  allow tiles in round use to point back to their canon originator in
+# `TileCounter` so that permanent mods are easier to make
+var canon_tile: MTile = null
+
+func _init(s:int, v:int, a:bool = false, f = null, p = false, c = null):
 	suit = s
 	value = v
 	aka = a
 	former = f
+	pocchi = p
+	canon_tile = c
 
+# duplicate and save self as new tile's "canon" tile
+func duplicate_canonize() -> MTile:
+	return MTile.new(suit, value, aka, former, pocchi, self)
+
+# just duplicate
+func duplicate() -> MTile:
+	return MTile.new(suit, value, aka, former, pocchi, canon_tile)
 
 func get_id():
 	return MTile.gen_id(suit, value)
@@ -102,6 +115,3 @@ static func gen_name(tile: MTile):
 		return SPECIAL_NAMES[tile.value]
 	else:
 		return str(tile.value) + SUIT_NAMES[tile.suit]
-
-#static func decode_string(str: String):
-#	pass

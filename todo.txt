@@ -61,6 +61,15 @@ tsumo cursor always hand
 "get_called_hand_size" type function, rn calling a flower/north doesnt count right, just
 	gets multed by 3
 couldnt chiitoi riichi. hand was something iipeikou-ey (like 22334p), idk if that was why
+when you discard a pocchi, can choose to exchange the 4th tile in the wall with
+	another not-yet-discarded pocchi, even if it turns out to be in the dead wall.
+	 forcing it to be on discard means you can't cycle them ifinitely
+shiro pocchi instant win if riichitsumo
+some items should highlight what they affect
+
+redo tile display to show all tiles
+e3xpected point scaling
+
 
 scoring releated:
 	ron agari should register an open set!! this is messing up fu

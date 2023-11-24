@@ -230,6 +230,20 @@ fit_content = true
 script = ExtResource("27_yfh58")
 center = false
 
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = -2
+alignment = 1
+
+[node name="ScoreModLabel" type="Label" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "+0"
+
+[node name="ScoreModLabel2" type="Label" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "+1000"
+
 [node name="CashLabel" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -327,7 +341,6 @@ script = ExtResource("8_4hll1")
 [node name="Tsumo" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager/All/SideSpacers/Tiles/HBoxContainer"]
 custom_minimum_size = Vector2(16, 32)
 layout_mode = 2
-mouse_default_cursor_shape = 2
 
 [node name="Spacer2" type="Control" parent="HBoxContainer/MahjongRoot/GUIManager/All/SideSpacers"]
 custom_minimum_size = Vector2(16, 16)
@@ -386,7 +399,7 @@ alignment = 2
 
 [node name="Item" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("19_yekpg")]
 layout_mode = 2
-type = 8
+type = 5
 
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
 layout_mode = 1
@@ -631,6 +644,7 @@ text = "Select a tile to explode!!!!!"
 
 [node name="ScoringRoot" type="Control" parent="HBoxContainer/MahjongRoot"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

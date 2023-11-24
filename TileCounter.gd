@@ -3,54 +3,61 @@ extends Node
 # this MUST remain sorted for the tiles tab to display properly!
 var tile_data = []
 
-class MTileData:
-	var suit: int
-	var value: int
-	var count: int
-	var aka_count: int
-	
-	func _init(s: int, v: int, c: int, a :int):
-		suit = s
-		value = v
-		count = c
-		aka_count = a
-
 signal updated
 
-func _ready():
-	# should happen start of a run, not this nodes' lifetime start
-	initialize_tiles()
 
+func initialize(character_info: CharacterInfo):
+	match character_info.type:
+		# normal riichi, with a single shiropocchi
+		character_info.REGULAR:
+			for i in [MTile.SUITS.MAN, MTile.SUITS.PIN, MTile.SUITS.SOU]:
+				for j in 9:
+					for k in 4:
+						tile_data.append(MTile.new(i,j+1))
+					if j == 4:
+						tile_data.back().aka = true
 
-# this should support multiple "characters"
-func initialize_tiles():
-#	tile_data.append(MTileData.new(MTile.SUITS.MAN,1,4,0))
-#	tile_data.append(MTileData.new(MTile.SUITS.MAN,9,4,0))
-	
-	for i in [MTile.SUITS.MAN, MTile.SUITS.PIN, MTile.SUITS.SOU]:
-		for j in 9:
-			tile_data.append(MTileData.new(i,j+1,4, 1 if j+1 == 5 else 0))
-	
-	for i in MTile.DEF_SPECIALS:
-		tile_data.append(MTileData.new(MTile.SUITS.SPECIAL, i, 4, 0))
-	
+			for i in MTile.DEF_SPECIALS:
+				for k in 4:
+					tile_data.append(MTile.new(MTile.SUITS.SPECIAL, i))
+				if i == MTile.SPECIALS.HAKU:
+					tile_data.back().pocchi = true
+		# normal sanma
+		character_info.SANMA:
+			for k in 4:
+				tile_data.append(MTile.new(MTile.SUITS.MAN,1))
+				tile_data.append(MTile.new(MTile.SUITS.MAN,9))
+
+			for i in [MTile.SUITS.PIN, MTile.SUITS.SOU]:
+				for j in 9:
+					for k in 4:
+						tile_data.append(MTile.new(i,j+1))
+					if j == 4:
+						tile_data.back().aka = true
+
+			for i in MTile.DEF_SPECIALS:
+				for k in 4:
+					tile_data.append(MTile.new(MTile.SUITS.SPECIAL, i))
+
 #	for i in 8:
 #		tile_data.append(MTileData.new(MTile.SUITS.FLOWER, i+1, 1, 0))
 
 
 func get_all_tiles(only_unique = false):
 	var ret = []
-	for td in tile_data:
-		for t in td.count if !only_unique else 1:
-			ret.append(MTile.new(td.suit, td.value, td.aka_count>t))
+	for t in tile_data:
+		ret.append(t.duplicate_canonize())
 	return ret
 
+
+### BROKEN BC OF STORAGE CHANGES ###
 #  returns `reshuffle_every` amount of groups of non-aka tiles, groups being
 # of size `amount_in_group`. looks a little weird but this implementation ensures
 # that individual groups will always have 3 unique tiles, but that different groups
 # can select the same suit-value pair up to as many times as it can be akafyed.
 func get_random_non_aka_ids(amount_in_group: int, groups: int):
 	var ret = []
+	return ret
 	
 	var data_clone = tile_data.duplicate()
 	
@@ -79,6 +86,7 @@ func get_random_non_aka_ids(amount_in_group: int, groups: int):
 	
 	return ret
 
+### BROKEN BC OF STORAGE CHANGES ###
 func increment_aka(tile: MTile):
 	for mtd in tile_data:
 		if mtd.suit == tile.suit and mtd.value == tile.value:
@@ -94,6 +102,7 @@ const TILE_ADJ_VALUE_CHANCE = .3
 
 func get_random_tiles_to_add(amount_in_group: int, groups: int):
 	var ret = []
+	return ret
 	
 	for g in groups:
 		var subret = []

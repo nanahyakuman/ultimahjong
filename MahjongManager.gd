@@ -20,6 +20,7 @@ class_name MahjongManager
 # base size of the hand
 const BASE_HAND_SIZE = 13
 
+var character_info = null
 
 var wall = [] # of `MTile`s
 var dead_wall = [] # of `MTile`s
@@ -56,6 +57,11 @@ var tile_select_requestor_node = null
 var remove_from_hand_on_selection = null
 
 
+func initialize(ch: CharacterInfo):
+	character_info = ch
+	tile_counter.initialize(character_info)
+	upgrades.initialize(character_info)
+
 func start_round():
 	gui_manager.update_discard([])
 	gui_manager.update_tsumo([])
@@ -87,13 +93,15 @@ func start_round():
 	await _draw_hand()
 	
 	_start_rotation(seat_wind)
+	
 	MusicManager.start_round()
 	
 
 func _increment_winds():
-	seat_wind += 3
-	seat_wind %= 4
-	if seat_wind == 3:
+	# because modding negative numbers doesnt work right
+	seat_wind += character_info.valid_seats-1
+	seat_wind %= character_info.valid_seats
+	if seat_wind == character_info.valid_seats-1:
 		prevalent_wind += 1
 		prevalent_wind %= 4
 		MusicManager.queue_next_song()
@@ -425,8 +433,8 @@ func _can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
 		tiles_involved[CALL_BITMASK.KAN].clear()
 	
 	
-	# chi. only callable on last discard in cycle
-	if remaining_opp_discards == 0:
+	# chi. only callable on last discard in cycle unless upgraded
+	if remaining_opp_discards < upgrades.get_legal_chis():
 		var adjs = {}
 		for i in disc.get_adj_ids(disc.suit, disc.value, true):
 			adjs[i] = 0
@@ -704,9 +712,45 @@ func add_to_hand_and_update(tile: MTile):
 	
 	_do_if_can_tsumo()
 
+#  easy function to take an array of valid tiles ids, search the wall for them,
+# and replace our next theoretical tsumo with the first one we find.
+#  used by items
+func swap_in_next_theoretical_tsumo(valid_tile_ids: Array):
+	# need to be able to draw
+	if wall.size() < upgrades.get_discard_count():
+		return
+	
+	var found_valids = []
+	for i in wall.size():
+		var t = wall[i]
+		if valid_tile_ids.has(t.get_id()):
+				found_valids.append(i)
+	
+	#  select a random valid tile from the deck and swap it
+	# for the next draw from the deck
+	if found_valids.size() != 0:
+		var index = found_valids[randi()%found_valids.size()]
+		var valid = wall[index]
+		
+		#  swap selected valid with next tsumo, preventing us from reshuffling
+		# the whole deck
+		_switch_tile_with_tsumo(valid, index)
+
+#  you don't need to provide an index but it saves us a `.find()`
+# if you do. `tile` should be a ref to a tile literally in the
+# deck or this won't work.
+func _switch_tile_with_tsumo(tile: MTile, index: int = -1):
+	if index < 0:
+		index = wall.find(tile)
+	assert(index >= 0, "trying to switch with a tile that doesn't exist in the deck!")
+	
+	var switch = wall[-upgrades.get_discard_count()-1]
+	wall[-upgrades.get_discard_count()-1] = tile
+	wall[index] = switch
+
 
 func _try_enter_riichi():
-	if in_riichi or hand_is_open():
+	if in_riichi or hand_is_open() or wall.size() < 4:
 		return false
 	for t in tile_counter.get_all_tiles():
 		var full_hand = [t]
@@ -835,6 +879,16 @@ func hand_is_open():
 			return true
 	return false
 
+func get_called_hand_size() -> int:
+	var count = 0
+	for g in called_hand:
+		if g.type == Grouping.PAIR:
+			count += 1
+		elif g.type == Grouping.SPECIAL:
+			pass
+		else:
+			count += 3
+	return count
 
 static func first_by_id(id: int, tiles: Array) -> int:
 	for t in tiles.size():
