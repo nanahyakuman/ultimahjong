@@ -32,7 +32,7 @@ func set_type(ty:int):
 			
 			base_expected_points = 0
 			base_expected_points_mod = 0
-			expected_points_mod_mod = 1000
+			expected_points_mod_mod = 500
 			
 			number_of_rounds = 16
 		SANMA:
@@ -44,6 +44,6 @@ func set_type(ty:int):
 			
 			base_expected_points = 0
 			base_expected_points_mod = 0
-			expected_points_mod_mod = 1000
+			expected_points_mod_mod = 500
 			
 			number_of_rounds = 18

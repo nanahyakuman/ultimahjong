@@ -12,10 +12,11 @@ func initialize(character_info: CharacterInfo):
 	expected_score = character_info.base_expected_points
 	expected_points_mod = character_info.base_expected_points_mod
 	expected_points_mod_mod = character_info.expected_points_mod_mod
+	
+	gui_manager.update_score(score, expected_score, expected_points_mod, expected_points_mod_mod)
 
 func update_score(score_add: int):
 	score += score_add
-	assert(score >= expected_score)
 	
 	gui_manager.update_score(score, expected_score, expected_points_mod, expected_points_mod_mod)
 	
@@ -23,5 +24,7 @@ func update_score(score_add: int):
 func increment_counters():
 	expected_points_mod += expected_points_mod_mod
 	expected_score += expected_points_mod
+	
+	assert(score >= expected_score)
 	
 	gui_manager.update_score(score, expected_score, expected_points_mod, expected_points_mod_mod)

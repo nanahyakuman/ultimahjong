@@ -22,6 +22,11 @@ func _initialize():
 		suit_holders.append(a)
 
 func update():
+	for sh in suit_holders:
+		for s in sh.get_children():
+			for c in s.get_children():
+				c.queue_free()
+	
 	for t in tile_counter.tile_data:
 		add_tile_graphic(t)
 
