@@ -19,33 +19,37 @@ var value: int
 
 var aka: bool = false
 
-#  im not entirely sure how i want this to work yet, but i def at least
-# want a shiropochhi, and i can see use cases for generalizing it.
+#  whether the tile has a pocchi
 var pocchi: bool = false
 
-#  allows us to track tiles that have been modified so we can still
-# count them
+#  allows us to track tiles that have been modified so the player can still
+# sorta count them
 var former: MTile = null
 
 #  allow tiles in round use to point back to their canon originator in
 # `TileCounter` so that permanent mods are easier to make
 var canon_tile: MTile = null
 
-func _init(s:int, v:int, a:bool = false, f = null, p = false, c = null):
+#  unique id among otherwise identical tiles (666m, all the 6m are still
+# unique tiles.
+var id: int = -1
+
+func _init(s:int, v:int, a:bool = false, f = null, p = false, c = null, i = -1):
 	suit = s
 	value = v
 	aka = a
 	former = f
 	pocchi = p
 	canon_tile = c
+	id = i
 
 # duplicate and save self as new tile's "canon" tile
 func duplicate_canonize() -> MTile:
-	return MTile.new(suit, value, aka, former, pocchi, self)
+	return MTile.new(suit, value, aka, former, pocchi, self, id)
 
 # just duplicate
 func duplicate() -> MTile:
-	return MTile.new(suit, value, aka, former, pocchi, canon_tile)
+	return MTile.new(suit, value, aka, former, pocchi, canon_tile, id)
 
 func get_id():
 	return MTile.gen_id(suit, value)

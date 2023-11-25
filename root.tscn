@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://ddu73u7jsg0tr"]
+[gd_scene load_steps=54 format=3 uid="uid://ddu73u7jsg0tr"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -19,9 +19,7 @@
 [ext_resource type="Script" path="res://GUIManager.gd" id="9_1ntl1"]
 [ext_resource type="Script" path="res://AnimTimer.gd" id="9_r8218"]
 [ext_resource type="Texture2D" uid="uid://6selxoc8faj5" path="res://image/table_top.png" id="11_a4xxf"]
-[ext_resource type="Script" path="res://MenuTileHolder.gd" id="11_gc23v"]
 [ext_resource type="Script" path="res://CallsGraphical.gd" id="11_oemle"]
-[ext_resource type="Script" path="res://TilesDisplay.gd" id="13_egxkc"]
 [ext_resource type="Texture2D" uid="uid://dbnpkxetohid0" path="res://image/call_ignore.png" id="13_qhnc0"]
 [ext_resource type="Script" path="res://CallGraphic.gd" id="13_wfhtv"]
 [ext_resource type="Script" path="res://GraphicTileCounter.gd" id="13_x2gyd"]
@@ -47,6 +45,7 @@
 [ext_resource type="Script" path="res://FuTab.gd" id="41_je4uv"]
 [ext_resource type="Texture2D" uid="uid://xoodhoigui53" path="res://image/optionsbutton.png" id="42_n7prw"]
 [ext_resource type="Script" path="res://OptionsButton.gd" id="43_jd3i2"]
+[ext_resource type="Script" path="res://AllTilesDisplay.gd" id="43_nbkwc"]
 [ext_resource type="Script" path="res://QuitButton.gd" id="43_uwhsm"]
 [ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="44_cis8i"]
 [ext_resource type="Script" path="res://ScoreTracker.gd" id="50_7li6w"]
@@ -78,19 +77,11 @@ axis_stretch_vertical = 1
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l6in4"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_02wl1"]
-content_margin_top = 0.0
-content_margin_bottom = 2.0
 texture = ExtResource("39_1otd6")
 texture_margin_left = 2.0
 texture_margin_top = 3.0
 texture_margin_right = 2.0
 texture_margin_bottom = 1.0
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_bottom = 1.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t3qve"]
-content_margin_left = 2.0
 
 [node name="Root" type="Control"]
 texture_filter = 1
@@ -937,76 +928,24 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="TilesDisplay" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer"]
-layout_mode = 2
-script = ExtResource("13_egxkc")
-
-[node name="Control" type="Control" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
-custom_minimum_size = Vector2(0, 16)
-layout_mode = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+[node name="AllTilesDisplay" type="PanelContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer"]
+custom_minimum_size = Vector2(158, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_02wl1")
+script = ExtResource("43_nbkwc")
 
-[node name="MenuTileHolder" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay/PanelContainer"]
-custom_minimum_size = Vector2(0, 32)
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/AllTilesDisplay"]
 layout_mode = 2
-theme_override_constants/separation = 4
-script = ExtResource("11_gc23v")
-suit = 1
 
-[node name="RichTextLabel2" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+[node name="SuitsRoot" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/AllTilesDisplay/ScrollContainer"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_t3qve")
-text = "4+0 4+0 4+0 4+0 3+1 4+0 4+0 4+0 4+0 "
+theme_override_constants/separation = 8
 
-[node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
+[node name="Pin" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/AllTilesDisplay/ScrollContainer/SuitsRoot"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_02wl1")
 
-[node name="MenuTileHolder" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay/PanelContainer2"]
-custom_minimum_size = Vector2(0, 32)
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/AllTilesDisplay/ScrollContainer/SuitsRoot/Pin"]
 layout_mode = 2
-theme_override_constants/separation = 4
-script = ExtResource("11_gc23v")
-suit = 2
-
-[node name="RichTextLabel4" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_t3qve")
-text = "4+0 4+0 4+0 4+0 3+1 4+0 4+0 4+0 4+0 "
-
-[node name="PanelContainer3" type="PanelContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_02wl1")
-
-[node name="MenuTileHolder" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay/PanelContainer3"]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-theme_override_constants/separation = 4
-script = ExtResource("11_gc23v")
-
-[node name="RichTextLabel6" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_t3qve")
-text = "4+0 4+0 4+0 4+0 3+1 4+0 4+0 4+0 4+0 "
-
-[node name="PanelContainer4" type="PanelContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_02wl1")
-
-[node name="MenuTileHolder" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay/PanelContainer4"]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-theme_override_constants/separation = 4
-script = ExtResource("11_gc23v")
-suit = 8
-
-[node name="RichTextLabel8" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/TilesDisplay"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_t3qve")
-text = "4+0 4+0 4+0 4+0 4+0 4+0 4+0"
 
 [node name="Fu" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer"]
 visible = false

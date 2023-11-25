@@ -28,7 +28,6 @@ func _ready():
 	TileGraphicKnower.highlight.connect(self._highlight_requested)
 	TileGraphicKnower.new_dora.connect(self._new_dora)
 
-# remaned this to be more accurate, remove comment after update!
 func assign_tile(t: MTile):
 	if !t:
 		return
@@ -111,16 +110,18 @@ func _gui_input(event):
 #  code for highlights. `TileGraphicKnower` sends out actual signals
 # for tiles to highlight themselves
 func _on_mouse_entered():
-	# reversed tiles are hidden
-	if !_reversed:
-		TileGraphicKnower.highlight_matching_tiles(tile, true)
-	if verbose:
-		CursorText.set_text(tile.get_name())
+	if tile:
+		# reversed tiles are hidden
+		if !_reversed:
+			TileGraphicKnower.highlight_matching_tiles(tile, true)
+		if verbose:
+			CursorText.set_text(tile.get_name())
 func _on_mouse_exited():
-	if !_reversed:
-		TileGraphicKnower.highlight_matching_tiles(tile, false)
-	if verbose:
-		CursorText.set_text("")
+	if tile:
+		if !_reversed:
+			TileGraphicKnower.highlight_matching_tiles(tile, false)
+		if verbose:
+			CursorText.set_text("")
 
 func _highlight_requested(id: int, adjs: Array, val: bool):
 	if _reversed:
@@ -144,7 +145,8 @@ func direct_request_highlight(val: bool):
 
 
 func _new_dora(ids: Array):
-	dora_sprite.visible = ids.has(tile.get_id())
+	if tile:
+		dora_sprite.visible = ids.has(tile.get_id())
 
 # custom overlays to indicate tiles that aren't actually real.
 enum {

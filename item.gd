@@ -53,7 +53,7 @@ func _ready():
 			hover_text.text = "Add a Pocchi to the current tsumo tile (permanently)."
 		TYPES.MAN_TERM:
 			hover_name.text = "Hat Man"
-			hover_text.text = "Convert a selected Man into the further terminal (temporarily). Deistance ties are chosen at random."
+			hover_text.text = "Shift a selected Man's value into the further terminal (temporarily). Deistance ties are chosen at random."
 	
 	hover_text.text += " [%d]" % COOLD[type]
 	
@@ -202,7 +202,7 @@ func tile_selected(tile: MTile):
 				selected_tile_memory.clear()
 		
 		TYPES.MAN_TERM:
-			var new_tile = MTile.new(MTile.SUITS.MAN, 1 if randi()%1 else 9, false, tile)
+			var new_tile = MTile.new(MTile.SUITS.MAN, 1 if randi()%1 else 9, tile.aka, tile)
 			if tile.value < 5:
 				new_tile.value = 9
 			elif tile.value > 5:

@@ -5,7 +5,7 @@ var tile_data = []
 
 signal updated
 
-
+# fairly striaghtforward gen code, just don't forget to assign tiles unique ids!!
 func initialize(character_info: CharacterInfo):
 	match character_info.type:
 		# normal riichi, with a single shiropocchi
@@ -13,32 +13,46 @@ func initialize(character_info: CharacterInfo):
 			for i in [MTile.SUITS.MAN, MTile.SUITS.PIN, MTile.SUITS.SOU]:
 				for j in 9:
 					for k in 4:
-						tile_data.append(MTile.new(i,j+1))
+						var a = MTile.new(i,j+1)
+						a.id = k
+						tile_data.append(a)
 					if j == 4:
 						tile_data.back().aka = true
-
+			
 			for i in MTile.DEF_SPECIALS:
 				for k in 4:
-					tile_data.append(MTile.new(MTile.SUITS.SPECIAL, i))
+					var a = MTile.new(MTile.SUITS.SPECIAL, i)
+					a.id = k
+					tile_data.append(a)
 				if i == MTile.SPECIALS.HAKU:
 					tile_data.back().pocchi = true
+		
+		
 		# normal sanma
 		character_info.SANMA:
 			for k in 4:
-				tile_data.append(MTile.new(MTile.SUITS.MAN,1))
-				tile_data.append(MTile.new(MTile.SUITS.MAN,9))
-
+				for val in [1,9]:
+					var a = (MTile.new(MTile.SUITS.MAN,val))
+					tile_data.append(a)
+					a.id = k
+			
 			for i in [MTile.SUITS.PIN, MTile.SUITS.SOU]:
 				for j in 9:
 					for k in 4:
-						tile_data.append(MTile.new(i,j+1))
+						var a = MTile.new(i,j+1)
+						a.id = k
+						tile_data.append(a)
 					if j == 4:
 						tile_data.back().aka = true
-
+			
 			for i in MTile.DEF_SPECIALS:
 				for k in 4:
-					tile_data.append(MTile.new(MTile.SUITS.SPECIAL, i))
-
+					var a = MTile.new(MTile.SUITS.SPECIAL, i)
+					a.id = k
+					tile_data.append(a)
+	
+	emit_signal("updated")
+	
 #	for i in 8:
 #		tile_data.append(MTileData.new(MTile.SUITS.FLOWER, i+1, 1, 0))
 
