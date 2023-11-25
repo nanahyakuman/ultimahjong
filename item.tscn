@@ -56,7 +56,7 @@ script = ExtResource("1_2a2qp")
 texture = ExtResource("1_tsqfh")
 centered = false
 hframes = 8
-vframes = 2
+vframes = 4
 
 [node name="Description" type="PanelContainer" parent="."]
 z_index = 1

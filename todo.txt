@@ -26,6 +26,7 @@ end of every round can purchase:
 	x	exchange a tile in hand for a current kandora
 		rearrange next five tiles
 	x	aka a random tile
+		change a tile to one of its suji tiles
 	scoew bonuses
 		1 han for every ~six tiles in your hand without any red ink toka
 		every 5 consecutive discards from hand adds a han
@@ -46,20 +47,16 @@ buy fu upgrades??
 visually indicate closed kans, calls in general
 	just create a new func that passes groupings instead of arrays
 "shape of the game" guide tab
+guide in general should now repflect normal mahjong scoring
+	add a score table
 probably not a bad idea to formally switch to ttf fonts ngl. no baseline is
 	messing with multilingual support
 closed fu as a mult instead of seperate?
 some debug keys
 	end round, reroll hand, set hand to {x}, printout hand
 record sounds
-addtile purchaseable getting illegal tiles again. ?157p
 rework deadwall to be resizeable inround?
-mtile string decoder for convenience
-	add open groupings and tsumo
 call flowers
-tsumo cursor always hand
-"get_called_hand_size" type function, rn calling a flower/north doesnt count right, just
-	gets multed by 3
 couldnt chiitoi riichi. hand was something iipeikou-ey (like 22334p), idk if that was why
 when you discard a pocchi, can choose to exchange the 4th tile in the wall with
 	another not-yet-discarded pocchi, even if it turns out to be in the dead wall.
@@ -67,8 +64,15 @@ when you discard a pocchi, can choose to exchange the 4th tile in the wall with
 shiro pocchi instant win if riichitsumo
 some items should highlight what they affect
 
-redo tile display to show all tiles
-e3xpected point scaling
+new tile manager broke some things
+	redo tile display to show all tiles
+	reimplem,ent purchaseables
+		addtile purchaseable getting illegal tiles again. ?157p
+
+tile select menu for tiles not in hand
+	can hack into existing structure a good bit, just need a window that hides
+	dynamically.
+
 
 
 scoring releated:

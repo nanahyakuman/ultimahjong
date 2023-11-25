@@ -3,18 +3,19 @@ extends Control
 @onready var mahjong_manager = %MahjongManager
 @onready var shop_root = %ShopRoot
 @onready var scoring_root = %ScoringRoot
-@onready var gui_manager = $HBoxContainer/MahjongRoot/GUIManager
-
-var score = 0.0
+@onready var score_tracker = $ScoreTracker
 
 var character_info = CharacterInfo.new()
+
+var round_counter = 0
 
 func _ready():
 	await get_tree().process_frame
 	
-	character_info.set_type(character_info.SANMA)
+	character_info.set_type(character_info.REGULAR)
 	
 	mahjong_manager.initialize(character_info)
+	score_tracker.initialize(character_info)
 	start_round()
 	
 #	await get_tree().create_timer(2.0).timeout
@@ -40,11 +41,10 @@ func end_round(scoring_info: ScoringInfo, multiplier_info: MultiplierInfo):
 	if han == 0:
 		points = 0
 	
-	score += points
-	
 	await scoring_root.update_scoring(scoring_info, fu, han, points, multiplier_info.get_multiplier())
-	gui_manager.update_score(score)
-
+	
+	# add points and check we beat the threshhold
+	score_tracker.update_score(points)
 
 func start_shop():
 	TileGraphicKnower.update_dora_ids([])
@@ -52,3 +52,6 @@ func start_shop():
 	scoring_root.visible = false
 	shop_root.visible = true
 	shop_root.start()
+	
+	# raise the threshhold
+	score_tracker.increment_counters()

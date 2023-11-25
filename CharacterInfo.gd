@@ -37,7 +37,7 @@ func set_type(ty:int):
 			number_of_rounds = 16
 		SANMA:
 			type = SANMA
-			dead_wall_size = 24
+			dead_wall_size = 20
 			discard_count = 2
 			valid_seats = 3
 			opponents_its_legal_to_chii_from_count = 0

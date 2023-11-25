@@ -18,6 +18,9 @@ const SIZE = 22
 @onready var seat_wind = $All/TableBottom/HBoxContainer/SittingWind/Sprite2D
 @onready var made_calls = $MadeCalls
 @onready var score_label = $TableTop/HBoxContainer/HBoxContainer/ScoreLabel
+@onready var needed_score_label = $TableTop/HBoxContainer/HBoxContainer/NeededScoreLabel
+@onready var score_mod_label = $TableTop/HBoxContainer/HBoxContainer/VBoxContainer/ScoreModLabel
+@onready var score_mod_label_2 = $TableTop/HBoxContainer/HBoxContainer/VBoxContainer/ScoreModLabel2
 
 # tracked so calls can highlight it. only modifed by `hand`.
 var most_recent_discard = null
@@ -96,5 +99,8 @@ func increment_dead_wall_count(c: int):
 func reset_dead_wall_count():
 	graphic_tile_counter.reset_dead_wall_count()
 
-func update_score(score: int):
+func update_score(score: int, expected_score: int, expected_points_mod: int, expected_points_mod_mod: int):
 	score_label.set_text_colorized(str(score))
+	needed_score_label.set_text_colorized(str(expected_score))
+	score_mod_label.text = "+" + str(expected_points_mod)
+	score_mod_label_2.text = "+" + str(expected_points_mod_mod)

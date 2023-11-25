@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://ddu73u7jsg0tr"]
+[gd_scene load_steps=56 format=3 uid="uid://ddu73u7jsg0tr"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -49,6 +49,7 @@
 [ext_resource type="Script" path="res://OptionsButton.gd" id="43_jd3i2"]
 [ext_resource type="Script" path="res://QuitButton.gd" id="43_uwhsm"]
 [ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="44_cis8i"]
+[ext_resource type="Script" path="res://ScoreTracker.gd" id="50_7li6w"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4okkq"]
 content_margin_top = 1.0
@@ -101,6 +102,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_j88jw")
 script = ExtResource("2_r4pf7")
+
+[node name="ScoreTracker" type="Node" parent="."]
+script = ExtResource("50_7li6w")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -399,7 +403,7 @@ alignment = 2
 
 [node name="Item" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("19_yekpg")]
 layout_mode = 2
-type = 5
+type = 9
 
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
 layout_mode = 1

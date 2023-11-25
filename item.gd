@@ -12,8 +12,8 @@ var tile_select
 
 #  doesnt really matter but i like the idea that every item in the game has a diff cooldown,
 # even if only by 1
-enum TYPES {NONE, ERASER, WIND_MAGNET, BATTERY, KAN_SWAP, PIN_DUPE, SOU_ADJ, AKAFY, POCCHI}
-const COOLD = [0,     48,          15,      24,       80,       44,      52,    61,     59]
+enum TYPES {NONE, ERASER, WIND_MAGNET, BATTERY, KAN_SWAP, PIN_DUPE, SOU_ADJ, AKAFY, POCCHI, MAN_TERM}
+const COOLD = [0,     48,          15,      24,       80,       44,      52,    61,     59,       36]
 @export var type = TYPES.NONE
 var cooldown_counter = 0
 
@@ -50,12 +50,15 @@ func _ready():
 			hover_text.text = "A random non-aka tile in hand (not tsumo) becomes aka."
 		TYPES.POCCHI:
 			hover_name.text = "A·Rock"
-			hover_text.text = "Add a pocchi to the current tsumo tile (permanently)."
+			hover_text.text = "Add a Pocchi to the current tsumo tile (permanently)."
+		TYPES.MAN_TERM:
+			hover_name.text = "Hat Man"
+			hover_text.text = "Convert a selected Man into the further terminal (temporarily). Deistance ties are chosen at random."
 	
 	hover_text.text += " [%d]" % COOLD[type]
 	
 	cooldown_counter = 0
-	sprite_2d.frame_coords.x = type
+	sprite_2d.frame_coords.x = type % sprite_2d.hframes
 	
 	mahjong_manager = %MahjongManager
 	tile_select = %TileSelect
@@ -66,7 +69,7 @@ func decrement(amount: int = 1):
 	cooldown_counter -= amount
 	panel_container.visible = cooldown_counter > 0
 	counter_label.text = str(maxi(0,cooldown_counter))
-	sprite_2d.frame_coords.y = 0 if cooldown_counter <= 0 else 1
+	sprite_2d.frame_coords.y = type / (sprite_2d.hframes / 2) + int(cooldown_counter > 0)
 
 func _use():
 	if cooldown_counter > 0:
@@ -128,6 +131,11 @@ func _use():
 		TYPES.POCCHI:
 			mahjong_manager.tsumo.pocchi = true
 			mahjong_manager.gui_manager.update_tsumo([mahjong_manager.tsumo])
+		
+		TYPES.MAN_TERM:
+			mahjong_manager.request_tile_select(self, true)
+			tile_select.update_text("Select a Man to be swapped.")
+			return
 	
 	#  default item behaviour assumes the usage is immediate, if not
 	# call return in switch above.
@@ -144,6 +152,9 @@ func tile_valid(tile: MTile):
 				return false
 		TYPES.SOU_ADJ:
 			if tile.suit != MTile.SUITS.SOU:
+				return false
+		TYPES.MAN_TERM:
+			if tile.suit != MTile.SUITS.MAN:
 				return false
 	return true
 
@@ -189,6 +200,14 @@ func tile_selected(tile: MTile):
 					val = 9
 				mahjong_manager.add_to_hand_and_update(MTile.new(MTile.SUITS.SOU, val, false, selected_tile_memory[0]))
 				selected_tile_memory.clear()
+		
+		TYPES.MAN_TERM:
+			var new_tile = MTile.new(MTile.SUITS.MAN, 1 if randi()%1 else 9, false, tile)
+			if tile.value < 5:
+				new_tile.value = 9
+			elif tile.value > 5:
+				new_tile.value = 1
+			mahjong_manager.add_to_hand_and_update(new_tile)
 	
 	# default completion behaviour
 	mahjong_manager.complete_tile_select()
