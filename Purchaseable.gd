@@ -3,14 +3,18 @@ class_name Purchaseable
 
 @onready var tile_container = $HBoxContainer/TileContainer
 @export var tile_graphic = preload("res://TileGraphic.tscn")
+@export var item_scene = preload("res://item.tscn")
 @onready var sprite = $HBoxContainer/TextureHolder/Sprite2D
 @onready var label = $PanelBuster/Label
 
-enum TYPES {AKA, ADD, DEAD_REDUCE, KAN_REVEAL}
+
+enum TYPES {AKA, ADD, DEAD_REDUCE, KAN_REVEAL, ITEM}
 const HOVER_TEXTS = ["Convert tiles to aka.", "Add tiles to wall.", "Reduce the number of tiles killed at the start of a round.", "Start with additional kan dora revealed."]
 var type = null
+# should only possess one either tiles or item
 var tiles = []
 var hidden_mask = []
+var item
 var cost = 3
 
 
@@ -34,6 +38,11 @@ func assign_tiles(ts: Array, hidden: int = 0):
 		if hidden_mask[i]:
 			tg.set_reversed(true)
 		tg.assign_visible_side(-1)
+
+func assign_item(id: int):
+	item = item_scene.instantiate()
+	item.type = id
+	tile_container.add_child(item)
 
 func assign_type(ty: int):
 	type = ty
@@ -62,6 +71,8 @@ func calc_cost():
 		cost = 3
 	elif type == TYPES.KAN_REVEAL:
 		cost = 6
+	elif type == TYPES.ITEM:
+		cost = Item.PRICE[item.type]
 	
 	label.text = "%d" % cost
 

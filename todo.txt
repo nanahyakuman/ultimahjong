@@ -38,7 +38,7 @@ cancel using an item
 ryuukyoku tenpai payout
 
 
-
+45p with pocchi nearly identical
 doraizing anim when you buy dora, clear feedback as to what it was
 cant hover tiles in made calls
 tsumo call tile hover broken, highlights most recent discard instead of tsumo
@@ -67,8 +67,6 @@ scoring releated:
 	ron agari should register an open set!! this is messing up fu
 	still missing some yaku
 new tile manager broke some things
-	redo tile display to show all tiles
-		still doesnt add nmew tiles peoperly
 	reimplem,ent purchaseables
 		addtile purchaseable getting illegal tiles again. ?157p
 tile select menu for tiles not in hand

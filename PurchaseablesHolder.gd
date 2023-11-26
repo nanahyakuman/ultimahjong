@@ -5,6 +5,7 @@ extends HBoxContainer
 @onready var upgrades = mahjong_manager.upgrades
 @onready var shop_root = %ShopRoot
 @onready var anim_timer = %AnimTimer
+@onready var items = %Items
 
 @export var purchaseable: PackedScene
 
@@ -13,13 +14,22 @@ extends HBoxContainer
 @export var PER_BUTTON = 3
 
 func start():
-	var akas
+	var tiles
+	var valid_items
 	match type:
 		Purchaseable.TYPES.AKA:
-			akas = tile_counter.get_random_non_aka_ids(PER_BUTTON, BUTTONS)
+			tiles = tile_counter.get_random_non_aka_ids(PER_BUTTON, BUTTONS)
 		Purchaseable.TYPES.ADD:
-			akas = tile_counter.get_random_tiles_to_add(PER_BUTTON, BUTTONS)
-	
+			tiles = tile_counter.get_random_tiles_to_add(PER_BUTTON, BUTTONS)
+		Purchaseable.TYPES.ITEM:
+			var possessed_items = []
+			for i in items.get_children():
+				possessed_items.append(i.type)
+			valid_items = Item.TYPES.values()
+			for t in possessed_items:
+				valid_items.erase(t)
+			valid_items.erase(0)
+		
 	for c in get_children():
 		c.queue_free()
 	
@@ -28,22 +38,17 @@ func start():
 		add_child(a)
 		var hidden = mini(randi()%(PER_BUTTON+1),randi()%(PER_BUTTON+1))
 		hidden = mini(randi()%(PER_BUTTON+1), hidden)
-		if akas:
-			a.assign_tiles(akas[i], hidden)
+		if tiles:
+			a.assign_tiles(tiles[i], hidden)
 		else:
 			a.assign_tiles([], 0)
 		a.assign_type(type)
+		if valid_items:
+			var itm = valid_items.pick_random()
+			a.assign_item(itm)
+			valid_items.erase(itm)
+		
 		a.calc_cost()
-	
-	# quick printer to try out different hiding weights
-#	var counts = {}
-#	for i in PER_BUTTON+1:
-#		counts[i] = 0
-#	for i in PER_BUTTON+1:
-#		for j in PER_BUTTON+1:
-#			for k in PER_BUTTON+1:
-#				counts[mini(i,mini(j,k))] += 1
-#	print(counts)
 
 
 func pressed(node: Purchaseable):
@@ -69,6 +74,10 @@ func pressed(node: Purchaseable):
 			upgrades.dead_wall_size_reduce += 2
 		Purchaseable.TYPES.KAN_REVEAL:
 			upgrades.additional_revealed_kandora += 1
+		Purchaseable.TYPES.ITEM:
+			var a = node.item.duplicate()
+			items.add_child(a)
+			a.activate(mahjong_manager, %TileSelect)
 	
 	shop_root.state = shop_root.STATE_ACTIVE
 	
@@ -76,4 +85,5 @@ func pressed(node: Purchaseable):
 
 
 func hovered(node: Purchaseable, yes: bool):
-	CursorText.set_text(node.HOVER_TEXTS[node.type] if yes else "")
+	if !node.item:
+		CursorText.set_text(node.HOVER_TEXTS[node.type] if yes else "")

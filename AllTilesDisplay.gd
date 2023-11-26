@@ -32,19 +32,20 @@ func update():
 
 #  easier to understand if you check the scenetree as you go but we create
 # vboxes for each major suit, then an hbox for the unique ids within the suit (usually 4)
+### ABOVE IS NO LONGER TRUE !!! ###
 func add_tile_graphic(t: MTile):
 	var suit_index = int(log(t.suit)/log(2))
 	var current_suit_holder = suit_holders[suit_index]
-	#  dynamically expand, creating new rows as duplicates and then erasing dupe children.
-	# awkward but the most scaleable solution
-	while current_suit_holder.get_child_count() <= t.id:
-		current_suit_holder.add_child(current_suit_holder.get_child(0).duplicate())
-		for c in current_suit_holder.get_child(-1).get_children():
-			c.queue_free()
+	
+	# dynamically expand
+	while current_suit_holder.get_child_count() < t.value:
+		var dupe = VBoxContainer.new()
+		current_suit_holder.add_child(dupe)
+	
 	# add the tile
 	var tg = tile_graphic.instantiate()
-	var row = current_suit_holder.get_child(t.id)
-	row.add_child(tg)
+	var col = current_suit_holder.get_child(t.value-1)
+	col.add_child(tg)
 	tg.assign_tile(t)
 
 

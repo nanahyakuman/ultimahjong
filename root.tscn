@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://ddu73u7jsg0tr"]
+[gd_scene load_steps=53 format=3 uid="uid://ddu73u7jsg0tr"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -26,7 +26,6 @@
 [ext_resource type="Script" path="res://CursorTextRequester.gd" id="16_8lthm"]
 [ext_resource type="Script" path="res://ShopRoot.gd" id="19_bnl3p"]
 [ext_resource type="Texture2D" uid="uid://bxt2na0s3mabw" path="res://image/call_indicator_gold.png" id="19_idqi3"]
-[ext_resource type="PackedScene" uid="uid://dxdkyqgyyijvx" path="res://item.tscn" id="19_yekpg"]
 [ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="20_ib16c"]
 [ext_resource type="Script" path="res://PurchaseablesHolder.gd" id="20_wmn33"]
 [ext_resource type="PackedScene" uid="uid://cpirwiftxeu8s" path="res://purchaseable.tscn" id="21_3mckx"]
@@ -392,10 +391,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 alignment = 2
 
-[node name="Item" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("19_yekpg")]
-layout_mode = 2
-type = 9
-
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
 layout_mode = 1
 anchors_preset = 2
@@ -745,7 +740,6 @@ script = ExtResource("21_8bhal")
 
 [node name="ShopRoot" type="Control" parent="HBoxContainer/MahjongRoot"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -823,6 +817,16 @@ alignment = 1
 script = ExtResource("20_wmn33")
 purchaseable = ExtResource("21_3mckx")
 type = 3
+BUTTONS = 1
+PER_BUTTON = 0
+
+[node name="ItemPurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+script = ExtResource("20_wmn33")
+purchaseable = ExtResource("21_3mckx")
+type = 4
 BUTTONS = 1
 PER_BUTTON = 0
 
@@ -941,10 +945,10 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Pin" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/AllTilesDisplay/ScrollContainer/SuitsRoot"]
+[node name="Pin" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/AllTilesDisplay/ScrollContainer/SuitsRoot"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/AllTilesDisplay/ScrollContainer/SuitsRoot/Pin"]
+[node name="IdenticalTiles" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/AllTilesDisplay/ScrollContainer/SuitsRoot/Pin"]
 layout_mode = 2
 
 [node name="Fu" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer"]

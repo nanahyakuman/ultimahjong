@@ -5,21 +5,21 @@ extends Control
 @onready var scoring_root = %ScoringRoot
 @onready var score_tracker = $ScoreTracker
 
-var character_info = CharacterInfo.new()
-
 var round_counter = 0
 
 func _ready():
 	await get_tree().process_frame
 	
+	var character_info = CharacterInfo.new()
 	character_info.set_type(character_info.REGULAR)
 	
+	start_game(character_info)
+
+func start_game(character_info: CharacterInfo):
 	mahjong_manager.initialize(character_info)
 	score_tracker.initialize(character_info)
 	start_round()
-	
-#	await get_tree().create_timer(2.0).timeout
-#	end_round(ScoringInfo.new(), 6)
+
 
 func start_round():
 	shop_root.visible = false

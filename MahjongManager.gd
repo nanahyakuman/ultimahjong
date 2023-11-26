@@ -71,6 +71,7 @@ func start_round():
 	gui_manager.update_hand([])
 	gui_manager.reset_dead_wall_count()
 	gui_manager.update_wall_count(0)
+	calls_manager.enable_calls(0, {})
 	
 	in_riichi = false
 	
@@ -825,6 +826,9 @@ func _end_round(win_is_tsumo_not_ron = false):
 	var score_info = yaku_checker.hand_get_han(get_hand_info(), doras, true, met_yaku)
 	
 	var multiplier_info = MultiplierInfo.new(seat_wind == WINDS.EAST, win_is_tsumo_not_ron)
+	
+	# lock self up until next round
+	_set_state(STATE_ANIMATING)
 	
 	#print("%d  %d  %d" % [fu, han, multiplier])
 	root.end_round(score_info, multiplier_info)

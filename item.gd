@@ -14,7 +14,8 @@ var tile_select
 # even if only by 1
 enum TYPES {NONE, ERASER, WIND_MAGNET, BATTERY, KAN_SWAP, PIN_DUPE, SOU_ADJ, AKAFY, POCCHI, MAN_TERM}
 const COOLD = [0,     48,          15,      24,       80,       44,      52,    61,     59,       36]
-@export var type = TYPES.NONE
+const PRICE = [999,   24,          18,      24,       24,       26,      26,    30,      18,        16]
+@export var type: int = TYPES.NONE
 var cooldown_counter = 0
 
 # rememvers selected tiles, for example if necessary to select two tiles
@@ -53,23 +54,28 @@ func _ready():
 			hover_text.text = "Add a Pocchi to the current tsumo tile (permanently)."
 		TYPES.MAN_TERM:
 			hover_name.text = "Hat Man"
-			hover_text.text = "Shift a selected Man's value into the further terminal (temporarily). Deistance ties are chosen at random."
+			hover_text.text = "Shift a selected Man's value into the terminal further from it (temporarily). Distance ties are chosen at random."
 	
 	hover_text.text += " [%d]" % COOLD[type]
 	
 	cooldown_counter = 0
 	sprite_2d.frame_coords.x = type % sprite_2d.hframes
 	
-	mahjong_manager = %MahjongManager
-	tile_select = %TileSelect
-
 	decrement()
+
+# only called after purchase, not when added to a purchaseable
+func activate(mm: MahjongManager, ts: Node):
+	# the parent exists in the same scene as these
+	mahjong_manager = mm
+	tile_select = ts
+	
+
 
 func decrement(amount: int = 1):
 	cooldown_counter -= amount
 	panel_container.visible = cooldown_counter > 0
 	counter_label.text = str(maxi(0,cooldown_counter))
-	sprite_2d.frame_coords.y = type / (sprite_2d.hframes / 2) + int(cooldown_counter > 0)
+	sprite_2d.frame_coords.y = type / (sprite_2d.hframes) * 2 + int(cooldown_counter > 0)
 
 func _use():
 	if cooldown_counter > 0:
@@ -77,6 +83,8 @@ func _use():
 	if mahjong_manager:
 		if mahjong_manager._state != MahjongManager.STATE_ACTIONABLE:
 			return
+	else:
+		return
 	
 	match type:
 		TYPES.NONE:
@@ -130,7 +138,12 @@ func _use():
 		
 		TYPES.POCCHI:
 			mahjong_manager.tsumo.pocchi = true
+			# it's permananent
+			mahjong_manager.tsumo.canon_tile.pocchi = true
+			# queue side panel redraw
+			mahjong_manager.tile_counter.emit_signal("updated")
 			mahjong_manager.gui_manager.update_tsumo([mahjong_manager.tsumo])
+			
 		
 		TYPES.MAN_TERM:
 			mahjong_manager.request_tile_select(self, true)

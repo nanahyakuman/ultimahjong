@@ -14,15 +14,13 @@ func initialize(character_info: CharacterInfo):
 				for j in 9:
 					for k in 4:
 						var a = MTile.new(i,j+1)
-						a.id = k
 						tile_data.append(a)
 					if j == 4:
-						tile_data.back().aka = true
+						tile_data[-4].aka = true
 			
 			for i in MTile.DEF_SPECIALS:
 				for k in 4:
 					var a = MTile.new(MTile.SUITS.SPECIAL, i)
-					a.id = k
 					tile_data.append(a)
 				if i == MTile.SPECIALS.HAKU:
 					tile_data.back().pocchi = true
@@ -34,22 +32,24 @@ func initialize(character_info: CharacterInfo):
 				for val in [1,9]:
 					var a = (MTile.new(MTile.SUITS.MAN,val))
 					tile_data.append(a)
-					a.id = k
 			
 			for i in [MTile.SUITS.PIN, MTile.SUITS.SOU]:
 				for j in 9:
 					for k in 4:
 						var a = MTile.new(i,j+1)
-						a.id = k
 						tile_data.append(a)
 					if j == 4:
-						tile_data.back().aka = true
+						tile_data[-4].aka = true
 			
 			for i in MTile.DEF_SPECIALS:
 				for k in 4:
 					var a = MTile.new(MTile.SUITS.SPECIAL, i)
-					a.id = k
 					tile_data.append(a)
+	
+	
+	#  this should ideally do nothing at all, but for safety we call it
+	# anyway
+	tile_data.sort_custom(Callable(MTile, "tile_compare"))
 	
 	emit_signal("updated")
 	
@@ -116,7 +116,6 @@ const TILE_ADJ_VALUE_CHANCE = .3
 
 func get_random_tiles_to_add(amount_in_group: int, groups: int):
 	var ret = []
-	return ret
 	
 	for g in groups:
 		var subret = []
@@ -155,10 +154,12 @@ func _get_random_tile(suit_override: int = -1, val_override: int = -1) -> MTile:
 			value = MTile.DEF_SPECIALS.pick_random()
 	return MTile.new(suit, value)
 
+### BROKEN BC OF STORAGE CHANGES ###
 func increment_tile(tile: MTile):
-	for mtd in tile_data:
-		if mtd.suit == tile.suit and mtd.value == tile.value:
-			mtd.count += 1
-			break
+	# add the new tile to the list, and give it a unique id
+	
+	var new_tile = tile.duplicate()
+	tile_data.append(new_tile)
+	tile_data.sort_custom(Callable(MTile, "tile_compare"))
 	
 	emit_signal("updated")

@@ -14,6 +14,7 @@ var state
 	$VBoxContainer/TilePurchaseables,
 	$VBoxContainer/HBoxContainer/DeadWallPurchaseables,
 	$VBoxContainer/HBoxContainer/KanRevealPurchaseables,
+	$VBoxContainer/ItemPurchaseables
 ]
 
 func start():
