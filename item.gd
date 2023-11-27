@@ -14,7 +14,7 @@ var popup_tile_select
 #  doesnt really matter but i like the idea that every item in the game has a diff cooldown,
 # even if only by 1
 enum TYPES {NONE, ERASER, WIND_MAGNET, BATTERY, KAN_SWAP, PIN_DUPE, SOU_ADJ, AKAFY, POCCHI, MAN_TERM, DRAGON_CYCLE, SUJI_OFFSET}
-const COOLD = [0,     48,          15,      24,       70,       44,      52,    61,     59,       36,           31,          24]
+const COOLD = [0,     48,          15,      24,       70,       44,      52,    61,     59,       36,           31,          32]
 const PRICE = [999,   24,          18,      24,       24,       26,      26,    30,     18,       16,           15,          18]
 @export var type: TYPES = TYPES.NONE
 var cooldown_counter = 0
@@ -64,7 +64,7 @@ func _ready():
 			hover_text.text = "Change a selected Dragon's color (W>G>R>W)."
 		TYPES.SUJI_OFFSET:
 			hover_name.text = "Suji Shift"
-			hover_text.text = "Adjust current tsumo tile's value by +/- 3."
+			hover_text.text = "Adjust current tsumo tile's value by +/- 3. Only works on Man/Pin/Sou tiles."
 	
 	hover_text.text += " [%d]" % COOLD[type]
 	

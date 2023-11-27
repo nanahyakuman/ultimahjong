@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://ddu73u7jsg0tr"]
+[gd_scene load_steps=56 format=3 uid="uid://ddu73u7jsg0tr"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -59,6 +59,19 @@ texture_margin_left = 4.0
 texture_margin_top = 4.0
 texture_margin_right = 4.0
 texture_margin_bottom = 4.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hk5cw"]
+content_margin_top = 1.0
+content_margin_bottom = 0.0
+texture = ExtResource("27_waxa7")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+expand_margin_top = 2.0
+expand_margin_bottom = 4.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
@@ -650,6 +663,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_hk5cw")
 script = ExtResource("28_st0rv")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager/PopupTileSelector"]
