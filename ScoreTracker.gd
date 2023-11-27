@@ -3,7 +3,6 @@ extends Node
 @onready var gui_manager = $"../HBoxContainer/MahjongRoot/GUIManager"
 
 var score = 0
-
 var expected_score = 0
 var expected_points_mod = 0
 var expected_points_mod_mod = 0

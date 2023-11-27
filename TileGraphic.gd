@@ -150,7 +150,7 @@ func _new_dora(ids: Array):
 
 # custom overlays to indicate tiles that aren't actually real.
 enum {
-	OVERLAY_PINDUPE = MTile.SUITS.PIN, OVERLAY_SOUDUPE = MTile.SUITS.SOU, OVERLAY_MANDUPE = MTile.SUITS.MAN,
+	OVERLAY_PINDUPE = MTile.SUITS.PIN, OVERLAY_SOUDUPE = MTile.SUITS.SOU, OVERLAY_MANDUPE = MTile.SUITS.MAN, OVERLAY_DRAGDUPE = MTile.SUITS.SPECIAL,
 	OVERLAY_POCCHI
 }
 func assign_custom_overlay(overlay_type: int):
@@ -162,6 +162,8 @@ func assign_custom_overlay(overlay_type: int):
 			new_tex = load("res://image/tile/fx/soudupe_indicator.png")
 		OVERLAY_MANDUPE:
 			new_tex = load("res://image/tile/fx/mandupe_indicator.png")
+		OVERLAY_DRAGDUPE:
+			new_tex = load("res://image/tile/fx/dragdupe_indicator.png")
 		OVERLAY_POCCHI:
 			new_tex = load("res://image/tile/fx/pocchi.png")
 	

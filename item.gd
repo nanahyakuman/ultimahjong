@@ -12,11 +12,14 @@ var tile_select
 
 #  doesnt really matter but i like the idea that every item in the game has a diff cooldown,
 # even if only by 1
-enum TYPES {NONE, ERASER, WIND_MAGNET, BATTERY, KAN_SWAP, PIN_DUPE, SOU_ADJ, AKAFY, POCCHI, MAN_TERM}
-const COOLD = [0,     48,          15,      24,       80,       44,      52,    61,     59,       36]
-const PRICE = [999,   24,          18,      24,       24,       26,      26,    30,      18,        16]
-@export var type: int = TYPES.NONE
+enum TYPES {NONE, ERASER, WIND_MAGNET, BATTERY, KAN_SWAP, PIN_DUPE, SOU_ADJ, AKAFY, POCCHI, MAN_TERM, DRAGON_CYCLE}
+const COOLD = [0,     48,          15,      24,       70,       44,      52,    61,     59,       36,           31]
+const PRICE = [999,   24,          18,      24,       24,       26,      26,    30,     18,       16,           15]
+@export var type: TYPES = TYPES.NONE
 var cooldown_counter = 0
+
+# link self up if already added to tree. debug and reload use
+@export var activate_self = false
 
 # rememvers selected tiles, for example if necessary to select two tiles
 var selected_tile_memory = []
@@ -55,11 +58,18 @@ func _ready():
 		TYPES.MAN_TERM:
 			hover_name.text = "Hat Man"
 			hover_text.text = "Shift a selected Man's value into the terminal further from it (temporarily). Distance ties are chosen at random."
+		TYPES.DRAGON_CYCLE:
+			hover_name.text = "Dragon Cycle"
+			hover_text.text = "Change a selected Dragon's color (W>G>R>W)."
+	
 	
 	hover_text.text += " [%d]" % COOLD[type]
 	
 	cooldown_counter = 0
 	sprite_2d.frame_coords.x = type % sprite_2d.hframes
+	
+	if activate_self:
+		activate(%MahjongManager, %TileSelect)
 	
 	decrement()
 
@@ -149,6 +159,11 @@ func _use():
 			mahjong_manager.request_tile_select(self, true)
 			tile_select.update_text("Select a Man to be swapped.")
 			return
+		
+		TYPES.DRAGON_CYCLE:
+			mahjong_manager.request_tile_select(self, true)
+			tile_select.update_text("Select a Dragon to cycle.")
+			return
 	
 	#  default item behaviour assumes the usage is immediate, if not
 	# call return in switch above.
@@ -168,6 +183,9 @@ func tile_valid(tile: MTile):
 				return false
 		TYPES.MAN_TERM:
 			if tile.suit != MTile.SUITS.MAN:
+				return false
+		TYPES.DRAGON_CYCLE:
+			if tile.suit != MTile.SUITS.SPECIAL or !MTile.DRAGONS.has(tile.value):
 				return false
 	return true
 
@@ -220,6 +238,20 @@ func tile_selected(tile: MTile):
 				new_tile.value = 9
 			elif tile.value > 5:
 				new_tile.value = 1
+			mahjong_manager.add_to_hand_and_update(new_tile)
+		
+		TYPES.DRAGON_CYCLE:
+			var val
+			match tile.value:
+				MTile.SPECIALS.HAKU:
+					val = MTile.SPECIALS.HATSU
+				MTile.SPECIALS.HATSU:
+					val = MTile.SPECIALS.CHUN
+				MTile.SPECIALS.CHUN:
+					val = MTile.SPECIALS.HAKU
+			var new_tile = tile.duplicate()
+			new_tile.former = tile
+			new_tile.value = val
 			mahjong_manager.add_to_hand_and_update(new_tile)
 	
 	# default completion behaviour

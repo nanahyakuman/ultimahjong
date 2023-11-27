@@ -27,6 +27,7 @@ end of every round can purchase:
 		rearrange next five tiles
 	x	aka a random tile
 		change a tile to one of its suji tiles
+		cycle a dragon's suit
 	scoew bonuses
 		1 han for every ~six tiles in your hand without any red ink toka
 		every 5 consecutive discards from hand adds a han
@@ -72,6 +73,7 @@ new tile manager broke some things
 tile select menu for tiles not in hand
 	can hack into existing structure a good bit, just need a window that hides
 	dynamically.
+mps dupe items dont forward canon tiles rn
 
 
 music
