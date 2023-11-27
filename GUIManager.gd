@@ -21,6 +21,8 @@ const SIZE = 22
 @onready var needed_score_label = $TableTop/HBoxContainer/HBoxContainer/NeededScoreLabel
 @onready var score_mod_label = $TableTop/HBoxContainer/HBoxContainer/VBoxContainer/ScoreModLabel
 @onready var score_mod_label_2 = $TableTop/HBoxContainer/HBoxContainer/VBoxContainer/ScoreModLabel2
+@onready var popup_tile_selector = $PopupTileSelector/HBoxContainer
+@onready var popup_tile_selector_call_root = $PopupTileSelector
 
 # tracked so calls can highlight it. only modifed by `hand`.
 var most_recent_discard = null
@@ -29,7 +31,7 @@ func _ready():
 	pass
 
 func update_hand(tiles: Array):
-	_update_node(hand, tiles, true, TileGraphic.SIDE_TOP)
+	_update_node(hand, tiles, mahjong_manager, TileGraphic.SIDE_TOP)
 	
 func update_discard(tiles: Array):
 	for d in discards.size():
@@ -42,11 +44,11 @@ func update_opp_discard(tiles: Array):
 			most_recent_discard = ret
 
 func update_tsumo(tiles: Array):
-	_update_node(tsumo, tiles, true, TileGraphic.SIDE_TOP)
+	_update_node(tsumo, tiles, mahjong_manager, TileGraphic.SIDE_TOP)
 
 func update_kan_dora(tiles: Array, covered: int):
-	_update_node(kan_pile, tiles, false, TileGraphic.SIDE_BOT, covered)
-	_update_node(kan_pile_bot, tiles, false, TileGraphic.SIDE_BOT, 9999)
+	_update_node(kan_pile, tiles, null, TileGraphic.SIDE_BOT, covered)
+	_update_node(kan_pile_bot, tiles, null, TileGraphic.SIDE_BOT, 9999)
 
 func update_made_calls(groupings: Array):
 	var tiles = []
@@ -55,8 +57,12 @@ func update_made_calls(groupings: Array):
 			tiles.append(t)
 	_update_node(made_calls, tiles)
 
+# called by items
+func update_tile_select(tiles: Array):
+	_update_node(popup_tile_selector, tiles, popup_tile_selector_call_root, TileGraphic.SIDE_BOT)
+
 # returns the final updated visible node
-func _update_node(node: Node, tiles: Array, in_hand: bool = false, visible_side: int = TileGraphic.SIDE_BOT, reverse_count: int = -1):
+func _update_node(node: Node, tiles: Array, connector_node: Node = null, visible_side: int = TileGraphic.SIDE_BOT, reverse_count: int = -1):
 	var existing_count = node.get_child_count()
 	var ret = null
 	for t in tiles.size():
@@ -64,7 +70,7 @@ func _update_node(node: Node, tiles: Array, in_hand: bool = false, visible_side:
 			node.get_child(t).assign_tile(tiles[t])
 			node.get_child(t).set_reversed(reverse_count > t)
 		else:
-			get_new_tile(tiles[t], node, in_hand, visible_side, reverse_count > t)
+			get_new_tile(tiles[t], node, connector_node, visible_side, reverse_count > t)
 		
 		var curr = node.get_child(t)
 		if curr:
@@ -76,12 +82,13 @@ func _update_node(node: Node, tiles: Array, in_hand: bool = false, visible_side:
 	
 	return ret
 
-func get_new_tile(t: MTile, parent: Node, in_hand: bool, vis_side: int, reverse: bool):
+func get_new_tile(t: MTile, parent: Node, connector_node: Node, vis_side: int, reverse: bool):
 	var a = tile_graphic.instantiate()
 	parent.add_child(a)
 	a.assign_tile(t)
-	a.in_hand = in_hand
-	a.connect("tile_graphic_clicked", mahjong_manager.tile_graphic_clicked)
+	# only tiles in hand get connected
+	if connector_node:
+		a.connect("tile_graphic_clicked", connector_node.tile_graphic_clicked)
 	a.assign_visible_side(vis_side)
 	a.set_reversed(reverse)
 	return(a)

@@ -58,15 +58,11 @@ some debug keys
 record sounds
 rework deadwall to be resizeable inround?
 call flowers
-couldnt chiitoi riichi. hand was something iipeikou-ey (like 22334p), idk if that was why
 when you discard a pocchi, can choose to exchange the 4th tile in the wall with
 	another not-yet-discarded pocchi, even if it turns out to be in the dead wall.
 	 forcing it to be on discard means you can't cycle them ifinitely
 shiro pocchi instant win if riichitsumo
 some items should highlight what they affect
-scoring releated:
-	ron agari should register an open set!! this is messing up fu
-	still missing some yaku
 new tile manager broke some things
 	reimplem,ent purchaseables
 		addtile purchaseable getting illegal tiles again. ?157p
@@ -74,7 +70,14 @@ tile select menu for tiles not in hand
 	can hack into existing structure a good bit, just need a window that hides
 	dynamically.
 mps dupe items dont forward canon tiles rn
+can you adjust riichi rn? test
 
+
+meta:
+	finish scoring!!
+		open set on calls
+		fix chiitoi scanning
+		the rest of the yaku
 
 music
 	just make like 4~8 tracksets

@@ -863,8 +863,10 @@ func complete_tile_select():
 	# goes here as a least-bad solution
 	if _state != STATE_CALLS:
 		_set_state(STATE_ACTIONABLE)
-	
 
+# stall the mahjmanager for other tile selects
+func stall_for_external_select():
+	_set_state(STATE_ANIMATING)
 
 func get_hand_info() -> HandInformation:
 	var ret = HandInformation.new()

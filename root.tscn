@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://ddu73u7jsg0tr"]
+[gd_scene load_steps=55 format=3 uid="uid://ddu73u7jsg0tr"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -31,11 +31,13 @@
 [ext_resource type="PackedScene" uid="uid://cpirwiftxeu8s" path="res://purchaseable.tscn" id="21_3mckx"]
 [ext_resource type="Script" path="res://OpenShopButton.gd" id="21_8bhal"]
 [ext_resource type="Script" path="res://NextRoundButton.gd" id="21_roajs"]
+[ext_resource type="PackedScene" uid="uid://dxdkyqgyyijvx" path="res://item.tscn" id="21_w50vu"]
 [ext_resource type="Script" path="res://ScoringRoot.gd" id="21_yhd2i"]
 [ext_resource type="Script" path="res://TileSelect.gd" id="26_gfhhk"]
 [ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="27_waxa7"]
 [ext_resource type="Script" path="res://NumberColorizer.gd" id="27_yfh58"]
 [ext_resource type="FontFile" uid="uid://dmoumxbcf3gn" path="res://text/font/Body2.png" id="28_jde07"]
+[ext_resource type="Script" path="res://PopupTileSelector.gd" id="28_st0rv"]
 [ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tile/tilecounter/tablediv.png" id="33_igaxs"]
 [ext_resource type="Texture2D" uid="uid://8eiqqlppwabi" path="res://image/tile/tilecounter/tilecounter.png" id="35_6x8j8"]
 [ext_resource type="Texture2D" uid="uid://ch4nr70j7xj74" path="res://image/tile/tilecounter/tilecounter_end_odd.png" id="36_glino"]
@@ -391,6 +393,11 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 alignment = 2
 
+[node name="Item" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("21_w50vu")]
+layout_mode = 2
+type = 11
+activate_self = true
+
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
 layout_mode = 1
 anchors_preset = 2
@@ -610,7 +617,7 @@ layout_mode = 2
 texture = ExtResource("13_qhnc0")
 script = ExtResource("13_wfhtv")
 
-[node name="TileSelect" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
+[node name="TileSelectPanel" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 2
@@ -624,13 +631,30 @@ theme_override_constants/separation = 4
 alignment = 1
 script = ExtResource("26_gfhhk")
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/MahjongRoot/GUIManager/TileSelect"]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/MahjongRoot/GUIManager/TileSelectPanel"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_4okkq")
 
-[node name="TileSelectLabel" type="Label" parent="HBoxContainer/MahjongRoot/GUIManager/TileSelect/PanelContainer"]
+[node name="TileSelectLabel" type="Label" parent="HBoxContainer/MahjongRoot/GUIManager/TileSelectPanel/PanelContainer"]
 layout_mode = 2
 text = "Select a tile to explode!!!!!"
+
+[node name="PopupTileSelector" type="PanelContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 32)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("28_st0rv")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager/PopupTileSelector"]
+layout_mode = 2
+alignment = 1
 
 [node name="ScoringRoot" type="Control" parent="HBoxContainer/MahjongRoot"]
 unique_name_in_owner = true
@@ -740,6 +764,7 @@ script = ExtResource("21_8bhal")
 
 [node name="ShopRoot" type="Control" parent="HBoxContainer/MahjongRoot"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

@@ -11,7 +11,6 @@ class_name TileGraphic
 @onready var custom_overlays = $Sprite2D/CustomOverlays
 
 @export var tile_size = Vector2(16,32)
-var in_hand = false
 
 @export var suit = 0
 @export var value = 0
@@ -94,16 +93,14 @@ func set_rotated(ud: bool):
 signal tile_graphic_clicked
 
 func _gui_input(event):
-	# can only click on tiles in hand
-	if in_hand:
-		if event is InputEventMouseButton:
-			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-				TileGraphicKnower.highlight_matching_tiles(tile, false)
-				emit_signal("tile_graphic_clicked", tile)
-				#TileGraphicKnower.highlight_matching_tiles(tile, true)
-			
-			if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-				print(tile.get_id())
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			TileGraphicKnower.highlight_matching_tiles(tile, false)
+			emit_signal("tile_graphic_clicked", tile)
+			#TileGraphicKnower.highlight_matching_tiles(tile, true)
+		
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			print(tile.get_id())
 
 
 

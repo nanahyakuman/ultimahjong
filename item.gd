@@ -9,12 +9,13 @@ class_name Item
 @onready var hover_text = $Description/VBoxContainer/Label
 var mahjong_manager
 var tile_select
+var popup_tile_select
 
 #  doesnt really matter but i like the idea that every item in the game has a diff cooldown,
 # even if only by 1
-enum TYPES {NONE, ERASER, WIND_MAGNET, BATTERY, KAN_SWAP, PIN_DUPE, SOU_ADJ, AKAFY, POCCHI, MAN_TERM, DRAGON_CYCLE}
-const COOLD = [0,     48,          15,      24,       70,       44,      52,    61,     59,       36,           31]
-const PRICE = [999,   24,          18,      24,       24,       26,      26,    30,     18,       16,           15]
+enum TYPES {NONE, ERASER, WIND_MAGNET, BATTERY, KAN_SWAP, PIN_DUPE, SOU_ADJ, AKAFY, POCCHI, MAN_TERM, DRAGON_CYCLE, SUJI_OFFSET}
+const COOLD = [0,     48,          15,      24,       70,       44,      52,    61,     59,       36,           31,          24]
+const PRICE = [999,   24,          18,      24,       24,       26,      26,    30,     18,       16,           15,          18]
 @export var type: TYPES = TYPES.NONE
 var cooldown_counter = 0
 
@@ -61,7 +62,9 @@ func _ready():
 		TYPES.DRAGON_CYCLE:
 			hover_name.text = "Dragon Cycle"
 			hover_text.text = "Change a selected Dragon's color (W>G>R>W)."
-	
+		TYPES.SUJI_OFFSET:
+			hover_name.text = "Suji Shift"
+			hover_text.text = "Adjust current tsumo tile's value by +/- 3."
 	
 	hover_text.text += " [%d]" % COOLD[type]
 	
@@ -69,16 +72,16 @@ func _ready():
 	sprite_2d.frame_coords.x = type % sprite_2d.hframes
 	
 	if activate_self:
-		activate(%MahjongManager, %TileSelect)
+		activate(%MahjongManager, %TileSelectPanel, %PopupTileSelector)
 	
 	decrement()
 
 # only called after purchase, not when added to a purchaseable
-func activate(mm: MahjongManager, ts: Node):
+func activate(mm: MahjongManager, ts: Node, pts: Node):
 	# the parent exists in the same scene as these
 	mahjong_manager = mm
 	tile_select = ts
-	
+	popup_tile_select = pts
 
 
 func decrement(amount: int = 1):
@@ -99,7 +102,7 @@ func _use():
 	match type:
 		TYPES.NONE:
 			#actual code here
-			cooldown_counter = 9999
+			pass
 		
 		TYPES.ERASER:
 			mahjong_manager.do_tsumo(MTile.new(MTile.SUITS.SPECIAL,MTile.SPECIALS.HAKU))
@@ -164,6 +167,30 @@ func _use():
 			mahjong_manager.request_tile_select(self, true)
 			tile_select.update_text("Select a Dragon to cycle.")
 			return
+		
+		TYPES.SUJI_OFFSET:
+			mahjong_manager.stall_for_external_select()
+			
+			var tsumo = mahjong_manager.tsumo
+			
+			if ![MTile.SUITS.MAN, MTile.SUITS.PIN, MTile.SUITS.SOU].has(tsumo.suit):
+				return
+			
+			var tile_vals = [tsumo.value-3, tsumo.value+3]
+			var new_tiles = []
+			for i in tile_vals:
+				if i <= 0:
+					i += 9
+				if i >= 10:
+					i -= 9
+				new_tiles.append(MTile.new(tsumo.suit, i))
+			
+			new_tiles.sort_custom(Callable(MTile, "tile_compare"))
+			
+			popup_tile_select.set_tiles(new_tiles)
+			popup_tile_select.request_tile_select(self)
+			tile_select.update_text("Select a new value.")
+			
 	
 	#  default item behaviour assumes the usage is immediate, if not
 	# call return in switch above.
@@ -253,9 +280,17 @@ func tile_selected(tile: MTile):
 			new_tile.former = tile
 			new_tile.value = val
 			mahjong_manager.add_to_hand_and_update(new_tile)
+		
+		TYPES.SUJI_OFFSET:
+			var new_tile = mahjong_manager.tsumo.duplicate()
+			new_tile.value = tile.value
+			new_tile.former = mahjong_manager.tsumo
+			mahjong_manager.tsumo = null
+			mahjong_manager.add_to_hand_and_update(new_tile)
 	
 	# default completion behaviour
 	mahjong_manager.complete_tile_select()
+	popup_tile_select.set_tiles([])
 	tile_select.update_text("")
 	update_counter()
 
