@@ -46,15 +46,14 @@ func initialize(character_info: CharacterInfo):
 					var a = MTile.new(MTile.SUITS.SPECIAL, i)
 					tile_data.append(a)
 	
+	for i in 8:
+		tile_data.append(MTile.new(MTile.SUITS.FLOWER, i+1))
 	
 	#  this should ideally do nothing at all, but for safety we call it
 	# anyway
 	tile_data.sort_custom(Callable(MTile, "tile_compare"))
 	
 	emit_signal("updated")
-	
-#	for i in 8:
-#		tile_data.append(MTileData.new(MTile.SUITS.FLOWER, i+1, 1, 0))
 
 
 func get_all_tiles(only_unique = false):

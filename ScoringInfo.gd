@@ -57,17 +57,14 @@ func get_total_fu() -> int:
 
 const MANGAN_HANS = {
 	6: 3000, # haneman
-	7: 3500, # taihanman
+	7: 3000, #3500, # taihanman
 	
 	8: 4000, # baimain
-	9: 4666, # shoubaiman
-	10: 5333, # daibaiman
+	9: 4000, #4666, # shoubaiman
+	10: 4000, #5333, # daibaiman
 	
 	11: 6000, # sanbaiman
-	12: 7000, # sanhanbaiman
-	
-	#13: 8000 # yakuman
-	# after this we just add 500 to the base for every han
+	12: 6000, #7000, # sanhanbaiman
 }
 
 func get_base_points():
@@ -81,7 +78,9 @@ func get_base_points():
 		if MANGAN_HANS.has(han):
 			points = MANGAN_HANS[han]
 		if han >= 13:
-			points = 8000 + (han-13) * 500
+			#points = 8000 #+ (han-13) * 500
+			points = (int(han/13)+1) * 8000
+		
 		
 	return points
 

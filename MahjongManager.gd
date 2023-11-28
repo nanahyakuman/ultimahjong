@@ -226,7 +226,7 @@ func _draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.MAN, 3))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 3))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 4))
-
+#
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 2))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 3))
@@ -268,6 +268,21 @@ func _draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.SOU, 5))
 #	temp.append(MTile.new(MTile.SUITS.SOU, 9))
 #	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+
+	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+	temp.append(MTile.new(MTile.SUITS.MAN, 9))
+	temp.append(MTile.new(MTile.SUITS.MAN, 9))
+	temp.append(MTile.new(MTile.SUITS.MAN, 9))
+	temp.append(MTile.new(MTile.SUITS.PIN, 9))
+	temp.append(MTile.new(MTile.SUITS.PIN, 9))
+	temp.append(MTile.new(MTile.SUITS.PIN, 9))
+	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+	temp.append(MTile.new(MTile.SUITS.MAN, 3))
+	temp.append(MTile.new(MTile.SUITS.MAN, 4))
+	
 
 	if temp:
 		assert(temp.size() == 13)
@@ -655,9 +670,6 @@ func tile_graphic_clicked(tile: MTile):
 		else:
 			_draw_and_discard(tile)
 	elif _state == STATE_SELECT_TILE:
-		# assure the tile is good before (maybe) deleting it and continuing forward
-#		if in_riichi and tile != tsumo:
-#			return
 		if !tile_select_requestor_node.tile_valid(tile):
 			return
 		
@@ -769,7 +781,10 @@ func _try_enter_riichi():
 func _do_riichi():
 	in_riichi = true
 	ippatsu_counter = upgrades.get_discard_count() + 1
-	met_yaku.hans.append(ALL_YAKU.YAKUS["Riichi"])
+	if discard.size() == 1:
+		met_yaku.hans.append(ALL_YAKU.YAKUS["Double Riichi"])
+	else:
+		met_yaku.hans.append(ALL_YAKU.YAKUS["Riichi"])
 	MusicManager.start_tenpai()
 	_start_rotation()
 

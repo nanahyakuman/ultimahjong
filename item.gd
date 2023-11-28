@@ -34,7 +34,7 @@ func _ready():
 	match type:
 		TYPES.ERASER:
 			hover_name.text = "Eraser"
-			hover_text.text = "Current tsumo tile becomes a White Dragon (temporarily)."
+			hover_text.text = "Current tsumo tile is replaced with a White Dragon (temporarily)."
 		TYPES.WIND_MAGNET:
 			hover_name.text = "Wind Charm"
 			hover_text.text = "4th tile in the wall switches positions with a random wind from the remaining wall, if there is one."
@@ -64,7 +64,7 @@ func _ready():
 			hover_text.text = "Change a selected Dragon's color (W>G>R>W)."
 		TYPES.SUJI_OFFSET:
 			hover_name.text = "Suji Shift"
-			hover_text.text = "Adjust current tsumo tile's value by +/- 3. Only works on Man/Pin/Sou tiles."
+			hover_text.text = "Adjust current tsumo tile's value by +/- 3. Only works on numbered tiles."
 	
 	hover_text.text += " [%d]" % COOLD[type]
 	
@@ -105,6 +105,7 @@ func _use():
 			pass
 		
 		TYPES.ERASER:
+			# old tile is cleared completely, dont maintain reference
 			mahjong_manager.do_tsumo(MTile.new(MTile.SUITS.SPECIAL,MTile.SPECIALS.HAKU))
 			
 		TYPES.WIND_MAGNET:
@@ -237,7 +238,8 @@ func tile_selected(tile: MTile):
 				tile_select.update_text("Select a Pin to become.")
 				return
 			else:
-				var new_t = tile.duplicate()
+				var new_t = selected_tile_memory[0].duplicate()
+				new_t.value = tile.value
 				new_t.former = tile
 				mahjong_manager.add_to_hand_and_update(new_t)
 				selected_tile_memory.clear()
@@ -256,15 +258,25 @@ func tile_selected(tile: MTile):
 				val -= 1
 				if val <= 0:
 					val = 9
-				mahjong_manager.add_to_hand_and_update(MTile.new(MTile.SUITS.SOU, val, false, selected_tile_memory[0]))
+				
+				var new_t = selected_tile_memory[0].duplicate()
+				new_t.value = val
+				new_t.former = tile
+				
+				mahjong_manager.add_to_hand_and_update(new_t)
 				selected_tile_memory.clear()
 		
 		TYPES.MAN_TERM:
-			var new_tile = MTile.new(MTile.SUITS.MAN, 1 if randi()%1 else 9, tile.aka, tile)
+			var new_tile = tile.duplicate()
+			new_tile.value = 1 if randi()%1 else 9
+			
 			if tile.value < 5:
 				new_tile.value = 9
 			elif tile.value > 5:
 				new_tile.value = 1
+			
+			new_tile.former = tile
+			
 			mahjong_manager.add_to_hand_and_update(new_tile)
 		
 		TYPES.DRAGON_CYCLE:

@@ -31,7 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://cpirwiftxeu8s" path="res://purchaseable.tscn" id="21_3mckx"]
 [ext_resource type="Script" path="res://OpenShopButton.gd" id="21_8bhal"]
 [ext_resource type="Script" path="res://NextRoundButton.gd" id="21_roajs"]
-[ext_resource type="PackedScene" uid="uid://dxdkyqgyyijvx" path="res://item.tscn" id="21_w50vu"]
+[ext_resource type="PackedScene" uid="uid://dxdkyqgyyijvx" path="res://item.tscn" id="21_sncdg"]
 [ext_resource type="Script" path="res://ScoringRoot.gd" id="21_yhd2i"]
 [ext_resource type="Script" path="res://TileSelect.gd" id="26_gfhhk"]
 [ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="27_waxa7"]
@@ -406,9 +406,24 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 alignment = 2
 
-[node name="Item" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("21_w50vu")]
+[node name="Item" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("21_sncdg")]
 layout_mode = 2
-type = 11
+type = 6
+activate_self = true
+
+[node name="Item2" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("21_sncdg")]
+layout_mode = 2
+type = 5
+activate_self = true
+
+[node name="Item3" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("21_sncdg")]
+layout_mode = 2
+type = 9
+activate_self = true
+
+[node name="Item4" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("21_sncdg")]
+layout_mode = 2
+type = 8
 activate_self = true
 
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
@@ -656,11 +671,11 @@ text = "Select a tile to explode!!!!!"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(16, 32)
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.655
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 0.655
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_hk5cw")
@@ -866,7 +881,7 @@ alignment = 1
 script = ExtResource("20_wmn33")
 purchaseable = ExtResource("21_3mckx")
 type = 4
-BUTTONS = 1
+BUTTONS = 2
 PER_BUTTON = 0
 
 [node name="NextRoundButton" type="Button" parent="HBoxContainer/MahjongRoot/ShopRoot"]

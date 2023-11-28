@@ -2,6 +2,7 @@ extends Node
 
 var YAKUS = {
 	"Riichi": ScoringInfo.Han.new("Riichi", 1, "RIICHI_DESC!!"),
+	"Double Riichi": ScoringInfo.Han.new("Double Riichi", 2, "D_RIICHI_DESC!!"),
 	"Ippatsu": ScoringInfo.Han.new("Ippatsu", 1, "IIPS_DESC"),
 	"Suitei": ScoringInfo.Han.new("Suitei", 1, "SUITEI_DESC"),
 	"Rinshan": ScoringInfo.Han.new("Rinshan", 1, "RNSHN_DESC"),
@@ -19,11 +20,24 @@ var YAKUS = {
 	"Ryanpeikou": ScoringInfo.Han.new("Ryanpeikou", 3, "2pk"),
 	"Ittsuu": ScoringInfo.Han.new("Ittsuu", 2, "its"),
 	"Open Ittsuu": ScoringInfo.Han.new("Open Ittsuu", 1, "its"),
-	"Sanshoku": ScoringInfo.Han.new("Sanshoku", 2, "its"),
-	"Open Sanshoku": ScoringInfo.Han.new("Open Sanshoku", 1, "its"),
+	"Sanshoku Doujun": ScoringInfo.Han.new("Sanshoku Doujun", 2, "ss"),
+	"Open Sanshoku": ScoringInfo.Han.new("Open Sanshoku", 1, "os"), #note we drop 'doujun' here
 	"San'ankou": ScoringInfo.Han.new("San'ankou", 2, "sank"),
+	"Sanshoku Doukou": ScoringInfo.Han.new("Sanshoku Doukou", 2, "3dk"),
 	"Sankantsu": ScoringInfo.Han.new("Sankantsu", 2, "3k"),
-
+	
+	"Chanta": ScoringInfo.Han.new("Chanta", 2, ""),
+	"Open Chanta": ScoringInfo.Han.new("Open Chanta", 1, ""),
+	"Junchan": ScoringInfo.Han.new("Junchan", 3, ""),
+	"Open Junchan": ScoringInfo.Han.new("Open Junchan", 2, ""),
+	"Honroutou": ScoringInfo.Han.new("Honroutou", 2, ""),
+	
+	"Shousangen": ScoringInfo.Han.new("Shousangen", 2, ""),
+	"Daisangen": ScoringInfo.Han.new("Shousangen", 13, ""),
+	
+	"Tsuuiisou": ScoringInfo.Han.new("Tsuuiisou", 13, ""),
+	"Chinroutou": ScoringInfo.Han.new("Chinroutou", 13, ""),
+	
 	"Kan Dora": ScoringInfo.Han.new("Kan Dora", 1, ""),
 	"Ura Dora": ScoringInfo.Han.new("Ura Dora", 1, ""),
 	"Aka Dora": ScoringInfo.Han.new("Aka Dora", 1, ""),

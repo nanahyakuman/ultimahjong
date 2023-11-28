@@ -123,6 +123,17 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 					scoring_info.hans.append(ALL_YAKU.YAKUS["San'ankou"])
 				if kan_count >= 3:
 					scoring_info.hans.append(ALL_YAKU.YAKUS["Sankantsu"])
+				
+				#sanshoku doukou
+				var possesed_sets = []
+				possesed_sets.resize(9)
+				possesed_sets.fill(0)
+				for s in sets:
+					possesed_sets[s.tiles[0].value-1] |= s.tiles[0].suit
+				
+				for ps in possesed_sets:
+					if ps == 7:
+						scoring_info.hans.append(ALL_YAKU.YAKUS["Sanshoku Doukou"])
 			
 			
 			## RUN-BASED YAKU (note all require at least 2 runs)
@@ -159,7 +170,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 						sanshoku_vals[g.tiles[0].value] |= g.tiles[0].suit
 					for v in sanshoku_vals.keys():
 						if sanshoku_vals[v] == 7:
-							scoring_info.hans.append(ALL_YAKU.YAKUS["Open Sanshoku" if is_open else "Sanshoku"])
+							scoring_info.hans.append(ALL_YAKU.YAKUS["Open Sanshoku" if is_open else "Sanshoku Doujun"])
 			
 			
 			## SUIT-BASED YAKU
@@ -193,6 +204,58 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 					scoring_info.hans.append(ALL_YAKU.YAKUS[("" if not is_open else "Open ") + "Chin'itsu"])
 				elif is_half:
 					scoring_info.hans.append(ALL_YAKU.YAKUS[("" if not is_open else "Open ") + "Hon'itsu"])
+			
+			
+			## TERMINAL-BASED YAKU
+			var terminal_sets = []
+			var terminal_runs = []
+			var honor_sets = []
+			var terminal_pairs = []
+			var honor_pairs = []
+			var sangen_count = 0
+			var gen_pairs = 0
+			for g in groupings:
+				if g.type == Grouping.SET:
+					if MTile.NUMERALS.has(g.tiles[0].suit):
+						if g.tiles[0].value == 1 or g.tiles[0].value == 9:
+							terminal_sets += g
+					else:
+						honor_sets += g
+						if MTile.DRAGONS.has(g.tiles[0].value):
+							sangen_count += 1
+				elif g.type == Grouping.RUN:
+					# this is implicit
+					#if MTile.NUMERALS.has(g.tiles[0].suit):
+					if g.tiles[0].value == 1 or g.tiles[0].value == 7:
+						terminal_runs += g
+				elif g.type == Grouping.PAIR:
+					if MTile.NUMERALS.has(g.tiles[0].suit):
+						if g.tiles[0].value == 1 or g.tiles[0].value == 9:
+							terminal_pairs += g
+					else:
+						honor_pairs += g
+						if MTile.DRAGONS.has(g.tiles[0].value):
+							gen_pairs += 1
+			
+			# all terminals
+			if terminal_pairs.size() + terminal_sets.size() == groupings.size():
+				scoring_info.hans.append(ALL_YAKU.YAKUS["Chinroutou"])
+			# all honors:
+			if honor_pairs.size() + honor_sets.size() == groupings.size():
+				scoring_info.hans.append(ALL_YAKU.YAKUS["Tsuuiisou"])
+			# all terminals/honors
+			elif terminal_pairs.size() + terminal_sets.size() + honor_sets.size() + honor_pairs.size():
+				scoring_info.hans.append(ALL_YAKU.YAKUS["Honroutou"])
+			elif terminal_pairs.size() + terminal_sets.size() + terminal_runs.size():
+				scoring_info.hans.append(ALL_YAKU.YAKUS[("" if not is_open else "Open ") + "Junchan"])
+			elif terminal_pairs.size() + terminal_sets.size() + honor_sets.size() + honor_pairs.size() + terminal_runs.size():
+				scoring_info.hans.append(ALL_YAKU.YAKUS[("" if not is_open else "Open ") + "Chanta"])
+			
+			# sangen
+			if sangen_count >= 3:
+				scoring_info.hans.append(ALL_YAKU.YAKUS["Daisangen"])
+			elif sangen_count >= 2 and gen_pairs >= 1:
+				scoring_info.hans.append(ALL_YAKU.YAKUS["Shousangen"])
 			
 			# get fu
 			if do_fu:

@@ -70,7 +70,8 @@ tile select menu for tiles not in hand
 	can hack into existing structure a good bit, just need a window that hides
 	dynamically.
 mps dupe items dont forward canon tiles rn
-can you adjust riichi rn? test
+yaku display, fu no gotoku
+get_terminals function
 
 
 meta:
@@ -93,7 +94,7 @@ yaku to implement
 x	menzentsumo
 x	riichi
 x	ippatsu
-	pinfu
+x	pinfu
 x	iipeikou
 x	last draw
 x	last discard
@@ -102,22 +103,35 @@ x	dead wall draw?
 x	tanyao
 x	yakuhai
 	
-	double riichi
-	chantaiyao
+x	double riichi
+tst	chantaiyao
 x	sanshoku doujun
 x	ittsuu
 x	toitoi
 x	san-an-kou
-	sanshoku doukou
+x	sanshoku doukou
 x	sankantsu
 x	chiitoitsu
-	terminals and honors
-	shousangen
+tst	terminals and honors
+tst	shousangen
 	
 x	honitsu
-	terminal in each meld
+tst	terminal in each meld
 x	ryanpeikou
 
 x	chinitsu
 
-~all yakuman
+	kokushi musou
+	suuankou
+	suuankou double
+tst	daisangen
+	shousuushii
+	daisuushii
+tst	all honors
+tst	all terminals
+	ryuuiisou
+	nine gates
+	suukantsu
+	tenhou
+	chiihou
+	renhou
