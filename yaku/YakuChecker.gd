@@ -227,7 +227,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 					# this is implicit
 					#if MTile.NUMERALS.has(g.tiles[0].suit):
 					if g.tiles[0].value == 1 or g.tiles[0].value == 7:
-						terminal_sets.append(g)
+						terminal_runs.append(g)
 				elif g.type == Grouping.PAIR:
 					if MTile.NUMERALS.has(g.tiles[0].suit):
 						if g.tiles[0].value == 1 or g.tiles[0].value == 9:

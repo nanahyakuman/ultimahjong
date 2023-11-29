@@ -51,18 +51,18 @@ func update_kan_dora(tiles: Array, covered: int):
 	_update_node(kan_pile_bot, tiles, null, TileGraphic.SIDE_BOT, 9999)
 
 func update_made_calls(groupings: Array):
-	var tiles = []
-	for g in groupings:
-		for t in g.tiles:
-			tiles.append(t)
-	_update_node(made_calls, tiles)
+	for i in groupings.size():
+		while made_calls.get_child_count() <= i:
+			made_calls.add_child(HBoxContainer.new())
+		
+		_update_node(made_calls.get_child(i), groupings[i].tiles, null, TileGraphic.SIDE_BOT, -1, !groupings[i].open)
 
 # called by items
 func update_tile_select(tiles: Array):
 	_update_node(popup_tile_selector, tiles, popup_tile_selector_call_root, TileGraphic.SIDE_BOT)
 
 # returns the final updated visible node
-func _update_node(node: Node, tiles: Array, connector_node: Node = null, visible_side: int = TileGraphic.SIDE_BOT, reverse_count: int = -1):
+func _update_node(node: Node, tiles: Array, connector_node: Node = null, visible_side: int = TileGraphic.SIDE_BOT, reverse_count: int = -1, closed: bool = false):
 	var existing_count = node.get_child_count()
 	var ret = null
 	for t in tiles.size():
@@ -72,10 +72,16 @@ func _update_node(node: Node, tiles: Array, connector_node: Node = null, visible
 		else:
 			get_new_tile(tiles[t], node, connector_node, visible_side, reverse_count > t)
 		
+		
 		var curr = node.get_child(t)
 		if curr:
 			curr.visible = true
 			ret = curr
+	
+	# highlight closed tiles
+	if closed:
+		node.get_child(0).set_reversed(true)
+		node.get_child(-1).set_reversed(true)
 	
 	for t in range(tiles.size(), existing_count):
 		node.get_child(t).visible = false

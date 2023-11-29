@@ -46,8 +46,8 @@ func initialize(character_info: CharacterInfo):
 					var a = MTile.new(MTile.SUITS.SPECIAL, i)
 					tile_data.append(a)
 	
-	for i in 8:
-		tile_data.append(MTile.new(MTile.SUITS.FLOWER, i+1))
+#	for i in 8:
+#		tile_data.append(MTile.new(MTile.SUITS.FLOWER, i+1))
 	
 	#  this should ideally do nothing at all, but for safety we call it
 	# anyway

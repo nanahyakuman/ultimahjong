@@ -20,41 +20,44 @@ offset_right = 16.0
 offset_bottom = 25.0
 script = ExtResource("1_w2ft1")
 
-[node name="Tilesides" type="Sprite2D" parent="."]
+[node name="Rotator" type="Node2D" parent="."]
+rotation = 1.5708
+
+[node name="Tilesides" type="Sprite2D" parent="Rotator"]
 position = Vector2(8, 13)
 texture = ExtResource("3_rn2kv")
 hframes = 4
 vframes = 2
 frame = 3
 
-[node name="TileRear" type="Sprite2D" parent="."]
+[node name="TileRear" type="Sprite2D" parent="Rotator"]
 texture_repeat = 1
 texture = ExtResource("5_xhwoj")
 centered = false
 region_rect = Rect2(80, 64, 16, 32)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="Rotator"]
 texture_repeat = 1
 texture = ExtResource("4_c6ib6")
 centered = false
 region_enabled = true
 region_rect = Rect2(80, 64, 16, 32)
 
-[node name="TileDora" type="Sprite2D" parent="Sprite2D"]
+[node name="TileDora" type="Sprite2D" parent="Rotator/Sprite2D"]
 visible = false
 texture = ExtResource("6_w2hg6")
 centered = false
 
-[node name="CustomOverlays" type="Node2D" parent="Sprite2D"]
+[node name="CustomOverlays" type="Node2D" parent="Rotator/Sprite2D"]
 
-[node name="Flicker" type="Sprite2D" parent="."]
+[node name="Flicker" type="Sprite2D" parent="Rotator"]
 visible = false
 position = Vector2(8, 13)
 texture = ExtResource("7_gponq")
 hframes = 2
 script = ExtResource("8_r54qq")
 
-[node name="SimTileHighlight" type="Sprite2D" parent="."]
+[node name="SimTileHighlight" type="Sprite2D" parent="Rotator"]
 visible = false
 position = Vector2(8, 13)
 texture = ExtResource("4_2lunx")
@@ -63,7 +66,7 @@ vframes = 2
 frame = 3
 script = ExtResource("9_hkio8")
 
-[node name="AdjTileHighlight" type="Sprite2D" parent="."]
+[node name="AdjTileHighlight" type="Sprite2D" parent="Rotator"]
 visible = false
 position = Vector2(8, 13)
 texture = ExtResource("5_b2fx8")
@@ -72,7 +75,7 @@ vframes = 2
 frame = 3
 script = ExtResource("9_hkio8")
 
-[node name="CallTileHighlight" type="Sprite2D" parent="."]
+[node name="CallTileHighlight" type="Sprite2D" parent="Rotator"]
 visible = false
 position = Vector2(8, 13)
 texture = ExtResource("11_7ok0s")

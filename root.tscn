@@ -31,7 +31,6 @@
 [ext_resource type="PackedScene" uid="uid://cpirwiftxeu8s" path="res://purchaseable.tscn" id="21_3mckx"]
 [ext_resource type="Script" path="res://OpenShopButton.gd" id="21_8bhal"]
 [ext_resource type="Script" path="res://NextRoundButton.gd" id="21_roajs"]
-[ext_resource type="PackedScene" uid="uid://dxdkyqgyyijvx" path="res://item.tscn" id="21_sncdg"]
 [ext_resource type="Script" path="res://ScoringRoot.gd" id="21_yhd2i"]
 [ext_resource type="Script" path="res://TileSelect.gd" id="26_gfhhk"]
 [ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="27_waxa7"]
@@ -49,6 +48,7 @@
 [ext_resource type="Script" path="res://AllTilesDisplay.gd" id="43_nbkwc"]
 [ext_resource type="Script" path="res://QuitButton.gd" id="43_uwhsm"]
 [ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="44_cis8i"]
+[ext_resource type="Script" path="res://YakuTab.gd" id="45_rsntb"]
 [ext_resource type="Script" path="res://ScoreTracker.gd" id="50_7li6w"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4okkq"]
@@ -405,26 +405,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 alignment = 2
-
-[node name="Item" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("21_sncdg")]
-layout_mode = 2
-type = 6
-activate_self = true
-
-[node name="Item2" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("21_sncdg")]
-layout_mode = 2
-type = 5
-activate_self = true
-
-[node name="Item3" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("21_sncdg")]
-layout_mode = 2
-type = 9
-activate_self = true
-
-[node name="Item4" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("21_sncdg")]
-layout_mode = 2
-type = 8
-activate_self = true
 
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
 layout_mode = 1
@@ -963,6 +943,7 @@ grow_vertical = 2
 tab_alignment = 1
 
 [node name="Run" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/Run"]
@@ -1076,10 +1057,9 @@ offset_right = 17.0
 offset_bottom = 40.0
 
 [node name="Yaku" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
-visible = false
 layout_mode = 2
 
-[node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/Yaku"]
+[node name="YakuTab" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/Yaku"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1088,107 +1068,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("28_jde07")
 tab_alignment = 1
-
-[node name="1h" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Yaku/TabContainer"]
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Yaku/TabContainer/1h"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-bbcode_enabled = true
-text = "[b]Tanyao[/b]
-No terminals or honors.
-
-[b]Riichi[/b]
-1 tile short of a completed hand. Once entered, hand cannot be modified.
-
-[b]Yakuhai[/b]
-Set or quad of (dragons)/(seat wind)/(prevalent wind). Stacks with self for multiple valid groupings.
-"
-
-[node name="2h" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Yaku/TabContainer"]
-visible = false
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Yaku/TabContainer/2h"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-bbcode_enabled = true
-text = "[b]Have not done this tab lol[/b]
-sample text sample text
-"
-
-[node name="3h" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Yaku/TabContainer"]
-visible = false
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Yaku/TabContainer/3h"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-bbcode_enabled = true
-text = "[b]Have not done this tab lol[/b]
-sample text sample text
-"
-
-[node name="6h" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Yaku/TabContainer"]
-visible = false
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Yaku/TabContainer/6h"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-bbcode_enabled = true
-text = "[b]Have not done this tab lol[/b]
-sample text sample text
-"
-
-[node name="Limit" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Yaku/TabContainer"]
-visible = false
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Yaku/TabContainer/Limit"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-bbcode_enabled = true
-text = "[b]Have not done this tab lol[/b]
-sample text sample text
-"
-
-[node name="Luck" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Yaku/TabContainer"]
-visible = false
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Yaku/TabContainer/Luck"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-bbcode_enabled = true
-text = "[b]Have not done this tab lol[/b]
-sample text sample text
-"
+script = ExtResource("45_rsntb")
 
 [node name="Guide" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
 visible = false

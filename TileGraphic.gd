@@ -1,14 +1,15 @@
 extends Control
 class_name TileGraphic
 
-@onready var sprite = $Sprite2D
-@onready var sides = $Tilesides
-@onready var sim_tile_highlight = $SimTileHighlight
-@onready var adj_tile_highlight = $AdjTileHighlight
-@onready var call_tile_highlight = $CallTileHighlight
-@onready var dora_sprite = $Sprite2D/TileDora
-@onready var flicker = $Flicker
-@onready var custom_overlays = $Sprite2D/CustomOverlays
+@onready var sprite = $Rotator/Sprite2D
+@onready var sides = $Rotator/Tilesides
+@onready var sim_tile_highlight = $Rotator/SimTileHighlight
+@onready var adj_tile_highlight = $Rotator/AdjTileHighlight
+@onready var call_tile_highlight = $Rotator/CallTileHighlight
+@onready var dora_sprite = $Rotator/Sprite2D/TileDora
+@onready var flicker = $Rotator/Flicker
+@onready var custom_overlays = $Rotator/Sprite2D/CustomOverlays
+@onready var rotator = $Rotator
 
 @export var tile_size = Vector2(16,32)
 
@@ -18,7 +19,7 @@ var tile = null
 enum {SIDE_RIGHT, SIDE_TOP, SIDE_LEFT, SIDE_BOT}
 var visible_side = SIDE_BOT
 var _reversed = false
-var _face_upsidedown = false
+var _rotated = false
 
 # hover text name
 @export var verbose = false
@@ -26,6 +27,9 @@ var _face_upsidedown = false
 func _ready():
 	TileGraphicKnower.highlight.connect(self._highlight_requested)
 	TileGraphicKnower.new_dora.connect(self._new_dora)
+	
+	await get_tree().process_frame
+	set_rotated(true)
 
 func assign_tile(t: MTile):
 	if !t:
@@ -59,21 +63,23 @@ func get_tile_segment(t: MTile) -> Rect2:
 	
 	return Rect2(x,y, tile_size.x, tile_size.y)
 
-# -1 to hide entirely
+# -1 to hide entirely. why is it persistent
 func assign_visible_side(side: int):
-	visible_side = side
-	if side == -1:
+	var calc_side = side - int(_rotated)
+	
+	visible_side = calc_side
+	if calc_side == -1:
 		sides.visible = false
 		sim_tile_highlight.frame_coords.x = 4
 		adj_tile_highlight.frame_coords.x = 4
 	elif !_reversed:
-		sides.frame = side
-		sim_tile_highlight.frame_coords.x = side
-		adj_tile_highlight.frame_coords.x = side
+		sides.frame = calc_side
+		sim_tile_highlight.frame_coords.x = calc_side
+		adj_tile_highlight.frame_coords.x = calc_side
 	else:
-		sides.frame = 4 + side
-		sim_tile_highlight.frame_coords.x = side
-		adj_tile_highlight.frame_coords.x = side
+		sides.frame = 4 + calc_side
+		sim_tile_highlight.frame_coords.x = calc_side
+		adj_tile_highlight.frame_coords.x = calc_side
 	
 	
 	sprite.visible = !_reversed
@@ -85,10 +91,14 @@ func set_reversed(rv: bool):
 func get_reversed():
 	return _reversed
 
-func set_rotated(ud: bool):
-	_face_upsidedown = ud
-	sprite.rotation = int(_face_upsidedown) * PI
-	sprite.position = Vector2(16,26) * int(_face_upsidedown)
+# only support 90deg to the right
+func set_rotated(rotated: bool):
+	_rotated = rotated
+	custom_minimum_size = Vector2(16,26).rotated(float(rotated) * -PI/2)
+	rotator.rotation = float(rotated) * PI/2
+	rotator.position.x = 26 * int(rotated)
+	
+	assign_visible_side(visible_side)
 
 signal tile_graphic_clicked
 
