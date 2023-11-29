@@ -66,11 +66,27 @@ const MANGAN_HANS = {
 	11: 6000, # sanbaiman
 	12: 6000, #7000, # sanhanbaiman
 }
+const MANGAN_SMOOTHED = {
+	5: 2500,
+	6: 3000, # haneman
+	7: 3500, # taihanman
+	
+	8: 4000, # baimain
+	9: 4666, # shoubaiman
+	10: 5333, # daibaiman
+	
+	11: 6000, # sanbaiman
+	12: 7000, # sanhanbaiman
+}
 
 func get_base_points():
 	var han = get_total_han()
+	var fu = get_total_fu()
 	
-	var points = int(get_total_fu() * pow(2.0, han + 2.0))
+	return ScoringInfo.base_point_calc(fu, han)
+
+static func base_point_calc(fu: int, han: int):
+	var points = int(fu * pow(2.0, han + 2.0))
 	
 	if points >= 2000:
 		points = 2000
@@ -79,9 +95,8 @@ func get_base_points():
 			points = MANGAN_HANS[han]
 		if han >= 13:
 			#points = 8000 #+ (han-13) * 500
-			points = (int(han/13)+1) * 8000
-		
-		
+			points = (int(han/13)) * 8000
+	
 	return points
 
 func pinfu_check():

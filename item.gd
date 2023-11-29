@@ -213,7 +213,7 @@ func tile_valid(tile: MTile):
 			if tile.suit != MTile.SUITS.MAN:
 				return false
 		TYPES.DRAGON_CYCLE:
-			if tile.suit != MTile.SUITS.SPECIAL or !MTile.DRAGONS.has(tile.value):
+			if tile.suit != MTile.SUITS.SPECIAL or !MTile.BASIC_DRAGONS.has(tile.value):
 				return false
 	return true
 

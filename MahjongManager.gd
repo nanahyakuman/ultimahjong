@@ -281,7 +281,7 @@ func _draw_hand():
 	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 	temp.append(MTile.new(MTile.SUITS.MAN, 2))
 	temp.append(MTile.new(MTile.SUITS.MAN, 3))
-	temp.append(MTile.new(MTile.SUITS.MAN, 4))
+	temp.append(MTile.new(MTile.SUITS.SOU, 1))
 	
 
 	if temp:

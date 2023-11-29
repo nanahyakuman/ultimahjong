@@ -218,22 +218,22 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 				if g.type == Grouping.SET:
 					if MTile.NUMERALS.has(g.tiles[0].suit):
 						if g.tiles[0].value == 1 or g.tiles[0].value == 9:
-							terminal_sets += g
+							terminal_sets.append(g)
 					else:
-						honor_sets += g
+						honor_sets.append(g)
 						if MTile.DRAGONS.has(g.tiles[0].value):
 							sangen_count += 1
 				elif g.type == Grouping.RUN:
 					# this is implicit
 					#if MTile.NUMERALS.has(g.tiles[0].suit):
 					if g.tiles[0].value == 1 or g.tiles[0].value == 7:
-						terminal_runs += g
+						terminal_sets.append(g)
 				elif g.type == Grouping.PAIR:
 					if MTile.NUMERALS.has(g.tiles[0].suit):
 						if g.tiles[0].value == 1 or g.tiles[0].value == 9:
-							terminal_pairs += g
+							terminal_sets.append(g)
 					else:
-						honor_pairs += g
+						honor_pairs.append(g)
 						if MTile.DRAGONS.has(g.tiles[0].value):
 							gen_pairs += 1
 			
@@ -241,14 +241,14 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			if terminal_pairs.size() + terminal_sets.size() == groupings.size():
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Chinroutou"])
 			# all honors:
-			if honor_pairs.size() + honor_sets.size() == groupings.size():
+			elif honor_pairs.size() + honor_sets.size() == groupings.size():
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Tsuuiisou"])
 			# all terminals/honors
-			elif terminal_pairs.size() + terminal_sets.size() + honor_sets.size() + honor_pairs.size():
+			elif terminal_pairs.size() + terminal_sets.size() + honor_sets.size() + honor_pairs.size() == groupings.size():
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Honroutou"])
-			elif terminal_pairs.size() + terminal_sets.size() + terminal_runs.size():
+			elif terminal_pairs.size() + terminal_sets.size() + terminal_runs.size() == groupings.size():
 				scoring_info.hans.append(ALL_YAKU.YAKUS[("" if not is_open else "Open ") + "Junchan"])
-			elif terminal_pairs.size() + terminal_sets.size() + honor_sets.size() + honor_pairs.size() + terminal_runs.size():
+			elif terminal_pairs.size() + terminal_sets.size() + honor_sets.size() + honor_pairs.size() + terminal_runs.size() == groupings.size():
 				scoring_info.hans.append(ALL_YAKU.YAKUS[("" if not is_open else "Open ") + "Chanta"])
 			
 			# sangen
