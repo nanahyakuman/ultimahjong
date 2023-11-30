@@ -27,7 +27,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 	# determine openness
 	var is_open = false
 	for g in hand_info.already_made_groupings:
-		if g.open:
+		if g.is_open():
 			is_open = true
 			break
 	
@@ -470,7 +470,7 @@ func get_fu(groupings: Array, doras: Array, waited_tile: MTile):
 	
 	for g in groupings:
 		if g.type == Grouping.RUN:
-			if g.open:
+			if g.is_open():
 				fus.append(ALL_YAKU.FU["Open Run"].duplicate())
 			else:
 				fus.append(ALL_YAKU.FU["Closed Run"].duplicate())
@@ -488,7 +488,7 @@ func get_fu(groupings: Array, doras: Array, waited_tile: MTile):
 #				if get_yakuhai_vals().has(g.tiles[0].value):
 #					nam = "Yakuhai "
 			
-			if g.open:
+			if g.is_open():
 				nam = nam + "Open "
 			else:
 				nam = nam + "Closed "

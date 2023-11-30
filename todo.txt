@@ -68,6 +68,8 @@ new tile manager broke some things
 		addtile purchaseable getting illegal tiles again. ?157p
 yaku display, fu no gotoku
 get_terminals function
+id like called chiis to be shaped accurately, may have to retroactively split the
+	group up when you call it so the ordering is correct.
 
 
 meta:

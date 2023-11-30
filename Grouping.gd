@@ -8,7 +8,8 @@ var type = NONE
 #  tiles MUST be sorted!!! as a result, a `RUN` with a 2s in `tiles[0]` is implicitly
 # a 234s
 var tiles = []
-var open = false
+# -1 means closed, +0123 means opened on that tile
+var open_tile: int = -1
 
 func _init(typ: int, ts: Array):
 	type = typ
@@ -23,3 +24,6 @@ func print_self():
 	for t in tiles:
 		str += t.get_name() + " "
 	print(str)
+
+func is_open() -> bool:
+	return open_tile >= 0

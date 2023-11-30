@@ -628,9 +628,7 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 		
 		# closed kan stay closed
 		if bitmask != CALL_BITMASK.CLOSED_KAN:
-			new_grouping.open = true
-		else:
-			new_grouping.open = false
+			new_grouping.open_tile = 0
 		called_hand = [new_grouping] + called_hand
 		gui_manager.update_opp_discard(opp_discard)
 		gui_manager.update_hand(hand)
@@ -896,7 +894,7 @@ func get_hand_info() -> HandInformation:
 
 func hand_is_open():
 	for g in called_hand:
-		if g.open:
+		if g.is_open():
 			return true
 	return false
 

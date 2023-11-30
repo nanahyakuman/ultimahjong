@@ -54,7 +54,7 @@ func update_made_calls(groupings: Array):
 	for i in groupings.size():
 		while made_calls.get_child_count() <= i:
 			made_calls.add_child(HBoxContainer.new())
-		_update_node(made_calls.get_child(i), groupings[i].tiles, null, TileGraphic.SIDE_BOT, -1, !groupings[i].open, groupings[i].open)
+		_update_node(made_calls.get_child(i), groupings[i].tiles, null, TileGraphic.SIDE_BOT, -1, !groupings[i].is_open(), groupings[i].is_open())
 	for i in range(groupings.size(), made_calls.get_child_count()):
 		_update_node(made_calls.get_child(i), [])
 
