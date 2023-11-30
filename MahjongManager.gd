@@ -171,19 +171,19 @@ func _draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 
-	temp.append(MTile.new(MTile.SUITS.SOU, 1))
-	temp.append(MTile.new(MTile.SUITS.SOU, 1))
-	temp.append(MTile.new(MTile.SUITS.SOU, 1))
-	temp.append(MTile.new(MTile.SUITS.SOU, 2))
-	temp.append(MTile.new(MTile.SUITS.SOU, 3))
-	temp.append(MTile.new(MTile.SUITS.SOU, 4))
-	temp.append(MTile.new(MTile.SUITS.SOU, 5))
-	temp.append(MTile.new(MTile.SUITS.SOU, 6))
-	temp.append(MTile.new(MTile.SUITS.SOU, 7))
-	temp.append(MTile.new(MTile.SUITS.SOU, 8))
-	temp.append(MTile.new(MTile.SUITS.SOU, 9))
-	temp.append(MTile.new(MTile.SUITS.SOU, 9))
-	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 2))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 3))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 4))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 5))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 6))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 7))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 8))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
 #
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
@@ -629,6 +629,7 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 		# closed kan stay closed
 		if bitmask != CALL_BITMASK.CLOSED_KAN:
 			new_grouping.open_tile = 0
+			new_grouping.player_taken_from_offset = remaining_opp_discards
 		called_hand = [new_grouping] + called_hand
 		gui_manager.update_opp_discard(opp_discard)
 		gui_manager.update_hand(hand)

@@ -51,8 +51,13 @@ func assign_tile(t: MTile):
 func get_tile_segment(t: MTile) -> Rect2:
 	var x = (t.value-1) * tile_size.x
 	var y = roundi(log(t.suit)/log(2)) * tile_size.y
-	if tile.aka:
+	if tile.color == MTile.COL_AKA:
 		y += tile_size.y * 5
+	elif tile.color == MTile.COL_AO:
+		x += tile_size.x * 10
+	elif tile.color == MTile.COL_KIN:
+		y += tile_size.y * 5
+		x += tile_size.x * 10
 	
 	# this texture is only visible if you messed up somehow
 	if t.suit == MTile.SUITS.NONE or t.value == 0:
@@ -65,8 +70,8 @@ func get_tile_segment(t: MTile) -> Rect2:
 func assign_visible_side(side: int):
 	var calc_side = side + (int(_rotated) * -3)
 	
-	visible_side = calc_side
-	if calc_side == -1:
+	visible_side = side
+	if visible_side == -1:
 		sides.visible = false
 		sim_tile_highlight.frame_coords.x = 4
 		adj_tile_highlight.frame_coords.x = 4
@@ -94,7 +99,7 @@ func set_rotated(rotated: bool):
 	_rotated = rotated
 	custom_minimum_size = Vector2(16,26).rotated(float(rotated) * -PI/2)
 	rotator.rotation = float(rotated) * PI/2
-	rotator.position.x = 26 * int(rotated)
+	rotator.position = Vector2(26,10) * int(rotated)
 	
 	assign_visible_side(visible_side)
 

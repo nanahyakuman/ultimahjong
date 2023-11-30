@@ -54,7 +54,7 @@ func update_made_calls(groupings: Array):
 	for i in groupings.size():
 		while made_calls.get_child_count() <= i:
 			made_calls.add_child(HBoxContainer.new())
-		_update_node(made_calls.get_child(i), groupings[i].tiles, null, TileGraphic.SIDE_BOT, -1, !groupings[i].is_open(), groupings[i].is_open())
+		_update_node(made_calls.get_child(i), groupings[i].tiles, null, TileGraphic.SIDE_BOT, -1, !groupings[i].is_open(), groupings[i].player_taken_from_offset)
 	for i in range(groupings.size(), made_calls.get_child_count()):
 		_update_node(made_calls.get_child(i), [])
 
@@ -65,7 +65,7 @@ func update_tile_select(tiles: Array):
 #  returns the final updated visible node. has a lot of weird args, note 
 # that of `reverse_count`, `closed`, and `update_last`, only 1 should ever
 # be set.
-func _update_node(node: Node, tiles: Array, connector_node: Node = null, visible_side: int = TileGraphic.SIDE_BOT, reverse_count: int = -1, closed: bool = false, rotate_last: bool = false):
+func _update_node(node: Node, tiles: Array, connector_node: Node = null, visible_side: int = TileGraphic.SIDE_BOT, reverse_count: int = -1, closed: bool = false, rotate_tile: int = -1):
 	var existing_count = node.get_child_count()
 	var ret = null
 	for t in tiles.size():
@@ -89,7 +89,7 @@ func _update_node(node: Node, tiles: Array, connector_node: Node = null, visible
 			node.get_child(-1).set_reversed(true)
 		#rotate open tiles
 		for t in node.get_child_count():
-			node.get_child(t).set_rotated(rotate_last and t == 0)
+			node.get_child(t).set_rotated(t == rotate_tile)
 		
 		for t in range(tiles.size(), existing_count):
 			node.get_child(t).visible = false

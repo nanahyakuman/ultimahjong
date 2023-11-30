@@ -101,7 +101,7 @@ static func base_point_calc(fu: int, han: int):
 
 func pinfu_check():
 	for f in fus:
-		if f.fu > 0 and !["Base", "Kan Dora", "Ura Dora", "Aka Dora", "Menzenkafu"].has(f.nam):
+		if f.fu > 0 and !["Base", "Ao Dora", "Menzenkafu"].has(f.nam):
 			return false
 	return true
 

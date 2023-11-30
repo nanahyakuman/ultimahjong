@@ -10,6 +10,9 @@ var type = NONE
 var tiles = []
 # -1 means closed, +0123 means opened on that tile
 var open_tile: int = -1
+#  -1 is def, 0 is left, 1 is across, 2 is right. this only relly matters for chi
+# shaping lol
+var player_taken_from_offset: int = -1
 
 func _init(typ: int, ts: Array):
 	type = typ

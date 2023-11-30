@@ -15,8 +15,10 @@ func initialize(character_info: CharacterInfo):
 					for k in 4:
 						var a = MTile.new(i,j+1)
 						tile_data.append(a)
-					if j == 4:
-						tile_data[-4].aka = true
+					if j+1 == 5:
+						tile_data[-4].color = MTile.COL_AKA
+					if j+1 == 3:
+						tile_data[-4].color = MTile.COL_AO
 			
 			for i in MTile.DEF_SPECIALS:
 				for k in 4:
@@ -39,7 +41,7 @@ func initialize(character_info: CharacterInfo):
 						var a = MTile.new(i,j+1)
 						tile_data.append(a)
 					if j == 4:
-						tile_data[-4].aka = true
+						tile_data[-4].color = MTile.COL_AKA
 			
 			for i in MTile.DEF_SPECIALS:
 				for k in 4:

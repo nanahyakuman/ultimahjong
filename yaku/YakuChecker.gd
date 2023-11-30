@@ -293,7 +293,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 				all_tiles.append(t)
 		if doras.size() > 0:
 			for t in all_tiles:
-				if t.aka:
+				if t.color == MTile.COL_AKA:
 					append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Aka Dora"])
 				if doras[0].has(t.get_id()):
 					append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kan Dora"])
@@ -525,17 +525,10 @@ func get_fu(groupings: Array, doras: Array, waited_tile: MTile):
 	if award_wait_fu:
 		fus.append(ALL_YAKU.FU["1-sided Wait"].duplicate())
 	
-	#  doras is and array of arrays of MTile ids, seperated into front and ura.
-	# moved back to be han-scoring
-#	if doras.size() > 0:
-#		for g in groupings:
-#			for t in g.tiles:
-#				if doras[0].has(t.get_id()):
-#					fus.append(ALL_YAKU.FU["Kan Dora"])
-#				if doras[1].has(t.get_id()):
-#					fus.append(ALL_YAKU.FU["Ura Dora"])
-#				if t.aka:
-#					fus.append(ALL_YAKU.FU["Aka Dora"])
+	for g in groupings:
+		for t in g.tiles:
+			if t.color == MTile.COL_AO:
+				fus.append(ALL_YAKU.FU["Ao Dora"].duplicate())
 	
 	
 	return fus
