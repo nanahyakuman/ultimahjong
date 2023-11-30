@@ -21,7 +21,6 @@ offset_bottom = 25.0
 script = ExtResource("1_w2ft1")
 
 [node name="Rotator" type="Node2D" parent="."]
-rotation = 1.5708
 
 [node name="Tilesides" type="Sprite2D" parent="Rotator"]
 position = Vector2(8, 13)

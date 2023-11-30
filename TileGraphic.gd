@@ -19,7 +19,7 @@ var tile = null
 enum {SIDE_RIGHT, SIDE_TOP, SIDE_LEFT, SIDE_BOT}
 var visible_side = SIDE_BOT
 var _reversed = false
-var _rotated = false
+var _rotated: bool = false
 
 # hover text name
 @export var verbose = false
@@ -28,8 +28,6 @@ func _ready():
 	TileGraphicKnower.highlight.connect(self._highlight_requested)
 	TileGraphicKnower.new_dora.connect(self._new_dora)
 	
-	await get_tree().process_frame
-	set_rotated(true)
 
 func assign_tile(t: MTile):
 	if !t:
@@ -63,9 +61,9 @@ func get_tile_segment(t: MTile) -> Rect2:
 	
 	return Rect2(x,y, tile_size.x, tile_size.y)
 
-# -1 to hide entirely. why is it persistent
+# -1 to hide entirely.
 func assign_visible_side(side: int):
-	var calc_side = side - int(_rotated)
+	var calc_side = side + (int(_rotated) * -3)
 	
 	visible_side = calc_side
 	if calc_side == -1:

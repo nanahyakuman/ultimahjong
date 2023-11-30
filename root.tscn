@@ -943,7 +943,6 @@ grow_vertical = 2
 tab_alignment = 1
 
 [node name="Run" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/Run"]
@@ -1057,6 +1056,7 @@ offset_right = 17.0
 offset_bottom = 40.0
 
 [node name="Yaku" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="YakuTab" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/Yaku"]

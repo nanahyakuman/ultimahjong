@@ -54,15 +54,18 @@ func update_made_calls(groupings: Array):
 	for i in groupings.size():
 		while made_calls.get_child_count() <= i:
 			made_calls.add_child(HBoxContainer.new())
-		
-		_update_node(made_calls.get_child(i), groupings[i].tiles, null, TileGraphic.SIDE_BOT, -1, !groupings[i].open)
+		_update_node(made_calls.get_child(i), groupings[i].tiles, null, TileGraphic.SIDE_BOT, -1, !groupings[i].open, groupings[i].open)
+	for i in range(groupings.size(), made_calls.get_child_count()):
+		_update_node(made_calls.get_child(i), [])
 
 # called by items
 func update_tile_select(tiles: Array):
 	_update_node(popup_tile_selector, tiles, popup_tile_selector_call_root, TileGraphic.SIDE_BOT)
 
-# returns the final updated visible node
-func _update_node(node: Node, tiles: Array, connector_node: Node = null, visible_side: int = TileGraphic.SIDE_BOT, reverse_count: int = -1, closed: bool = false):
+#  returns the final updated visible node. has a lot of weird args, note 
+# that of `reverse_count`, `closed`, and `update_last`, only 1 should ever
+# be set.
+func _update_node(node: Node, tiles: Array, connector_node: Node = null, visible_side: int = TileGraphic.SIDE_BOT, reverse_count: int = -1, closed: bool = false, rotate_last: bool = false):
 	var existing_count = node.get_child_count()
 	var ret = null
 	for t in tiles.size():
@@ -78,13 +81,18 @@ func _update_node(node: Node, tiles: Array, connector_node: Node = null, visible
 			curr.visible = true
 			ret = curr
 	
-	# highlight closed tiles
-	if closed:
-		node.get_child(0).set_reversed(true)
-		node.get_child(-1).set_reversed(true)
-	
-	for t in range(tiles.size(), existing_count):
-		node.get_child(t).visible = false
+	# closing and highlighting for called sets
+	if node.get_child_count():
+		# highlight closed tiles
+		if closed:
+			node.get_child(0).set_reversed(true)
+			node.get_child(-1).set_reversed(true)
+		#rotate open tiles
+		for t in node.get_child_count():
+			node.get_child(t).set_rotated(rotate_last and t == 0)
+		
+		for t in range(tiles.size(), existing_count):
+			node.get_child(t).visible = false
 	
 	return ret
 
