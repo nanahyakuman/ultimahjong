@@ -4,22 +4,28 @@ class_name ScoringInfo
 class Han:
 	var nam: String = ""
 	var han: int = 0
+	#  0 means no penalty, (n >= han) means closed only, any other
+	# integer (only ever 1 in base mahjong) is a penalty.
+	#  note that yakuchecker has seperate hardcoded checks for openness atm
+	var open_penalty: int = 0
 	var desc: String = ""
-	var count: int = 1 # for things like dora that can be
-	# obtained multiple times
+	#  for things like dora or yakuhai that can be obtained multiple times. only
+	# really used to clean up the scoring display.
+	var count: int = 1
 	
 	func compare(a: Han, b: Han):
 		if a.han < b.han:
 			return true
 		return false
 	
-	func _init(_name: String, _han: int, _desc: String):
+	func _init(_name: String, _han: int, _penalty: int, _desc: String):
 		nam = _name
 		han = _han
+		open_penalty = _penalty
 		desc = _desc
 	
 	func duplicate():
-		return Han.new(nam, han, desc)
+		return Han.new(nam, han, open_penalty, desc)
 
 class Fu:
 	var nam: String = ""
@@ -37,14 +43,15 @@ class Fu:
 
 
 
-
+var open = false
 var fus = []
 var hans = []
 
 func get_total_han() -> int:
 	var ret = 0
 	for h in hans:
-		ret += h.han * h.count
+		# take open penalties into account
+		ret += h.han - maxi(0, (h.open_penalty * int(open))) * h.count
 	return ret
 
 func get_total_fu() -> int:
@@ -53,7 +60,7 @@ func get_total_fu() -> int:
 		ret += f.fu
 		if f.nam == "Chiitoitsu":
 			return 25
-	return round_to_place(ret, 10)
+	return ret
 
 const MANGAN_HANS = {
 	6: 3000, # haneman
@@ -79,14 +86,16 @@ const MANGAN_SMOOTHED = {
 	12: 7000, # sanhanbaiman
 }
 
+#  using alt rn. to canonize, formally remove futei and set
+# menzentsumo to 8
 func get_base_points():
 	var han = get_total_han()
 	var fu = get_total_fu()
 	
-	return ScoringInfo.base_point_calc(fu, han)
+	return ScoringInfo._base_point_calc(fu, han)
 
-static func base_point_calc(fu: int, han: int):
-	var points = int(fu * pow(2.0, han + 2.0))
+static func _base_point_calc(fu: int, han: int):
+	var points = int(round_to_place(fu,10) * pow(2.0, han + 2.0))
 	
 	if points >= 2000:
 		points = 2000
@@ -99,6 +108,23 @@ static func base_point_calc(fu: int, han: int):
 	
 	return points
 
+
+static func _alt_points_count(fu: int, han: int):
+	var base = 250
+	#offset futei
+	base += floor_to_place(fu-20, 10) * 10
+	base *= pow(2, han-1)
+	
+	if base > 2000:
+		base = 2000
+		
+		if han >= 5:
+			base = han * 500
+		if han >= 11:
+			base = 5000 + (han-10) * 1000
+	
+	return base
+
 func pinfu_check():
 	for f in fus:
 		if f.fu > 0 and !["Base", "Ao Dora", "Menzenkafu"].has(f.nam):
@@ -107,3 +133,6 @@ func pinfu_check():
 
 static func round_to_place(val, place: int) -> int:
 	return ceili(val / float(place)) * place
+
+static func floor_to_place(val, place: int) -> int:
+	return floori(val / float(place)) * place

@@ -24,7 +24,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 	# get maximal hands, run based and set based
 	var groupingss = [_get_maximal_groupings(remaining_hand,false),_get_maximal_groupings(remaining_hand,true)]
 	
-	# determine openness
+	# determine openness. not used much anymore.
 	var is_open = false
 	for g in hand_info.already_made_groupings:
 		if g.is_open():
@@ -74,7 +74,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			
 			
 			## LUCK-BASED (that `MahjongManager` doesn't already deal with)
-			if !is_open and is_tsumo:
+			if is_tsumo:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Menzentsumo"])
 			
 			
@@ -89,14 +89,14 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 							append_or_merge_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Yakuhai"])
 			
 			# tanyao
-			if !is_open:
-				var tanyao = true
-				for g in groupings:
-					for t in g.tiles:
-						if t.suit == MTile.SUITS.SPECIAL or t.value == 1 or t.value == 9:
-							tanyao = false
-				if tanyao:
-					scoring_info.hans.append(ALL_YAKU.YAKUS["Tan'yao"])
+			#if !is_open:
+			var tanyao = true
+			for g in groupings:
+				for t in g.tiles:
+					if t.suit == MTile.SUITS.SPECIAL or t.value == 1 or t.value == 9:
+						tanyao = false
+			if tanyao:
+				scoring_info.hans.append(ALL_YAKU.YAKUS["Tan'yao"])
 			
 			
 			## PAIR-BASED YAKU (the only one)
@@ -114,7 +114,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 				var hidden_count = 0
 				var kan_count = 0
 				for s in sets:
-					if !s.open:
+					if !s.is_open():
 						hidden_count += 1
 					if s.tiles.size() == 4:
 						kan_count += 1
@@ -139,15 +139,14 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			## RUN-BASED YAKU (note all require at least 2 runs)
 			if runs.size() >= 2:
 				# 1/2peikou
-				if !is_open:
-					var run_dupe_count = 0
-					for d in duplicates:
-						if duplicates[0].type == Grouping.RUN:
-							run_dupe_count += 1
-					if run_dupe_count == 1:
-						scoring_info.hans.append(ALL_YAKU.YAKUS["Iipeikou"])
-					if run_dupe_count > 1:
-						scoring_info.hans.append(ALL_YAKU.YAKUS["Ryanpeikou"])
+				var run_dupe_count = 0
+				for d in duplicates:
+					if duplicates[0].type == Grouping.RUN:
+						run_dupe_count += 1
+				if run_dupe_count == 1:
+					scoring_info.hans.append(ALL_YAKU.YAKUS["Iipeikou"])
+				if run_dupe_count > 1:
+					scoring_info.hans.append(ALL_YAKU.YAKUS["Ryanpeikou"])
 				
 				if runs.size() >= 3:
 					# ittsuu
@@ -159,7 +158,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 								itsuu_suits[g.tiles[0].suit] |= int(pow(2,index))
 					for s in itsuu_suits.keys():
 						if itsuu_suits[s] == 7:
-							scoring_info.hans.append(ALL_YAKU.YAKUS["Open Ittsuu" if is_open else "Ittsuu"])
+							scoring_info.hans.append(ALL_YAKU.YAKUS["Ittsuu"])
 					
 					# sanshoku
 					# works similar to itsuu, but by val instead of suit
@@ -170,7 +169,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 						sanshoku_vals[g.tiles[0].value] |= g.tiles[0].suit
 					for v in sanshoku_vals.keys():
 						if sanshoku_vals[v] == 7:
-							scoring_info.hans.append(ALL_YAKU.YAKUS["Open Sanshoku" if is_open else "Sanshoku Doujun"])
+							scoring_info.hans.append(ALL_YAKU.YAKUS["Sanshoku Doujun"])
 			
 			
 			## SUIT-BASED YAKU
@@ -201,9 +200,9 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 						is_full = false
 				
 				if is_full:
-					scoring_info.hans.append(ALL_YAKU.YAKUS[("" if not is_open else "Open ") + "Chin'itsu"])
+					scoring_info.hans.append(ALL_YAKU.YAKUS["Chin'itsu"])
 				elif is_half:
-					scoring_info.hans.append(ALL_YAKU.YAKUS[("" if not is_open else "Open ") + "Hon'itsu"])
+					scoring_info.hans.append(ALL_YAKU.YAKUS["Hon'itsu"])
 			
 			
 			## TERMINAL-BASED YAKU
@@ -247,9 +246,9 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			elif terminal_pairs.size() + terminal_sets.size() + honor_sets.size() + honor_pairs.size() == groupings.size():
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Honroutou"])
 			elif terminal_pairs.size() + terminal_sets.size() + terminal_runs.size() == groupings.size():
-				scoring_info.hans.append(ALL_YAKU.YAKUS[("" if not is_open else "Open ") + "Junchan"])
+				scoring_info.hans.append(ALL_YAKU.YAKUS["Junchan"])
 			elif terminal_pairs.size() + terminal_sets.size() + honor_sets.size() + honor_pairs.size() + terminal_runs.size() == groupings.size():
-				scoring_info.hans.append(ALL_YAKU.YAKUS[("" if not is_open else "Open ") + "Chanta"])
+				scoring_info.hans.append(ALL_YAKU.YAKUS["Chanta"])
 			
 			# sangen
 			if sangen_count >= 3:
@@ -269,13 +268,13 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 					if is_tsumo:
 						scoring_info.fus.insert(1, ALL_YAKU.FU["Tsumo"].duplicate())
 					
-					#mezenka
+					#menzenka
 					if !is_open and !is_tsumo:
 						scoring_info.fus.insert(1, ALL_YAKU.FU["Menzenkafu"].duplicate())
 				
 			
 			# sneak pinfu in here
-			if !is_open and scoring_info.pinfu_check():
+			if scoring_info.pinfu_check():
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Pinfu"])
 			
 			
@@ -300,6 +299,8 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 				if !is_open and doras[1].has(t.get_id()):
 					append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Ura Dora"])
 				
+	
+	max.open = is_open
 	
 	return max
 

@@ -17,8 +17,8 @@ func initialize(character_info: CharacterInfo):
 						tile_data.append(a)
 					if j+1 == 5:
 						tile_data[-4].color = MTile.COL_AKA
-					if j+1 == 3:
-						tile_data[-4].color = MTile.COL_AO
+#					if j+1 == 3:
+#						tile_data[-4].color = MTile.COL_AO
 			
 			for i in MTile.DEF_SPECIALS:
 				for k in 4:
@@ -47,6 +47,17 @@ func initialize(character_info: CharacterInfo):
 				for k in 4:
 					var a = MTile.new(MTile.SUITS.SPECIAL, i)
 					tile_data.append(a)
+		
+		
+		#no honors
+		character_info.NO_HONORS:
+			for i in [MTile.SUITS.MAN, MTile.SUITS.PIN, MTile.SUITS.SOU, MTile.SUITS.CHO]:
+				for j in 9:
+					for k in 4:
+						var a = MTile.new(i,j+1)
+						tile_data.append(a)
+					if j+1 == 5:
+						tile_data[-4].color = MTile.COL_AKA
 	
 #	for i in 8:
 #		tile_data.append(MTile.new(MTile.SUITS.FLOWER, i+1))

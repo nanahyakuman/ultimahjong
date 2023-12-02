@@ -56,7 +56,6 @@ var met_yaku: ScoringInfo
 var tile_select_requestor_node = null
 var remove_from_hand_on_selection = null
 
-
 func initialize(ch: CharacterInfo):
 	character_info = ch
 	tile_counter.initialize(character_info)
@@ -829,7 +828,7 @@ func _end_round(win_is_tsumo_not_ron = false):
 	if ippatsu_counter >= 0:
 		met_yaku.hans.append(ALL_YAKU.YAKUS["Ippatsu"])
 	if wall.size() == 0:
-		met_yaku.hans.append(ALL_YAKU.YAKUS["Suitei"])
+		met_yaku.hans.append(ALL_YAKU.YAKUS["Haitei"])
 	if was_last_draw_from_dead_wall:
 		met_yaku.hans.append(ALL_YAKU.YAKUS["Rinshan"])
 	

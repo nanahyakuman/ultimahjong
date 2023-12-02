@@ -8,7 +8,7 @@
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ynvop"]
 content_margin_top = 2.0
 content_margin_right = 2.0
-content_margin_bottom = 0.0
+content_margin_bottom = 3.0
 texture = ExtResource("2_bpcis")
 texture_margin_left = 3.0
 texture_margin_top = 3.0
@@ -26,7 +26,7 @@ axis_stretch_vertical = 1
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xpi56"]
 content_margin_top = 2.0
-content_margin_bottom = 0.0
+content_margin_bottom = 3.0
 texture = ExtResource("2_bpcis")
 texture_margin_left = 3.0
 texture_margin_top = 3.0

@@ -11,7 +11,7 @@ func _ready():
 	await get_tree().process_frame
 	
 	var character_info = CharacterInfo.new()
-	character_info.set_type(character_info.REGULAR)
+	character_info.set_type(character_info.SANMA)
 	
 	start_game(character_info)
 

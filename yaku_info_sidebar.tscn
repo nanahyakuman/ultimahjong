@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://rb85jd55olq5"]
+
+[ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="1_m2kay"]
+[ext_resource type="Script" path="res://yaku_info_sidebar.gd" id="1_wqere"]
+[ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="2_mlqvd"]
+
+[node name="YakuInfoSidebar" type="HBoxContainer"]
+offset_right = 240.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+theme = ExtResource("1_m2kay")
+script = ExtResource("1_wqere")
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_mlqvd")
+text = "Sample Yaku"
+
+[node name="ClosedLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.666667, 1)
+text = "(Closed Only) "
+
+[node name="HanLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_mlqvd")
+text = "[6]"
+
+[node name="DescLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "yaku description!!!!!!"
+autowrap_mode = 3
+
+[node name="Control2" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="Control2" type="Control" parent="."]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2

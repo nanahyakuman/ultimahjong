@@ -3,7 +3,7 @@
 extends Node
 class_name CharacterInfo
 
-enum {REGULAR, SANMA}
+enum {REGULAR, SANMA, NO_HONORS}
 
 # use set_type onegaishimasu, the rest will follow
 var type: int
@@ -37,6 +37,7 @@ func set_type(ty:int):
 			expected_points_mod_mod = 500
 			
 			number_of_rounds = 16
+			
 		SANMA:
 			type = SANMA
 			dead_wall_size = 20
@@ -50,3 +51,17 @@ func set_type(ty:int):
 			expected_points_mod_mod = 500
 			
 			number_of_rounds = 18
+		
+		NO_HONORS:
+			type = NO_HONORS
+			dead_wall_size = 20
+			discard_count = 3
+			valid_seats = 4
+			opponents_its_legal_to_chii_from_count = 1
+			
+			base_score = 2000
+			base_expected_points = 0
+			base_expected_points_mod = 0
+			expected_points_mod_mod = 500
+			
+			number_of_rounds = 16
