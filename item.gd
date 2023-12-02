@@ -174,7 +174,7 @@ func _use():
 			
 			var tsumo = mahjong_manager.tsumo
 			
-			if ![MTile.SUITS.MAN, MTile.SUITS.PIN, MTile.SUITS.SOU].has(tsumo.suit):
+			if !MTile.NUMERALS.has(tsumo.suit):
 				return
 			
 			var tile_vals = [tsumo.value-3, tsumo.value+3]

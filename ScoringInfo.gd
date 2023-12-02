@@ -9,6 +9,8 @@ class Han:
 	#  note that yakuchecker has seperate hardcoded checks for openness atm
 	var open_penalty: int = 0
 	var desc: String = ""
+	# visual aid for yaku. uses the colored tiles font expecting unicode mahj tiles.
+	var graphic_desc: String = ""
 	#  for things like dora or yakuhai that can be obtained multiple times. only
 	# really used to clean up the scoring display.
 	var count: int = 1
@@ -18,14 +20,15 @@ class Han:
 			return true
 		return false
 	
-	func _init(_name: String, _han: int, _penalty: int, _desc: String):
+	func _init(_name: String, _han: int, _penalty: int, _desc: String, _graphic_desc: String = ""):
 		nam = _name
 		han = _han
 		open_penalty = _penalty
 		desc = _desc
+		graphic_desc = _graphic_desc
 	
 	func duplicate():
-		return Han.new(nam, han, open_penalty, desc)
+		return Han.new(nam, han, open_penalty, desc, graphic_desc)
 
 class Fu:
 	var nam: String = ""

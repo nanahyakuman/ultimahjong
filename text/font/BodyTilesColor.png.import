@@ -1,0 +1,21 @@
+[remap]
+
+importer="font_data_image"
+type="FontFile"
+uid="uid://bian1q53chnum"
+path="res://.godot/imported/BodyTilesColor.png-b9806b1a05d0042aca156516cb31dff6.fontdata"
+
+[deps]
+
+source_file="res://text/font/BodyTilesColor.png"
+dest_files=["res://.godot/imported/BodyTilesColor.png-b9806b1a05d0042aca156516cb31dff6.fontdata"]
+
+[params]
+
+character_ranges=PackedStringArray("126976-127022", "32")
+columns=16
+rows=4
+image_margin=Rect2i(0, 0, 0, 0)
+character_margin=Rect2i(0, 0, 0, 0)
+fallbacks=[]
+compress=true

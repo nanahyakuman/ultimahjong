@@ -71,13 +71,19 @@ get_terminals function
 id like called chiis to be shaped accurately, may have to retroactively split the
 	group up when you call it so the ordering is correct.
 kindora worth 1200pts flat?
-
+yakuahai 2 aka dora 2 was only worth 2 han
+calliing a chi appears to have de-aka'd a 5
+call label text vcentering
 
 meta:
 	finish scoring!!
 		open set on calls
 		fix chiitoi scanning
 		the rest of the yaku
+	
+	finish yaku descriptions
+		write text for every yaku
+		add examples for every yaku
 
 music
 	just make like 4~8 tracksets

@@ -1,6 +1,5 @@
 extends TabContainer
 
-@onready var tab_container = $TabContainer
 @onready var mahjong_manager = %MahjongManager
 @onready var ALL_YAKU = mahjong_manager.ALL_YAKU
 

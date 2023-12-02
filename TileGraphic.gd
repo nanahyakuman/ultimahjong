@@ -142,13 +142,13 @@ func _highlight_requested(id: int, adjs: Array, val: bool):
 			flicker.visible = val
 			return
 		# left or right visibility
-		var find = adjs.find(tile.get_id())
-		if find != -1:
-			adj_tile_highlight.visible = val
-			adj_tile_highlight.scale.x = 1-(find*2)
-			adj_tile_highlight.position.x = 8-find
-			#flicker.visible = val
-			
+#		var find = adjs.find(tile.get_id())
+#		if find != -1:
+#			adj_tile_highlight.visible = val
+#			adj_tile_highlight.scale.x = 1-(find*2)
+#			adj_tile_highlight.position.x = 8-find
+#			#flicker.visible = val
+#
 
 func direct_request_highlight(val: bool):
 	call_tile_highlight.visible = val

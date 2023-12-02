@@ -6,8 +6,8 @@ extends Node
 var YAKUS = {
 	"SPACER_1": "Special",
 	"Riichi": ScoringInfo.Han.new("Riichi", 1, 1, "RIICHI_DESC!!"),
-	"Double Riichi": ScoringInfo.Han.new("Double Riichi", 2, 2, "D_RIICHI_DESC!!"),
-	"Ippatsu": ScoringInfo.Han.new("Ippatsu", 1, 1, "IIPS_DESC"),
+	"Double Riichi": ScoringInfo.Han.new("Double Riichi", 2, 2, "Declare Riichi with your first discard."),
+	"Ippatsu": ScoringInfo.Han.new("Ippatsu", 1, 1, "Win before or on your first draw after declaring Riichi."),
 	
 #	"SPACER_6": "Luck",
 	"Haitei": ScoringInfo.Han.new("Haitei", 1, 0, "Win off the last tile in the wall."),
@@ -20,23 +20,23 @@ var YAKUS = {
 	
 #	"SPACER_2": "Runs",
 	"SPACER_2": "Groups",
-	"Pinfu": ScoringInfo.Han.new("Pinfu", 1, 1, "No fu except futei and dora fu."),
-	"Iipeikou": ScoringInfo.Han.new("Iipeikou", 1, 0, "Two copies of the same run, i.e. 334455p."),
-	"Ryanpeikou": ScoringInfo.Han.new("Ryanpeikou", 3, 1, "Two copies of Iipeikou, i.e. 223344p 334455s. The two Iipeikou may be of different suits, or they may contain duplicate tiles."),
-	"Sanshoku Doujun": ScoringInfo.Han.new("Sanshoku Doujun", 2, 1, "The same value run in all three numbered suits."),
-	"Ittsuu": ScoringInfo.Han.new("Ittsuu", 2, 1, "A \"Full Straight\", 1-9 in a single suit. Specifically demands a winning hand containing the runs 123, 456, and 789, NOT just having at least one of every tile."),
+	"Pinfu": ScoringInfo.Han.new("Pinfu", 1, 1, "No fu except futei and dora fu.", "🀋🀌🀍🀑🀒🀓🀔🀕🀛🀜🀝🀡🀡 🀖"),
+	"Iipeikou": ScoringInfo.Han.new("Iipeikou", 1, 1, "Two copies of the same run.", "🀇🀇🀈🀈🀉🀉"),
+	"Ryanpeikou": ScoringInfo.Han.new("Ryanpeikou", 3, 1, "Two copies of Iipeikou. The two Iipeikou may be of different suits, or they may contain duplicate tiles. NOT compatible with Chiitoitsu.", "🀇🀇🀈🀈🀉🀉🀔🀔🀕🀕🀖🀖"),
+	"Sanshoku Doujun": ScoringInfo.Han.new("Sanshoku Doujun", 2, 1, "The same value run in three numbered suits.", "🀈🀉🀊🀑🀒🀓🀚🀛🀜"),
+	"Ittsuu": ScoringInfo.Han.new("Ittsuu", 2, 1, "A \"Full Straight\", 1-9 in a single suit. Specifically demands a winning hand containing the runs 123, 456, and 789, NOT just having at least one of every tile.", "🀐🀑🀒🀓🀔🀕🀖🀗🀘"),
 	
 #	"SPACER_3": "Sets",
 	"Toitoi": ScoringInfo.Han.new("Toitoi", 2, 0, "Hand consists of 4 set/quads and a pair."),
-	"San'ankou": ScoringInfo.Han.new("San'ankou", 2, 0, "Three concealed sets (quads OK). The sets themselves must be entirely concealed, finishing the 3rd set with ron does not qualify."),
-	"Sankantsu": ScoringInfo.Han.new("Sankantsu", 2, 0, "Call kan 3 times."),
-	"Sanshoku Doukou": ScoringInfo.Han.new("Sanshoku Doukou", 2, 0, "The same value set in all three numbered suits."),
+	"San'ankou": ScoringInfo.Han.new("San'ankou", 2, 0, "Three concealed sets (quads OK). The sets themselves must be entirely concealed; finishing the 3rd set with ron does not qualify."),
+	"Sankantsu": ScoringInfo.Han.new("Sankantsu", 2, 0, "Call kan 3 times.", "🀪🀪🀪🀪🀪 🀫🀌🀌🀫🀫🀒🀒🀫🀫🀀🀀🀫"),
+	"Sanshoku Doukou": ScoringInfo.Han.new("Sanshoku Doukou", 2, 0, "The same value set in three numbered suits."),
 	
 	"SPACER_4": "Tiles",
 	"Tan'yao": ScoringInfo.Han.new("Tan'yao", 1, 0, "No terminals or honors in hand."),
 	"Yakuhai": ScoringInfo.Han.new("Yakuhai", 1, 0, "Set or quad of seat wind, prevalent wind, or any dragon."),
 	"Chanta": ScoringInfo.Han.new("Chanta", 2, 1, ""),
-	"Junchan": ScoringInfo.Han.new("Junchan", 3, 2, ""),
+	"Junchan": ScoringInfo.Han.new("Junchan", 3, 1, ""),
 	"Honroutou": ScoringInfo.Han.new("Honroutou", 2, 0, ""),
 	"Shousangen": ScoringInfo.Han.new("Shousangen", 2, 0, "2 Dragon sets and a Dragon pair."),
 	
