@@ -32,8 +32,12 @@ end of every round can purchase:
 		1 han for every ~six tiles in your hand without any red ink toka
 		every 5 consecutive discards from hand adds a han
 		10 points for every tile left in wall?
- dead wall can be expanded as long as there are free tiles left
- overall structure is 17 rounds, starting on E-E and rotating through everything until
+achievements
+	all yaku
+	all mangan
+	joke about there not being furiten
+dead wall can be expanded as long as there are free tiles left
+overall structure is 17 rounds, starting on E-E and rotating through everything until
 final boss on the E-E repeat. probably no repeated seats.
 cancel using an item
 ryuukyoku tenpai payout
@@ -66,10 +70,13 @@ new tile manager broke some things
 	reimplem,ent purchaseables
 		addtile purchaseable getting illegal tiles again. ?157p
 get_terminals function
-kindora worth 1200pts flat?
+kindora worth 1000pts flat?
 calliing a chi appears to have de-aka'd a 5
 call label text vcentering
 78899p789s12366m 7p returned ryanpeikou
+assert that all the chanta set still work
+flower permitted an otherwise dead hand
+flower call did NOT propmt tsumo properly
 
 meta:
 	finish scoring!!
