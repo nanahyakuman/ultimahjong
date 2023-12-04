@@ -151,7 +151,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 				if runs.size() >= 3:
 					# ittsuu
 					# weird optimization but basically generates a bitmask for each run in each suit
-					var itsuu_suits = {MTile.SUITS.PIN: 0b000, MTile.SUITS.SOU: 0b000, MTile.SUITS.MAN: 0b000}
+					var itsuu_suits = {MTile.SUITS.PIN: 0b000, MTile.SUITS.SOU: 0b000, MTile.SUITS.MAN: 0b000, MTile.SUITS.CHO: 0b000}
 					for g in runs:
 						for index in [0,1,2]:
 							if g.tiles[0].value == index*3 + 1:
@@ -186,12 +186,14 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			
 			suit = groupings[suit_it].tiles[0].suit
 			
-			if suit != MTile.SUITS.SPECIAL: #different yaku
+			if ![MTile.SUITS.SPECIAL, MTile.SUITS.FLOWER].has(suit): #different yaku
 				var is_full = true
 				var is_half = true
 				for g in groupings:
 					for t in g.tiles:
 						if t.suit == suit:
+							continue
+						if t.suit == MTile.SUITS.FLOWER:
 							continue
 						if t.suit == MTile.SUITS.SPECIAL:
 							is_full = false
@@ -213,6 +215,8 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			var honor_pairs = []
 			var sangen_count = 0
 			var gen_pairs = 0
+			var groupings_count_excluding_flowers = 0
+			groupings_count_excluding_flowers = groupings.size()
 			for g in groupings:
 				if g.type == Grouping.SET:
 					if MTile.NUMERALS.has(g.tiles[0].suit):
@@ -235,19 +239,21 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 						honor_pairs.append(g)
 						if MTile.DRAGONS.has(g.tiles[0].value):
 							gen_pairs += 1
+				elif g.type == Grouping.SPECIAL:
+					groupings_count_excluding_flowers -= 1
 			
 			# all terminals
-			if terminal_pairs.size() + terminal_sets.size() == groupings.size():
+			if terminal_pairs.size() + terminal_sets.size() == groupings_count_excluding_flowers:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Chinroutou"])
 			# all honors:
-			elif honor_pairs.size() + honor_sets.size() == groupings.size():
+			elif honor_pairs.size() + honor_sets.size() == groupings_count_excluding_flowers:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Tsuuiisou"])
 			# all terminals/honors
-			elif terminal_pairs.size() + terminal_sets.size() + honor_sets.size() + honor_pairs.size() == groupings.size():
+			elif terminal_pairs.size() + terminal_sets.size() + honor_sets.size() + honor_pairs.size() == groupings_count_excluding_flowers:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Honroutou"])
-			elif terminal_pairs.size() + terminal_sets.size() + terminal_runs.size() == groupings.size():
+			elif terminal_pairs.size() + terminal_sets.size() + terminal_runs.size() == groupings_count_excluding_flowers:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Junchan"])
-			elif terminal_pairs.size() + terminal_sets.size() + honor_sets.size() + honor_pairs.size() + terminal_runs.size() == groupings.size():
+			elif terminal_pairs.size() + terminal_sets.size() + honor_sets.size() + honor_pairs.size() + terminal_runs.size() == groupings_count_excluding_flowers:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Chanta"])
 			
 			# sangen
