@@ -15,7 +15,7 @@ func _ready():
 
 func _initialize():
 	suit_holders.append(suits_root.get_child(0))
-	for str in ["Sou", "Man", "Special", "Flowers"]:
+	for str in ["Sou", "Man", "Cho", "Special", "Flowers"]:
 		var a = suits_root.get_child(0).duplicate()
 		a.name = str
 		suits_root.add_child(a)

@@ -334,6 +334,8 @@ func _assign_discard_count(discard_override = null):
 
 # occasionally called by items that override the present tsumo tile
 func do_tsumo(override: MTile = null):
+	assert(tsumo == null, "Overriding an existing tsumo! Set it to null first if this is intended.")
+	
 	if override:
 		tsumo = override
 	else:
@@ -406,7 +408,8 @@ enum CALL_BITMASK {
 	RON = 		0b100000,
 	TSM = 		0b1000000,
 	CLOSED_KAN= 0b10000000,
-	RCH =		0b100000000
+	RCH =		0b100000000,
+	FLOWER =	0b1000000000
 }
 # returns a bitmask for what can be called
 func _can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
@@ -558,7 +561,11 @@ func _do_if_can_tsumo():
 			involved[CALL_BITMASK.CLOSED_KAN] = firstthree
 	
 	#flowers:
-	
+	for t in full_hand:
+		if t.suit == MTile.SUITS.FLOWER:
+			btm |= CALL_BITMASK.FLOWER
+			involved[CALL_BITMASK.FLOWER] = [t]
+			break
 	
 	if btm:
 		calls_manager.enable_calls(btm, involved)
@@ -600,9 +607,10 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 		CALL_BITMASK.KAN:
 			new_grouping = Grouping.new(Grouping.SET, tiles_involved)
 			_reveal_dora()
-			
 		CALL_BITMASK.CLOSED_KAN:
 			new_grouping = Grouping.new(Grouping.SET, tiles_involved)
+		CALL_BITMASK.FLOWER:
+			new_grouping = Grouping.new(Grouping.SPECIAL, tiles_involved)
 		CALL_BITMASK.RCH:
 			_do_riichi()
 			return
@@ -610,6 +618,11 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 	if new_grouping is Grouping:
 		var to_remove = new_grouping.tiles.size()
 		for t in new_grouping.tiles:
+			if tsumo == t:
+				tsumo = null
+				gui_manager.update_tsumo([])
+				to_remove -= 1
+				continue
 			var found = first_by_id(t.get_id(), hand)
 			assert(found != -1, "could not find tile that's meant to exist in hand!")
 			hand.remove_at(found)
@@ -617,26 +630,34 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 		assert(to_remove == 0, "not as many tiles as expected removed from hand!")
 		
 		# append final tile
-		if bitmask != CALL_BITMASK.CLOSED_KAN:
-			new_grouping.tiles.append(opp_discard.pop_back())
-		else:
+		if bitmask == CALL_BITMASK.CLOSED_KAN:
 			new_grouping.tiles.append(tsumo)
-			tsumo = null
-			gui_manager.update_tsumo([null])
+		elif  bitmask == CALL_BITMASK.FLOWER:
+			pass
+		else:
+			new_grouping.tiles.append(opp_discard.pop_back())
 		new_grouping.tiles.sort_custom(Callable(MTile, "tile_compare"))
 		
 		# closed kan stay closed
-		if bitmask != CALL_BITMASK.CLOSED_KAN:
+		if ![CALL_BITMASK.CLOSED_KAN, CALL_BITMASK.FLOWER].has(bitmask):
 			new_grouping.open_tile = 0
 			new_grouping.player_taken_from_offset = remaining_opp_discards
 		called_hand = [new_grouping] + called_hand
-		gui_manager.update_opp_discard(opp_discard)
-		gui_manager.update_hand(hand)
 		gui_manager.update_made_calls(called_hand)
+		
+		gui_manager.update_opp_discard(opp_discard)
+		update_hand_label()
+		gui_manager.update_tsumo([])
 	
 	
 	call_sfx_player.play()
-	if bitmask == CALL_BITMASK.KAN or bitmask == CALL_BITMASK.CLOSED_KAN:
+	if [CALL_BITMASK.FLOWER, CALL_BITMASK.KAN, CALL_BITMASK.CLOSED_KAN].has(bitmask):
+		# tiles you spawn with can subvert the current tsumo
+		if tsumo:
+			hand.append(tsumo)
+			tsumo = null
+			update_hand_label()
+			gui_manager.update_tsumo([])
 		was_last_draw_from_dead_wall = true
 		do_tsumo(dead_wall.pop_back())
 	else:

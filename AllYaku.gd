@@ -40,6 +40,8 @@ var YAKUS = {
 	"Honroutou": ScoringInfo.Han.new("Honroutou", 2, 0, ""),
 	"Shousangen": ScoringInfo.Han.new("Shousangen", 2, 0, "2 Dragon sets and a Dragon pair."),
 	
+	"Flower": ScoringInfo.Han.new("Flower", 1, 0, "Called flower tile."),
+	
 #	"SPACER_5": "Suits",
 	"Hon'itsu": ScoringInfo.Han.new("Hon'itsu", 3, 1, "Hand only contains honors and tiles of a single suit."),
 	"Chin'itsu": ScoringInfo.Han.new("Chin'itsu", 6, 1, "Hand only contains tiles of a single suit."),

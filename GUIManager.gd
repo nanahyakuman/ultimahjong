@@ -82,7 +82,7 @@ func _update_node(node: Node, tiles: Array, connector_node: Node = null, visible
 			ret = curr
 	
 	# closing and highlighting for called sets
-	if node.get_child_count():
+	if node.get_child_count() > 1:
 		# highlight closed tiles
 		if closed:
 			node.get_child(0).set_reversed(true)
@@ -91,8 +91,8 @@ func _update_node(node: Node, tiles: Array, connector_node: Node = null, visible
 		for t in node.get_child_count():
 			node.get_child(t).set_rotated(t == rotate_tile)
 		
-		for t in range(tiles.size(), existing_count):
-			node.get_child(t).visible = false
+	for t in range(tiles.size(), existing_count):
+		node.get_child(t).visible = false
 	
 	return ret
 

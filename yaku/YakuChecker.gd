@@ -282,8 +282,15 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			if scoring_info.get_base_points() >= max.get_base_points():
 				max = scoring_info
 	
+	# yaku that don't contribute to basic scoring
 	if other_met_yaku and met_basic_reqs:
 		max.hans = other_met_yaku.hans + max.hans
+		
+		# only counts called flowers, in nukidora fashion
+		for g in hand_info.already_made_groupings:
+			for t in g.tiles:
+				if t.suit == MTile.SUITS.FLOWER:
+					append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Flower"])
 		
 		# dora
 		var all_tiles = remaining_hand.duplicate()

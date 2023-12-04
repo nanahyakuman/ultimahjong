@@ -54,7 +54,7 @@ func get_total_han() -> int:
 	var ret = 0
 	for h in hans:
 		# take open penalties into account
-		ret += h.han - maxi(0, (h.open_penalty * int(open))) * h.count
+		ret += (h.han - maxi(0, (h.open_penalty * int(open)))) * h.count
 	return ret
 
 func get_total_fu() -> int:

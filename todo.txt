@@ -39,7 +39,6 @@ cancel using an item
 ryuukyoku tenpai payout
 
 
-45p with pocchi nearly identical
 doraizing anim when you buy dora, clear feedback as to what it was
 cant hover tiles in made calls
 tsumo call tile hover broken, highlights most recent discard instead of tsumo
@@ -66,14 +65,11 @@ some items should highlight what they affect
 new tile manager broke some things
 	reimplem,ent purchaseables
 		addtile purchaseable getting illegal tiles again. ?157p
-yaku display, fu no gotoku
 get_terminals function
-id like called chiis to be shaped accurately, may have to retroactively split the
-	group up when you call it so the ordering is correct.
 kindora worth 1200pts flat?
-yakuahai 2 aka dora 2 was only worth 2 han
 calliing a chi appears to have de-aka'd a 5
 call label text vcentering
+78899p789s12366m 7p returned ryanpeikou
 
 meta:
 	finish scoring!!
@@ -84,6 +80,7 @@ meta:
 	finish yaku descriptions
 		write text for every yaku
 		add examples for every yaku
+
 
 music
 	just make like 4~8 tracksets
