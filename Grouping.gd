@@ -1,4 +1,4 @@
-extends Node
+extends Resource
 class_name Grouping
 
 # set covers both pon and kan, use `tiles.size()` to differentiate.

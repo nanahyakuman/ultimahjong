@@ -737,7 +737,7 @@ func add_to_hand_and_update(tile: MTile):
 		tsumo = tile
 	else:
 		hand.append(tile)
-	assert(hand.size() + called_hand.size() * 3 + int(tsumo != null) == 14, "hand size messed up!")
+	assert(hand.size() + int(tsumo != null) + get_called_hand_size() == 14, "hand size messed up!")
 	update_hand_label()
 	gui_manager.update_tsumo([tsumo])
 	
@@ -851,10 +851,6 @@ func _end_round(win_is_tsumo_not_ron = false):
 		met_yaku.hans.append(ALL_YAKU.YAKUS["Haitei"])
 	if was_last_draw_from_dead_wall:
 		met_yaku.hans.append(ALL_YAKU.YAKUS["Rinshan"])
-	
-#	#  must have 14 tiles. this might need to be changed later
-#	# for bigger hands
-#	assert(full_hand.size() + called_hand.size() * 3 == 14)
 	
 	var score_info = yaku_checker.hand_get_han(get_hand_info(), doras, true, met_yaku)
 	

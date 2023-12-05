@@ -106,6 +106,7 @@ func _use():
 		
 		TYPES.ERASER:
 			# old tile is cleared completely, dont maintain reference
+			mahjong_manager.tsumo = null
 			mahjong_manager.do_tsumo(MTile.new(MTile.SUITS.SPECIAL,MTile.SPECIALS.HAKU))
 			
 		TYPES.WIND_MAGNET:

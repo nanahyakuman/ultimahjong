@@ -16,7 +16,7 @@ end of every round can purchase:
 		call kita
 		kuitan
 		see ura dora
-		ron does not open your hand (adds menzentsumo to closed hands, makes sanankou easier, etc.)
+		ron counts as tsumo (adds menzentsumo to closed hands, makes sanankou easier, etc.)
 		swap in akadora when in riichi
 		riichi ryuukyoku rewards half points off the best hand you could've gotten
 	spell cards, refresh every x draws
@@ -26,7 +26,7 @@ end of every round can purchase:
 	x	exchange a tile in hand for a current kandora
 		rearrange next five tiles
 	x	aka a random tile
-		change a tile to one of its suji tiles
+	x	change a tile to one of its suji tiles
 		cycle a dragon's suit
 		reclose a called set
 	scoew bonuses
@@ -44,6 +44,7 @@ ryuukyoku tenpai payout
 
 ideas but not critical:
 	some items should highlight what they affect
+	canon tile highlight
 
 
 
@@ -79,8 +80,8 @@ redo scoring screen to better represent socring
 	count fu
 	cross out fu once you pass 5 han
 	don't show calculation if you exceed 5 han
-
-
+attempting to suji shift an illegal tile softlocks
+flowers still mysteriously close (graphically) sometimes
 
 
 meta:

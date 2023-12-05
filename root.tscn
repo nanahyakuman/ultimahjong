@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://ddu73u7jsg0tr"]
+[gd_scene load_steps=57 format=3 uid="uid://ddu73u7jsg0tr"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
@@ -29,6 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="20_ib16c"]
 [ext_resource type="Script" path="res://PurchaseablesHolder.gd" id="20_wmn33"]
 [ext_resource type="PackedScene" uid="uid://cpirwiftxeu8s" path="res://purchaseable.tscn" id="21_3mckx"]
+[ext_resource type="PackedScene" uid="uid://dxdkyqgyyijvx" path="res://item.tscn" id="21_4bgcv"]
 [ext_resource type="Script" path="res://OpenShopButton.gd" id="21_8bhal"]
 [ext_resource type="Script" path="res://NextRoundButton.gd" id="21_roajs"]
 [ext_resource type="Script" path="res://ScoringRoot.gd" id="21_yhd2i"]
@@ -405,6 +406,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 alignment = 2
+
+[node name="Item" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("21_4bgcv")]
+layout_mode = 2
+type = 11
+activate_self = true
 
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
 layout_mode = 1
