@@ -22,13 +22,13 @@ var YAKUS = {
 	"SPACER_2": "Groups",
 	"Pinfu": ScoringInfo.Han.new("Pinfu", 1, 1, "No fu except futei and dora fu. This works out to mean: All runs, non-yakuhai pair, and a ryanmen wait.", "🀋🀌🀍🀑🀒🀓🀔🀕🀛🀜🀝🀡🀡 🀖"),
 	"Iipeikou": ScoringInfo.Han.new("Iipeikou", 1, 1, "Two copies of the same run.", "🀇🀇🀈🀈🀉🀉"),
-	"Ryanpeikou": ScoringInfo.Han.new("Ryanpeikou", 3, 1, "Two copies of Iipeikou. The two Iipeikou may be of different suits, or they may contain duplicate tiles. NOT compatible with Chiitoitsu.", "🀇🀇🀈🀈🀉🀉🀔🀔🀕🀕🀖🀖"),
+	"Ryanpeikou": ScoringInfo.Han.new("Ryanpeikou", 3, 1, "Two copies of Iipeikou. The two Iipeikou may be of different suits, or they may contain duplicate tiles. NOT compatible with Chiitoitsu.", "🀪🀪🀔🀕🀖🀇🀇🀈🀈🀉🀉 🀔🀕🀖"),
 	"Sanshoku Doujun": ScoringInfo.Han.new("Sanshoku Doujun", 2, 1, "The same value run in three numbered suits.", "🀈🀉🀊🀑🀒🀓🀚🀛🀜"),
 	"Ittsuu": ScoringInfo.Han.new("Ittsuu", 2, 1, "A \"Full Straight\", 1-9 in a single suit. Specifically demands a winning hand containing the runs 123, 456, and 789, NOT just having at least one of every tile.", "🀐🀑🀒🀓🀔🀕🀖🀗🀘"),
 	
 #	"SPACER_3": "Sets",
-	"Toitoi": ScoringInfo.Han.new("Toitoi", 2, 0, "Hand consists of 4 set/quads and a pair."),
-	"San'ankou": ScoringInfo.Han.new("San'ankou", 2, 0, "Three concealed sets (quads OK). The sets themselves must be entirely concealed; finishing the 3rd set with ron does not qualify."),
+	"Toitoi": ScoringInfo.Han.new("Toitoi", 2, 0, "Hand consists of 4 set/quads and a pair.", "🀃🀃🀅🀅🀅 🀛🀛🀛🀞🀞🀞🀏🀏🀏"),
+	"San'ankou": ScoringInfo.Han.new("San'ankou", 2, 0, "Three concealed sets (quads OK). The sets themselves must be entirely concealed; finishing the last set with ron does not qualify.", "🀝🀝🀝🀕🀕🀕🀇🀇🀇🀋 🀋 🀙🀚🀛"),
 	"Sankantsu": ScoringInfo.Han.new("Sankantsu", 2, 0, "Call kan 3 times.", "🀪🀪🀪🀪🀪 🀫🀌🀌🀫🀫🀒🀒🀫🀫🀀🀀🀫"),
 	"Sanshoku Doukou": ScoringInfo.Han.new("Sanshoku Doukou", 2, 0, "The same value set in three numbered suits."),
 	
@@ -38,18 +38,25 @@ var YAKUS = {
 	"Chanta": ScoringInfo.Han.new("Chanta", 2, 1, ""),
 	"Junchan": ScoringInfo.Han.new("Junchan", 3, 1, ""),
 	"Honroutou": ScoringInfo.Han.new("Honroutou", 2, 0, ""),
-	"Shousangen": ScoringInfo.Han.new("Shousangen", 2, 0, "2 Dragon sets and a Dragon pair."),
+	"Shousangen": ScoringInfo.Han.new("Shousangen", 2, 0, "2 Dragon sets and a Dragon pair.", "🀪🀪🀪🀪🀪🀪🀄🀄 🀅🀅🀅🀆🀆🀆"),
 	
-	"Flower": ScoringInfo.Han.new("Flower", 1, 0, "Called flower tile."),
+	"Flower": ScoringInfo.Han.new("Flower", 1, 0, "Called flower tile.", "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪 🀢"),
 	
 #	"SPACER_5": "Suits",
-	"Hon'itsu": ScoringInfo.Han.new("Hon'itsu", 3, 1, "Hand only contains honors and tiles of a single suit."),
-	"Chin'itsu": ScoringInfo.Han.new("Chin'itsu", 6, 1, "Hand only contains tiles of a single suit."),
+	"Hon'itsu": ScoringInfo.Han.new("Hon'itsu", 3, 1, "Hand only contains honors and tiles of a single suit.", "🀐🀑🀒🀔🀕🀖🀗 🀗 🀁🀁🀁🀆🀆🀆"),
+	"Chin'itsu": ScoringInfo.Han.new("Chin'itsu", 6, 1, "Hand only contains tiles of a single suit.", "🀙🀚🀛🀛🀜🀝🀠🀠 🀞🀟🀠🀡🀡🀡"),
 	
 	"SPACER_X": "Yakuman",
-	"Daisangen": ScoringInfo.Han.new("Daisangen", 13, 0, "3 Dragon sets."),
+	"Daisangen": ScoringInfo.Han.new("Daisangen", 13, 0, "3 Dragon sets/quads.", "🀪🀪🀪🀪🀪🀄🀄🀄 🀅🀅🀅🀅🀆🀆🀆"),
+	"Shousuushii": ScoringInfo.Han.new("Shousuushii", 13, 0, "Three sets/quads of winds and a pair of the fourth.", "🀐🀑🀒🀀🀀🀀🀁🀁🀁🀂🀂🀂🀃🀃"),
+	"Daisuushii": ScoringInfo.Han.new("Daisuushii", 26, 0, "Four sets/quads of winds.", "🀝🀝🀀🀀🀀🀁🀁🀁🀂🀂🀂🀃🀃🀃"),
+	"Suuankou": ScoringInfo.Han.new("Suuankou", 13, 0, "Four concealed sets (quads OK). The sets themselves must be entirely concealed; finishing the last set with ron does not qualify.", "🀜🀜🀜🀞🀞🀞🀈🀈🀈🀎🀂🀂🀂 🀎"), 
+	"Suukantsu": ScoringInfo.Han.new("Suukantsu", 13, 0, "Four quads.", "🀈🀈 🀂🀂🀂🀂🀚🀚🀚🀚🀫🀓🀓🀫🀏🀏🀏🀏"),
+	"Kokushi Musou": ScoringInfo.Han.new("Kokushi Musou", 13, 0, "1 of every terminal and honor, and a second of any of them.", "🀙🀡🀘🀇🀏🀀🀁🀂🀃🀆🀆🀅🀄 🀐"),
 	"Tsuuiisou": ScoringInfo.Han.new("Tsuuiisou", 13, 0, ""),
 	"Chinroutou": ScoringInfo.Han.new("Chinroutou", 13, 0, ""),
+	"Ryuuiisou": ScoringInfo.Han.new("Ryuuiisou", 13, 0, "Hand only contains 2/3/4/6/8-Sou and Green Dragons. These are traditionally the tiles with only green ink on them, however, recolored variants of these tiles still contribute.", "🀑🀑🀒🀒🀓🀓🀕🀕🀕🀗🀗🀅🀅🀅"),
+	"Chuuren Poutou": ScoringInfo.Han.new("Chuuren Poutou", 13, 13, "1112345678999 of any suit, plus 1 more tile from the suit.", "🀇🀇🀇🀈🀉🀊🀋🀌🀍🀎🀏🀏🀏 🀉"),
 	
 	#  read as a give up flag, so no yaku tab is created. maybe
 	# move to special??
