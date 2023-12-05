@@ -50,6 +50,9 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			var runs = []
 			var pairs = []
 			var duplicates = []
+			#  need a tracker for this to break sanankou. this will be empty
+			# on a tsumo win
+			var groupings_that_might_contain_ronned_tile = []
 			for g in groupings:
 				match g.type:
 					Grouping.RUN:
@@ -58,6 +61,13 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 						sets.append(g)
 					Grouping.PAIR:
 						pairs.append(g)
+				
+				#  sanankou breaker. second half of logic occurs in the sanankou section
+				# below
+				if !is_tsumo:
+					for t in g.tiles:
+						if t.get_id() == hand_info.most_recent_discard.get_id():
+							groupings_that_might_contain_ronned_tile.append(g)
 			
 			# have to use a manual iterator so we can advance it
 			var it = 0
@@ -74,6 +84,8 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			
 			
 			## LUCK-BASED (that `MahjongManager` doesn't already deal with)
+			#  this looks wrong at first but menzentsumo is encoded to lose one han
+			# if opened, so this adds 1-1=0 han to an open hand.
 			if is_tsumo:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Menzentsumo"])
 			
@@ -111,17 +123,29 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 					scoring_info.hans.append(ALL_YAKU.YAKUS["Toitoi"])
 				
 				# sanankou, sankantsu
-				var hidden_count = 0
-				var kan_count = 0
+				var hidden_sets = []
+				var kans = []
 				for s in sets:
 					if !s.is_open():
-						hidden_count += 1
+						hidden_sets.append(s)
 					if s.tiles.size() == 4:
-						kan_count += 1
+						kans.append(s)
 				
-				if hidden_count >= 3:
+				#  have to un-open a set if it's a ron-ned tile completing it. this 
+				# has to be more complicated than i'd like to account for dopey supersets
+				# like 333/333p as two koutsu.
+				var sets_that_might_contain_ronned_tile = []
+				for g in groupings_that_might_contain_ronned_tile:
+					if hidden_sets.has(g):
+						sets_that_might_contain_ronned_tile.append(g)
+				# check if there's any other grouping that could contain it instead.
+				if sets_that_might_contain_ronned_tile.size() > 0:
+					if sets_that_might_contain_ronned_tile.size() == groupings_that_might_contain_ronned_tile.size():
+						hidden_sets.erase(sets_that_might_contain_ronned_tile[-1])
+				
+				if hidden_sets.size() >= 3:
 					scoring_info.hans.append(ALL_YAKU.YAKUS["San'ankou"])
-				if kan_count >= 3:
+				if kans.size() >= 3:
 					scoring_info.hans.append(ALL_YAKU.YAKUS["Sankantsu"])
 				
 				#sanshoku doukou
@@ -288,30 +312,32 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			if scoring_info.get_base_points() >= max.get_base_points():
 				max = scoring_info
 	
-	# yaku that don't contribute to basic scoring
+	# at least meeting basic reqs checker
 	if other_met_yaku and met_basic_reqs:
 		max.hans = other_met_yaku.hans + max.hans
 		
-		# only counts called flowers, in nukidora fashion
-		for g in hand_info.already_made_groupings:
-			for t in g.tiles:
-				if t.suit == MTile.SUITS.FLOWER:
-					append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Flower"])
-		
-		# dora
-		var all_tiles = remaining_hand.duplicate()
-		for g in hand_info.already_made_groupings:
-			for t in g.tiles:
-				all_tiles.append(t)
-		if doras.size() > 0:
-			for t in all_tiles:
-				if t.color == MTile.COL_AKA:
-					append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Aka Dora"])
-				if doras[0].has(t.get_id()):
-					append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kan Dora"])
-				if !is_open and doras[1].has(t.get_id()):
-					append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Ura Dora"])
-				
+		# only add bonuses to hands with at least one han
+		if max.get_total_han() > 0:
+			# only counts called flowers, in nukidora fashion
+			for g in hand_info.already_made_groupings:
+				for t in g.tiles:
+					if t.suit == MTile.SUITS.FLOWER:
+						append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Flower"])
+			
+			# dora
+			var all_tiles = remaining_hand.duplicate()
+			for g in hand_info.already_made_groupings:
+				for t in g.tiles:
+					all_tiles.append(t)
+			if doras.size() > 0:
+				for t in all_tiles:
+					if t.color == MTile.COL_AKA:
+						append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Aka Dora"])
+					if doras[0].has(t.get_id()):
+						append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kan Dora"])
+					if !is_open and doras[1].has(t.get_id()):
+						append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Ura Dora"])
+					
 	
 	max.open = is_open
 	

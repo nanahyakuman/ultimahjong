@@ -161,14 +161,14 @@ func _draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.EAST))
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.EAST))
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.EAST))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 2))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 2))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
 
 #	temp.append(MTile.new(MTile.SUITS.SOU, 1))
 #	temp.append(MTile.new(MTile.SUITS.SOU, 1))
@@ -342,8 +342,6 @@ func do_tsumo(override: MTile = null):
 		tsumo = _get_next_from_wall()
 	if !tsumo:
 		return
-	
-	#tsumo = MTile.new(MTile.SUITS.MAN, 1)
 	
 	gui_manager.update_tsumo([tsumo])
 	tile_sfx_player.play()
@@ -657,7 +655,8 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 			hand.append(tsumo)
 			tsumo = null
 			update_hand_label()
-			gui_manager.update_tsumo([])
+			# redundant to clear bc we just draw another
+			#gui_manager.update_tsumo([])
 		was_last_draw_from_dead_wall = true
 		do_tsumo(dead_wall.pop_back())
 	else:

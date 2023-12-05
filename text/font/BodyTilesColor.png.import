@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/BodyTilesColor.png-b9806b1a05d0042aca156516cb
 
 [params]
 
-character_ranges=PackedStringArray("126976-127022", "32")
+character_ranges=PackedStringArray("126976-127023", "32", "10060", "8592", "8594")
 columns=16
 rows=4
 image_margin=Rect2i(0, 0, 0, 0)

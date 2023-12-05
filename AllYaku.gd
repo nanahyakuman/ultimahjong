@@ -20,7 +20,7 @@ var YAKUS = {
 	
 #	"SPACER_2": "Runs",
 	"SPACER_2": "Groups",
-	"Pinfu": ScoringInfo.Han.new("Pinfu", 1, 1, "No fu except futei and dora fu.", "🀋🀌🀍🀑🀒🀓🀔🀕🀛🀜🀝🀡🀡 🀖"),
+	"Pinfu": ScoringInfo.Han.new("Pinfu", 1, 1, "No fu except futei and dora fu. This works out to mean: All runs, non-yakuhai pair, and a ryanmen wait.", "🀋🀌🀍🀑🀒🀓🀔🀕🀛🀜🀝🀡🀡 🀖"),
 	"Iipeikou": ScoringInfo.Han.new("Iipeikou", 1, 1, "Two copies of the same run.", "🀇🀇🀈🀈🀉🀉"),
 	"Ryanpeikou": ScoringInfo.Han.new("Ryanpeikou", 3, 1, "Two copies of Iipeikou. The two Iipeikou may be of different suits, or they may contain duplicate tiles. NOT compatible with Chiitoitsu.", "🀇🀇🀈🀈🀉🀉🀔🀔🀕🀕🀖🀖"),
 	"Sanshoku Doujun": ScoringInfo.Han.new("Sanshoku Doujun", 2, 1, "The same value run in three numbered suits.", "🀈🀉🀊🀑🀒🀓🀚🀛🀜"),
@@ -51,7 +51,8 @@ var YAKUS = {
 	"Tsuuiisou": ScoringInfo.Han.new("Tsuuiisou", 13, 0, ""),
 	"Chinroutou": ScoringInfo.Han.new("Chinroutou", 13, 0, ""),
 	
-	# read as a give up flag
+	#  read as a give up flag, so no yaku tab is created. maybe
+	# move to special??
 	"DORA": "Dora",
 	
 	"Kan Dora": ScoringInfo.Han.new("Kan Dora", 1, 0, ""),
@@ -69,6 +70,7 @@ var FU = {
 	"Menzenkafu": ScoringInfo.Fu.new("Menzenkafu", 10),
 	"Tsumo": ScoringInfo.Fu.new("Tsumo", 2),
 	"Chiitoitsu": ScoringInfo.Fu.new("Chiitoitsu", 25),
+	"Ao Dora": ScoringInfo.Fu.new("Ao Dora", 16),
 	
 	"SPACER_2": "[b]Groupings[/b]",
 	
@@ -92,7 +94,6 @@ var FU = {
 	
 #	"SPACER_4": "[b]Dora",
 #
-	"Ao Dora": ScoringInfo.Fu.new("Ao Dora", 16),
 }
 
 #func _ready():

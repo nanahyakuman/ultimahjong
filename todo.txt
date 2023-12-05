@@ -28,6 +28,7 @@ end of every round can purchase:
 	x	aka a random tile
 		change a tile to one of its suji tiles
 		cycle a dragon's suit
+		reclose a called set
 	scoew bonuses
 		1 han for every ~six tiles in your hand without any red ink toka
 		every 5 consecutive discards from hand adds a han
@@ -35,12 +36,15 @@ end of every round can purchase:
 achievements
 	all yaku
 	all mangan
-	joke about there not being furiten
+	joke about there not being furiten. "furitenfuri"
+	pocchi a false white dragon
 dead wall can be expanded as long as there are free tiles left
-overall structure is 17 rounds, starting on E-E and rotating through everything until
-final boss on the E-E repeat. probably no repeated seats.
-cancel using an item
 ryuukyoku tenpai payout
+
+
+ideas but not critical:
+	some items should highlight what they affect
+
 
 
 doraizing anim when you buy dora, clear feedback as to what it was
@@ -48,45 +52,46 @@ cant hover tiles in made calls
 tsumo call tile hover broken, highlights most recent discard instead of tsumo
 make ura dora more clear
 buy fu upgrades??
-visually indicate closed kans, calls in general
-	just create a new func that passes groupings instead of arrays
 "shape of the game" guide tab
 guide in general should now repflect normal mahjong scoring
 	add a score table
-probably not a bad idea to formally switch to ttf fonts ngl. no baseline is
-	messing with multilingual support
-closed fu as a mult instead of seperate?
 some debug keys
 	end round, reroll hand, set hand to {x}, printout hand
 record sounds
 rework deadwall to be resizeable inround?
-call flowers
 when you discard a pocchi, can choose to exchange the 4th tile in the wall with
 	another not-yet-discarded pocchi, even if it turns out to be in the dead wall.
 	 forcing it to be on discard means you can't cycle them ifinitely
 shiro pocchi instant win if riichitsumo
-some items should highlight what they affect
 new tile manager broke some things
 	reimplem,ent purchaseables
 		addtile purchaseable getting illegal tiles again. ?157p
+		aoize and kinize
 get_terminals function
 kindora worth 1000pts flat?
 calliing a chi appears to have de-aka'd a 5
 call label text vcentering
 78899p789s12366m 7p returned ryanpeikou
-assert that all the chanta set still work
+assert that all the chanta type yaku still work
 flower permitted an otherwise dead hand
-flower call did NOT propmt tsumo properly
+flower call redraw did NOT propmt tsumo properly
+redo scoring screen to better represent socring
+	count fu
+	cross out fu once you pass 5 han
+	don't show calculation if you exceed 5 han
+
+
+
 
 meta:
 	finish scoring!!
-		open set on calls
 		fix chiitoi scanning
 		the rest of the yaku
 	
 	finish yaku descriptions
 		write text for every yaku
 		add examples for every yaku
+			generally prefer a demonstrative set than a legal def, describe sanankou as 333444777?????
 
 
 music
