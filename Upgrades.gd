@@ -1,5 +1,6 @@
 ##  data relating to integer upgrades to base stats, liek dead wall size.
-## most of this is inherited from character_info
+## most of this is inherited from character_info.
+##  should be able to @export and save all of these in future
 extends Node
 
 var character_info: CharacterInfo
@@ -35,3 +36,6 @@ var BASE_KAN_REVEALED = 1
 var additional_revealed_kandora = 0
 func get_kan_revealed():
 	return BASE_KAN_REVEALED + additional_revealed_kandora
+
+# how much mana to charge every time the player draws a tile
+var mana_gained_on_player_draw = 1

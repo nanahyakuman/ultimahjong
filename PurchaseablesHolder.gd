@@ -71,7 +71,8 @@ func pressed(node: Purchaseable):
 				tile_counter.increment_tile(t)
 				await anim_timer.start_mod(.15)
 		Purchaseable.TYPES.DEAD_REDUCE:
-			upgrades.dead_wall_size_reduce += 2
+			# 4 is a lot ig but you're prob. not buying this every round
+			upgrades.dead_wall_size_reduce += 4
 		Purchaseable.TYPES.KAN_REVEAL:
 			upgrades.additional_revealed_kandora += 1
 		Purchaseable.TYPES.ITEM:

@@ -37,6 +37,7 @@ func end_round(scoring_info: ScoringInfo, multiplier_info: MultiplierInfo):
 	var points = scoring_info.get_base_points()
 	points = multiplier_info.get_multiplied(points)
 	
+	print(scoring_info.open)
 	
 	# 0 points for exhaustive
 	if han == 0:

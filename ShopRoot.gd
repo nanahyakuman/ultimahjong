@@ -2,7 +2,7 @@ extends Control
 
 var money = 0
 
-var MONEY_PER_ROUND = 10
+var MONEY_PER_ROUND = 3
 
 enum {STATE_ANIMATING, STATE_ACTIVE}
 var state

@@ -1,11 +1,11 @@
 end of every round can purchase:
 	--new yaku or yaku refreshes
-	--	black ryuuiiisou 248nesw. note theres no legal run so the extra tile compared
+	--	black ryuuiisou 248nesw. note theres no legal run so the extra tile compared
 	--		to ryuui is probably fine
 	special tiles (wild suit, wild digit, flowers that "kan" as dora instantly like sanma N)
 		wild suit
 		wild digit
-		flowers
+	x	flowers
 		"almighty" tile (リーチ自摸の場合、和了が出来。それに幡)
 			would probably have to remove dora dragons or at least dora haku
 		pocchi-ing a tile means you can switch it out for any other pocchi tile in deck?
@@ -19,6 +19,7 @@ end of every round can purchase:
 		ron counts as tsumo (adds menzentsumo to closed hands, makes sanankou easier, etc.)
 		swap in akadora when in riichi
 		riichi ryuukyoku rewards half points off the best hand you could've gotten
+		drawing a tile gives you 2 mana instead of 1 (20% speed buff)
 	spell cards, refresh every x draws
 	x	next tile will be --honor-- wind
 	x	exchange one tile for a false haku
@@ -29,6 +30,7 @@ end of every round can purchase:
 	x	change a tile to one of its suji tiles
 		cycle a dragon's suit
 		reclose a called set
+		spawn a random orphan
 	scoew bonuses
 		1 han for every ~six tiles in your hand without any red ink toka
 		every 5 consecutive discards from hand adds a han
@@ -74,15 +76,20 @@ calliing a chi appears to have de-aka'd a 5
 call label text vcentering
 78899p789s12366m 7p returned ryanpeikou
 assert that all the chanta type yaku still work
-flower call redraw did NOT propmt tsumo properly
+flower call redraw did NOT propmt tsumo properly. might have been other now-solved
+	issue but should verify
 redo scoring screen to better represent socring
 	count fu
 	cross out fu once you pass 5 han
 	don't show calculation if you exceed 5 han
 attempting to suji shift an illegal tile softlocks
-a closed kan took the wrong tile im pretty sure
-still cant kan if you spawn with 4 of a tile. should be able to reuse some of the flower code
+kan related:
+	a closed kan took the wrong tile im pretty sure. confirmed
+	still cant kan if you spawn with 4 of a tile. should be able to reuse some of the flower code
 hands don't score as if they're open
+rework kandora reveal increase and dead wall decrease to be "passive items" that sit
+	in a menu
+
 
 
 meta:

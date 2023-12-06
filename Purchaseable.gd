@@ -50,29 +50,35 @@ func assign_type(ty: int):
 
 # calc cost based on what is shown. call AFTER assigning type!
 func calc_cost():
-	if type == TYPES.AKA or type == TYPES.ADD:
-		cost = 0
-		for i in tiles.size():
-			if hidden_mask[i]:
-				cost += 2
-			elif tiles[i].suit == MTile.SUITS.SPECIAL:
-				if MTile.DRAGONS.has(tiles[i].value):
-					cost += 5
-				else:
-					cost += 4
-			else:
-				cost += 3
-		
-		if type == TYPES.ADD:
-			cost /= 2
-		
-		cost = floori(cost)
+#	if type == TYPES.AKA or type == TYPES.ADD:
+#		cost = 0
+#		for i in tiles.size():
+#			if hidden_mask[i]:
+#				cost += 2
+#			elif tiles[i].suit == MTile.SUITS.SPECIAL:
+#				if MTile.DRAGONS.has(tiles[i].value):
+#					cost += 5
+#				else:
+#					cost += 4
+#			else:
+#				cost += 3
+#
+#		if type == TYPES.ADD:
+#			cost /= 2
+#		cost = floori(cost)
+	if type == TYPES.AKA:
+		cost = 2
+	elif type == TYPES.ADD:
+		cost = 1
 	elif type == TYPES.DEAD_REDUCE:
-		cost = 3
+#		cost = 3
+		cost = 1
 	elif type == TYPES.KAN_REVEAL:
-		cost = 6
+#		cost = 6
+		cost = 2
 	elif type == TYPES.ITEM:
-		cost = Item.PRICE[item.type]
+#		cost = Item.PRICE[item.type]
+		cost = 3
 	
 	label.text = "%d" % cost
 

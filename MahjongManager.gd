@@ -131,14 +131,14 @@ func _draw_hand():
 	for j in upgrades.get_dead_tiles()/4:
 		await anim_timer.start_mod(.15)
 		for k in 4:
-			dead_wall.append(_get_next_from_wall(true))
+			dead_wall.append(_get_next_from_wall(0))
 		gui_manager.increment_dead_wall_count(4)
 		call_sfx_player.play()
 	
 	if upgrades.get_dead_tiles()%4 != 0:
 		await anim_timer.start_mod(.15)
 		for j in upgrades.get_dead_tiles()%4:
-			dead_wall.append(_get_next_from_wall(true))
+			dead_wall.append(_get_next_from_wall(0))
 		gui_manager.increment_dead_wall_count(upgrades.get_dead_tiles()%4)
 		call_sfx_player.play()
 	
@@ -146,7 +146,7 @@ func _draw_hand():
 	
 	for i in BASE_HAND_SIZE:
 		await anim_timer.start_mod(.07)
-		hand.append(_get_next_from_wall(true))
+		hand.append(_get_next_from_wall(0))
 		call_sfx_player.play()
 		update_hand_label(true)
 	
@@ -305,8 +305,8 @@ func _draw_hand():
 	
 
 func _draw_kan_dora():
-	kan_dora.append(_get_next_from_wall(true))
-	ura_dora.append(_get_next_from_wall(true))
+	kan_dora.append(_get_next_from_wall(0))
+	ura_dora.append(_get_next_from_wall(0))
 	
 	revealed_kan_dora = upgrades.get_kan_revealed()
 	
@@ -353,7 +353,7 @@ func do_tsumo(override: MTile = null):
 	if override:
 		tsumo = override
 	else:
-		tsumo = _get_next_from_wall()
+		tsumo = _get_next_from_wall(upgrades.mana_gained_on_player_draw)
 	if !tsumo:
 		return
 	
@@ -382,7 +382,7 @@ func _do_opp_discard():
 	remaining_opp_discards -= 1
 	
 	
-	var disc = _get_next_from_wall()
+	var disc = _get_next_from_wall(1)
 	if !disc:
 		return
 	opp_discard.append(disc)
@@ -622,6 +622,7 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 			_reveal_dora()
 		CALL_BITMASK.CLOSED_KAN:
 			new_grouping = Grouping.new(Grouping.SET, tiles_involved)
+			_reveal_dora()
 		CALL_BITMASK.FLOWER:
 			new_grouping = Grouping.new(Grouping.SPECIAL, tiles_involved)
 		CALL_BITMASK.RCH:
@@ -673,7 +674,8 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 			# redundant to clear bc we just draw another
 			#gui_manager.update_tsumo([])
 		was_last_draw_from_dead_wall = true
-		do_tsumo(dead_wall.pop_back())
+#		do_tsumo(dead_wall.pop_back())
+		do_tsumo()
 	else:
 		_do_post_call_discard()
 
@@ -830,15 +832,14 @@ func update_hand_label(override_sort = false):
 
 
 # `does_not_count` just prevents certain tile draws from decrementing counters
-func _get_next_from_wall(does_not_count = false):
+func _get_next_from_wall(mana_count: int):
 	if wall.size() == 0:
 		_end_round()
 		return null
 	var ret = wall.pop_back()
 	gui_manager.update_wall_count(wall.size())
 	
-	if !does_not_count:
-		items.tile_drawn()
+	items.tile_drawn(mana_count)
 	
 	ippatsu_counter -= 1
 	

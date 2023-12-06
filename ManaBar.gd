@@ -1,13 +1,14 @@
-extends PanelContainer
+extends CursorTextRequester
 
 @onready var fill = $Fill
 @onready var label = $Label
 
 @export var cap = 136
-@export var mana = 136/2
+@export var mana = 0
 
 func _ready():
 	_update_display()
+	super._ready()
 
 func add_mana(amount: int):
 	mana = mini(mana + amount, cap)
