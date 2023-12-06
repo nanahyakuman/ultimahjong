@@ -74,7 +74,6 @@ calliing a chi appears to have de-aka'd a 5
 call label text vcentering
 78899p789s12366m 7p returned ryanpeikou
 assert that all the chanta type yaku still work
-flower permitted an otherwise dead hand
 flower call redraw did NOT propmt tsumo properly
 redo scoring screen to better represent socring
 	count fu
@@ -82,6 +81,8 @@ redo scoring screen to better represent socring
 	don't show calculation if you exceed 5 han
 attempting to suji shift an illegal tile softlocks
 flowers still mysteriously close (graphically) sometimes
+a closed kan took the wrong tile im pretty sure
+still cant kan if you spawn with 4 of a tile. should be able to reuse some of the flower code
 
 
 meta:

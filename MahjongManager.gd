@@ -281,6 +281,20 @@ func _draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.MAN, 2))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 3))
 #	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+
+#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 2))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 3))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 2))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 3))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 4))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 4))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 9))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.WEST))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.WEST))
+#	temp.append(MTile.new(MTile.SUITS.FLOWER, 1))
 	
 
 	if temp:
@@ -415,7 +429,8 @@ func _can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
 	var bitmask = 0b0000
 	
 	#ron check
-	if yaku_checker.hand_get_han(get_hand_info(), [], false, met_yaku).get_total_han() > 0:
+	var scoring_info = yaku_checker.hand_get_han(get_hand_info(), [], false, met_yaku)
+	if scoring_info.get_total_han() > 0:
 		bitmask |= CALL_BITMASK.RON
 	
 	# the rest only apply if not in riichi

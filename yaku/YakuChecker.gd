@@ -24,7 +24,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 	# get maximal hands, run based and set based
 	var groupingss = [_get_maximal_groupings(remaining_hand,false),_get_maximal_groupings(remaining_hand,true)]
 	
-	# determine openness. not used much anymore.
+	# determine openness. not used too much anymore.
 	var is_open = false
 	for g in hand_info.already_made_groupings:
 		if g.is_open():
@@ -41,6 +41,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 		groupings.append_array(hand_info.already_made_groupings)
 		
 		var scoring_info = ScoringInfo.new()
+		scoring_info.open = is_open
 		
 		if groupings_meet_basic_reqs(groupings):
 			met_basic_reqs = true
@@ -303,9 +304,9 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 						scoring_info.fus.insert(1, ALL_YAKU.FU["Menzenkafu"].duplicate())
 				
 			
-			# sneak pinfu in here
-			if scoring_info.pinfu_check():
-				scoring_info.hans.append(ALL_YAKU.YAKUS["Pinfu"])
+				# sneak pinfu in here. we don't check for it unless also checking for fu
+				if scoring_info.pinfu_check():
+					scoring_info.hans.append(ALL_YAKU.YAKUS["Pinfu"])
 			
 			
 			
@@ -337,9 +338,6 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 						append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kan Dora"])
 					if !is_open and doras[1].has(t.get_id()):
 						append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Ura Dora"])
-					
-	
-	max.open = is_open
 	
 	return max
 
