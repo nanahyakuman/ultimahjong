@@ -59,7 +59,8 @@ func initialize(character_info: CharacterInfo):
 					if j+1 == 5:
 						tile_data[-4].color = MTile.COL_AKA
 	
-	for i in 8:
+	# temp flower code here
+	for i in 4:
 		tile_data.append(MTile.new(MTile.SUITS.FLOWER, i+1))
 	
 	#  this should ideally do nothing at all, but for safety we call it

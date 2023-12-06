@@ -838,8 +838,7 @@ func _get_next_from_wall(does_not_count = false):
 	gui_manager.update_wall_count(wall.size())
 	
 	if !does_not_count:
-		for m in items.get_children():
-			m.decrement()
+		items.tile_drawn()
 	
 	ippatsu_counter -= 1
 	

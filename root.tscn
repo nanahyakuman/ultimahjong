@@ -1,61 +1,80 @@
-[gd_scene load_steps=57 format=3 uid="uid://ddu73u7jsg0tr"]
+[gd_scene load_steps=63 format=3 uid="uid://dxhvkd147vfpm"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
-[ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="2_j88jw"]
-[ext_resource type="Texture2D" uid="uid://blcxpctsytj35" path="res://image/bg.png" id="2_q1squ"]
+[ext_resource type="Theme" path="res://theme.tres" id="2_j88jw"]
 [ext_resource type="Script" path="res://root.gd" id="2_r4pf7"]
 [ext_resource type="Script" path="res://yaku/YakuChecker.gd" id="4_k3lw2"]
+[ext_resource type="Texture2D" uid="uid://blcxpctsytj35" path="res://image/bg.png" id="4_txmfg"]
 [ext_resource type="Script" path="res://TileCounter.gd" id="5_abq0l"]
-[ext_resource type="PackedScene" uid="uid://dadklde1kjtjg" path="res://TileGraphic.tscn" id="6_3ag2w"]
+[ext_resource type="PackedScene" path="res://TileGraphic.tscn" id="6_3ag2w"]
 [ext_resource type="AudioStream" uid="uid://crkug05d3uk76" path="res://audio/sfx/tap.wav" id="6_5a2qq"]
 [ext_resource type="AudioStream" uid="uid://fs4fwi2wiaj7" path="res://audio/sfx/taps.wav" id="7_358eq"]
 [ext_resource type="Script" path="res://Upgrades.gd" id="7_i15dy"]
-[ext_resource type="Texture2D" uid="uid://bu7eiaj3nnu51" path="res://image/sittingwindindicator.png" id="8_00qj1"]
-[ext_resource type="Texture2D" uid="uid://bmqa5eyuh48qx" path="res://image/call_indicator.png" id="8_4d1ju"]
 [ext_resource type="Script" path="res://HandGUI.gd" id="8_4hll1"]
-[ext_resource type="Texture2D" uid="uid://qfsu5y82t8jk" path="res://image/prevwindindicator.png" id="8_heinv"]
-[ext_resource type="Texture2D" uid="uid://cerxwhe2cssp0" path="res://image/tableedge.png" id="8_hy522"]
 [ext_resource type="Script" path="res://AllYaku.gd" id="8_t018g"]
 [ext_resource type="Script" path="res://GUIManager.gd" id="9_1ntl1"]
 [ext_resource type="Script" path="res://AnimTimer.gd" id="9_r8218"]
-[ext_resource type="Texture2D" uid="uid://6selxoc8faj5" path="res://image/table_top.png" id="11_a4xxf"]
 [ext_resource type="Script" path="res://CallsGraphical.gd" id="11_oemle"]
-[ext_resource type="Texture2D" uid="uid://dbnpkxetohid0" path="res://image/call_ignore.png" id="13_qhnc0"]
 [ext_resource type="Script" path="res://CallGraphic.gd" id="13_wfhtv"]
 [ext_resource type="Script" path="res://GraphicTileCounter.gd" id="13_x2gyd"]
+[ext_resource type="Texture2D" uid="uid://6selxoc8faj5" path="res://image/table_top.png" id="14_44d3a"]
 [ext_resource type="Script" path="res://CursorTextRequester.gd" id="16_8lthm"]
+[ext_resource type="Texture2D" uid="uid://cerxwhe2cssp0" path="res://image/tableedge.png" id="17_0o2u0"]
+[ext_resource type="Texture2D" uid="uid://qfsu5y82t8jk" path="res://image/prevwindindicator.png" id="19_1d4n6"]
 [ext_resource type="Script" path="res://ShopRoot.gd" id="19_bnl3p"]
-[ext_resource type="Texture2D" uid="uid://bxt2na0s3mabw" path="res://image/call_indicator_gold.png" id="19_idqi3"]
-[ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="20_ib16c"]
+[ext_resource type="Texture2D" uid="uid://bu7eiaj3nnu51" path="res://image/sittingwindindicator.png" id="20_he7r1"]
 [ext_resource type="Script" path="res://PurchaseablesHolder.gd" id="20_wmn33"]
-[ext_resource type="PackedScene" uid="uid://cpirwiftxeu8s" path="res://purchaseable.tscn" id="21_3mckx"]
-[ext_resource type="PackedScene" uid="uid://dxdkyqgyyijvx" path="res://item.tscn" id="21_4bgcv"]
+[ext_resource type="PackedScene" path="res://purchaseable.tscn" id="21_3mckx"]
+[ext_resource type="PackedScene" uid="uid://xbdfpjmfa56k" path="res://item.tscn" id="21_4bgcv"]
 [ext_resource type="Script" path="res://OpenShopButton.gd" id="21_8bhal"]
 [ext_resource type="Script" path="res://NextRoundButton.gd" id="21_roajs"]
+[ext_resource type="Texture2D" uid="uid://c51ubvyksp7ke" path="res://image/mana_9pr.png" id="21_sffs3"]
+[ext_resource type="Script" path="res://ManaBar.gd" id="21_w220a"]
 [ext_resource type="Script" path="res://ScoringRoot.gd" id="21_yhd2i"]
+[ext_resource type="Script" path="res://Items.gd" id="22_nsrp2"]
+[ext_resource type="Texture2D" uid="uid://df2xox6cesh85" path="res://image/mana_fill.png" id="23_1yx1g"]
 [ext_resource type="Script" path="res://TileSelect.gd" id="26_gfhhk"]
-[ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="27_waxa7"]
+[ext_resource type="Texture2D" uid="uid://bmqa5eyuh48qx" path="res://image/call_indicator.png" id="27_5fg6i"]
 [ext_resource type="Script" path="res://NumberColorizer.gd" id="27_yfh58"]
 [ext_resource type="FontFile" uid="uid://dmoumxbcf3gn" path="res://text/font/Body2.png" id="28_jde07"]
 [ext_resource type="Script" path="res://PopupTileSelector.gd" id="28_st0rv"]
-[ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tile/tilecounter/tablediv.png" id="33_igaxs"]
-[ext_resource type="Texture2D" uid="uid://8eiqqlppwabi" path="res://image/tile/tilecounter/tilecounter.png" id="35_6x8j8"]
-[ext_resource type="Texture2D" uid="uid://ch4nr70j7xj74" path="res://image/tile/tilecounter/tilecounter_end_odd.png" id="36_glino"]
-[ext_resource type="Texture2D" uid="uid://blxlrv0jsh5hx" path="res://image/tile/tilecounter/tilecounter_end_even.png" id="37_nadvb"]
-[ext_resource type="Texture2D" uid="uid://ng8eqocmaltm" path="res://image/sidebar_tiles_9pr.png" id="39_1otd6"]
+[ext_resource type="Texture2D" uid="uid://bxt2na0s3mabw" path="res://image/call_indicator_gold.png" id="29_i5pm5"]
+[ext_resource type="Texture2D" uid="uid://dbnpkxetohid0" path="res://image/call_ignore.png" id="30_jtquo"]
+[ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="32_on5h8"]
+[ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="35_14yv6"]
 [ext_resource type="Script" path="res://FuTab.gd" id="41_je4uv"]
-[ext_resource type="Texture2D" uid="uid://xoodhoigui53" path="res://image/optionsbutton.png" id="42_n7prw"]
+[ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tile/tilecounter/tablediv.png" id="41_k312k"]
+[ext_resource type="Texture2D" uid="uid://8eiqqlppwabi" path="res://image/tile/tilecounter/tilecounter.png" id="43_3nd3k"]
 [ext_resource type="Script" path="res://OptionsButton.gd" id="43_jd3i2"]
 [ext_resource type="Script" path="res://AllTilesDisplay.gd" id="43_nbkwc"]
 [ext_resource type="Script" path="res://QuitButton.gd" id="43_uwhsm"]
 [ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="44_cis8i"]
+[ext_resource type="Texture2D" uid="uid://ch4nr70j7xj74" path="res://image/tile/tilecounter/tilecounter_end_odd.png" id="44_s037w"]
+[ext_resource type="Texture2D" uid="uid://blxlrv0jsh5hx" path="res://image/tile/tilecounter/tilecounter_end_even.png" id="45_hwnkc"]
 [ext_resource type="Script" path="res://YakuTab.gd" id="45_rsntb"]
+[ext_resource type="Texture2D" uid="uid://ng8eqocmaltm" path="res://image/sidebar_tiles_9pr.png" id="47_n10gp"]
 [ext_resource type="Script" path="res://ScoreTracker.gd" id="50_7li6w"]
+[ext_resource type="Texture2D" uid="uid://xoodhoigui53" path="res://image/optionsbutton.png" id="51_57d0l"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n8ei0"]
+texture = ExtResource("21_sffs3")
+texture_margin_left = 1.0
+texture_margin_top = 1.0
+texture_margin_right = 1.0
+texture_margin_bottom = 2.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_oxwec"]
+line_spacing = 0.0
+font_color = Color(1, 1, 0.933333, 1)
+shadow_color = Color(0.8, 0.466667, 0.2, 1)
+shadow_offset = Vector2(0, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4okkq"]
 content_margin_top = 1.0
 content_margin_bottom = 0.0
-texture = ExtResource("27_waxa7")
+texture = ExtResource("32_on5h8")
 texture_margin_left = 4.0
 texture_margin_top = 4.0
 texture_margin_right = 4.0
@@ -66,7 +85,7 @@ axis_stretch_vertical = 1
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hk5cw"]
 content_margin_top = 1.0
 content_margin_bottom = 0.0
-texture = ExtResource("27_waxa7")
+texture = ExtResource("32_on5h8")
 texture_margin_left = 4.0
 texture_margin_top = 4.0
 texture_margin_right = 4.0
@@ -81,7 +100,7 @@ content_margin_left = 8.0
 content_margin_top = 8.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
-texture = ExtResource("20_ib16c")
+texture = ExtResource("35_14yv6")
 texture_margin_left = 4.0
 texture_margin_top = 5.0
 texture_margin_right = 4.0
@@ -92,7 +111,7 @@ axis_stretch_vertical = 1
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l6in4"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_02wl1"]
-texture = ExtResource("39_1otd6")
+texture = ExtResource("47_n10gp")
 texture_margin_left = 2.0
 texture_margin_top = 3.0
 texture_margin_right = 2.0
@@ -134,7 +153,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_q1squ")
+texture = ExtResource("4_txmfg")
 patch_margin_left = 2
 patch_margin_top = 2
 patch_margin_right = 2
@@ -199,7 +218,7 @@ alignment = 2
 layout_mode = 2
 offset_right = 384.0
 offset_bottom = 40.0
-texture = ExtResource("11_a4xxf")
+texture = ExtResource("14_44d3a")
 stretch_mode = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop"]
@@ -359,7 +378,7 @@ layout_mode = 2
 [node name="TableBottom" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/All"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
-texture = ExtResource("8_hy522")
+texture = ExtResource("17_0o2u0")
 stretch_mode = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom"]
@@ -384,7 +403,7 @@ script = ExtResource("16_8lthm")
 hover_text = "The Prevalent Wind."
 
 [node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/RoundWind"]
-texture = ExtResource("8_heinv")
+texture = ExtResource("19_1d4n6")
 centered = false
 vframes = 4
 
@@ -396,9 +415,31 @@ script = ExtResource("16_8lthm")
 hover_text = "The Sitting Wind."
 
 [node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/SittingWind"]
-texture = ExtResource("8_00qj1")
+texture = ExtResource("20_he7r1")
 centered = false
 vframes = 4
+
+[node name="ManaBar" type="PanelContainer" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(68, 13)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxTexture_n8ei0")
+script = ExtResource("21_w220a")
+
+[node name="Fill" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/ManaBar"]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("23_1yx1g")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/ManaBar"]
+layout_mode = 2
+text = "111"
+label_settings = SubResource("LabelSettings_oxwec")
+horizontal_alignment = 1
 
 [node name="Items" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer"]
 unique_name_in_owner = true
@@ -406,10 +447,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 alignment = 2
+script = ExtResource("22_nsrp2")
 
 [node name="Item" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("21_4bgcv")]
 layout_mode = 2
-type = 11
+type = 1
 activate_self = true
 
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
@@ -427,7 +469,7 @@ script = ExtResource("11_oemle")
 
 [node name="ChiR" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
 layout_mode = 2
-texture = ExtResource("8_4d1ju")
+texture = ExtResource("27_5fg6i")
 script = ExtResource("13_wfhtv")
 bitmask = 1
 
@@ -449,7 +491,7 @@ text = "Chi R"
 
 [node name="ChiM" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
 layout_mode = 2
-texture = ExtResource("8_4d1ju")
+texture = ExtResource("27_5fg6i")
 script = ExtResource("13_wfhtv")
 bitmask = 2
 
@@ -471,7 +513,7 @@ text = "Chi M"
 
 [node name="ChiL" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
 layout_mode = 2
-texture = ExtResource("8_4d1ju")
+texture = ExtResource("27_5fg6i")
 script = ExtResource("13_wfhtv")
 bitmask = 4
 
@@ -493,7 +535,7 @@ text = "Chi L"
 
 [node name="Pon" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
 layout_mode = 2
-texture = ExtResource("8_4d1ju")
+texture = ExtResource("27_5fg6i")
 script = ExtResource("13_wfhtv")
 bitmask = 8
 
@@ -515,7 +557,7 @@ text = "Pon"
 
 [node name="Kan" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
 layout_mode = 2
-texture = ExtResource("8_4d1ju")
+texture = ExtResource("27_5fg6i")
 script = ExtResource("13_wfhtv")
 bitmask = 16
 
@@ -537,7 +579,7 @@ text = "Kan"
 
 [node name="ClosedKan" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
 layout_mode = 2
-texture = ExtResource("8_4d1ju")
+texture = ExtResource("27_5fg6i")
 script = ExtResource("13_wfhtv")
 bitmask = 128
 
@@ -559,7 +601,7 @@ text = "Kan"
 
 [node name="Ron" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
 layout_mode = 2
-texture = ExtResource("19_idqi3")
+texture = ExtResource("29_i5pm5")
 script = ExtResource("13_wfhtv")
 bitmask = 32
 
@@ -582,7 +624,7 @@ text = "Ron"
 
 [node name="Riichi" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
 layout_mode = 2
-texture = ExtResource("19_idqi3")
+texture = ExtResource("29_i5pm5")
 script = ExtResource("13_wfhtv")
 bitmask = 256
 
@@ -605,7 +647,7 @@ text = "Riichi"
 
 [node name="Tsumo" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
 layout_mode = 2
-texture = ExtResource("19_idqi3")
+texture = ExtResource("29_i5pm5")
 script = ExtResource("13_wfhtv")
 bitmask = 64
 
@@ -628,7 +670,7 @@ text = "Tsumo"
 
 [node name="Flower" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
 layout_mode = 2
-texture = ExtResource("19_idqi3")
+texture = ExtResource("29_i5pm5")
 script = ExtResource("13_wfhtv")
 bitmask = 512
 
@@ -651,7 +693,7 @@ text = "Flower"
 
 [node name="Ignore" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
 layout_mode = 2
-texture = ExtResource("13_qhnc0")
+texture = ExtResource("30_jtquo")
 script = ExtResource("13_wfhtv")
 
 [node name="TileSelectPanel" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
@@ -909,14 +951,14 @@ script = ExtResource("21_roajs")
 
 [node name="GraphicTileCounter" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("33_igaxs")
+texture = ExtResource("41_k312k")
 stretch_mode = 1
 script = ExtResource("13_x2gyd")
 
 [node name="TileCounter" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
 layout_mode = 0
 offset_right = 8.0
-texture = ExtResource("35_6x8j8")
+texture = ExtResource("43_3nd3k")
 expand_mode = 1
 stretch_mode = 1
 script = ExtResource("16_8lthm")
@@ -926,7 +968,7 @@ hover_text = "Tiles left to draw in the wall."
 layout_mode = 1
 offset_right = 8.0
 offset_bottom = 16.0
-texture = ExtResource("36_glino")
+texture = ExtResource("44_s037w")
 stretch_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer/GraphicTileCounter"]
@@ -942,7 +984,7 @@ layout_mode = 1
 offset_top = 350.0
 offset_right = 8.0
 offset_bottom = 366.0
-texture = ExtResource("37_nadvb")
+texture = ExtResource("45_hwnkc")
 stretch_mode = 2
 
 [node name="DeadTileCounter" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
@@ -951,7 +993,7 @@ offset_top = 353.0
 offset_right = 8.0
 offset_bottom = 362.0
 scale = Vector2(1, -1)
-texture = ExtResource("35_6x8j8")
+texture = ExtResource("43_3nd3k")
 expand_mode = 1
 stretch_mode = 1
 script = ExtResource("16_8lthm")
@@ -1208,7 +1250,7 @@ alignment = 1
 
 [node name="OptionsButton" type="TextureButton" parent="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-texture_normal = ExtResource("42_n7prw")
+texture_normal = ExtResource("51_57d0l")
 script = ExtResource("43_jd3i2")
 
 [node name="Label" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer/VBoxContainer/OptionsButton"]
@@ -1227,7 +1269,7 @@ vertical_alignment = 1
 
 [node name="QuitButton" type="TextureButton" parent="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-texture_normal = ExtResource("42_n7prw")
+texture_normal = ExtResource("51_57d0l")
 script = ExtResource("43_uwhsm")
 
 [node name="Label" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer/VBoxContainer/QuitButton"]

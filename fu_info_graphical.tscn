@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://chrviyh1vc468"]
+[gd_scene load_steps=8 format=3]
 
-[ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="1_ghnnb"]
+[ext_resource type="Theme" path="res://theme.tres" id="1_ghnnb"]
 [ext_resource type="Script" path="res://FuInfoGraphical.gd" id="1_scglx"]
 [ext_resource type="Texture2D" uid="uid://dp8gjpdoyawy6" path="res://image/fu9pr.png" id="2_bpcis"]
 [ext_resource type="Texture2D" uid="uid://bbim3cjgj6ilk" path="res://image/fuconnector.png" id="4_mmvfa"]

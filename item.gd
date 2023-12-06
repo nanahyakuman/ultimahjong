@@ -10,6 +10,8 @@ class_name Item
 var mahjong_manager
 var tile_select
 var popup_tile_select
+var mana_bar
+
 
 #  doesnt really matter but i like the idea that every item in the game has a diff cooldown,
 # even if only by 1
@@ -17,7 +19,7 @@ enum TYPES {NONE, ERASER, WIND_MAGNET, BATTERY, KAN_SWAP, PIN_DUPE, SOU_ADJ, AKA
 const COOLD = [0,     48,          15,      24,       70,       44,      52,    61,     59,       36,           31,          32]
 const PRICE = [999,   24,          18,      24,       24,       26,      26,    30,     18,       16,           15,          18]
 @export var type: TYPES = TYPES.NONE
-var cooldown_counter = 0
+#var cooldown_counter = 0
 
 # link self up if already added to tree. debug and reload use
 @export var activate_self = false
@@ -66,32 +68,38 @@ func _ready():
 			hover_name.text = "Suji Shift"
 			hover_text.text = "Adjust current tsumo tile's value by +/- 3. Only works on numbered tiles."
 	
-	hover_text.text += " [%d]" % COOLD[type]
+	# no longer necessary bc. the counter is permanently there
+	#hover_text.text += " [%d]" % COOLD[type]
 	
-	cooldown_counter = 0
+	#cooldown_counter = 0
 	sprite_2d.frame_coords.x = type % sprite_2d.hframes
 	
 	if activate_self:
-		activate(%MahjongManager, %TileSelectPanel, %PopupTileSelector)
+		activate(%MahjongManager, %TileSelectPanel, %PopupTileSelector, %ManaBar)
 	
-	decrement()
+	panel_container.visible = true
+	counter_label.text = str(COOLD[type])
+	#decrement()
 
 # only called after purchase, not when added to a purchaseable
-func activate(mm: MahjongManager, ts: Node, pts: Node):
+func activate(mm: MahjongManager, ts: Node, pts: Node, mb: Node):
 	# the parent exists in the same scene as these
 	mahjong_manager = mm
 	tile_select = ts
 	popup_tile_select = pts
+	mana_bar = mb
 
 
-func decrement(amount: int = 1):
-	cooldown_counter -= amount
-	panel_container.visible = cooldown_counter > 0
-	counter_label.text = str(maxi(0,cooldown_counter))
-	sprite_2d.frame_coords.y = type / (sprite_2d.hframes) * 2 + int(cooldown_counter > 0)
+#func decrement(amount: int = 1):
+#	cooldown_counter -= amount
+#	panel_container.visible = cooldown_counter > 0
+#	counter_label.text = str(maxi(0,cooldown_counter))
+#	sprite_2d.frame_coords.y = type / (sprite_2d.hframes) * 2 + int(cooldown_counter > 0)
 
 func _use():
-	if cooldown_counter > 0:
+	#if cooldown_counter > 0:
+	#	return
+	if !mana_bar.can_use_mana(COOLD[type]):
 		return
 	if mahjong_manager:
 		if mahjong_manager._state != MahjongManager.STATE_ACTIONABLE:
@@ -117,8 +125,8 @@ func _use():
 			mahjong_manager.swap_in_next_theoretical_tsumo(wind_ids)
 			
 		TYPES.BATTERY:
-			for m in get_parent().get_children():
-				m.decrement(9)
+			#mana_bar.add_mana(1)
+			print("does nothing lol")
 			
 		TYPES.KAN_SWAP:
 			mahjong_manager.request_tile_select(self, true)
@@ -196,7 +204,8 @@ func _use():
 	
 	#  default item behaviour assumes the usage is immediate, if not
 	# call return in switch above.
-	update_counter()
+	#update_counter()
+	mana_bar.use_mana(COOLD[type])
 
 
 #  simple checker called by `MahjongManager to ask if a tile is valid. pindupe
@@ -305,13 +314,14 @@ func tile_selected(tile: MTile):
 	mahjong_manager.complete_tile_select()
 	popup_tile_select.set_tiles([])
 	tile_select.update_text("")
-	update_counter()
+	#update_counter()
+	mana_bar.use_mana(COOLD[type])
 
 
-func update_counter():
-	cooldown_counter = COOLD[type]
-	cooldown_counter += 1
-	decrement()
+#func update_counter():
+#	cooldown_counter = COOLD[type]
+#	cooldown_counter += 1
+#	decrement()
 
 # called from `MahjongManager` to hack into same code as cancelling a call.
 func cancel_selection():
