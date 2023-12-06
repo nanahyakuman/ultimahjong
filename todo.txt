@@ -80,7 +80,6 @@ redo scoring screen to better represent socring
 	cross out fu once you pass 5 han
 	don't show calculation if you exceed 5 han
 attempting to suji shift an illegal tile softlocks
-flowers still mysteriously close (graphically) sometimes
 a closed kan took the wrong tile im pretty sure
 still cant kan if you spawn with 4 of a tile. should be able to reuse some of the flower code
 

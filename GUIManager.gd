@@ -81,18 +81,24 @@ func _update_node(node: Node, tiles: Array, connector_node: Node = null, visible
 			curr.visible = true
 			ret = curr
 	
-	# closing and highlighting for called sets
-	if node.get_child_count() > 1:
-		# highlight closed tiles
-		if closed:
-			node.get_child(0).set_reversed(true)
-			node.get_child(-1).set_reversed(true)
-		#rotate open tiles
-		for t in node.get_child_count():
-			node.get_child(t).set_rotated(t == rotate_tile)
-		
 	for t in range(tiles.size(), existing_count):
 		node.get_child(t).visible = false
+	
+	#  closing and highlighting for called sets. only want to flip tiles on closed kantsu,
+	# not closed flowers, so we count up the size to see
+	var vis_count = 0
+	for c in node.get_children():
+		if c.visible:
+			vis_count += 1
+	# flip ends on closed sets
+	if closed and vis_count >= 4:
+		node.get_child(0).set_reversed(true)
+		node.get_child(-1).set_reversed(true)
+	#rotate open tiles
+	for t in node.get_child_count():
+		node.get_child(t).set_rotated(t == rotate_tile)
+		
+	
 	
 	return ret
 
