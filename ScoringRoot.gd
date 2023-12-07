@@ -33,10 +33,15 @@ func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points:int, mu
 	
 	han_points.append_text("[right][color=%s]" % COL.YELLOW)
 	for h in scoring_info.hans:
+		var han_count = h.calc_han(scoring_info.open)
+		# ignore non-scoring han, e.g. open pinfu, open menzentsumo
+		if han_count <= 0:
+			continue
+		
 		han_names.append_text(h.nam + "\n")
-		han_points.append_text(str(h.han * h.count) + " han\n")
+		han_points.append_text(str(han_count) + " han\n")
 		if animate:
-			for i in h.han * h.count: 
+			for i in han_count: 
 				MusicManager.play_han()
 				await anim_timer.start_get(.15)
 			await anim_timer.start_get(.3)

@@ -24,5 +24,6 @@ func use_mana(amount: int):
 
 func _update_display():
 	var wid = custom_minimum_size.x
-	fill.custom_minimum_size.x = mana * wid / cap
+	# -2 is the texture marhgins
+	fill.custom_minimum_size.x = mini(float(mana) * wid / cap, wid - 2)
 	label.text = str(mana)

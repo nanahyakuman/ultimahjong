@@ -78,7 +78,7 @@ func calc_cost():
 		cost = 2
 	elif type == TYPES.ITEM:
 #		cost = Item.PRICE[item.type]
-		cost = 3
+		cost = 5
 	
 	label.text = "%d" % cost
 

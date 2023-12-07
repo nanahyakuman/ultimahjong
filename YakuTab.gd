@@ -3,6 +3,8 @@ extends TabContainer
 @onready var mahjong_manager = %MahjongManager
 @onready var ALL_YAKU = mahjong_manager.ALL_YAKU
 
+@onready var sidebar_yaku = load("res://yaku_info_sidebar.tscn")
+
 # create tabs for all yaku procedurally.
 func _ready():
 	var curr_tab_box: VBoxContainer = null
@@ -28,6 +30,6 @@ func _ready():
 		else:
 			assert(i is ScoringInfo.Han)
 			
-			var new_yaku = load("res://yaku_info_sidebar.tscn").instantiate()
+			var new_yaku = sidebar_yaku.instantiate()
 			curr_tab_box.add_child(new_yaku)
 			new_yaku.set_info(i)

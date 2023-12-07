@@ -3,7 +3,8 @@ class_name ScoringInfo
 
 class Han:
 	var nam: String = ""
-	var han: int = 0
+	# you probably want `calc_han()`
+	var closed_han: int = 0
 	#  0 means no penalty, (n >= han) means closed only, any other
 	# integer (only ever 1 in base mahjong) is a penalty.
 	#  note that yakuchecker has seperate hardcoded checks for openness atm
@@ -22,13 +23,16 @@ class Han:
 	
 	func _init(_name: String, _han: int, _penalty: int, _desc: String, _graphic_desc: String = ""):
 		nam = _name
-		han = _han
+		closed_han = _han
 		open_penalty = _penalty
 		desc = _desc
 		graphic_desc = _graphic_desc
 	
 	func duplicate():
-		return Han.new(nam, han, open_penalty, desc, graphic_desc)
+		return Han.new(nam, closed_han, open_penalty, desc, graphic_desc)
+	
+	func calc_han(open: bool):
+		return maxi(0, closed_han - (open_penalty * int(open))) * count
 
 class Fu:
 	var nam: String = ""
@@ -54,7 +58,7 @@ func get_total_han() -> int:
 	var ret = 0
 	for h in hans:
 		# take open penalties into account
-		ret += (h.han - maxi(0, (h.open_penalty * int(open)))) * h.count
+		ret += h.calc_han(open)
 	return ret
 
 func get_total_fu() -> int:

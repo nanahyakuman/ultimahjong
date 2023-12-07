@@ -78,7 +78,7 @@ func pressed(node: Purchaseable):
 		Purchaseable.TYPES.ITEM:
 			var a = node.item.duplicate()
 			items.add_child(a)
-			a.activate(mahjong_manager, %TileSelect, %PopupTileSelector, %ManaBar)
+			a.activate(mahjong_manager, %TileSelectPanel, %PopupTileSelector, %ManaBar)
 	
 	shop_root.state = shop_root.STATE_ACTIVE
 	

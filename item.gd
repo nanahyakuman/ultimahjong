@@ -72,7 +72,9 @@ func _ready():
 	#hover_text.text += " [%d]" % COOLD[type]
 	
 	#cooldown_counter = 0
+	
 	sprite_2d.frame_coords.x = type % sprite_2d.hframes
+	update_graphics(0)
 	
 	if activate_self:
 		activate(%MahjongManager, %TileSelectPanel, %PopupTileSelector, %ManaBar)
@@ -81,13 +83,16 @@ func _ready():
 	counter_label.text = str(COOLD[type])
 	#decrement()
 
-# only called after purchase, not when added to a purchaseable
+#  called after purchase, not when added to a purchaseable. also called by self
+# on `_ready()` if appropriate.
 func activate(mm: MahjongManager, ts: Node, pts: Node, mb: Node):
 	# the parent exists in the same scene as these
 	mahjong_manager = mm
 	tile_select = ts
 	popup_tile_select = pts
 	mana_bar = mb
+	
+	update_graphics(mb.mana)
 
 
 #func decrement(amount: int = 1):
@@ -96,9 +101,14 @@ func activate(mm: MahjongManager, ts: Node, pts: Node, mb: Node):
 #	counter_label.text = str(maxi(0,cooldown_counter))
 #	sprite_2d.frame_coords.y = type / (sprite_2d.hframes) * 2 + int(cooldown_counter > 0)
 
+func update_graphics(val: int):
+	sprite_2d.frame_coords.y = type / (sprite_2d.hframes) * 2 + int(COOLD[type] > val)
+
 func _use():
 	#if cooldown_counter > 0:
 	#	return
+	if !mana_bar:
+		return
 	if !mana_bar.can_use_mana(COOLD[type]):
 		return
 	if mahjong_manager:
@@ -204,8 +214,7 @@ func _use():
 	
 	#  default item behaviour assumes the usage is immediate, if not
 	# call return in switch above.
-	#update_counter()
-	mana_bar.use_mana(COOLD[type])
+	update_counter()
 
 
 #  simple checker called by `MahjongManager to ask if a tile is valid. pindupe
@@ -314,14 +323,15 @@ func tile_selected(tile: MTile):
 	mahjong_manager.complete_tile_select()
 	popup_tile_select.set_tiles([])
 	tile_select.update_text("")
-	#update_counter()
-	mana_bar.use_mana(COOLD[type])
+	update_counter()
 
 
-#func update_counter():
+func update_counter():
 #	cooldown_counter = COOLD[type]
 #	cooldown_counter += 1
 #	decrement()
+	mana_bar.use_mana(COOLD[type])
+	get_parent().update_tile_graphics()
 
 # called from `MahjongManager` to hack into same code as cancelling a call.
 func cancel_selection():

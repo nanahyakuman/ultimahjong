@@ -47,6 +47,7 @@ ryuukyoku tenpai payout
 ideas but not critical:
 	some items should highlight what they affect
 	canon tile highlight
+	auto mode that jsut draw/discs and calls tsumo/ron
 
 
 
@@ -86,11 +87,9 @@ attempting to suji shift an illegal tile softlocks
 kan related:
 	a closed kan took the wrong tile im pretty sure. confirmed
 	still cant kan if you spawn with 4 of a tile. should be able to reuse some of the flower code
-hands don't score as if they're open
 rework kandora reveal increase and dead wall decrease to be "passive items" that sit
 	in a menu
-
-
+mana bar overlapping size
 
 meta:
 	finish scoring!!
@@ -109,7 +108,7 @@ music
 	
 	finalize and reexport 1.
 		base- delay too loud and wahhh too samey
-		tenpai- drums??
+		tenpai- drums?? NO
 
 
 

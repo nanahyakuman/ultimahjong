@@ -421,7 +421,7 @@ vframes = 4
 
 [node name="ManaBar" type="PanelContainer" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(68, 13)
+custom_minimum_size = Vector2(70, 13)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxTexture_n8ei0")
