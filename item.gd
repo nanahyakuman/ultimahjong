@@ -74,7 +74,7 @@ func _ready():
 	#cooldown_counter = 0
 	
 	sprite_2d.frame_coords.x = type % sprite_2d.hframes
-	update_graphics(0)
+	update_graphics(9999)
 	
 	if activate_self:
 		activate(%MahjongManager, %TileSelectPanel, %PopupTileSelector, %ManaBar)

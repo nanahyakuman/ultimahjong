@@ -23,7 +23,7 @@ const BASE_HAND_SIZE = 13
 var character_info = null
 
 var wall = [] # of `MTile`s
-var dead_wall = [] # of `MTile`s
+#var dead_wall = [] # of `MTile`s
 var hand = [] # of `MTile`s
 var called_hand = [] # of `grouping`s
 var tsumo # a Mtile or null. it's very important that this remains null when
@@ -41,13 +41,14 @@ var seat_wind = 0 # incremented at start of round
 enum {STATE_ACTIONABLE, STATE_ANIMATING, STATE_CALLS, STATE_SELECT_TILE}
 # use `set_state` onegaishimasu
 var _state = STATE_ANIMATING
-#  i dont like this being global but its the easist way to make
+#  i dont know if i like this being global but its the easist way to make
 # this work
 var remaining_opp_discards
 
 # trackers for yaku it makes sense for `MahjongManager` to handle
 var in_riichi = false
 var ippatsu_counter = 0
+# for rinshan
 var was_last_draw_from_dead_wall = false
 
 var met_yaku: ScoringInfo
@@ -128,21 +129,21 @@ func _init_wall():
 	
 
 func _draw_hand():
-	for j in upgrades.get_dead_tiles()/4:
-		await anim_timer.start_mod(.15)
-		for k in 4:
-			dead_wall.append(_get_next_from_wall(0))
-		gui_manager.increment_dead_wall_count(4)
-		call_sfx_player.play()
-	
-	if upgrades.get_dead_tiles()%4 != 0:
-		await anim_timer.start_mod(.15)
-		for j in upgrades.get_dead_tiles()%4:
-			dead_wall.append(_get_next_from_wall(0))
-		gui_manager.increment_dead_wall_count(upgrades.get_dead_tiles()%4)
-		call_sfx_player.play()
-	
-	await anim_timer.start_mod(.15)
+#	for j in upgrades.get_dead_tiles()/4:
+#		await anim_timer.start_mod(.15)
+#		for k in 4:
+#			dead_wall.append(_get_next_from_wall(0))
+#		gui_manager.increment_dead_wall_count(4)
+#		call_sfx_player.play()
+#
+#	if upgrades.get_dead_tiles()%4 != 0:
+#		await anim_timer.start_mod(.15)
+#		for j in upgrades.get_dead_tiles()%4:
+#			dead_wall.append(_get_next_from_wall(0))
+#		gui_manager.increment_dead_wall_count(upgrades.get_dead_tiles()%4)
+#		call_sfx_player.play()
+#
+#	await anim_timer.start_mod(.15)
 	
 	for i in BASE_HAND_SIZE:
 		await anim_timer.start_mod(.07)
@@ -558,22 +559,38 @@ func _do_if_can_tsumo():
 	if yaku_checker.hand_get_han(get_hand_info(), [], false, null).get_total_han() > 0:
 		btm |= CALL_BITMASK.TSM
 	
-	# closed tsumo kan. note we ban riichi kans
+	#  closed tsumo kan. note we ban riichi kans atm. there's no selection yet if
+	# you have two kans in hand.
+	# for closed kans, we also don't necessarily assume the tsumo/recent discard
+	# is involved, like we do with other calls, so we pass all 4 tiles forwards
+	# instead of 4-1 = 3. (the rest pass in 3-1 = 2 tiles, implicitly including
+	# the msot recent discard)
 	if !in_riichi:
-		var tsid = tsumo.get_id()
-		var kantiles = []
+		var tileidcounts = ExpandingCounterDict.new()
 		for t in hand:
-			if t.get_id() == tsid:
-				kantiles.append(t)
-		if kantiles.size() >= 3:
+			tileidcounts.add(t.get_id())
+		tileidcounts.add(tsumo.get_id())
+		var kannables = tileidcounts.get_count_greater_than(3)
+		if kannables.size() > 0:
+			var id = kannables[0]
+			
 			btm |= CALL_BITMASK.CLOSED_KAN
-			# append involved tiles
-			var firstthree = []
-			for i in 3:
-				firstthree.append(kantiles[i])
-			involved[CALL_BITMASK.CLOSED_KAN] = firstthree
+			#find the tiles
+			var four_tiles = []
+			var from_hand = 4
+			if tsumo.get_id() == id:
+				four_tiles.append(tsumo)
+				from_hand -= 1
+			for t in hand:
+				if t.get_id() == id:
+					four_tiles.append(t)
+					from_hand -= 1
+					if from_hand <= 0:
+						break
+			involved[CALL_BITMASK.CLOSED_KAN] = four_tiles
 	
-	#flowers:
+	#  flowers. same as kan, we pass the tile itself instead of assuming
+	# there's a discard involved, bc. there isnt.
 	for t in full_hand:
 		if t.suit == MTile.SUITS.FLOWER:
 			btm |= CALL_BITMASK.FLOWER
@@ -644,9 +661,9 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 		assert(to_remove == 0, "not as many tiles as expected removed from hand!")
 		
 		# append final tile
-		if bitmask == CALL_BITMASK.CLOSED_KAN:
-			new_grouping.tiles.append(tsumo)
-		elif  bitmask == CALL_BITMASK.FLOWER:
+		if bitmask == CALL_BITMASK.FLOWER:
+			pass
+		elif bitmask == CALL_BITMASK.CLOSED_KAN:
 			pass
 		else:
 			new_grouping.tiles.append(opp_discard.pop_back())
@@ -833,7 +850,7 @@ func update_hand_label(override_sort = false):
 
 # `does_not_count` just prevents certain tile draws from decrementing counters
 func _get_next_from_wall(mana_count: int):
-	if wall.size() == 0:
+	if wall.size() <= upgrades.get_dead_tiles():
 		_end_round()
 		return null
 	var ret = wall.pop_back()
@@ -940,6 +957,7 @@ func get_called_hand_size() -> int:
 			count += 3
 	return count
 
+# these are for arrays of MTiles we want to access by id
 static func first_by_id(id: int, tiles: Array) -> int:
 	for t in tiles.size():
 		if tiles[t].get_id() == id:

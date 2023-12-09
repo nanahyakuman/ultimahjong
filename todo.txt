@@ -77,6 +77,7 @@ calliing a chi appears to have de-aka'd a 5
 call label text vcentering
 78899p789s12366m 7p returned ryanpeikou
 assert that all the chanta type yaku still work
+permit riichi kan
 flower call redraw did NOT propmt tsumo properly. might have been other now-solved
 	issue but should verify
 redo scoring screen to better represent socring
@@ -89,7 +90,9 @@ kan related:
 	still cant kan if you spawn with 4 of a tile. should be able to reuse some of the flower code
 rework kandora reveal increase and dead wall decrease to be "passive items" that sit
 	in a menu
-mana bar overlapping size
+akafy still checks against "aka"
+
+
 
 meta:
 	finish scoring!!

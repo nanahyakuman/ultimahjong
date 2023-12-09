@@ -99,7 +99,7 @@ func get_base_points():
 	var han = get_total_han()
 	var fu = get_total_fu()
 	
-	return ScoringInfo._base_point_calc(fu, han)
+	return ScoringInfo._alt_points_count(fu, han)
 
 static func _base_point_calc(fu: int, han: int):
 	var points = int(round_to_place(fu,10) * pow(2.0, han + 2.0))
