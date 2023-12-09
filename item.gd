@@ -161,8 +161,8 @@ func _use():
 			while true:
 				ii += 1
 				ii %= mahjong_manager.hand.size()
-				if !mahjong_manager.hand[ii].aka:
-					mahjong_manager.hand[ii].aka = true
+				if mahjong_manager.hand[ii].color == MTile.COL_NONE:
+					mahjong_manager.hand[ii].color = MTile.COL_AKA
 					mahjong_manager.update_hand_label()
 					break
 				# excape case for all aka

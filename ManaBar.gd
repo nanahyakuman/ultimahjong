@@ -9,6 +9,8 @@ extends CursorTextRequester
 func _ready():
 	_update_display()
 	super._ready()
+	
+	add_mana(999)
 
 func add_mana(amount: int):
 	mana = mini(mana + amount, cap)

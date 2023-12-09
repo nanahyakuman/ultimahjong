@@ -80,17 +80,11 @@ assert that all the chanta type yaku still work
 permit riichi kan
 flower call redraw did NOT propmt tsumo properly. might have been other now-solved
 	issue but should verify
-redo scoring screen to better represent socring
-	count fu
-	cross out fu once you pass 5 han
-	don't show calculation if you exceed 5 han
+redo scoring screen to better represent new scoring
+	stop counting fu after 4.
 attempting to suji shift an illegal tile softlocks
-kan related:
-	a closed kan took the wrong tile im pretty sure. confirmed
-	still cant kan if you spawn with 4 of a tile. should be able to reuse some of the flower code
 rework kandora reveal increase and dead wall decrease to be "passive items" that sit
-	in a menu
-akafy still checks against "aka"
+	in a menu?
 
 
 
