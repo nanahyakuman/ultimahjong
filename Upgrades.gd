@@ -2,6 +2,7 @@
 ## most of this is inherited from character_info.
 ##  should be able to @export and save all of these in future
 extends Node
+class_name Upgrades
 
 var character_info: CharacterInfo
 

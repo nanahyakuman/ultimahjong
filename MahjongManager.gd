@@ -11,7 +11,7 @@ class_name MahjongManager
 @onready var call_sfx_player = $CallMade
 @onready var root = $"../../.."
 @onready var anim_timer = $%AnimTimer
-@onready var upgrades = $Upgrades
+@onready var upgrades: Upgrades = $Upgrades
 @onready var hand_gui = $"../GUIManager/All/SideSpacers/Tiles/HBoxContainer/Hand"
 @onready var ALL_YAKU = $YakuFu
 # gui holds these guys, it's gross but probably easier overall
@@ -70,7 +70,7 @@ func start_round():
 	gui_manager.update_kan_dora([],0)
 	gui_manager.update_hand([])
 	gui_manager.reset_dead_wall_count()
-	gui_manager.update_wall_count(0)
+	gui_manager.update_wall_count(0,0)
 	calls_manager.enable_calls(0, {})
 	
 	in_riichi = false
@@ -123,9 +123,9 @@ func _init_wall():
 	
 	for i in range(0, wall.size(), 6):
 		await anim_timer.start_mod(.04)
-		gui_manager.update_wall_count(i)
+		gui_manager.update_wall_count(i, upgrades.get_dead_tiles())
 		call_sfx_player.play()
-	gui_manager.update_wall_count(wall.size())
+	gui_manager.update_wall_count(wall.size(), upgrades.get_dead_tiles())
 	
 
 func _draw_hand():
@@ -854,7 +854,7 @@ func _get_next_from_wall(mana_count: int):
 		_end_round()
 		return null
 	var ret = wall.pop_back()
-	gui_manager.update_wall_count(wall.size())
+	gui_manager.update_wall_count(wall.size(), upgrades.get_dead_tiles())
 	
 	items.tile_drawn(mana_count)
 	

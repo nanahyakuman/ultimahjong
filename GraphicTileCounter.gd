@@ -10,7 +10,7 @@ extends TextureRect
 
 @export var text_offset = Vector2(11,12)
 
-func update_wall_count(c: int):
+func update_wall_count(c: int, dead_wall_size: int):
 	tile_counter.size.y = ((c-1) / 2) * 4
 	tile_counter.position.y = 2
 	end.position.y = tile_counter.size.y + tile_counter.position.y
@@ -19,7 +19,7 @@ func update_wall_count(c: int):
 	if c == 1:
 		end.texture = textures[2]
 	
-	label.text = str(c)
+	label.text = str(c - dead_wall_size)
 	label.position = end.position + text_offset
 
 func reset_dead_wall_count():

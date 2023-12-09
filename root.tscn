@@ -963,7 +963,7 @@ texture = ExtResource("43_3nd3k")
 expand_mode = 1
 stretch_mode = 1
 script = ExtResource("16_8lthm")
-hover_text = "Tiles left to draw in the wall."
+hover_text = "Tiles in the wall. The last tiles are dead."
 
 [node name="End" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
 layout_mode = 1

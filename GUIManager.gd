@@ -117,8 +117,8 @@ func update_winds(prev: int, seat: int):
 	prev_wind.frame = prev
 	seat_wind.frame = seat
 
-func update_wall_count(c: int):
-	graphic_tile_counter.update_wall_count(c)
+func update_wall_count(c: int, d: int):
+	graphic_tile_counter.update_wall_count(c, d)
 
 func increment_dead_wall_count(c: int):
 	graphic_tile_counter.increment_dead_wall_count(c)
