@@ -18,5 +18,7 @@ func set_info(info: ScoringInfo.Han):
 		closed_label.text = ""
 	desc_label.text = info.desc
 	tile_label.text = info.graphic_desc
-	while tile_label.text.length() < 14:
-		tile_label.text += "🀪"
+	if tile_label.text.length() < 14:
+		while tile_label.text.length() < 13:
+			tile_label.text += "🀪"
+		tile_label.text += " 🀪"

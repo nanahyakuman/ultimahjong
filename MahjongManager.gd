@@ -778,7 +778,7 @@ func add_to_hand_and_update(tile: MTile):
 	_do_if_can_tsumo()
 
 #  easy function to take an array of valid tiles ids, search the wall for them,
-# and replace our next theoretical tsumo with the first one we find.
+# and replace our next theoretical tsumo with a random found one.
 #  used by items
 func swap_in_next_theoretical_tsumo(valid_tile_ids: Array):
 	# need to be able to draw
@@ -801,12 +801,11 @@ func swap_in_next_theoretical_tsumo(valid_tile_ids: Array):
 		# the whole deck
 		_switch_tile_with_tsumo(valid, index)
 
-#  you don't need to provide an index but it saves us a `.find()`
-# if you do. `tile` should be a ref to a tile literally in the
+#  `tile` should be a ref to a tile literally in the
 # deck or this won't work.
 func _switch_tile_with_tsumo(tile: MTile, index: int = -1):
-	if index < 0:
-		index = wall.find(tile)
+#	if index < 0:
+#		index = wall.find(tile)
 	assert(index >= 0, "trying to switch with a tile that doesn't exist in the deck!")
 	
 	var switch = wall[-upgrades.get_discard_count()-1]

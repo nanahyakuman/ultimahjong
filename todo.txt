@@ -38,10 +38,25 @@ end of every round can purchase:
 achievements
 	all yaku
 	all mangan
-	joke about there not being furiten. "furitenfuri"
+	joke about there not being furiten. "furiten furi"
 	pocchi a false white dragon
-dead wall can be expanded as long as there are free tiles left
-ryuukyoku tenpai payout
+
+item considerations (jsut a useful reference for balancing things)
+	tile selection:
+		choose from hand
+		tsumo
+		random from hand, excluding tsumo (verify all existing items exclude)
+		choose of type (i.e. "a wind", "an odd pin")
+		random of type
+	tile obtaining:
+		instant, usually swap with tsumo or earlier selected tile
+		put in wall so you'll draw it next if you don't make a call
+		enemy will discard it next round
+		set next haitei. this seems dubiously useful ngl.
+	
+	items (anything you purchase, really) should have a fairly consistent
+	han per round per dollar. don't have to be vulcan but im liking each item
+	adding 1~1.3 han a round (with some luck).
 
 
 ideas but not critical:
@@ -73,7 +88,6 @@ new tile manager broke some things
 		aoize and kinize
 get_terminals function
 kindora worth 1000pts flat?
-calliing a chi appears to have de-aka'd a 5
 call label text vcentering
 78899p789s12366m 7p returned ryanpeikou
 assert that all the chanta type yaku still work
@@ -81,22 +95,25 @@ permit riichi kan
 flower call redraw did NOT propmt tsumo properly. might have been other now-solved
 	issue but should verify
 redo scoring screen to better represent new scoring
-	stop counting fu after 4.
+	stop counting fu after 4, name mangan
 attempting to suji shift an illegal tile softlocks
 rework kandora reveal increase and dead wall decrease to be "passive items" that sit
 	in a menu?
 
 
+finish writing yaku descriptions and yaku example hands
+
 
 meta:
-	finish scoring!!
-		fix chiitoi scanning
-		the rest of the yaku
-	
-	finish yaku descriptions
-		write text for every yaku
-		add examples for every yaku
-			generally prefer a demonstrative set than a legal def, describe sanankou as 333444777?????
+	base mahjong:
+		finish scoring!!
+			fix chiitoi scanning
+			the rest of the yaku
+		
+		finish yaku descriptions
+			write text for every yaku
+			add examples for every yaku
+				generally prefer a demonstrative set than a legal def, describe sanankou as 333444777?????
 
 
 music
