@@ -38,8 +38,23 @@ end of every round can purchase:
 achievements
 	all yaku
 	all mangan
+	multiple yakuman
 	joke about there not being furiten. "furiten furi"
 	pocchi a false white dragon
+	get any hand with multiple ways of scoring it
+	
+	not sure i want to add even more dopey yaku clogging up menus, but they'd make cool hidden achievements
+		daichiishin (chiitoi tsuuii) (+1y)
+		daisharin (chinitsu tanyao chiitoi, 22334455667788)  (1y) 
+		Benikujaku, negative ryuui (1579s and chun) (1y)
+			tanfonhou (no red ink, 248p 23468s, kaze and non-chuu gen) (2h)
+		chousangen (sankantsu x daisangen, so 3 dragon quads) (2y)
+		chousuushii (4 wind quads) (3-4y)
+		sanrenkou (222333444s) (usually just 2 han)
+			Choupaikou / Sujipaikou / Chousankou
+			also isshoku sanjun 234234234p (2han)
+		
+		(https://riichi.wiki/Local_yaku#Yakuman)
 
 item considerations (jsut a useful reference for balancing things)
 	tile selection:
@@ -63,6 +78,8 @@ ideas but not critical:
 	some items should highlight what they affect
 	canon tile highlight
 	auto mode that jsut draw/discs and calls tsumo/ron
+	might add some more seperators to the yaku tabs, they're a little dense. code
+		to add text is already there
 
 
 
@@ -99,9 +116,8 @@ redo scoring screen to better represent new scoring
 attempting to suji shift an illegal tile softlocks
 rework kandora reveal increase and dead wall decrease to be "passive items" that sit
 	in a menu?
-
-
-finish writing yaku descriptions and yaku example hands
+pay riichi
+go back and macron all the long consonants
 
 
 meta:
@@ -109,11 +125,9 @@ meta:
 		finish scoring!!
 			fix chiitoi scanning
 			the rest of the yaku
-		
-		finish yaku descriptions
-			write text for every yaku
-			add examples for every yaku
-				generally prefer a demonstrative set than a legal def, describe sanankou as 333444777?????
+				make sure yakuman disable kazoe
+			pay riichi
+			
 
 
 music

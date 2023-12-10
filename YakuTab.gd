@@ -27,6 +27,14 @@ func _ready():
 			c.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			b.add_child(c)
 			curr_tab_box = c
+			
+		elif i is Array:
+			var l = RichTextLabel.new()
+			l.fit_content = true
+			l.bbcode_enabled = true
+			curr_tab_box.add_child(l)
+			l.append_text(i[0])
+			
 		else:
 			assert(i is ScoringInfo.Han)
 			
