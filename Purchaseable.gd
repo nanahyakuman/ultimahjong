@@ -9,12 +9,12 @@ class_name Purchaseable
 
 
 enum TYPES {AKA, ADD, DEAD_REDUCE, KAN_REVEAL, ITEM}
-const HOVER_TEXTS = ["Convert tiles to aka.", "Add tiles to wall.", "Reduce the number of tiles killed at the start of a round.", "Start with additional kan dora revealed."]
+const HOVER_TEXTS = ["Convert tiles to aka.", "Add tiles to wall.", "Increase the number of tiles drawn in a round by 4.", "Start with additional kan dora revealed."]
 var type = null
 # should only possess one either tiles or item
 var tiles = []
 var hidden_mask = []
-var item
+var item: Item
 var cost = 3
 
 
@@ -42,43 +42,30 @@ func assign_tiles(ts: Array, hidden: int = 0):
 func assign_item(id: int):
 	item = item_scene.instantiate()
 	item.type = id
+	item.charge_type = randi()%3
 	tile_container.add_child(item)
 
 func assign_type(ty: int):
 	type = ty
 	sprite.frame = ty
 
-# calc cost based on what is shown. call AFTER assigning type!
 func calc_cost():
-#	if type == TYPES.AKA or type == TYPES.ADD:
-#		cost = 0
-#		for i in tiles.size():
-#			if hidden_mask[i]:
-#				cost += 2
-#			elif tiles[i].suit == MTile.SUITS.SPECIAL:
-#				if MTile.DRAGONS.has(tiles[i].value):
-#					cost += 5
-#				else:
-#					cost += 4
-#			else:
-#				cost += 3
-#
-#		if type == TYPES.ADD:
-#			cost /= 2
-#		cost = floori(cost)
 	if type == TYPES.AKA:
 		cost = 2
 	elif type == TYPES.ADD:
 		cost = 1
 	elif type == TYPES.DEAD_REDUCE:
-#		cost = 3
 		cost = 1
 	elif type == TYPES.KAN_REVEAL:
-#		cost = 6
-		cost = 2
+		cost = 3
 	elif type == TYPES.ITEM:
-#		cost = Item.PRICE[item.type]
-		cost = 5
+		match item.charge_type:
+			Item.ONCE:
+				cost = 1
+			Item.MANA:
+				cost = 3
+			Item.TIMR:
+				cost = 5
 	
 	label.text = "%d" % cost
 

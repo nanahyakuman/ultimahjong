@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://dbh1s8qduyn4e"]
+[gd_scene load_steps=64 format=3 uid="uid://dbh1s8qduyn4e"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="2_j88jw"]
@@ -33,6 +33,7 @@
 [ext_resource type="Script" path="res://ScoringRoot.gd" id="21_yhd2i"]
 [ext_resource type="Script" path="res://Items.gd" id="22_nsrp2"]
 [ext_resource type="Texture2D" uid="uid://df2xox6cesh85" path="res://image/mana_fill.png" id="23_1yx1g"]
+[ext_resource type="Texture2D" uid="uid://prdu4rxcyy7g" path="res://image/mana_fill_2.png" id="24_m1lf8"]
 [ext_resource type="Script" path="res://TileSelect.gd" id="26_gfhhk"]
 [ext_resource type="Texture2D" uid="uid://bmqa5eyuh48qx" path="res://image/call_indicator.png" id="27_5fg6i"]
 [ext_resource type="Script" path="res://NumberColorizer.gd" id="27_yfh58"]
@@ -433,6 +434,14 @@ custom_minimum_size = Vector2(8, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 texture = ExtResource("23_1yx1g")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Fill2" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/ManaBar"]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("24_m1lf8")
 expand_mode = 1
 stretch_mode = 1
 

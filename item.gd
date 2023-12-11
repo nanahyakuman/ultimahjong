@@ -13,13 +13,17 @@ var popup_tile_select
 var mana_bar
 
 
-#  doesnt really matter but i like the idea that every item in the game has a diff cooldown,
-# even if only by 1
+#  diffrent item ids.
 enum TYPES {NONE, ERASER, WIND_MAGNET, BATTERY, KAN_SWAP, PIN_DUPE, SOU_ADJ, AKAFY, POCCHI, MAN_TERM, DRAGON_CYCLE, SUJI_OFFSET}
-const COOLD = [0,     48,          15,      24,       70,       44,      52,    61,     59,       36,           31,          32]
-#const PRICE = [999,   24,          18,      24,       24,       26,      26,    30,     18,       16,           15,          18]
+#  items either use mana, charge themselves, or are one-time use
 @export var type: TYPES = TYPES.NONE
-#var cooldown_counter = 0
+const COOLD = [0,     48,          15,      24,       70,       44,      52,    61,     59,       36,           31,          32]
+
+enum {ONCE, MANA, TIMR}
+# make sure to set BEFORE calling _ready()!
+@export var charge_type = TIMR
+#  only used if the charge type is TIMR, tracks cooldown
+var cooldown_counter = 0
 
 # link self up if already added to tree. debug and reload use
 @export var activate_self = false
@@ -68,10 +72,18 @@ func _ready():
 			hover_name.text = "Suji Shift"
 			hover_text.text = "Adjust current tsumo tile's value by +/- 3. Only works on numbered tiles."
 	
-	# no longer necessary bc. the counter is permanently there
-	#hover_text.text += " [%d]" % COOLD[type]
+	# additional gfx that vary based on type
+	match charge_type:
+		ONCE:
+			hover_text.text += "\nOne-time use."
+			panel_container.get_theme_stylebox("panel").region_rect.position.x = 8 * 3
+		MANA:
+			hover_text.text += "\nConsumes %d Mana." % COOLD[type]
+			panel_container.get_theme_stylebox("panel").region_rect.position.x = 8 * 1
+		TIMR:
+			hover_text.text += "\nCooldown of %d." % COOLD[type]
+			panel_container.get_theme_stylebox("panel").region_rect.position.x = 8 * 2
 	
-	#cooldown_counter = 0
 	
 	sprite_2d.frame_coords.x = type % sprite_2d.hframes
 	update_graphics(9999)
@@ -81,6 +93,8 @@ func _ready():
 	
 	panel_container.visible = true
 	counter_label.text = str(COOLD[type])
+	if charge_type == ONCE:
+		counter_label.text = str(1)
 	#decrement()
 
 #  called after purchase, not when added to a purchaseable. also called by self
@@ -95,26 +109,25 @@ func activate(mm: MahjongManager, ts: Node, pts: Node, mb: Node):
 	update_graphics(mb.mana)
 
 
-#func decrement(amount: int = 1):
-#	cooldown_counter -= amount
-#	panel_container.visible = cooldown_counter > 0
-#	counter_label.text = str(maxi(0,cooldown_counter))
-#	sprite_2d.frame_coords.y = type / (sprite_2d.hframes) * 2 + int(cooldown_counter > 0)
-
-func update_graphics(val: int):
-	sprite_2d.frame_coords.y = type / (sprite_2d.hframes) * 2 + int(COOLD[type] > val)
-
 func _use():
-	#if cooldown_counter > 0:
-	#	return
-	if !mana_bar:
+	# determine if can use atm.
+	match charge_type:
+		ONCE:
+			pass
+		MANA:
+			if !mana_bar:
+				return
+			if !mana_bar.can_use_mana(COOLD[type]):
+				return
+		TIMR:
+			if cooldown_counter > 0:
+				return
+	
+	
+	# not activated yet check
+	if !mahjong_manager:
 		return
-	if !mana_bar.can_use_mana(COOLD[type]):
-		return
-	if mahjong_manager:
-		if mahjong_manager._state != MahjongManager.STATE_ACTIONABLE:
-			return
-	else:
+	if mahjong_manager._state != MahjongManager.STATE_ACTIONABLE:
 		return
 	
 	match type:
@@ -214,7 +227,7 @@ func _use():
 	
 	#  default item behaviour assumes the usage is immediate, if not
 	# call return in switch above.
-	update_counter()
+	_expend_resource()
 
 
 #  simple checker called by `MahjongManager to ask if a tile is valid. pindupe
@@ -323,15 +336,42 @@ func tile_selected(tile: MTile):
 	mahjong_manager.complete_tile_select()
 	popup_tile_select.set_tiles([])
 	tile_select.update_text("")
-	update_counter()
+	_expend_resource()
 
+# update the counter.
+func update_graphics(val: int):
+	match charge_type:
+		ONCE:
+			pass
+		MANA:
+			sprite_2d.frame_coords.y = type / (sprite_2d.hframes) * 2 + int(COOLD[type] > val)
+		TIMR:
+			panel_container.visible = cooldown_counter > 0
+			counter_label.text = str(maxi(0,cooldown_counter))
+			sprite_2d.frame_coords.y = type / (sprite_2d.hframes) * 2 + int(cooldown_counter > 0)
+			sprite_2d.frame_coords.y = type / (sprite_2d.hframes) * 2 + int(cooldown_counter > 0)
 
-func update_counter():
-#	cooldown_counter = COOLD[type]
-#	cooldown_counter += 1
-#	decrement()
-	mana_bar.use_mana(COOLD[type])
-	get_parent().update_tile_graphics()
+# called on item use, spends mana/cooldown/the item as appropriate.
+func _expend_resource():
+	match charge_type:
+		ONCE:
+			queue_free()
+		MANA:
+			mana_bar.use_mana(COOLD[type])
+			get_parent().update_tile_graphics()
+		TIMR:
+			cooldown_counter = COOLD[type]
+			decrement(0)
+			
+
+func decrement(amount: int = 1):
+	if charge_type != TIMR:
+		return
+	cooldown_counter -= amount
+	#  this is only called if CHARGE_TYPE == TIMR. it follows that
+	# we dotn care about the mana so '-1' as the arg is fine.
+	update_graphics(-1)
+
 
 # called from `MahjongManager` to hack into same code as cancelling a call.
 func cancel_selection():
