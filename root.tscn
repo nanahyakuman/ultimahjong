@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://dbh1s8qduyn4e"]
+[gd_scene load_steps=66 format=3 uid="uid://doajrgd3p2isn"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="2_j88jw"]
@@ -20,8 +20,10 @@
 [ext_resource type="Texture2D" uid="uid://6selxoc8faj5" path="res://image/table_top.png" id="14_44d3a"]
 [ext_resource type="Script" path="res://CursorTextRequester.gd" id="16_8lthm"]
 [ext_resource type="Texture2D" uid="uid://cerxwhe2cssp0" path="res://image/tableedge.png" id="17_0o2u0"]
+[ext_resource type="Script" path="res://MarkerWind.gd" id="18_88w0a"]
 [ext_resource type="Texture2D" uid="uid://qfsu5y82t8jk" path="res://image/prevwindindicator.png" id="19_1d4n6"]
 [ext_resource type="Script" path="res://ShopRoot.gd" id="19_bnl3p"]
+[ext_resource type="Script" path="res://EInkWind.gd" id="20_14871"]
 [ext_resource type="Texture2D" uid="uid://bu7eiaj3nnu51" path="res://image/sittingwindindicator.png" id="20_he7r1"]
 [ext_resource type="Script" path="res://PurchaseablesHolder.gd" id="20_wmn33"]
 [ext_resource type="PackedScene" path="res://purchaseable.tscn" id="21_3mckx"]
@@ -280,7 +282,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_colors/default_color = Color(0.933333, 0.866667, 0.8, 1)
 bbcode_enabled = true
-text = "[b]$0"
+text = "[b]0¥"
 fit_content = true
 text_direction = 2
 
@@ -397,28 +399,28 @@ theme_override_constants/separation = 6
 layout_mode = 2
 
 [node name="RoundWind" type="Control" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer"]
-custom_minimum_size = Vector2(24, 24)
-layout_mode = 2
-size_flags_vertical = 4
-script = ExtResource("16_8lthm")
-hover_text = "The Prevalent Wind."
-
-[node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/RoundWind"]
-texture = ExtResource("19_1d4n6")
-centered = false
-vframes = 4
-
-[node name="SittingWind" type="Control" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer"]
 custom_minimum_size = Vector2(64, 24)
 layout_mode = 2
 size_flags_vertical = 4
-script = ExtResource("16_8lthm")
+script = ExtResource("18_88w0a")
+hover_text = "The Prevalent Wind."
+
+[node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/RoundWind"]
+texture = ExtResource("20_he7r1")
+centered = false
+vframes = 6
+
+[node name="SittingWind" type="Control" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_vertical = 4
+script = ExtResource("20_14871")
 hover_text = "The Sitting Wind."
 
 [node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/SittingWind"]
-texture = ExtResource("20_he7r1")
+texture = ExtResource("19_1d4n6")
 centered = false
-vframes = 4
+vframes = 6
 
 [node name="ManaBar" type="PanelContainer" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer"]
 unique_name_in_owner = true
@@ -461,7 +463,7 @@ script = ExtResource("22_nsrp2")
 
 [node name="Item" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("21_4bgcv")]
 layout_mode = 2
-type = 7
+type = 8
 activate_self = true
 
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]

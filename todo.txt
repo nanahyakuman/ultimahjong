@@ -121,7 +121,7 @@ pay riichi
 go back and macron all the long consonants
 reimpliment cooldown based items alongside mana-based
 does kan/flowers actually draw haitei?
-
+sell items, all give 1r back i think
 
 meta:
 	base mahjong:

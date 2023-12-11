@@ -60,11 +60,11 @@ func calc_cost():
 		cost = 3
 	elif type == TYPES.ITEM:
 		match item.charge_type:
-			Item.ONCE:
+			Item.CH_TYPES.ONCE:
 				cost = 1
-			Item.MANA:
+			Item.CH_TYPES.MANA:
 				cost = 3
-			Item.TIMR:
+			Item.CH_TYPES.TIMR:
 				cost = 5
 	
 	label.text = "%d" % cost

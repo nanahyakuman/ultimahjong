@@ -19,9 +19,9 @@ enum TYPES {NONE, ERASER, WIND_MAGNET, BATTERY, KAN_SWAP, PIN_DUPE, SOU_ADJ, AKA
 @export var type: TYPES = TYPES.NONE
 const COOLD = [0,     48,          15,      24,       70,       44,      52,    61,     59,       36,           31,          32]
 
-enum {ONCE, MANA, TIMR}
+enum CH_TYPES {ONCE, MANA, TIMR}
 # make sure to set BEFORE calling _ready()!
-@export var charge_type = TIMR
+@export var charge_type = CH_TYPES.TIMR
 #  only used if the charge type is TIMR, tracks cooldown
 var cooldown_counter = 0
 
@@ -35,6 +35,8 @@ func _ready():
 	connect("mouse_entered", _mouse_entered)
 	connect("mouse_exited", _mouse_exited)
 	_mouse_exited()
+	
+	cooldown_counter = COOLD[type]
 	
 	# hovertexting
 	match type:
@@ -60,7 +62,7 @@ func _ready():
 			hover_name.text = "Factory Seize"
 			hover_text.text = "A random non-aka tile in hand (not tsumo) becomes aka."
 		TYPES.POCCHI:
-			hover_name.text = "A·Rock"
+			hover_name.text = "·A·Rock"
 			hover_text.text = "Add a Pocchi to the current tsumo tile (permanently)."
 		TYPES.MAN_TERM:
 			hover_name.text = "Hat Man"
@@ -74,13 +76,13 @@ func _ready():
 	
 	# additional gfx that vary based on type
 	match charge_type:
-		ONCE:
+		CH_TYPES.ONCE:
 			hover_text.text += "\nOne-time use."
 			panel_container.get_theme_stylebox("panel").region_rect.position.x = 8 * 3
-		MANA:
+		CH_TYPES.MANA:
 			hover_text.text += "\nConsumes %d Mana." % COOLD[type]
 			panel_container.get_theme_stylebox("panel").region_rect.position.x = 8 * 1
-		TIMR:
+		CH_TYPES.TIMR:
 			hover_text.text += "\nCooldown of %d." % COOLD[type]
 			panel_container.get_theme_stylebox("panel").region_rect.position.x = 8 * 2
 	
@@ -93,7 +95,7 @@ func _ready():
 	
 	panel_container.visible = true
 	counter_label.text = str(COOLD[type])
-	if charge_type == ONCE:
+	if charge_type == CH_TYPES.ONCE:
 		counter_label.text = str(1)
 	#decrement()
 
@@ -112,14 +114,14 @@ func activate(mm: MahjongManager, ts: Node, pts: Node, mb: Node):
 func _use():
 	# determine if can use atm.
 	match charge_type:
-		ONCE:
+		CH_TYPES.ONCE:
 			pass
-		MANA:
+		CH_TYPES.MANA:
 			if !mana_bar:
 				return
 			if !mana_bar.can_use_mana(COOLD[type]):
 				return
-		TIMR:
+		CH_TYPES.TIMR:
 			if cooldown_counter > 0:
 				return
 	
@@ -341,11 +343,11 @@ func tile_selected(tile: MTile):
 # update the counter.
 func update_graphics(val: int):
 	match charge_type:
-		ONCE:
+		CH_TYPES.ONCE:
 			pass
-		MANA:
+		CH_TYPES.MANA:
 			sprite_2d.frame_coords.y = type / (sprite_2d.hframes) * 2 + int(COOLD[type] > val)
-		TIMR:
+		CH_TYPES.TIMR:
 			panel_container.visible = cooldown_counter > 0
 			counter_label.text = str(maxi(0,cooldown_counter))
 			sprite_2d.frame_coords.y = type / (sprite_2d.hframes) * 2 + int(cooldown_counter > 0)
@@ -354,18 +356,18 @@ func update_graphics(val: int):
 # called on item use, spends mana/cooldown/the item as appropriate.
 func _expend_resource():
 	match charge_type:
-		ONCE:
+		CH_TYPES.ONCE:
 			queue_free()
-		MANA:
+		CH_TYPES.MANA:
 			mana_bar.use_mana(COOLD[type])
 			get_parent().update_tile_graphics()
-		TIMR:
+		CH_TYPES.TIMR:
 			cooldown_counter = COOLD[type]
 			decrement(0)
 			
 
 func decrement(amount: int = 1):
-	if charge_type != TIMR:
+	if charge_type != CH_TYPES.TIMR:
 		return
 	cooldown_counter -= amount
 	#  this is only called if CHARGE_TYPE == TIMR. it follows that

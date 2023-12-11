@@ -14,8 +14,8 @@ const SIZE = 22
 @onready var kan_pile = $All/SideSpacers/Tiles/KanPile/Top
 @onready var kan_pile_bot = $All/SideSpacers/Tiles/KanPile/Bot
 @onready var graphic_tile_counter = $"../../GraphicTileCounter"
-@onready var prev_wind = $All/TableBottom/HBoxContainer/RoundWind/Sprite2D
-@onready var seat_wind = $All/TableBottom/HBoxContainer/SittingWind/Sprite2D
+@onready var prev_wind = $All/TableBottom/HBoxContainer/RoundWind
+@onready var seat_wind = $All/TableBottom/HBoxContainer/SittingWind
 @onready var made_calls = $MadeCalls
 @onready var score_label = $TableTop/HBoxContainer/HBoxContainer/ScoreLabel
 @onready var needed_score_label = $TableTop/HBoxContainer/HBoxContainer/NeededScoreLabel
@@ -114,8 +114,8 @@ func get_new_tile(t: MTile, parent: Node, connector_node: Node, vis_side: int, r
 	return(a)
 
 func update_winds(prev: int, seat: int):
-	prev_wind.frame = prev
-	seat_wind.frame = seat
+	prev_wind.set_wind(prev)
+	seat_wind.set_wind(seat)
 
 func update_wall_count(c: int, d: int):
 	graphic_tile_counter.update_wall_count(c, d)

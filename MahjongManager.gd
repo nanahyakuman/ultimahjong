@@ -57,6 +57,11 @@ var met_yaku: ScoringInfo
 var tile_select_requestor_node = null
 var remove_from_hand_on_selection = null
 
+
+func _process(delta: float):
+	if Input.is_action_just_pressed("start_shop"):
+		_end_round()
+
 func initialize(ch: CharacterInfo):
 	character_info = ch
 	tile_counter.initialize(character_info)

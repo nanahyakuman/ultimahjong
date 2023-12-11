@@ -30,7 +30,7 @@ func start():
 
 func adjust_money(amount: int):
 	money += amount
-	cash_label.text = "[b]$%s " % str(money)
+	cash_label.text = "[b]%s¥ " % str(money)
 	
 
 func close():
