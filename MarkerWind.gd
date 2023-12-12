@@ -1,6 +1,5 @@
 extends CursorTextRequester
 
-@onready var anim_timer = %AnimTimer
 @onready var sprite = $Sprite2D
 
 # a little e-ink anim to highlight wind changes
@@ -9,5 +8,5 @@ func set_wind(wind: int):
 		return
 	for i in [4,5,4,wind]:
 		sprite.frame = i
-		await anim_timer.start_get(.15)
+		await AnimTimer.start_get(.15)
 	

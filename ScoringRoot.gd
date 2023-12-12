@@ -6,7 +6,6 @@ extends Control
 @onready var fu_points = $Window/VBoxContainer/Fu/Points
 @onready var calc = $Window/VBoxContainer/Calc
 @onready var total = $Window/VBoxContainer/Total
-@onready var anim_timer = %AnimTimer
 @onready var score_label = $"../GUIManager/TableTop/HBoxContainer/HBoxContainer/ScoreLabel"
 
 
@@ -29,7 +28,7 @@ func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points:int, mu
 		fu_names.append_text(f.nam + "\n")
 		fu_points.append_text(str(f.fu) + " fu\n")
 		if animate:
-			await anim_timer.start_get(.1)
+			await AnimTimer.start_get(.1)
 	
 	han_points.append_text("[right][color=%s]" % COL.YELLOW)
 	for h in scoring_info.hans:
@@ -43,12 +42,12 @@ func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points:int, mu
 		if animate:
 			for i in han_count: 
 				MusicManager.play_han()
-				await anim_timer.start_get(.15)
-			await anim_timer.start_get(.3)
+				await AnimTimer.start_get(.15)
+			await AnimTimer.start_get(.3)
 		if !animate: #only queue once if not animating, should prevent weird transients
 			MusicManager.play_han()
 	
-	await anim_timer.start_get(.3)
+	await AnimTimer.start_get(.3)
 	
 	calc.text = "[center][b][color=%s]%d[/color]×2[/b](2+[color=%s]%d[/color])[b]×%d=" % [COL.LBLUE, fu, COL.YELLOW, han, mult]
 	total.set_text_colorized(str(points))

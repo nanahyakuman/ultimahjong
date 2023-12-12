@@ -16,4 +16,6 @@ func request_tile_select(requestor: Node):
 	tile_select_requestor_node = requestor
 
 func tile_graphic_clicked(tile: MTile):
-	tile_select_requestor_node.tile_selected(tile)
+	#since they can free themselves check for existence
+	if tile_select_requestor_node.is_instance_valid():
+		tile_select_requestor_node.tile_selected(tile)

@@ -4,7 +4,6 @@ extends HBoxContainer
 @onready var tile_counter = mahjong_manager.tile_counter
 @onready var upgrades = mahjong_manager.upgrades
 @onready var shop_root = %ShopRoot
-@onready var anim_timer = %AnimTimer
 @onready var items = %Items
 
 @export var purchaseable: PackedScene
@@ -65,11 +64,11 @@ func pressed(node: Purchaseable):
 		Purchaseable.TYPES.AKA:
 			for t in node.tiles:
 				tile_counter.increment_aka(t)
-				await anim_timer.start_mod(.15)
+				await AnimTimer.start_mod(.15)
 		Purchaseable.TYPES.ADD:
 			for t in node.tiles:
 				tile_counter.increment_tile(t)
-				await anim_timer.start_mod(.15)
+				await AnimTimer.start_mod(.15)
 		Purchaseable.TYPES.DEAD_REDUCE:
 			# 4 is a lot ig but you're prob. not buying this every round
 			upgrades.dead_wall_size_reduce += 4

@@ -10,7 +10,6 @@ class_name MahjongManager
 @onready var tile_sfx_player = $TileOnTable
 @onready var call_sfx_player = $CallMade
 @onready var root = $"../../.."
-@onready var anim_timer = $%AnimTimer
 @onready var upgrades: Upgrades = $Upgrades
 @onready var hand_gui = $"../GUIManager/All/SideSpacers/Tiles/HBoxContainer/Hand"
 @onready var ALL_YAKU = $YakuFu
@@ -87,14 +86,14 @@ func start_round():
 	
 	await _init_wall()
 	
-	await anim_timer.start_mod(.15)
+	await AnimTimer.start_mod(.15)
 	
 	for i in upgrades.get_kan_size():
-		await anim_timer.start_mod(.1)
+		await AnimTimer.start_mod(.1)
 		tile_sfx_player.play()
 		_draw_kan_dora()
 	
-	await anim_timer.start_mod(.15)
+	await AnimTimer.start_mod(.15)
 	
 	await _draw_hand()
 	
@@ -127,7 +126,7 @@ func _init_wall():
 	called_hand.clear()
 	
 	for i in range(0, wall.size(), 6):
-		await anim_timer.start_mod(.04)
+		await AnimTimer.start_mod(.04)
 		gui_manager.update_wall_count(i, upgrades.get_dead_tiles())
 		call_sfx_player.play()
 	gui_manager.update_wall_count(wall.size(), upgrades.get_dead_tiles())
@@ -151,12 +150,12 @@ func _draw_hand():
 #	await anim_timer.start_mod(.15)
 	
 	for i in BASE_HAND_SIZE:
-		await anim_timer.start_mod(.07)
+		await AnimTimer.start_mod(.07)
 		hand.append(_get_next_from_wall(0))
 		call_sfx_player.play()
 		update_hand_label(true)
 	
-	await anim_timer.start_mod(.15)
+	await AnimTimer.start_mod(.15)
 	call_sfx_player.play()
 	update_hand_label()
 	
@@ -176,19 +175,19 @@ func _draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.MAN, 3))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 3))
 
-#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 2))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 3))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 4))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 5))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 6))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 7))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 8))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+	temp.append(MTile.new(MTile.SUITS.SOU, 2))
+	temp.append(MTile.new(MTile.SUITS.SOU, 3))
+	temp.append(MTile.new(MTile.SUITS.SOU, 4))
+	temp.append(MTile.new(MTile.SUITS.SOU, 5))
+	temp.append(MTile.new(MTile.SUITS.SOU, 6))
+	temp.append(MTile.new(MTile.SUITS.SOU, 7))
+	temp.append(MTile.new(MTile.SUITS.SOU, 8))
+	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+	temp.append(MTile.new(MTile.SUITS.SOU, 9))
 #
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
@@ -380,7 +379,7 @@ func _do_post_call_discard():
 # draw if not
 func _do_opp_discard():
 	_set_state(STATE_ANIMATING)
-	await anim_timer.start_mod(.2)
+	await AnimTimer.start_mod(.2)
 	
 	if remaining_opp_discards == 0:
 		do_tsumo()
@@ -423,9 +422,9 @@ enum CALL_BITMASK {
 	CHI_R = 	0b001,
 	PON = 		0b1000,
 	KAN = 		0b10000,
-	RON = 		0b100000,
-	TSM = 		0b1000000,
-	CLOSED_KAN= 0b10000000,
+	CLOSED_KAN= 0b100000,
+	RON = 		0b1000000,
+	TSM = 		0b10000000,
 	RCH =		0b100000000,
 	FLOWER =	0b1000000000
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://doajrgd3p2isn"]
+[gd_scene load_steps=61 format=3 uid="uid://doajrgd3p2isn"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="2_j88jw"]
@@ -13,9 +13,7 @@
 [ext_resource type="Script" path="res://HandGUI.gd" id="8_4hll1"]
 [ext_resource type="Script" path="res://AllYaku.gd" id="8_t018g"]
 [ext_resource type="Script" path="res://GUIManager.gd" id="9_1ntl1"]
-[ext_resource type="Script" path="res://AnimTimer.gd" id="9_r8218"]
 [ext_resource type="Script" path="res://CallsGraphical.gd" id="11_oemle"]
-[ext_resource type="Script" path="res://CallGraphic.gd" id="13_wfhtv"]
 [ext_resource type="Script" path="res://GraphicTileCounter.gd" id="13_x2gyd"]
 [ext_resource type="Texture2D" uid="uid://6selxoc8faj5" path="res://image/table_top.png" id="14_44d3a"]
 [ext_resource type="Script" path="res://CursorTextRequester.gd" id="16_8lthm"]
@@ -37,12 +35,9 @@
 [ext_resource type="Texture2D" uid="uid://df2xox6cesh85" path="res://image/mana_fill.png" id="23_1yx1g"]
 [ext_resource type="Texture2D" uid="uid://prdu4rxcyy7g" path="res://image/mana_fill_2.png" id="24_m1lf8"]
 [ext_resource type="Script" path="res://TileSelect.gd" id="26_gfhhk"]
-[ext_resource type="Texture2D" uid="uid://bmqa5eyuh48qx" path="res://image/call_indicator.png" id="27_5fg6i"]
 [ext_resource type="Script" path="res://NumberColorizer.gd" id="27_yfh58"]
 [ext_resource type="FontFile" uid="uid://dmoumxbcf3gn" path="res://text/font/Body2.png" id="28_jde07"]
 [ext_resource type="Script" path="res://PopupTileSelector.gd" id="28_st0rv"]
-[ext_resource type="Texture2D" uid="uid://bxt2na0s3mabw" path="res://image/call_indicator_gold.png" id="29_i5pm5"]
-[ext_resource type="Texture2D" uid="uid://dbnpkxetohid0" path="res://image/call_ignore.png" id="30_jtquo"]
 [ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="32_on5h8"]
 [ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="35_14yv6"]
 [ext_resource type="Script" path="res://FuTab.gd" id="41_je4uv"]
@@ -420,7 +415,7 @@ hover_text = "The Sitting Wind."
 [node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/SittingWind"]
 texture = ExtResource("19_1d4n6")
 centered = false
-vframes = 6
+vframes = 7
 
 [node name="ManaBar" type="PanelContainer" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer"]
 unique_name_in_owner = true
@@ -479,237 +474,9 @@ theme_override_constants/separation = 4
 alignment = 1
 script = ExtResource("11_oemle")
 
-[node name="ChiR" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
-layout_mode = 2
-texture = ExtResource("27_5fg6i")
-script = ExtResource("13_wfhtv")
-bitmask = 1
-
-[node name="RichTextLabel" type="Label" parent="HBoxContainer/MahjongRoot/GUIManager/Calls/ChiR"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -12.5
-offset_top = -6.0
-offset_right = 12.5
-offset_bottom = 6.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-text = "Chi R"
-
-[node name="ChiM" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
-layout_mode = 2
-texture = ExtResource("27_5fg6i")
-script = ExtResource("13_wfhtv")
-bitmask = 2
-
-[node name="RichTextLabel" type="Label" parent="HBoxContainer/MahjongRoot/GUIManager/Calls/ChiM"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -12.5
-offset_top = -6.0
-offset_right = 12.5
-offset_bottom = 6.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-text = "Chi M"
-
-[node name="ChiL" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
-layout_mode = 2
-texture = ExtResource("27_5fg6i")
-script = ExtResource("13_wfhtv")
-bitmask = 4
-
-[node name="RichTextLabel" type="Label" parent="HBoxContainer/MahjongRoot/GUIManager/Calls/ChiL"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -12.5
-offset_top = -6.0
-offset_right = 12.5
-offset_bottom = 6.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-text = "Chi L"
-
-[node name="Pon" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
-layout_mode = 2
-texture = ExtResource("27_5fg6i")
-script = ExtResource("13_wfhtv")
-bitmask = 8
-
-[node name="RichTextLabel" type="Label" parent="HBoxContainer/MahjongRoot/GUIManager/Calls/Pon"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -7.5
-offset_top = -6.0
-offset_right = 7.5
-offset_bottom = 6.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-text = "Pon"
-
-[node name="Kan" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
-layout_mode = 2
-texture = ExtResource("27_5fg6i")
-script = ExtResource("13_wfhtv")
-bitmask = 16
-
-[node name="RichTextLabel" type="Label" parent="HBoxContainer/MahjongRoot/GUIManager/Calls/Kan"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -7.5
-offset_top = -6.0
-offset_right = 7.5
-offset_bottom = 6.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-text = "Kan"
-
-[node name="ClosedKan" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
-layout_mode = 2
-texture = ExtResource("27_5fg6i")
-script = ExtResource("13_wfhtv")
-bitmask = 128
-
-[node name="RichTextLabel" type="Label" parent="HBoxContainer/MahjongRoot/GUIManager/Calls/ClosedKan"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -7.5
-offset_top = -6.0
-offset_right = 7.5
-offset_bottom = 6.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-text = "Kan"
-
-[node name="Ron" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
-layout_mode = 2
-texture = ExtResource("29_i5pm5")
-script = ExtResource("13_wfhtv")
-bitmask = 32
-
-[node name="Label" type="Label" parent="HBoxContainer/MahjongRoot/GUIManager/Calls/Ron"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -7.5
-offset_top = -6.0
-offset_right = 7.5
-offset_bottom = 6.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-theme_override_colors/font_color = Color(0.133333, 0.133333, 0.133333, 1)
-text = "Ron"
-
-[node name="Riichi" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
-layout_mode = 2
-texture = ExtResource("29_i5pm5")
-script = ExtResource("13_wfhtv")
-bitmask = 256
-
-[node name="Label" type="Label" parent="HBoxContainer/MahjongRoot/GUIManager/Calls/Riichi"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -15.0
-offset_top = -6.0
-offset_right = 15.0
-offset_bottom = 6.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-theme_override_colors/font_color = Color(0.133333, 0.133333, 0.133333, 1)
-text = "Riichi"
-
-[node name="Tsumo" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
-layout_mode = 2
-texture = ExtResource("29_i5pm5")
-script = ExtResource("13_wfhtv")
-bitmask = 64
-
-[node name="Label" type="Label" parent="HBoxContainer/MahjongRoot/GUIManager/Calls/Tsumo"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -12.5
-offset_top = -6.0
-offset_right = 12.5
-offset_bottom = 6.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-theme_override_colors/font_color = Color(0.133333, 0.133333, 0.133333, 1)
-text = "Tsumo"
-
-[node name="Flower" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
-layout_mode = 2
-texture = ExtResource("29_i5pm5")
-script = ExtResource("13_wfhtv")
-bitmask = 512
-
-[node name="Label" type="Label" parent="HBoxContainer/MahjongRoot/GUIManager/Calls/Flower"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -15.0
-offset_top = -6.0
-offset_right = 15.0
-offset_bottom = 6.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-theme_override_colors/font_color = Color(0.133333, 0.133333, 0.133333, 1)
-text = "Flower"
-
-[node name="Ignore" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/Calls"]
-layout_mode = 2
-texture = ExtResource("30_jtquo")
-script = ExtResource("13_wfhtv")
-
 [node name="TileSelectPanel" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -732,6 +499,7 @@ text = "Select a tile to explode!!!!!"
 
 [node name="PopupTileSelector" type="PanelContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(16, 32)
 layout_mode = 1
 anchors_preset = -1
@@ -1297,10 +1065,6 @@ theme_override_fonts/font = ExtResource("44_cis8i")
 text = "Quit"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="AnimTimer" type="Timer" parent="."]
-unique_name_in_owner = true
-script = ExtResource("9_r8218")
 
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" to="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" method="_on_pressed"]
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" to="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" method="_on_pressed"]

@@ -119,9 +119,11 @@ rework kandora reveal increase and dead wall decrease to be "passive items" that
 	in a menu?
 pay riichi
 go back and macron all the long consonants
-reimpliment cooldown based items alongside mana-based
 does kan/flowers actually draw haitei?
 sell items, all give 1r back i think
+sequentialize wind change anims
+flower broke tanyao?
+
 
 meta:
 	base mahjong:

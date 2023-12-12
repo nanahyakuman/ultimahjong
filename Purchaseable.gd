@@ -65,7 +65,7 @@ func calc_cost():
 			Item.CH_TYPES.MANA:
 				cost = 3
 			Item.CH_TYPES.TIMR:
-				cost = 5
+				cost = 4
 	
 	label.text = "%d" % cost
 

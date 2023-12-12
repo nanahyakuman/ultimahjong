@@ -22,6 +22,7 @@ TileGraphicKnower="*res://global/TileGraphicKnower.gd"
 COL="*res://global/Colors.gd"
 CursorText="*res://global/cursor_text.tscn"
 MusicManager="*res://global/MusicManager.tscn"
+AnimTimer="*res://AnimTimer.gd"
 
 [display]
 
