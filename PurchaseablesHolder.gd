@@ -9,7 +9,9 @@ extends HBoxContainer
 @export var purchaseable: PackedScene
 
 @export var type = Purchaseable.TYPES.AKA
+# how many sub buttons to generate
 @export var BUTTONS = 3
+# how many TILES to add.
 @export var PER_BUTTON = 3
 
 func start():
@@ -17,7 +19,7 @@ func start():
 	var valid_items
 	match type:
 		Purchaseable.TYPES.AKA:
-			tiles = tile_counter.get_random_non_aka_ids(PER_BUTTON, BUTTONS)
+			tiles = tile_counter.get_random_non_colored_ids(PER_BUTTON, BUTTONS)
 		Purchaseable.TYPES.ADD:
 			tiles = tile_counter.get_random_tiles_to_add(PER_BUTTON, BUTTONS)
 		Purchaseable.TYPES.ITEM:
@@ -63,7 +65,7 @@ func pressed(node: Purchaseable):
 	match node.type:
 		Purchaseable.TYPES.AKA:
 			for t in node.tiles:
-				tile_counter.increment_aka(t)
+				tile_counter.set_color(t, MTile.COL_AKA)
 				await AnimTimer.start_mod(.15)
 		Purchaseable.TYPES.ADD:
 			for t in node.tiles:
@@ -77,7 +79,7 @@ func pressed(node: Purchaseable):
 		Purchaseable.TYPES.ITEM:
 			var a = node.item.duplicate()
 			items.add_child(a)
-			a.activate(mahjong_manager, %TileSelectPanel, %PopupTileSelector, %ManaBar)
+			a.activate(mahjong_manager, %TileSelectPanel, %PopupTileSelector, %ManaBar, shop_root)
 	
 	shop_root.state = shop_root.STATE_ACTIVE
 	

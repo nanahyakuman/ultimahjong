@@ -20,6 +20,7 @@ end of every round can purchase:
 		swap in akadora when in riichi
 		riichi ryuukyoku rewards half points off the best hand you could've gotten
 		drawing a tile gives you 2 mana instead of 1 (20% speed buff)
+		pin-fu (pin award fu)
 	spell cards, refresh every x draws
 	x	next tile will be --honor-- wind
 	x	exchange one tile for a false haku
@@ -81,17 +82,16 @@ ideas but not critical:
 	might add some more seperators to the yaku tabs, they're a little dense. code
 		to add text is already there
 	auto call win, auto discard, ignore calls
+	cant hover tiles in made calls
+	"shape of the game" guide tab
+	make ura dora more clear
+	item upgrading? "smith" an item into a higher use tier
+	syntax hgilight yaku
 
 
 
 doraizing anim when you buy dora, clear feedback as to what it was
-cant hover tiles in made calls
 tsumo call tile hover broken, highlights most recent discard instead of tsumo
-make ura dora more clear
-buy fu upgrades??
-"shape of the game" guide tab
-guide in general should now repflect normal mahjong scoring
-	add a score table
 some debug keys
 	end round, reroll hand, set hand to {x}, printout hand
 record sounds
@@ -100,13 +100,8 @@ when you discard a pocchi, can choose to exchange the 4th tile in the wall with
 	another not-yet-discarded pocchi, even if it turns out to be in the dead wall.
 	 forcing it to be on discard means you can't cycle them ifinitely
 shiro pocchi instant win if riichitsumo
-new tile manager broke some things
-	reimplem,ent purchaseables
-		addtile purchaseable getting illegal tiles again. ?157p
-		aoize and kinize
+aodora
 get_terminals function
-kindora worth 1000pts flat?
-call label text vcentering
 78899p789s12366m 7p returned ryanpeikou
 assert that all the chanta type yaku still work
 permit riichi kan
@@ -115,15 +110,15 @@ flower call redraw did NOT propmt tsumo properly. might have been other now-solv
 redo scoring screen to better represent new scoring
 	stop counting fu after 4, name mangan
 attempting to suji shift an illegal tile softlocks
-rework kandora reveal increase and dead wall decrease to be "passive items" that sit
-	in a menu?
+SHOP THINGS:
+	addtile purchaseable getting illegal tiles again. ?157p
+	aoize and kinize, put akaize back
 pay riichi
 go back and macron all the long consonants
 does kan/flowers actually draw haitei?
-sell items, all give 1r back i think
 sequentialize wind change anims
 flower broke tanyao?
-
+rewrite scoring tab
 
 meta:
 	base mahjong:

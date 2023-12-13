@@ -70,59 +70,31 @@ func initialize(character_info: CharacterInfo):
 	emit_signal("updated")
 
 
-func get_all_tiles(only_unique = false):
+func get_all_tiles():
 	var ret = []
 	for t in tile_data:
 		ret.append(t.duplicate_canonize())
 	return ret
 
 
-### BROKEN BC OF STORAGE CHANGES ###
-#  returns `reshuffle_every` amount of groups of non-aka tiles, groups being
-# of size `amount_in_group`. looks a little weird but this implementation ensures
-# that individual groups will always have 3 unique tiles, but that different groups
-# can select the same suit-value pair up to as many times as it can be akafyed.
-func get_random_non_aka_ids(amount_in_group: int, groups: int):
+func get_random_non_colored_ids(amount_in_group: int, groups: int):
 	var ret = []
-	return ret
 	
-	var data_clone = tile_data.duplicate()
+	var tiles = get_all_tiles()
+	tiles.shuffle()
 	
-	for i in groups:
-		data_clone.shuffle()
-		var counter = amount_in_group
+	for GI in groups:
 		var subret = []
-		for mtd in data_clone:
-			if counter <= 0:
-				break
-			
-			var theoretical_akas = mtd.aka_count
-			for t in subret:
-				if t.get_id() == MTile.gen_id(mtd.suit,mtd.value):
-					theoretical_akas += 1
-			if theoretical_akas >= mtd.count:
+		var counter = 0
+		while tiles.size() > 0 and counter < amount_in_group:
+			var next = tiles.pop_back()
+			if next.color != MTile.COL_NONE:
 				continue
-			if mtd.suit == MTile.SUITS.FLOWER:
-				continue
-			
-			subret.append(MTile.new(mtd.suit,mtd.value))
-			counter -= 1
-		
-		subret.sort_custom(Callable(MTile, "tile_compare"))
+			subret.append(next)
+			counter += 1
 		ret.append(subret)
-	
 	return ret
 
-### BROKEN BC OF STORAGE CHANGES ###
-func increment_aka(tile: MTile):
-	for mtd in tile_data:
-		if mtd.suit == tile.suit and mtd.value == tile.value:
-			mtd.aka_count += 1
-			break
-	
-	#  right now we emit this 1 time for every single tile purchased in the shop.
-	# if this causes slowdown just queue updates instead
-	emit_signal("updated")
 
 const TILE_SAME_SUIT_CHANCE = .4
 const TILE_ADJ_VALUE_CHANCE = .3
@@ -167,12 +139,17 @@ func _get_random_tile(suit_override: int = -1, val_override: int = -1) -> MTile:
 			value = MTile.DEF_SPECIALS.pick_random()
 	return MTile.new(suit, value)
 
-### BROKEN BC OF STORAGE CHANGES ###
+
 func increment_tile(tile: MTile):
 	# add the new tile to the list, and give it a unique id
-	
 	var new_tile = tile.duplicate()
 	tile_data.append(new_tile)
 	tile_data.sort_custom(Callable(MTile, "tile_compare"))
+	
+	emit_signal("updated")
+
+func set_color(tile: MTile, color: int):
+	
+	tile.canon_tile.color = color
 	
 	emit_signal("updated")

@@ -7,11 +7,12 @@ class_name Item
 @onready var description = $Description
 @onready var hover_name = $Description/VBoxContainer/PanelContainer/HBoxContainer/PanelContainer/Name
 @onready var hover_text = $Description/VBoxContainer/Label
+@onready var sell_panel_container = $SellPanelContainer
 var mahjong_manager
 var tile_select
 var popup_tile_select
 var mana_bar
-
+var shop_root
 
 #  diffrent item ids.
 enum TYPES {NONE, ERASER, WIND_MAGNET, BATTERY, KAN_SWAP, PIN_DUPE, SOU_ADJ, AKAFY, POCCHI, MAN_TERM, DRAGON_CYCLE, SUJI_OFFSET}
@@ -36,6 +37,8 @@ func _ready():
 	connect("mouse_exited", _mouse_exited)
 	_mouse_exited()
 	
+	mouse_filter = Control.MOUSE_FILTER_PASS
+	
 	cooldown_counter = COOLD[type]
 	
 	# hovertexting
@@ -48,7 +51,7 @@ func _ready():
 			hover_text.text = "4th tile in the wall switches positions with a random wind from the remaining wall, if there is one."
 		TYPES.BATTERY:
 			hover_name.text = "9-Volt"
-			hover_text.text = "Reduce all other item's cooldown counters by 9."
+			hover_text.text = "Reduce all OTHER item cooldown counters by 9. Only works on items with cooldowns."
 		TYPES.KAN_SWAP:
 			hover_name.text = "Kan Swap"
 			hover_text.text = "Replace the most recently revealed kan dora with a tile from hand or tsumo."
@@ -91,7 +94,7 @@ func _ready():
 	update_graphics(9999)
 	
 	if activate_self:
-		activate(%MahjongManager, %TileSelectPanel, %PopupTileSelector, %ManaBar)
+		activate(%MahjongManager, %TileSelectPanel, %PopupTileSelector, %ManaBar, %ShopRoot)
 	
 	panel_container.visible = true
 	counter_label.text = str(COOLD[type])
@@ -101,14 +104,15 @@ func _ready():
 
 #  called after purchase, not when added to a purchaseable. also called by self
 # on `_ready()` if appropriate.
-func activate(mm: MahjongManager, ts: Node, pts: Node, mb: Node):
+func activate(mm: MahjongManager, ts: Node, pts: Node, mb: Node, shop: Node):
 	# the parent exists in the same scene as these
 	mahjong_manager = mm
 	tile_select = ts
 	popup_tile_select = pts
 	mana_bar = mb
+	shop_root = shop
 	
-	update_graphics(mb.mana)
+	#update_graphics(mb.mana)
 
 
 func _use():
@@ -150,8 +154,11 @@ func _use():
 			mahjong_manager.swap_in_next_theoretical_tsumo(wind_ids)
 			
 		TYPES.BATTERY:
-			#mana_bar.add_mana(1)
-			print("does nothing lol")
+			# decrement other counters
+			for i in get_parent().get_children():
+				if i == self:
+					continue
+				i.decrement(9)
 			
 		TYPES.KAN_SWAP:
 			mahjong_manager.request_tile_select(self, true)
@@ -340,18 +347,20 @@ func tile_selected(tile: MTile):
 	tile_select.update_text("")
 	_expend_resource()
 
-# update the counter.
-func update_graphics(val: int):
+func set_shop_graphics():
+	update_graphics(9999, true)
+
+# update the counter. and the gfx. `force` forces the item to appear charged
+func update_graphics(val: int, force: int = false):
 	match charge_type:
 		CH_TYPES.ONCE:
 			pass
 		CH_TYPES.MANA:
-			sprite_2d.frame_coords.y = type / (sprite_2d.hframes) * 2 + int(COOLD[type] > val)
+			sprite_2d.frame_coords.y = (type / sprite_2d.hframes) * 2  +  int(COOLD[type] > val and !force)
 		CH_TYPES.TIMR:
-			panel_container.visible = cooldown_counter > 0
+			panel_container.visible = cooldown_counter > 0 or force
 			counter_label.text = str(maxi(0,cooldown_counter))
-			sprite_2d.frame_coords.y = type / (sprite_2d.hframes) * 2 + int(cooldown_counter > 0)
-			sprite_2d.frame_coords.y = type / (sprite_2d.hframes) * 2 + int(cooldown_counter > 0)
+			sprite_2d.frame_coords.y = (type / sprite_2d.hframes) * 2  +  int(cooldown_counter > 0 and !force)
 
 # called on item use, spends mana/cooldown/the item as appropriate.
 func _expend_resource():
@@ -384,9 +393,18 @@ func cancel_selection():
 func _gui_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			_use()
+			# we're kinda chaining visible checks here, not the biggest fan
+			if !sell_panel_container.visible:
+				_use()
+			else:
+				queue_free()
+				shop_root.adjust_money(1)
 
 func _mouse_entered():
 	description.visible = true
+	# we're kinda chaining visible checks here, not the biggest fan
+	if shop_root and shop_root.visible:
+		sell_panel_container.visible = true
 func _mouse_exited():
 	description.visible = false
+	sell_panel_container.visible = false

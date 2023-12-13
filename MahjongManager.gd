@@ -13,6 +13,7 @@ class_name MahjongManager
 @onready var upgrades: Upgrades = $Upgrades
 @onready var hand_gui = $"../GUIManager/All/SideSpacers/Tiles/HBoxContainer/Hand"
 @onready var ALL_YAKU = $YakuFu
+@onready var score_tracker = %ScoreTracker
 # gui holds these guys, it's gross but probably easier overall
 @onready var items = %Items
 
@@ -175,19 +176,19 @@ func _draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.MAN, 3))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 3))
 
-	temp.append(MTile.new(MTile.SUITS.SOU, 1))
-	temp.append(MTile.new(MTile.SUITS.SOU, 1))
-	temp.append(MTile.new(MTile.SUITS.SOU, 1))
-	temp.append(MTile.new(MTile.SUITS.SOU, 2))
-	temp.append(MTile.new(MTile.SUITS.SOU, 3))
-	temp.append(MTile.new(MTile.SUITS.SOU, 4))
-	temp.append(MTile.new(MTile.SUITS.SOU, 5))
-	temp.append(MTile.new(MTile.SUITS.SOU, 6))
-	temp.append(MTile.new(MTile.SUITS.SOU, 7))
-	temp.append(MTile.new(MTile.SUITS.SOU, 8))
-	temp.append(MTile.new(MTile.SUITS.SOU, 9))
-	temp.append(MTile.new(MTile.SUITS.SOU, 9))
-	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 2))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 3))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 4))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 5))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 6))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 7))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 8))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
 #
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
@@ -820,6 +821,8 @@ func _switch_tile_with_tsumo(tile: MTile, index: int = -1):
 func _try_enter_riichi():
 	if in_riichi or hand_is_open() or wall.size() < 4:
 		return false
+	if score_tracker.score < 1000:
+		return false
 	for t in tile_counter.get_all_tiles():
 		var full_hand = [t]
 		full_hand.append_array(hand)
@@ -829,6 +832,7 @@ func _try_enter_riichi():
 			calls_manager.enable_calls(CALL_BITMASK.RCH, {})
 			_set_state(STATE_CALLS)
 			_assign_discard_count()
+			score_tracker.update_score(-1000)
 			return true
 	return false
 

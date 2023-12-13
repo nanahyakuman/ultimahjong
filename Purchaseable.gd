@@ -8,8 +8,8 @@ class_name Purchaseable
 @onready var label = $PanelBuster/Label
 
 
-enum TYPES {AKA, ADD, DEAD_REDUCE, KAN_REVEAL, ITEM}
-const HOVER_TEXTS = ["Convert tiles to aka.", "Add tiles to wall.", "Increase the number of tiles drawn in a round by 4.", "Start with additional kan dora revealed."]
+enum TYPES {AKA, AO, KIN, ADD, DEAD_REDUCE, KAN_REVEAL, ITEM}
+const HOVER_TEXTS = ["Convert tiles to aka.", "Convert tiles to ao.", "Convert tiles to kin.", "Add tiles to wall.", "Increase the number of tiles drawn in a round by 4.", "Start with additional kan dora revealed."]
 var type = null
 # should only possess one either tiles or item
 var tiles = []
@@ -44,6 +44,8 @@ func assign_item(id: int):
 	item.type = id
 	item.charge_type = randi()%3
 	tile_container.add_child(item)
+	# force the item to show up nicely.
+	item.set_shop_graphics()
 
 func assign_type(ty: int):
 	type = ty
