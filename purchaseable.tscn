@@ -21,6 +21,7 @@ axis_stretch_vertical = 1
 [node name="Purchaseable" type="PanelContainer"]
 offset_right = 35.0
 offset_bottom = 37.0
+mouse_default_cursor_shape = 2
 theme = ExtResource("1_kndg5")
 theme_override_styles/panel = SubResource("StyleBoxTexture_awi6b")
 script = ExtResource("2_q6058")

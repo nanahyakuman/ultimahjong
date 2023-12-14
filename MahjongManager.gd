@@ -74,8 +74,7 @@ func start_round():
 	gui_manager.update_made_calls([])
 	gui_manager.update_kan_dora([],0)
 	gui_manager.update_hand([])
-	gui_manager.reset_dead_wall_count()
-	gui_manager.update_wall_count(0,0)
+	gui_manager.update_wall_count(0,0,revealed_kan_dora)
 	calls_manager.enable_calls(0, {})
 	
 	in_riichi = false
@@ -128,9 +127,9 @@ func _init_wall():
 	
 	for i in range(0, wall.size(), 6):
 		await AnimTimer.start_mod(.04)
-		gui_manager.update_wall_count(i, upgrades.get_dead_tiles())
+		gui_manager.update_wall_count(i, upgrades.get_dead_tiles(),revealed_kan_dora)
 		call_sfx_player.play()
-	gui_manager.update_wall_count(wall.size(), upgrades.get_dead_tiles())
+	gui_manager.update_wall_count(wall.size(), upgrades.get_dead_tiles(),revealed_kan_dora)
 	
 
 func _draw_hand():
@@ -176,19 +175,19 @@ func _draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.MAN, 3))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 3))
 
-#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 2))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 3))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 4))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 5))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 6))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 7))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 8))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+	temp.append(MTile.new(MTile.SUITS.SOU, 2))
+	temp.append(MTile.new(MTile.SUITS.SOU, 3))
+	temp.append(MTile.new(MTile.SUITS.SOU, 4))
+	temp.append(MTile.new(MTile.SUITS.SOU, 5))
+	temp.append(MTile.new(MTile.SUITS.SOU, 6))
+	temp.append(MTile.new(MTile.SUITS.SOU, 7))
+	temp.append(MTile.new(MTile.SUITS.SOU, 8))
+	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+	temp.append(MTile.new(MTile.SUITS.SOU, 9))
 #
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
@@ -334,6 +333,7 @@ func get_and_overwrite_most_recent_kan_dora(tile: MTile) -> MTile:
 
 func update_revealed_kan_dora():
 	gui_manager.update_kan_dora(kan_dora, upgrades.get_kan_size() - revealed_kan_dora)
+	gui_manager.update_wall_count(wall.size(), upgrades.get_dead_tiles(),revealed_kan_dora)
 	
 	var revealed_dora_ids = []
 	for i in range(upgrades.get_kan_size() - revealed_kan_dora, kan_dora.size()):
@@ -861,7 +861,7 @@ func _get_next_from_wall(mana_count: int):
 		_end_round()
 		return null
 	var ret = wall.pop_back()
-	gui_manager.update_wall_count(wall.size(), upgrades.get_dead_tiles())
+	gui_manager.update_wall_count(wall.size(), upgrades.get_dead_tiles(),revealed_kan_dora)
 	
 	items.tile_drawn(mana_count)
 	
@@ -886,7 +886,7 @@ func _end_round(win_is_tsumo_not_ron = false):
 	# add yaku 
 	if ippatsu_counter >= 0:
 		met_yaku.hans.append(ALL_YAKU.YAKUS["Ippatsu"])
-	if wall.size() == 0:
+	if wall.size() == upgrades.get_dead_tiles():
 		met_yaku.hans.append(ALL_YAKU.YAKUS["Haitei"])
 	if was_last_draw_from_dead_wall:
 		met_yaku.hans.append(ALL_YAKU.YAKUS["Rinshan"])

@@ -13,8 +13,6 @@ func _process(delta):
 
 func set_text(str: String):
 	visible = str.length() != 0
-	if label.text == str:
-		return
 	label.text = str
 	size = Vector2i(0,0)
 	

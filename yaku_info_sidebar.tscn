@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://rb85jd55olq5"]
+[gd_scene load_steps=6 format=3 uid="uid://rb85jd55olq5"]
 
-[ext_resource type="Theme" uid="uid://bgwfxm5udtx2c" path="res://theme.tres" id="1_m2kay"]
+[ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="1_m2kay"]
 [ext_resource type="Script" path="res://yaku_info_sidebar.gd" id="1_wqere"]
 [ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="2_mlqvd"]
 [ext_resource type="FontFile" uid="uid://bian1q53chnum" path="res://text/font/BodyTilesColor.png" id="4_srsxn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d8jss"]
 
 [node name="YakuInfoSidebar" type="HBoxContainer"]
 offset_right = 240.0
@@ -43,11 +45,12 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("2_mlqvd")
 text = "[6]"
 
-[node name="DescLabel" type="Label" parent="VBoxContainer"]
+[node name="DescLabel" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_d8jss")
+bbcode_enabled = true
 text = "yaku description!!!!!!"
-autowrap_mode = 3
+fit_content = true
 
 [node name="Control3" type="Control" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 4)

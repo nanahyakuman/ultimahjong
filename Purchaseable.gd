@@ -9,7 +9,7 @@ class_name Purchaseable
 
 
 enum TYPES {AKA, AO, KIN, ADD, DEAD_REDUCE, KAN_REVEAL, ITEM}
-const HOVER_TEXTS = ["Convert tiles to aka.", "Convert tiles to ao.", "Convert tiles to kin.", "Add tiles to wall.", "Increase the number of tiles drawn in a round by 4.", "Start with additional kan dora revealed."]
+const HOVER_TEXTS = ["Convert tiles to aka.", "Convert tiles to ao.", "Convert tiles to kin.", "Add tiles to wall.", "Increase the number of tiles drawn in a round by four.", "Start with an additional kan dora revealed."]
 var type = null
 # should only possess one either tiles or item
 var tiles = []

@@ -75,6 +75,7 @@ item considerations (jsut a useful reference for balancing things)
 	adding 1~1.3 han a round (with some luck).
 
 
+
 ideas but not critical:
 	some items should highlight what they affect
 	canon tile highlight
@@ -87,6 +88,7 @@ ideas but not critical:
 	make ura dora more clear
 	item upgrading? "smith" an item into a higher use tier
 	syntax hgilight yaku
+		make them orange and link back to their descriptions
 
 
 
@@ -119,6 +121,11 @@ does kan/flowers actually draw haitei?
 sequentialize wind change anims
 flower broke tanyao?
 rewrite scoring tab
+mouse entering a item from the sell prompt cursorhovertexts "add item to wall???? wth???"
+	only occurs when setting the cursor style. deadass what??
+dont sell deadwall reducs if the size is already minmum
+deadwall kan gfx
+shop tiles cursor passthrough
 
 meta:
 	base mahjong:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://doajrgd3p2isn"]
+[gd_scene load_steps=63 format=3 uid="uid://xu6y8qdnuptt"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="2_j88jw"]
@@ -42,13 +42,15 @@
 [ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="35_14yv6"]
 [ext_resource type="Script" path="res://FuTab.gd" id="41_je4uv"]
 [ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tile/tilecounter/tablediv.png" id="41_k312k"]
+[ext_resource type="Texture2D" uid="uid://cfmymgbxt6t6r" path="res://image/tile/tilecounter/tilecounter_dead.png" id="41_py2jx"]
 [ext_resource type="Texture2D" uid="uid://8eiqqlppwabi" path="res://image/tile/tilecounter/tilecounter.png" id="43_3nd3k"]
 [ext_resource type="Script" path="res://OptionsButton.gd" id="43_jd3i2"]
+[ext_resource type="Texture2D" uid="uid://c6hifrbh73ile" path="res://image/tile/tilecounter/tilecounter_ends.png" id="43_ki72n"]
 [ext_resource type="Script" path="res://AllTilesDisplay.gd" id="43_nbkwc"]
+[ext_resource type="Texture2D" uid="uid://c3krrdgaavn5i" path="res://image/tile/tilecounter/tilecounter_end_dead.png" id="43_stly7"]
 [ext_resource type="Script" path="res://QuitButton.gd" id="43_uwhsm"]
+[ext_resource type="Texture2D" uid="uid://cghgbw25enwyy" path="res://image/tile/tilecounter/tilecounter_dead_kandora.png" id="43_wl4wh"]
 [ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="44_cis8i"]
-[ext_resource type="Texture2D" uid="uid://ch4nr70j7xj74" path="res://image/tile/tilecounter/tilecounter_end_odd.png" id="44_s037w"]
-[ext_resource type="Texture2D" uid="uid://blxlrv0jsh5hx" path="res://image/tile/tilecounter/tilecounter_end_even.png" id="45_hwnkc"]
 [ext_resource type="Script" path="res://YakuTab.gd" id="45_rsntb"]
 [ext_resource type="Texture2D" uid="uid://ng8eqocmaltm" path="res://image/sidebar_tiles_9pr.png" id="47_n10gp"]
 [ext_resource type="Script" path="res://ScoreTracker.gd" id="50_7li6w"]
@@ -459,7 +461,7 @@ script = ExtResource("22_nsrp2")
 
 [node name="Item" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("21_4bgcv")]
 layout_mode = 2
-type = 8
+type = 3
 activate_self = true
 
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
@@ -735,6 +737,34 @@ texture = ExtResource("41_k312k")
 stretch_mode = 1
 script = ExtResource("13_x2gyd")
 
+[node name="DeadTileCounter" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
+layout_mode = 0
+offset_right = 8.0
+texture = ExtResource("41_py2jx")
+expand_mode = 1
+stretch_mode = 1
+script = ExtResource("16_8lthm")
+hover_text = "Dead Tiles. Not drawn normally."
+
+[node name="DeadTileKanCounter" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
+layout_mode = 0
+offset_right = 8.0
+texture = ExtResource("43_wl4wh")
+expand_mode = 1
+stretch_mode = 1
+script = ExtResource("16_8lthm")
+hover_text = "Dead Tiles. Not drawn normally."
+
+[node name="DeadEnd" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
+layout_mode = 1
+offset_right = 8.0
+offset_bottom = 9.0
+stretch_mode = 2
+
+[node name="EndSprite2D" type="Sprite2D" parent="HBoxContainer/GraphicTileCounter/DeadEnd"]
+texture = ExtResource("43_stly7")
+centered = false
+
 [node name="TileCounter" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
 layout_mode = 0
 offset_right = 8.0
@@ -742,14 +772,18 @@ texture = ExtResource("43_3nd3k")
 expand_mode = 1
 stretch_mode = 1
 script = ExtResource("16_8lthm")
-hover_text = "Tiles in the wall. The last tiles are dead."
+hover_text = "Tiles in the wall."
 
 [node name="End" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
 layout_mode = 1
 offset_right = 8.0
 offset_bottom = 16.0
-texture = ExtResource("44_s037w")
 stretch_mode = 2
+
+[node name="EndSprite2D" type="Sprite2D" parent="HBoxContainer/GraphicTileCounter/End"]
+texture = ExtResource("43_ki72n")
+centered = false
+hframes = 3
 
 [node name="Label" type="Label" parent="HBoxContainer/GraphicTileCounter"]
 layout_mode = 0
@@ -758,26 +792,6 @@ offset_right = 51.0
 offset_bottom = 15.0
 rotation = 1.5708
 text = "70"
-
-[node name="DeadTileEnd" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
-layout_mode = 1
-offset_top = 350.0
-offset_right = 8.0
-offset_bottom = 366.0
-texture = ExtResource("45_hwnkc")
-stretch_mode = 2
-
-[node name="DeadTileCounter" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
-layout_mode = 2
-offset_top = 353.0
-offset_right = 8.0
-offset_bottom = 362.0
-scale = Vector2(1, -1)
-texture = ExtResource("43_3nd3k")
-expand_mode = 1
-stretch_mode = 1
-script = ExtResource("16_8lthm")
-hover_text = "Dead tiles, will never be drawn."
 
 [node name="Sidebar" type="ColorRect" parent="HBoxContainer"]
 layout_mode = 2

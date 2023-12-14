@@ -6,7 +6,7 @@ class_name Item
 @onready var panel_container = $PanelContainer
 @onready var description = $Description
 @onready var hover_name = $Description/VBoxContainer/PanelContainer/HBoxContainer/PanelContainer/Name
-@onready var hover_text = $Description/VBoxContainer/Label
+@onready var hover_body = $Description/VBoxContainer/Label
 @onready var sell_panel_container = $SellPanelContainer
 var mahjong_manager
 var tile_select
@@ -37,56 +37,60 @@ func _ready():
 	connect("mouse_exited", _mouse_exited)
 	_mouse_exited()
 	
+	# when in the shop, don't block the button
 	mouse_filter = Control.MOUSE_FILTER_PASS
 	
 	cooldown_counter = COOLD[type]
+	
+	hover_body.clear()
 	
 	# hovertexting
 	match type:
 		TYPES.ERASER:
 			hover_name.text = "Eraser"
-			hover_text.text = "Current tsumo tile is replaced with a White Dragon (temporarily)."
+			hover_body.append_text("Current tsumo tile is replaced with a White Dragon [i]temporarily[/i].")
 		TYPES.WIND_MAGNET:
 			hover_name.text = "Wind Charm"
-			hover_text.text = "4th tile in the wall switches positions with a random wind from the remaining wall, if there is one."
+			hover_body.append_text("4th tile in the wall switches positions with a random wind from the remaining wall, if there is one.")
 		TYPES.BATTERY:
 			hover_name.text = "9-Volt"
-			hover_text.text = "Reduce all OTHER item cooldown counters by 9. Only works on items with cooldowns."
+			hover_body.append_text("Reduce all [i]other[/i] item cooldown counters by 9. Only works on items with cooldowns.")
 		TYPES.KAN_SWAP:
 			hover_name.text = "Kan Swap"
-			hover_text.text = "Replace the most recently revealed kan dora with a tile from hand or tsumo."
+			hover_body.append_text("Replace the most recently revealed kan dora with a tile from hand or tsumo.")
 		TYPES.PIN_DUPE:
 			hover_name.text = "Pinplicator"
-			hover_text.text = "Convert a selected Pin into a selected Pin (temporarily)."
+			hover_body.append_text("Convert a selected Pin into a selected Pin [i]temporarily[/i].")
 		TYPES.SOU_ADJ:
 			hover_name.text = "Sou-so"
-			hover_text.text = "Convert a selected Sou into a selected Sou's predecessor (temporarily)."
+			hover_body.append_text("Convert a selected Sou into a selected Sou's predecessor [i]temporarily[/i].")
 		TYPES.AKAFY:
 			hover_name.text = "Factory Seize"
-			hover_text.text = "A random non-aka tile in hand (not tsumo) becomes aka."
+			hover_body.append_text("A random non-aka tile in hand [i]but not tsumo[/i] becomes aka.")
 		TYPES.POCCHI:
 			hover_name.text = "·A·Rock"
-			hover_text.text = "Add a Pocchi to the current tsumo tile (permanently)."
+			hover_body.append_text("Add a Pocchi to the current tsumo tile [i]permanently[/i].")
 		TYPES.MAN_TERM:
 			hover_name.text = "Hat Man"
-			hover_text.text = "Shift a selected Man's value into the terminal further from it (temporarily). Distance ties are chosen at random."
+			hover_body.append_text("Shift a selected Man's value into the terminal further from it [i]temporarily[/i]. Distance ties are chosen at random.")
 		TYPES.DRAGON_CYCLE:
 			hover_name.text = "Dragon Cycle"
-			hover_text.text = "Change a selected Dragon's color (W>G>R>W)."
+			hover_body.append_text("Increment a selected Dragon's type (W>G>R>W).")
 		TYPES.SUJI_OFFSET:
 			hover_name.text = "Suji Shift"
-			hover_text.text = "Adjust current tsumo tile's value by +/- 3. Only works on numbered tiles."
+			hover_body.append_text("Adjust current tsumo tile's value by +/- 3. Only works on numbered tiles.")
 	
+	hover_body.append_text("[right][color=%s]" % COL.LBLUE)
 	# additional gfx that vary based on type
 	match charge_type:
 		CH_TYPES.ONCE:
-			hover_text.text += "\nOne-time use."
+			hover_body.append_text("One-time use.")
 			panel_container.get_theme_stylebox("panel").region_rect.position.x = 8 * 3
 		CH_TYPES.MANA:
-			hover_text.text += "\nConsumes %d Mana." % COOLD[type]
+			hover_body.append_text("Consumes %d Mana." % COOLD[type])
 			panel_container.get_theme_stylebox("panel").region_rect.position.x = 8 * 1
 		CH_TYPES.TIMR:
-			hover_text.text += "\nCooldown of %d." % COOLD[type]
+			hover_body.append_text("Cooldown of %d." % COOLD[type])
 			panel_container.get_theme_stylebox("panel").region_rect.position.x = 8 * 2
 	
 	
@@ -111,6 +115,9 @@ func activate(mm: MahjongManager, ts: Node, pts: Node, mb: Node, shop: Node):
 	popup_tile_select = pts
 	mana_bar = mb
 	shop_root = shop
+	
+	mouse_filter = Control.MOUSE_FILTER_STOP
+	
 	
 	#update_graphics(mb.mana)
 
@@ -351,16 +358,28 @@ func set_shop_graphics():
 	update_graphics(9999, true)
 
 # update the counter. and the gfx. `force` forces the item to appear charged
-func update_graphics(val: int, force: int = false):
+func update_graphics(mana: int, force: int = false):
+	# custom mouse overlay if usable
+	var cant_use = false
+	
 	match charge_type:
 		CH_TYPES.ONCE:
-			pass
+			cant_use = true
 		CH_TYPES.MANA:
-			sprite_2d.frame_coords.y = (type / sprite_2d.hframes) * 2  +  int(COOLD[type] > val and !force)
+			cant_use = COOLD[type] > mana
+			sprite_2d.frame_coords.y = (type / sprite_2d.hframes) * 2  +  int(cant_use and !force)
+			
 		CH_TYPES.TIMR:
-			panel_container.visible = cooldown_counter > 0 or force
+			cant_use = cooldown_counter > 0
+			panel_container.visible = cant_use or force
 			counter_label.text = str(maxi(0,cooldown_counter))
-			sprite_2d.frame_coords.y = (type / sprite_2d.hframes) * 2  +  int(cooldown_counter > 0 and !force)
+			sprite_2d.frame_coords.y = (type / sprite_2d.hframes) * 2  +  int(cant_use and !force)
+	
+	if !cant_use:
+		mouse_default_cursor_shape = CURSOR_POINTING_HAND
+	else:
+		mouse_default_cursor_shape = CURSOR_ARROW
+		
 
 # called on item use, spends mana/cooldown/the item as appropriate.
 func _expend_resource():
@@ -401,10 +420,12 @@ func _gui_input(event):
 				shop_root.adjust_money(1)
 
 func _mouse_entered():
-	description.visible = true
+	description.animate_in()
 	# we're kinda chaining visible checks here, not the biggest fan
 	if shop_root and shop_root.visible:
-		sell_panel_container.visible = true
+		sell_panel_container.animate_in()
+		mouse_default_cursor_shape = CURSOR_POINTING_HAND
 func _mouse_exited():
-	description.visible = false
-	sell_panel_container.visible = false
+	description.animate_out()
+	sell_panel_container.animate_out()
+	mouse_default_cursor_shape = CURSOR_ARROW

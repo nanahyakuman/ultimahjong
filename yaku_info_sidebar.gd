@@ -16,7 +16,8 @@ func set_info(info: ScoringInfo.Han):
 		closed_label.text = " (-%d Open) " % info.open_penalty
 	else:
 		closed_label.text = ""
-	desc_label.text = info.desc
+	desc_label.clear()
+	desc_label.append_text(info.desc)
 	tile_label.text = info.graphic_desc
 	if tile_label.text.length() < 14:
 		while tile_label.text.length() < 13:

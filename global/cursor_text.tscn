@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=6 format=3 uid="uid://ddhk3x2q7kj6c"]
 
 [ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="1_hmcih"]
-[ext_resource type="Theme" path="res://theme.tres" id="1_lndk1"]
+[ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="1_lndk1"]
 [ext_resource type="Script" path="res://global/Cursor.gd" id="2_pjfk2"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vhwba"]
