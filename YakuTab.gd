@@ -7,6 +7,8 @@ extends TabContainer
 
 # create tabs for all yaku procedurally.
 func _ready():
+	ALL_YAKU.format_han()
+	
 	var curr_tab_box: VBoxContainer = null
 	for i in ALL_YAKU.YAKUS.values():
 		if i is String:
