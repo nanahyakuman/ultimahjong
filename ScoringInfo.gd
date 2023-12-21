@@ -126,7 +126,7 @@ func get_base_points():
 static func _alt_points_count(fu: int, han: int, yakuman: int):
 	var base = 250
 	#offset futei
-	base += floor_to_place(fu-20, 10) * 10
+	base += floor_to_place(fu, 10) * 10 #subtract 20 here
 	base *= pow(2, han-1)
 	
 	if base > 2000:

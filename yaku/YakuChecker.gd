@@ -145,6 +145,8 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			var tanyao = true
 			for g in groupings:
 				for t in g.tiles:
+					if t.suit == MTile.SUITS.FLOWER:
+						continue
 					if t.suit == MTile.SUITS.SPECIAL or t.value == 1 or t.value == 9:
 						tanyao = false
 			if tanyao:
@@ -555,10 +557,10 @@ func _get_maximal_groupings(remaining_hand: Array, prioritize_runs_not_sets: boo
 			if group.type == Grouping.RUN:
 				for g in recurse:
 					if g.equivalent(group):
+						merged = true
 						g.type = Grouping.BIRUNTRIPAIR
 						g.tiles.append_array(group.tiles)
 						g.tiles.sort_custom(Callable(MTile, "tile_compare"))
-						merged = true
 						break
 			if !merged:
 				theoretical_all_groupings = [group]

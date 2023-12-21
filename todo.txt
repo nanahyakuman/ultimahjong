@@ -9,6 +9,7 @@ end of every round can purchase:
 		"almighty" tile (リーチ自摸の場合、和了が出来。それに幡)
 			would probably have to remove dora dragons or at least dora haku
 		pocchi-ing a tile means you can switch it out for any other pocchi tile in deck?
+		kin dragon is 2yakuhai, and doras all other dragons. costs 5y
 	new rules (south also counts as seat wind toka)?
 		get two ura every reveal
 		call atama?
@@ -111,7 +112,6 @@ when you discard a pocchi, can choose to exchange the 4th tile in the wall with
 shiro pocchi instant win if riichitsumo
 aodora
 get_terminals function
-78899p789s12366m 7p returned ryanpeikou
 assert that all the chanta type yaku still work
 permit riichi kan
 flower call redraw did NOT propmt tsumo properly. might have been other now-solved
@@ -130,10 +130,14 @@ mouse entering a item from the sell prompt cursorhovertexts "add item to wall???
 	only occurs when setting the cursor style. deadass what??
 dont sell deadwall reducs if the size is already minmum
 shop tiles cursor passthrough
+handling for persistent upgrades like adding flowers
+tanyao dora 2 registered as legal but then gave 800pts, scoring screen read it as 0 pts
+	seems to be related to openness, closed hands still score fine.
+	open toitoi was fine tho, maybe a tanyao issue after all? or at least a run issue
 
 
 meta:
-	
+	jk scoring still buggy
 
 
 music

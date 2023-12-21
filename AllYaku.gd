@@ -53,7 +53,7 @@ var YAKUS = {
 	#"Daisangen 2": duplicated["Daisangen"],
 	"Chanta": ScoringInfo.Han.new("Chanta", 2, 1, "Every grouping/pair contains an honor or terminal.", "🀙🀚🀛🀇🀇🀇🀆 🀆 🀂🀂🀂🀟🀠🀡"),
 	"Junchan": ScoringInfo.Han.new("Junchan", 3, 1, "Every grouping/pair contains a terminal. Disables Chanta.", "🀇🀉🀐🀑🀒 🀈 🀙🀙🀙🀖🀗🀘🀍🀎🀏"),
-	"Honroutou": ScoringInfo.Han.new("Honrōtō", 2, 0, "Every grouping is a set of terminals or honors. Additonally implies either Toitoi or Chītoitsu. Disables Junchan and Chanta.", "🀇🀇🀏🀏 🀇 🀘🀘🀘🀂🀂🀂🀁🀁🀁"),
+	"Honroutou": ScoringInfo.Han.new("Honrōtō", 2, 0, "Every grouping is composed entirely of terminals or honors. Additonally implies either Toitoi or Chītoitsu, for at least four han. Disables Junchan and Chanta.", "🀇🀇🀏🀏 🀇 🀘🀘🀘🀂🀂🀂🀁🀁🀁"),
 	#"Chinroutou 2": duplicated["Chinroutou"],
 	
 #	"SPACER_5": "Suits",
@@ -62,7 +62,7 @@ var YAKUS = {
 	
 	"SPACER_X": "Yakuman",
 #	"TEXT_X": ["Unlike other yaku, Yakuman generally disable any han they imply. For example: Suukantsu disables Sankantsu, Daisangen disables Shousangen and those dragon's Yakuhai."],
-	"TEXT_X": ["Note that Yakuman are automatic limit hands, after which han are simply defined as {number of Yakuman × 13}. It [i]is[/i] possible to meet multiple Yakuman requirements simultaneously; you will be rewarded for all of them."],
+	"TEXT_X": ["Note that Yakuman are [i]automatic limit hands[/i]. That is, once you acheive [i]at least[/i] one Yakuman, the score rewarded is simply 32000 (48000 if sitting East) multiplied by the number of fulfilled Yakuman."],
 	"Kazoe Yakuman": ScoringInfo.Han.new("Kazoe Yakuman", 13, 0, "Never awarded itself, simply a name for any hand that reaches or exceeds thirteen han without fulfilling any defined Yakuman pattern. Any other Yakuman disables this one, so there can be no multiple Yakuman hands containing Kazoe.", "🀙🀙🀄🀄 🀙 🀀🀀🀀🀀🀆🀆🀆🀆🀫🀅🀅🀫"),
 	"Daisangen": duplicated["Daisangen"],
 	"Shousuushii": ScoringInfo.Han.new("Shōsūshī", 13, 0, "Three sets/quads of winds and a pair of the fourth.", "🀪🀪 🀀🀀🀀🀃🀃 🀪 🀁🀁🀁🀂🀂🀂"),
