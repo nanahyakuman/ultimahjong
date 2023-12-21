@@ -21,10 +21,44 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 	
 	remaining_hand.sort_custom(Callable(MTile, "tile_compare"))
 	
-	# get maximal hands, run based and set based
+	# kokushi is only ever kokushi, just escape case it as early as possible
+	if is_kokushi(remaining_hand):
+		var ret = ScoringInfo.new()
+		ret.hans.append(ALL_YAKU.YAKUS["Kokushi Musou"])
+		return ret
+	
+	#  get maximal hands, run based and set based. note this is pretty wasteful most
+	# of the time, especially since every extant biruntrpair doubles the amount of groupings
+	# to be tested, and the majority of hands aren't even ambiguous
 	var groupingss = [_get_maximal_groupings(remaining_hand,false),_get_maximal_groupings(remaining_hand,true)]
 	
-	# determine openness. not used too much anymore.
+	#break down biruntripairs into constituents
+	var expanded_groupingss = []
+	var gssi = 0
+	while gssi < groupingss.size():
+		var gss = groupingss[gssi]
+		for g in gss:
+			if g.type == Grouping.BIRUNTRIPAIR:
+				var rundupe = gss.duplicate()
+				rundupe.erase(g)
+				var pairdupe = rundupe.duplicate()
+				
+				rundupe.append(Grouping.new(Grouping.RUN,[g.tiles[0],g.tiles[2],g.tiles[4]]))
+				rundupe.append(Grouping.new(Grouping.RUN,[g.tiles[1],g.tiles[3],g.tiles[5]]))
+				
+				pairdupe.append(Grouping.new(Grouping.PAIR,[g.tiles[0],g.tiles[1]]))
+				pairdupe.append(Grouping.new(Grouping.PAIR,[g.tiles[2],g.tiles[3]]))
+				pairdupe.append(Grouping.new(Grouping.PAIR,[g.tiles[4],g.tiles[5]]))
+				
+				groupingss.erase(gss)
+				groupingss.append(rundupe)
+				groupingss.append(pairdupe)
+				# just reset back to the beginning. this is kinda wasteful ngl
+				gssi = -1
+				break
+		gssi += 1
+	
+	# determine openness
 	var is_open = false
 	for g in hand_info.already_made_groupings:
 		if g.is_open():
@@ -36,6 +70,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 	
 	# highest scoring hand
 	var max = ScoringInfo.new()
+	
 	
 	for groupings in groupingss:
 		groupings.append_array(hand_info.already_made_groupings)
@@ -62,6 +97,8 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 						sets.append(g)
 					Grouping.PAIR:
 						pairs.append(g)
+					Grouping.BIRUNTRIPAIR:
+						assert(false, "You're meant to filter these out!")
 				
 				#  sanankou breaker. second half of logic occurs in the sanankou section
 				# below
@@ -77,6 +114,8 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 					#  pass on if a dupe is found.
 					# this way 111122223333p returns two duplicates ([123.a]>123.b) and ([123.c]>123.d),
 					# (bracketed group is the actual one in `duplicates`)
+					#  i know calling `equivalent()` here is redundant because we
+					# maintain biruntripair trackers, but whatever it works
 					if groupings[it].equivalent(groupings[j]):
 						duplicates.append(groupings[it])
 						it = j
@@ -116,14 +155,13 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			if pairs.size() >= 7:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Chiitoitsu"])
 			
-			
 			## SET-BASED YAKU (all req. at least 3 sets)
 			if sets.size() >= 3:
 				# toitoi
 				if sets.size() >= 4:
 					scoring_info.hans.append(ALL_YAKU.YAKUS["Toitoi"])
 				
-				# sanankou, sankantsu
+				# sanankou, sankantsu, suuankou, suukantsu
 				var hidden_sets = []
 				var kans = []
 				for s in sets:
@@ -144,9 +182,13 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 					if sets_that_might_contain_ronned_tile.size() == groupings_that_might_contain_ronned_tile.size():
 						hidden_sets.erase(sets_that_might_contain_ronned_tile[-1])
 				
-				if hidden_sets.size() >= 3:
+				if hidden_sets.size() >= 4:
+					scoring_info.hans.append(ALL_YAKU.YAKUS["Suuankou"])
+				elif hidden_sets.size() == 3:
 					scoring_info.hans.append(ALL_YAKU.YAKUS["San'ankou"])
-				if kans.size() >= 3:
+				if kans.size() >= 4:
+					scoring_info.hans.append(ALL_YAKU.YAKUS["Suukantsu"])
+				elif kans.size() == 3:
 					scoring_info.hans.append(ALL_YAKU.YAKUS["Sankantsu"])
 				
 				#sanshoku doukou
@@ -230,9 +272,49 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 					scoring_info.hans.append(ALL_YAKU.YAKUS["Chin'itsu"])
 				elif is_half:
 					scoring_info.hans.append(ALL_YAKU.YAKUS["Hon'itsu"])
+				
+				var chuuren_bitmask = []
+				chuuren_bitmask.resize(9)
+				chuuren_bitmask.fill(0)
+				for g in groupings:
+					for t in g.tiles:
+						chuuren_bitmask[t.value-1] += 1
+				
+				var chuuren_valid = true
+				if chuuren_bitmask[9-1] < 3:
+					chuuren_valid = false
+				if chuuren_bitmask[1-1] < 3:
+					chuuren_valid = false
+				for i in range(2-1, 8-1+1):
+					if chuuren_bitmask[i] < 1:
+						chuuren_valid = false
+						break
+				
+				if chuuren_valid:
+					scoring_info.hans.append(ALL_YAKU.YAKUS["Chuuren Poutou"])
+			
+			# putting ryuuii here as well
+			var ryuuii = true
+			for g in groupings:
+					for t in g.tiles:
+						if t.suit == MTile.SUITS.SPECIAL:
+							if t.value != MTile.SPECIALS.HATSU:
+								ryuuii = false
+								break
+						elif t.suit != MTile.SUITS.SOU:
+							ryuuii = false
+							break
+						elif !MTile.RYUUII_VALUES.has(t.value):
+							ryuuii = false
+							break
+					
+					if !ryuuii:
+						break
+			if ryuuii:
+				scoring_info.hans.append(ALL_YAKU.YAKUS["Ryuuiisou"])
 			
 			
-			## TERMINAL-BASED YAKU
+			## HONOR/TERMINAL-BASED YAKU
 			var terminal_sets = []
 			var terminal_runs = []
 			var honor_sets = []
@@ -240,6 +322,8 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			var honor_pairs = []
 			var sangen_count = 0
 			var gen_pairs = 0
+			var wind_count = 0
+			var wind_pairs = 0
 			var groupings_count_excluding_flowers = 0
 			groupings_count_excluding_flowers = groupings.size()
 			for g in groupings:
@@ -251,6 +335,8 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 						honor_sets.append(g)
 						if MTile.DRAGONS.has(g.tiles[0].value):
 							sangen_count += 1
+						if MTile.WINDS.has(g.tiles[0].value):
+							wind_count += 1
 				elif g.type == Grouping.RUN:
 					# this is implicit
 					#if MTile.NUMERALS.has(g.tiles[0].suit):
@@ -264,6 +350,8 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 						honor_pairs.append(g)
 						if MTile.DRAGONS.has(g.tiles[0].value):
 							gen_pairs += 1
+						if MTile.WINDS.has(g.tiles[0].value):
+							wind_pairs += 1
 				elif g.type == Grouping.SPECIAL:
 					groupings_count_excluding_flowers -= 1
 			
@@ -286,6 +374,12 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Daisangen"])
 			elif sangen_count >= 2 and gen_pairs >= 1:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Shousangen"])
+			
+			# suushi
+			if wind_count >= 4:
+				scoring_info.hans.append(ALL_YAKU.YAKUS["Daisuushii"])
+			elif wind_count >= 3 and wind_pairs >= 1:
+				scoring_info.hans.append(ALL_YAKU.YAKUS["Shousuushii"])
 			
 			# get fu
 			if do_fu:
@@ -357,28 +451,65 @@ func hand_meets_basic_reqs(hand: Array, made_groupings: Array) -> bool:
 	return groupings_meet_basic_reqs(groupings)
 
 func groupings_meet_basic_reqs(groupings: Array) -> bool:
-	var setruns = 0
-	var pairs = 0
-	for g in groupings:
-		if g.type == Grouping.SET or g.type == Grouping.RUN:
+	var setruns = 0 # sets or runs
+	var pairs = 0 # pairs
+	var biruntripairs = 0 # 223344 type shapes that could be either
+	for gi in groupings.size():
+		var g = groupings[gi]
+		if g.type == Grouping.SET:
 			setruns += 1
-		if g.type == Grouping.PAIR:
+		elif g.type == Grouping.PAIR:
 			pairs += 1
+		elif g.type == Grouping.RUN:
+			setruns += 1
+		elif g.type == Grouping.BIRUNTRIPAIR:
+			biruntripairs += 1
 	
-	return ((setruns == 4) and (pairs == 1)) or (pairs == 7)
+	return ((setruns + 2 * biruntripairs == 4) and (pairs == 1)) or (pairs + biruntripairs * 3 == 7)
 
+
+func is_kokushi(hand: Array):
+	# only allow full hands
+	if hand.size() != 14:
+		return false
+	var found_ids = [] 
+	for t in hand:
+		if t.suit == MTile.SUITS.SPECIAL:
+			var tid = t.get_id()
+			# only want 1 pair. this check is technically redundant but saves time
+			if found_ids.count(tid) > 1:
+				return false
+			else:
+				if found_ids.find(tid) == -1:
+					found_ids.append(tid)
+		else:
+			if ![1,9].has(t.value):
+				return false
+			
+			var tid = t.get_id()
+			# only want 1 pair. this check is technically redundant but saves time
+			if found_ids.count(tid) > 1:
+				return false
+			else:
+				if found_ids.find(tid) == -1:
+					found_ids.append(tid)
+			
+	# we need all 13
+	if found_ids.size() < 13:
+		return false
+	#  don't have to check for only one pair because it's implicit
+	# with the above check
+	return true
 
 
 #  lil slow ngl. if `remaining_hand` does not fully resolve, returns an empty array.
 # e.g. 1234m returns nothing bc the 4 is hanging. this will work for hands of arbitrary sizes,
-# if that's helpful.
+# in fact, that's how it recurses.
 func _get_maximal_groupings(remaining_hand: Array, prioritize_runs_not_sets: bool = false) -> Array: #return array of `Grouping`s
-#	var a = []
-#	for t in remaining_hand:
-#		a.append(t.get_name())
-#	print(remaining_hand.size(), ": ", prefix, a)
-# note you need to reintroduce the "prefix" argument and increment it every iteration
-# to use this
+#	var str = ""
+#	for i in remaining_hand:
+#		str += " " + i.get_name()
+#	print(recount, str)
 	
 	var maximal_groupings = []
 	
@@ -397,36 +528,47 @@ func _get_maximal_groupings(remaining_hand: Array, prioritize_runs_not_sets: boo
 		if !prioritize_runs_not_sets:
 			if type_index == 0:
 				group = is_of_set(t, remaining_hand)
-				type = Grouping.SET
 			elif type_index == 1:
 				group = is_of_run(t, remaining_hand)
-				type = Grouping.RUN
 		else:
 			if type_index == 0:
 				group = is_of_run(t, remaining_hand)
-				type = Grouping.RUN
 			elif type_index == 1:
 				group = is_of_set(t, remaining_hand)
-				type = Grouping.SET
 		# pairs
 		if type_index == 2:
 			group = is_of_set(t, remaining_hand, 2)
-			type = Grouping.PAIR
 		
-		# recurse if we find a group
+		#  recurse if we find a group. otherwise we loop around to the next type
+		# of grouping
 		if group:
 			var theoretically_mananged_tiles = remaining_hand.duplicate()
-			for tg in group:
+			for tg in group.tiles:
 				theoretically_mananged_tiles.erase(tg)
 			
 			var recurse = _get_maximal_groupings(theoretically_mananged_tiles, prioritize_runs_not_sets)
-			var new_group = Grouping.new(type,group)
-			var theoretical_all = [new_group]
-			theoretical_all.append_array(recurse)
+			var theoretical_all_groupings = []
+			var merged = false
+			#  check if we sshould merge up. a biruntripair (basically an iipeikou, i.e. 223344)
+			# could either be 3 pairs or 2 runs, but it's easier to remember them both
+			# in a meta-structure here.
+			if group.type == Grouping.RUN:
+				for g in recurse:
+					if g.equivalent(group):
+						g.type = Grouping.BIRUNTRIPAIR
+						g.tiles.append_array(group.tiles)
+						g.tiles.sort_custom(Callable(MTile, "tile_compare"))
+						merged = true
+						break
+			if !merged:
+				theoretical_all_groupings = [group]
+			theoretical_all_groupings.append_array(recurse)
 			# only care if we use all tiles
-			if size_of_groupings(theoretical_all) == remaining_hand.size():
+			if size_of_groupings(theoretical_all_groupings) == remaining_hand.size():
 				maximal_groupings = recurse.duplicate()
-				maximal_groupings.append(new_group)
+				# dont double-merge dummy!
+				if !merged:
+					maximal_groupings.append(group)
 				return maximal_groupings
 	
 	return []
@@ -456,7 +598,7 @@ func is_of_run(tile: MTile, hand:Array):
 	
 	
 	if has_next and has_nexter:
-		return [tile, has_next, has_nexter]
+		return Grouping.new(Grouping.RUN, [tile, has_next, has_nexter])
 	return null
 
 #  "size" allows this function to detect atama and kan. note this checks PRECISE
@@ -471,9 +613,8 @@ func is_of_set(tile: MTile, hand:Array, size: int = 3):
 			count += 1
 			tiles_in_set.append(t)
 	
-	#  do not `.resize()` `tiles_in_set` to `size`!!!! i know you want to but it
-	# breaks things!!!!
-	return tiles_in_set if count >= size else null
+	var type = Grouping.PAIR if size == 2 else Grouping.SET
+	return Grouping.new(type, tiles_in_set) if count >= size else null
 
 # get the amount of tiles in an array of groupings
 func size_of_groupings(gs: Array) -> int:
@@ -486,6 +627,8 @@ func size_of_groupings(gs: Array) -> int:
 				count += 3
 			Grouping.RUN:
 				count += 3
+			Grouping.BIRUNTRIPAIR:
+				count += 6
 	return count
 
 func get_dora(groupings: Array, dora_ids: Array):

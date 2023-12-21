@@ -2,8 +2,8 @@ extends Resource
 class_name Grouping
 
 # set covers both pon and kan, use `tiles.size()` to differentiate.
-enum {NONE, PAIR, SET, RUN, SPECIAL}
-const TYPE_STRS = ["NONE","PAIR","SET","RUN", "SPECIAL"]
+enum {NONE, PAIR, SET, RUN, BIRUNTRIPAIR, SPECIAL}
+const TYPE_STRS = ["NONE","PAIR","SET","RUN","BIRUNTRIPAIR","SPECIAL"]
 var type = NONE
 #  tiles MUST be sorted!!! as a result, a `RUN` with a 2s in `tiles[0]` is implicitly
 # a 234s

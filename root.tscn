@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://xu6y8qdnuptt"]
+[gd_scene load_steps=62 format=3 uid="uid://xu6y8qdnuptt"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="2_j88jw"]
@@ -25,7 +25,6 @@
 [ext_resource type="Texture2D" uid="uid://bu7eiaj3nnu51" path="res://image/sittingwindindicator.png" id="20_he7r1"]
 [ext_resource type="Script" path="res://PurchaseablesHolder.gd" id="20_wmn33"]
 [ext_resource type="PackedScene" uid="uid://ch6l1071vkk6g" path="res://purchaseable.tscn" id="21_3mckx"]
-[ext_resource type="PackedScene" uid="uid://xbdfpjmfa56k" path="res://item.tscn" id="21_4bgcv"]
 [ext_resource type="Script" path="res://OpenShopButton.gd" id="21_8bhal"]
 [ext_resource type="Script" path="res://NextRoundButton.gd" id="21_roajs"]
 [ext_resource type="Texture2D" uid="uid://c51ubvyksp7ke" path="res://image/mana_9pr.png" id="21_sffs3"]
@@ -430,7 +429,7 @@ script = ExtResource("21_w220a")
 hover_text = "Mana. Increases every time a tile is drawn."
 
 [node name="Fill" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/ManaBar"]
-custom_minimum_size = Vector2(8, 0)
+custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 texture = ExtResource("23_1yx1g")
@@ -458,11 +457,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 alignment = 2
 script = ExtResource("22_nsrp2")
-
-[node name="Item" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("21_4bgcv")]
-layout_mode = 2
-type = 3
-activate_self = true
 
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
 layout_mode = 1
@@ -521,7 +515,6 @@ alignment = 1
 
 [node name="ScoringRoot" type="Control" parent="HBoxContainer/MahjongRoot"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -591,7 +584,7 @@ bbcode_enabled = true
 fit_content = true
 
 [node name="Points" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer/Han"]
-custom_minimum_size = Vector2(32, 0)
+custom_minimum_size = Vector2(37, 0)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_l6in4")
 bbcode_enabled = true
@@ -672,6 +665,7 @@ alignment = 1
 script = ExtResource("20_wmn33")
 purchaseable = ExtResource("21_3mckx")
 BUTTONS = 2
+PER_BUTTON = 2
 
 [node name="TilePurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
 layout_mode = 2
@@ -715,6 +709,7 @@ alignment = 1
 script = ExtResource("20_wmn33")
 purchaseable = ExtResource("21_3mckx")
 type = 6
+BUTTONS = 4
 PER_BUTTON = 0
 
 [node name="NextRoundButton" type="Button" parent="HBoxContainer/MahjongRoot/ShopRoot"]

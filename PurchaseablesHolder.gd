@@ -46,7 +46,8 @@ func start():
 		a.assign_type(type)
 		if valid_items:
 			var itm = valid_items.pick_random()
-			a.assign_item(itm)
+			var item_type = maxi(0, i - 1)
+			a.assign_item(itm, item_type)
 			valid_items.erase(itm)
 		
 		a.calc_cost()

@@ -10,10 +10,13 @@ const DEF_SPECIALS = [SPECIALS.EAST, SPECIALS.SOUTH, SPECIALS.WEST, SPECIALS.NOR
 const NUMERALS = [SUITS.MAN, SUITS.PIN, SUITS.SOU, SUITS.CHO]
 const DRAGONS = [SPECIALS.HAKU, SPECIALS.HATSU, SPECIALS.CHUN, SPECIALS.KIN, SPECIALS.SEI]
 const BASIC_DRAGONS = [SPECIALS.HAKU, SPECIALS.HATSU, SPECIALS.CHUN]
-const WINDS = [SPECIALS.EAST, SPECIALS.SOUTH, SPECIALS.WEST, SPECIALS.NORTH]
+const WINDS = [SPECIALS.EAST, SPECIALS.SOUTH, SPECIALS.WEST, SPECIALS.NORTH, SPECIALS.UP]
+const BASIC_WINDS = [SPECIALS.EAST, SPECIALS.SOUTH, SPECIALS.WEST, SPECIALS.NORTH]
+# here for consitency, the sou in ryuuiisou
+const RYUUII_VALUES = [2,3,4,6,8]
 
 # to generate human readable name
-const SUIT_NAMES = ["NONE", "-Pin", "-Sou", 0, "-Man",0,0,0,0,0,0,0,0,0,0,0,"-Flower"]
+const SUIT_NAMES = ["-Pin", "-Sou", "-Man", "-Cho", "-Spec", "-Flower"]
 const SPECIAL_NAMES = ["NONE", "East", "South", "West", "North", "Rising", "White", "Green", "Red", "Gold"]
 
 var suit: int
@@ -120,4 +123,4 @@ static func gen_name(tile: MTile):
 	if tile.suit == SUITS.SPECIAL:
 		return SPECIAL_NAMES[tile.value]
 	else:
-		return str(tile.value) + SUIT_NAMES[tile.suit]
+		return str(tile.value) + SUIT_NAMES[log(tile.suit)/log(2)]

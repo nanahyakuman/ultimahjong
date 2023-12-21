@@ -118,8 +118,9 @@ func activate(mm: MahjongManager, ts: Node, pts: Node, mb: Node, shop: Node):
 	
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	
+	cooldown_counter = 0
 	
-	#update_graphics(mb.mana)
+	update_graphics(mana_bar.mana)
 
 
 func _use():

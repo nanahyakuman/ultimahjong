@@ -133,22 +133,6 @@ func _init_wall():
 	
 
 func _draw_hand():
-#	for j in upgrades.get_dead_tiles()/4:
-#		await anim_timer.start_mod(.15)
-#		for k in 4:
-#			dead_wall.append(_get_next_from_wall(0))
-#		gui_manager.increment_dead_wall_count(4)
-#		call_sfx_player.play()
-#
-#	if upgrades.get_dead_tiles()%4 != 0:
-#		await anim_timer.start_mod(.15)
-#		for j in upgrades.get_dead_tiles()%4:
-#			dead_wall.append(_get_next_from_wall(0))
-#		gui_manager.increment_dead_wall_count(upgrades.get_dead_tiles()%4)
-#		call_sfx_player.play()
-#
-#	await anim_timer.start_mod(.15)
-	
 	for i in BASE_HAND_SIZE:
 		await AnimTimer.start_mod(.07)
 		hand.append(_get_next_from_wall(0))
@@ -166,140 +150,42 @@ func _draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.EAST))
 #	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.EAST))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
-
-	temp.append(MTile.new(MTile.SUITS.SOU, 1))
-	temp.append(MTile.new(MTile.SUITS.SOU, 1))
-	temp.append(MTile.new(MTile.SUITS.SOU, 1))
-	temp.append(MTile.new(MTile.SUITS.SOU, 2))
-	temp.append(MTile.new(MTile.SUITS.SOU, 3))
-	temp.append(MTile.new(MTile.SUITS.SOU, 4))
-	temp.append(MTile.new(MTile.SUITS.SOU, 5))
-	temp.append(MTile.new(MTile.SUITS.SOU, 6))
-	temp.append(MTile.new(MTile.SUITS.SOU, 7))
-	temp.append(MTile.new(MTile.SUITS.SOU, 8))
-	temp.append(MTile.new(MTile.SUITS.SOU, 9))
-	temp.append(MTile.new(MTile.SUITS.SOU, 9))
-	temp.append(MTile.new(MTile.SUITS.SOU, 9))
-#
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
-
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 4))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 4))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 6))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 6))
-#	temp.append(MTile.new(MTile.SUITS.PIN, 8))
-#	temp.append(MTile.new(MTile.SUITS.PIN, 8))
-#	temp.append(MTile.new(MTile.SUITS.PIN, 4))
-#	temp.append(MTile.new(MTile.SUITS.PIN, 4))
-#	temp.append(MTile.new(MTile.SUITS.PIN, 2))
-#	temp.append(MTile.new(MTile.SUITS.PIN, 2))
-
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
+#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.EAST))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 2))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 3))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 3))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 3))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 4))
-#
+	
 #	temp.append(MTile.new(MTile.SUITS.MAN, 1))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 2))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 3))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 4))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 5))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 6))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 7))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 8))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 9))
+#	temp.append(MTile.new(MTile.SUITS.MAN, 9))
 #	temp.append(MTile.new(MTile.SUITS.MAN, 9))
 #	temp.append(MTile.new(MTile.SUITS.SOU, 1))
 #	temp.append(MTile.new(MTile.SUITS.SOU, 1))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
 #	temp.append(MTile.new(MTile.SUITS.SOU, 9))
 #	temp.append(MTile.new(MTile.SUITS.SOU, 9))
-
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
+#	temp.append(MTile.new(MTile.SUITS.PIN, 9))
+	
+#	temp.append(MTile.new(MTile.SUITS.PIN, 1))
 #	temp.append(MTile.new(MTile.SUITS.PIN, 1))
 #	temp.append(MTile.new(MTile.SUITS.PIN, 2))
-#	temp.append(MTile.new(MTile.SUITS.PIN, 3))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 2))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 3))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
-#	temp.append(MTile.new(MTile.SUITS.PIN, 1))
 #	temp.append(MTile.new(MTile.SUITS.PIN, 2))
 #	temp.append(MTile.new(MTile.SUITS.PIN, 3))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 2))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 3))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 4))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 4))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 5))
+#	temp.append(MTile.new(MTile.SUITS.PIN, 3))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 6))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 6))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 7))
+#	temp.append(MTile.new(MTile.SUITS.SOU, 7))
 #	temp.append(MTile.new(MTile.SUITS.SOU, 9))
 #	temp.append(MTile.new(MTile.SUITS.SOU, 9))
-
-#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 9))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 9))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 9))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 9))
-#	temp.append(MTile.new(MTile.SUITS.PIN, 9))
-#	temp.append(MTile.new(MTile.SUITS.PIN, 9))
-#	temp.append(MTile.new(MTile.SUITS.PIN, 9))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 1))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
 #	temp.append(MTile.new(MTile.SUITS.SOU, 1))
-
-#	temp.append(MTile.new(MTile.SUITS.SOU, 1))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 2))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 3))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 2))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 3))
-#	temp.append(MTile.new(MTile.SUITS.SOU, 4))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 2))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 3))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 4))
-#	temp.append(MTile.new(MTile.SUITS.MAN, 9))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.WEST))
-#	temp.append(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.WEST))
-#	temp.append(MTile.new(MTile.SUITS.FLOWER, 1))
 	
 
 	if temp:
@@ -828,11 +714,10 @@ func _try_enter_riichi():
 		full_hand.append_array(hand)
 		# this is safe because we assert that the hand is closed
 		full_hand.sort_custom(Callable(MTile, "tile_compare"))
-		if yaku_checker.hand_meets_basic_reqs(full_hand, called_hand):
+		if yaku_checker.hand_meets_basic_reqs(full_hand, called_hand) or yaku_checker.is_kokushi(full_hand):
 			calls_manager.enable_calls(CALL_BITMASK.RCH, {})
 			_set_state(STATE_CALLS)
 			_assign_discard_count()
-			score_tracker.update_score(-1000)
 			return true
 	return false
 
@@ -845,6 +730,7 @@ func _do_riichi():
 	else:
 		met_yaku.hans.append(ALL_YAKU.YAKUS["Riichi"])
 	MusicManager.start_tenpai()
+	score_tracker.update_score(-1000)
 	_start_rotation()
 
 
@@ -890,6 +776,8 @@ func _end_round(win_is_tsumo_not_ron = false):
 		met_yaku.hans.append(ALL_YAKU.YAKUS["Haitei"])
 	if was_last_draw_from_dead_wall:
 		met_yaku.hans.append(ALL_YAKU.YAKUS["Rinshan"])
+	if discard.size() == 0:
+		met_yaku.hans.append(ALL_YAKU.YAKUS["Kihou"])
 	
 	var score_info = yaku_checker.hand_get_han(get_hand_info(), doras, true, met_yaku)
 	

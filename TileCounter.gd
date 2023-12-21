@@ -92,7 +92,9 @@ func get_random_non_colored_ids(amount_in_group: int, groups: int):
 				continue
 			subret.append(next)
 			counter += 1
+		subret.sort_custom(Callable(MTile, "tile_compare"))
 		ret.append(subret)
+	
 	return ret
 
 

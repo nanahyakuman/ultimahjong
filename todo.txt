@@ -29,9 +29,10 @@ end of every round can purchase:
 		rearrange next five tiles
 	x	aka a random tile
 	x	change a tile to one of its suji tiles
-		cycle a dragon's suit
+	x	cycle a dragon's suit
 		reclose a called set
 		spawn a random orphan
+		convert a wind to a chosen adjacent wind
 	scoew bonuses
 		1 han for every ~six tiles in your hand without any red ink toka
 		every 5 consecutive discards from hand adds a han
@@ -39,7 +40,7 @@ end of every round can purchase:
 achievements
 	all yaku
 	all mangan
-	multiple yakuman
+	all possible multiple yakuman
 	joke about there not being furiten. "furiten furi"
 	pocchi a false white dragon
 	get any hand with multiple ways of scoring it
@@ -56,6 +57,12 @@ achievements
 			also isshoku sanjun 234234234p (2han)
 		
 		(https://riichi.wiki/Local_yaku#Yakuman)
+	also add neo-yaku possible because of extra tiles
+		true kokushi
+		4 dragons
+		5 winds
+		
+	
 
 item considerations (jsut a useful reference for balancing things)
 	tile selection:
@@ -115,8 +122,6 @@ attempting to suji shift an illegal tile softlocks
 SHOP THINGS:
 	addtile purchaseable getting illegal tiles again. ?157p
 	aoize and kinize, put akaize back
-pay riichi
-go back and macron all the long consonants
 does kan/flowers actually draw haitei?
 sequentialize wind change anims
 flower broke tanyao?
@@ -124,17 +129,11 @@ rewrite scoring tab
 mouse entering a item from the sell prompt cursorhovertexts "add item to wall???? wth???"
 	only occurs when setting the cursor style. deadass what??
 dont sell deadwall reducs if the size is already minmum
-deadwall kan gfx
 shop tiles cursor passthrough
 
+
 meta:
-	base mahjong:
-		finish scoring!!
-			fix chiitoi scanning
-			the rest of the yaku
-				make sure yakuman disable kazoe
-			pay riichi
-			
+	
 
 
 music
@@ -161,7 +160,7 @@ x	tanyao
 x	yakuhai
 	
 x	double riichi
-tst	chantaiyao
+x	chantaiyao
 x	sanshoku doujun
 x	ittsuu
 x	toitoi
@@ -169,26 +168,25 @@ x	san-an-kou
 x	sanshoku doukou
 x	sankantsu
 x	chiitoitsu
-tst	terminals and honors
-tst	shousangen
+x	terminals and honors
+x	shousangen
 	
 x	honitsu
-tst	terminal in each meld
+x	terminal in each meld
 x	ryanpeikou
 
 x	chinitsu
 
-	kokushi musou
-	suuankou
-	suuankou double
-tst	daisangen
-	shousuushii
-	daisuushii
-tst	all honors
-tst	all terminals
-	ryuuiisou
-	nine gates
-	suukantsu
-	tenhou
-	chiihou
-	renhou
+x	kokushi musou
+x	suuankou
+x	daisangen
+x	shousuushii
+x	daisuushii
+x	all honors
+x	all terminals
+x	ryuuiisou
+x	nine gates
+x	suukantsu
+x	tenhou  \
+x	chiihou  > grouped into "kihou"
+x	renhou  /

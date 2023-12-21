@@ -41,7 +41,7 @@ var YAKUS = {
 	
 #	"SPACER_3": "Sets",
 	"Toitoi": ScoringInfo.Han.new("Toitoi", 2, 0, "Hand consists of four set/quads and a pair.", "🀃🀃🀅🀅 🀅 🀛🀛🀛🀞🀞🀞🀏🀏🀏"),
-	"San'ankou": ScoringInfo.Han.new("San'ankō", 2, 0, "Three concealed sets (quads OK). The [i]sets themselves[/i] must be entirely concealed; finishing the last set with ron does [i]not[/i] qualify.", "🀝🀝🀝🀕🀕🀕🀇🀇🀇🀋 🀋 🀙🀚🀛"),
+	"San'ankou": ScoringInfo.Han.new("San'ankō", 2, 0, "Three concealed sets (quads OK). The [i]sets themselves[/i] must be entirely concealed; finishing the last set with ron does [i]not[/i] qualify.", "🀝🀝🀝🀕🀕🀕🀇🀇🀇🀋 🀋 🀪🀪🀪"),
 	"Sankantsu": ScoringInfo.Han.new("Sankantsu", 2, 0, "Call kan three times.", "🀪🀪🀪🀪 🀪 🀫🀌🀌🀫🀫🀒🀒🀫🀫🀀🀀🀫"),
 	"Sanshoku Doukou": ScoringInfo.Han.new("Sanshoku Dōkō", 2, 0, "The same value set in three numbered suits.", "🀪🀪🀪🀪🀪🀔🀔 🀔 🀝🀝🀝🀋🀋🀋"),
 	
@@ -62,18 +62,20 @@ var YAKUS = {
 	
 	"SPACER_X": "Yakuman",
 #	"TEXT_X": ["Unlike other yaku, Yakuman generally disable any han they imply. For example: Suukantsu disables Sankantsu, Daisangen disables Shousangen and those dragon's Yakuhai."],
-	"TEXT_X": ["Note that Yakuman are automatic limit hands, after which han are simply defined as {number of Yakuman × 13}. It [i]is[/i] possible to meet multiple Yakuman requirements simultaneously; you will be rewarded for both."],
-	"Kazoe Yakuman": ScoringInfo.Han.new("Kazoe Yakuman", 13, 0, "Never awarded itself, simply a name for any hand that reaches or exceeds thirteen han without fulfilling any defined Yakuman pattern. Any other Yakuman disables this one, so there can be no multiple Yakuman hans containing Kazoe.", "🀙🀙🀄🀄 🀙 🀀🀀🀀🀀🀆🀆🀆🀆🀫🀅🀅🀫"),
+	"TEXT_X": ["Note that Yakuman are automatic limit hands, after which han are simply defined as {number of Yakuman × 13}. It [i]is[/i] possible to meet multiple Yakuman requirements simultaneously; you will be rewarded for all of them."],
+	"Kazoe Yakuman": ScoringInfo.Han.new("Kazoe Yakuman", 13, 0, "Never awarded itself, simply a name for any hand that reaches or exceeds thirteen han without fulfilling any defined Yakuman pattern. Any other Yakuman disables this one, so there can be no multiple Yakuman hands containing Kazoe.", "🀙🀙🀄🀄 🀙 🀀🀀🀀🀀🀆🀆🀆🀆🀫🀅🀅🀫"),
 	"Daisangen": duplicated["Daisangen"],
-	"Shousuushii": ScoringInfo.Han.new("Shōsūshī", 13, 0, "Three sets/quads of winds and a pair of the fourth.", "🀐🀑 🀀🀀🀀🀃🀃 🀒 🀁🀁🀁🀂🀂🀂"),
-	"Daisuushii": ScoringInfo.Han.new("Daisūshī", 26, 0, "Four sets/quads of winds.", "🀝🀝🀀🀀 🀀 🀁🀁🀁🀂🀂🀂🀃🀃🀃"),
+	"Shousuushii": ScoringInfo.Han.new("Shōsūshī", 13, 0, "Three sets/quads of winds and a pair of the fourth.", "🀪🀪 🀀🀀🀀🀃🀃 🀪 🀁🀁🀁🀂🀂🀂"),
+	"Daisuushii": ScoringInfo.Han.new("Daisūshī", 26, 0, "Four sets/quads of winds.", "🀪🀪🀀🀀 🀀 🀁🀁🀁🀂🀂🀂🀃🀃🀃"),
 	"Suuankou": ScoringInfo.Han.new("Sūankō", 13, 0, "Four concealed sets (quads OK). The [i]sets themselves[/i] must be entirely concealed; finishing the last set with ron does [i]not[/i] qualify.", "🀜🀜🀜🀞🀞🀞🀈🀈🀈🀎🀂🀂🀂 🀎"), 
-	"Suukantsu": ScoringInfo.Han.new("Sūkantsu", 13, 0, "Four quads.", "🀈 🀈 🀂🀂🀂🀂🀚🀚🀚🀚🀫🀓🀓🀫🀏🀏🀏🀏"),
+	"Suukantsu": ScoringInfo.Han.new("Sūkantsu", 13, 0, "Four quads.", "🀪 🀪 🀂🀂🀂🀂🀚🀚🀚🀚🀫🀓🀓🀫🀏🀏🀏🀏"),
 	"Kokushi Musou": ScoringInfo.Han.new("Kokushi Musō", 13, 0, "One of every terminal and honor, and a second of any of them.", "🀙🀡🀘🀇🀏🀀🀁🀂🀃🀆🀆🀅🀄 🀐"),
 	"Tsuuiisou": ScoringInfo.Han.new("Tsūīsō", 13, 0, "Hand only contains honors.", "🀄🀄🀅🀅 🀄 🀁🀁🀁🀃🀃🀃🀆🀆🀆"),
 	"Chinroutou": duplicated["Chinroutou"],
 	"Ryuuiisou": ScoringInfo.Han.new("Ryūīsō", 13, 0, "Hand only contains 2/3/4/6/8-Sou and Green Dragons. These are traditionally the tiles with only green ink on them, however, recolored variants of these tiles still contribute.", "🀑🀒🀓🀕🀕🀗🀗 🀕 🀅🀅🀅🀑🀒🀓"),
 	"Chuuren Poutou": ScoringInfo.Han.new("Chūren Pōtō", 13, 13, "1112345678999 of any suit, plus one more tile from the suit.", "🀇🀇🀇🀈🀉🀊🀋🀌🀍🀎🀏🀏🀏 🀉"),
+	
+	"Kihou": ScoringInfo.Han.new("Kihō", 13, 0, "Complete a hand without ever discarding."),
 	
 	#  read as a give up flag, so no yaku tab is created. maybe
 	# move to special??
@@ -90,10 +92,10 @@ var YAKUS = {
 var FU = {
 	"SPACER_1": "[b]Special[/b]",
 	
-	"Base": ScoringInfo.Fu.new("Base", 20),
-	"Menzenkafu": ScoringInfo.Fu.new("Menzenkafu", 10),
+	"Base": ScoringInfo.Fu.new("Base", 0),#20),
+	"Menzenkafu": ScoringInfo.Fu.new("Menzenkafu", 8),#10),
 	"Tsumo": ScoringInfo.Fu.new("Tsumo", 2),
-	"Chiitoitsu": ScoringInfo.Fu.new("Chītoitsu", 25),
+	"Chiitoitsu": ScoringInfo.Fu.new("Chītoitsu", 5),#25),
 	"Ao Dora": ScoringInfo.Fu.new("Ao Dora", 16),
 	
 	"SPACER_2": "[b]Groupings[/b]",

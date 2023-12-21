@@ -39,10 +39,10 @@ func assign_tiles(ts: Array, hidden: int = 0):
 			tg.set_reversed(true)
 		tg.assign_visible_side(-1)
 
-func assign_item(id: int):
+func assign_item(id: int, charge: int):
 	item = item_scene.instantiate()
 	item.type = id
-	item.charge_type = randi()%3
+	item.charge_type = charge
 	tile_container.add_child(item)
 	# force the item to show up nicely.
 	item.set_shop_graphics()

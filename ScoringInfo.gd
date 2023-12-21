@@ -61,6 +61,12 @@ func get_total_han() -> int:
 		ret += h.calc_han(open)
 	return ret
 
+func get_total_yakuman() -> int:
+	var ret = 0
+	for h in hans:
+		ret += h.calc_han(open) / 13
+	return ret
+
 func get_total_fu() -> int:
 	var ret = 0
 	for f in fus:
@@ -69,54 +75,55 @@ func get_total_fu() -> int:
 			return 25
 	return ret
 
-const MANGAN_HANS = {
-	6: 3000, # haneman
-	7: 3000, #3500, # taihanman
-	
-	8: 4000, # baimain
-	9: 4000, #4666, # shoubaiman
-	10: 4000, #5333, # daibaiman
-	
-	11: 6000, # sanbaiman
-	12: 6000, #7000, # sanhanbaiman
-}
-const MANGAN_SMOOTHED = {
-	5: 2500,
-	6: 3000, # haneman
-	7: 3500, # taihanman
-	
-	8: 4000, # baimain
-	9: 4666, # shoubaiman
-	10: 5333, # daibaiman
-	
-	11: 6000, # sanbaiman
-	12: 7000, # sanhanbaiman
-}
+#const MANGAN_HANS = {
+#	6: 3000, # haneman
+#	7: 3000, #3500, # taihanman
+#
+#	8: 4000, # baimain
+#	9: 4000, #4666, # shoubaiman
+#	10: 4000, #5333, # daibaiman
+#
+#	11: 6000, # sanbaiman
+#	12: 6000, #7000, # sanhanbaiman
+#}
+#const MANGAN_SMOOTHED = {
+#	5: 2500,
+#	6: 3000, # haneman
+#	7: 3500, # taihanman
+#
+#	8: 4000, # baimain
+#	9: 4666, # shoubaiman
+#	10: 5333, # daibaiman
+#
+#	11: 6000, # sanbaiman
+#	12: 7000, # sanhanbaiman
+#}
 
 #  using alt rn. to canonize, formally remove futei and set
 # menzentsumo to 8
 func get_base_points():
 	var han = get_total_han()
 	var fu = get_total_fu()
+	var yakuman = get_total_yakuman()
 	
-	return ScoringInfo._alt_points_count(fu, han)
+	return ScoringInfo._alt_points_count(fu, han, yakuman)
 
-static func _base_point_calc(fu: int, han: int):
-	var points = int(round_to_place(fu,10) * pow(2.0, han + 2.0))
-	
-	if points >= 2000:
-		points = 2000
-		
-		if MANGAN_HANS.has(han):
-			points = MANGAN_HANS[han]
-		if han >= 13:
-			#points = 8000 #+ (han-13) * 500
-			points = (int(han/13)) * 8000
-	
-	return points
+#static func _base_point_calc(fu: int, han: int):
+#	var points = int(round_to_place(fu,10) * pow(2.0, han + 2.0))
+#
+#	if points >= 2000:
+#		points = 2000
+#
+#		if MANGAN_HANS.has(han):
+#			points = MANGAN_HANS[han]
+#		if han >= 13:
+#			#points = 8000 #+ (han-13) * 500
+#			points = (int(han/13)) * 8000
+#
+#	return points
 
 
-static func _alt_points_count(fu: int, han: int):
+static func _alt_points_count(fu: int, han: int, yakuman: int):
 	var base = 250
 	#offset futei
 	base += floor_to_place(fu-20, 10) * 10
@@ -129,6 +136,12 @@ static func _alt_points_count(fu: int, han: int):
 			base = han * 500
 		if han >= 11:
 			base = 5000 + (han-10) * 1000
+		
+		if han >= 13:
+			base = 8000
+			# override kazoe with other yakuman
+			if yakuman >= 1:
+				base = yakuman * 8000
 	
 	return base
 
