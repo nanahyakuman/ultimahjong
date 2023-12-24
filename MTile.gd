@@ -22,7 +22,7 @@ const SPECIAL_NAMES = ["NONE", "East", "South", "West", "North", "Rising", "Whit
 var suit: int
 var value: int
 
-enum {COL_NONE, COL_AKA, COL_AO, COL_KIN}
+enum {COL_NONE, COL_AO, COL_AKA, COL_KIN}
 var color: int
 
 #  whether the tile has a pocchi
@@ -114,7 +114,7 @@ static func tile_from_id(id: int) -> MTile:
 
 # ordered so that aka are always first
 static func gen_order(t: MTile):
-	return gen_id(t.suit,t.value) * 10 - t.color * 1
+	return gen_id(t.suit,t.value) * 10 + 5 - t.color * 1
 
 static func tile_compare(a:MTile, b:MTile):
 	return gen_order(a) < gen_order(b)

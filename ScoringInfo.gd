@@ -22,7 +22,7 @@ class Han:
 		return false
 	
 	func _init(_name: String, _han: int, _penalty: int, _desc: String, _graphic_desc: String = ""):
-		nam = _name
+		nam = tr(_name)
 		closed_han = _han
 		open_penalty = _penalty
 		desc = _desc
@@ -42,7 +42,7 @@ class Fu:
 	var times_upgraded = 0
 	
 	func _init(_name: String, _fu):
-		nam = _name
+		nam = tr(_name)
 		fu = _fu
 	
 	func duplicate():
@@ -125,8 +125,7 @@ func get_base_points():
 
 static func _alt_points_count(fu: int, han: int, yakuman: int):
 	var base = 250
-	#offset futei
-	base += floor_to_place(fu, 10) * 10 #subtract 20 here
+	base += floor_to_place(fu, 10) * 10 #subtract 20 here if adding futei
 	base *= pow(2, han-1)
 	
 	if base > 2000:

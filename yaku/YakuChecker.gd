@@ -22,7 +22,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 	remaining_hand.sort_custom(Callable(MTile, "tile_compare"))
 	
 	# kokushi is only ever kokushi, just escape case it as early as possible
-	if is_kokushi(remaining_hand):
+	if _is_kokushi(remaining_hand):
 		var ret = ScoringInfo.new()
 		ret.hans.append(ALL_YAKU.YAKUS["Kokushi Musou"])
 		return ret
@@ -78,7 +78,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 		var scoring_info = ScoringInfo.new()
 		scoring_info.open = is_open
 		
-		if groupings_meet_basic_reqs(groupings):
+		if _groupings_meet_basic_reqs(groupings):
 			met_basic_reqs = true
 			
 			# generate metadata for faster scanning later on
@@ -138,7 +138,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 				if g.type == Grouping.SET:
 					if g.tiles[0].suit == MTile.SUITS.SPECIAL:
 						for i in ykvals.count(g.tiles[0].value):
-							append_or_merge_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Yakuhai"])
+							_append_or_merge_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Yakuhai"])
 			
 			# tanyao
 			#if !is_open:
@@ -419,7 +419,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			for g in hand_info.already_made_groupings:
 				for t in g.tiles:
 					if t.suit == MTile.SUITS.FLOWER:
-						append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Flower"])
+						_append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Flower"])
 			
 			# dora
 			var all_tiles = remaining_hand.duplicate()
@@ -429,15 +429,15 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			if doras.size() > 0:
 				for t in all_tiles:
 					if t.color == MTile.COL_AKA:
-						append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Aka Dora"])
+						_append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Aka Dora"])
 					if doras[0].has(t.get_id()):
-						append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kan Dora"])
+						_append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kan Dora"])
 					if !is_open and doras[1].has(t.get_id()):
-						append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Ura Dora"])
+						_append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Ura Dora"])
 	
 	return max
 
-func append_or_merge_yaku(array: Array, yaku: ScoringInfo.Han):
+func _append_or_merge_yaku(array: Array, yaku: ScoringInfo.Han):
 	var nam = yaku.nam
 	for h in array:
 		if h.nam == nam:
@@ -450,9 +450,9 @@ func append_or_merge_yaku(array: Array, yaku: ScoringInfo.Han):
 func hand_meets_basic_reqs(hand: Array, made_groupings: Array) -> bool:
 	var groupings = _get_maximal_groupings(hand)
 	groupings.append_array(made_groupings)
-	return groupings_meet_basic_reqs(groupings)
+	return _groupings_meet_basic_reqs(groupings) or _is_kokushi(hand)
 
-func groupings_meet_basic_reqs(groupings: Array) -> bool:
+func _groupings_meet_basic_reqs(groupings: Array) -> bool:
 	var setruns = 0 # sets or runs
 	var pairs = 0 # pairs
 	var biruntripairs = 0 # 223344 type shapes that could be either
@@ -470,7 +470,7 @@ func groupings_meet_basic_reqs(groupings: Array) -> bool:
 	return ((setruns + 2 * biruntripairs == 4) and (pairs == 1)) or (pairs + biruntripairs * 3 == 7)
 
 
-func is_kokushi(hand: Array):
+func _is_kokushi(hand: Array):
 	# only allow full hands
 	if hand.size() != 14:
 		return false

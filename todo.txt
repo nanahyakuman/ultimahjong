@@ -22,6 +22,7 @@ end of every round can purchase:
 		riichi ryuukyoku rewards half points off the best hand you could've gotten
 		drawing a tile gives you 2 mana instead of 1 (20% speed buff)
 		pin-fu (pin award fu)
+		can score a 0-han hand
 	spell cards, refresh every x draws
 	x	next tile will be --honor-- wind
 	x	exchange one tile for a false haku
@@ -124,20 +125,28 @@ SHOP THINGS:
 	aoize and kinize, put akaize back
 does kan/flowers actually draw haitei?
 sequentialize wind change anims
-flower broke tanyao?
 rewrite scoring tab
 mouse entering a item from the sell prompt cursorhovertexts "add item to wall???? wth???"
 	only occurs when setting the cursor style. deadass what??
 dont sell deadwall reducs if the size is already minmum
 shop tiles cursor passthrough
 handling for persistent upgrades like adding flowers
-tanyao dora 2 registered as legal but then gave 800pts, scoring screen read it as 0 pts
-	seems to be related to openness, closed hands still score fine.
-	open toitoi was fine tho, maybe a tanyao issue after all? or at least a run issue
+reset score expectation every 4 rounds? that way a yakuman doesnt end the game instantly
+cursor scaling
 
 
-meta:
-	jk scoring still buggy
+demo MVP:
+	save and load runs
+		persistant items manager, flowers/dora
+	title screen
+	settings screen
+		choose tileset
+	marginally better score expectation indicator
+	"shape of the game" tab
+	language support
+		all yaku translations :sob:
+		fix fu tab failing on headers
+
 
 
 music

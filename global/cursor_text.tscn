@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ddhk3x2q7kj6c"]
+[gd_scene load_steps=5 format=3 uid="uid://ddhk3x2q7kj6c"]
 
 [ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="1_hmcih"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="1_lndk1"]
@@ -15,10 +15,6 @@ texture_margin_bottom = 4.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[sub_resource type="LabelSettings" id="LabelSettings_ytvxj"]
-line_spacing = 0.0
-font_color = Color(1, 1, 0.933333, 1)
-
 [node name="CursorText" type="PanelContainer"]
 z_index = 10
 offset_right = 9.0
@@ -30,4 +26,3 @@ script = ExtResource("2_pjfk2")
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 4
-label_settings = SubResource("LabelSettings_ytvxj")

@@ -76,6 +76,14 @@ func get_all_tiles():
 		ret.append(t.duplicate_canonize())
 	return ret
 
+func get_all_unique_tiles():
+	var ret = []
+	var ids = []
+	for t in tile_data:
+		if !ids.has(t.get_id()):
+			ret.append(t)
+			ids.append(t.get_id())
+	return ret
 
 func get_random_non_colored_ids(amount_in_group: int, groups: int):
 	var ret = []

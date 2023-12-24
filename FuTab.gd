@@ -19,7 +19,7 @@ func _ready():
 		else:
 			var a = fu_graphical.instantiate()
 			add_child(a)
-			a.set_string(str, yakufu)
+			a.set_string(yakufu.FU[str].nam, yakufu.FU[str].fu)
 			a.set_upgrade_count(yakufu.FU[str].times_upgraded)
 	
 	var a = Control.new()

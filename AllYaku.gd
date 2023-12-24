@@ -14,8 +14,9 @@ var duplicated = {
 # spacers and duplicate support are added. it's not a terribly hinged move, but
 # string values imply tabs, han values imply new yaku displays, and arrays imply 
 # text to be added inbetween han.
-#  keys are written out in plaintext, but names and decriptions may feature macrons or
-# bbcode.
+#  keys are written out in plaintext because im too lazy to switch to a giant enum,
+# but names and decriptions are automatically translated by the `Han` constructor.
+#  the tilestrings are NOT translated!
 var YAKUS = {
 	"SPACER_1": "Special",
 	"Riichi": ScoringInfo.Han.new("Rīchi", 1, 1, "Once you're one tile away from a completed hand, you can enter Rīchi. This prevents you from modifying your hand any further; all you can do is wait until your winning tile is discarded, or you draw it yourself.\nCosts 1000 points to enter, but these are returned if successful.\nEnables Ippatsu."),
@@ -28,7 +29,7 @@ var YAKUS = {
 	"Menzentsumo": ScoringInfo.Han.new("Menzentsumo", 1, 1, "Win by tsumo with a closed hand."),
 	
 #	"SPACER_7": "Special",
-	"Chiitoitsu": ScoringInfo.Han.new("Chītoitsu", 2, 0, "Hand contains seven pairs. Four of the same tile OK [i]as long as[/i] kan is not called.", "🀚🀚🀛🀛🀔🀔🀖🀖🀍🀍🀂🀂🀅🀅"),
+	"Chiitoitsu": ScoringInfo.Han.new("Chītoitsu", 2, 0, "Hand contains seven pairs. Four of the same tile [i]does not count[/i] as two pairs, they [i]must[/i] all be unique.", "🀚🀚🀛🀛🀔🀔🀖🀖🀍🀍🀂🀂🀅🀅"),
 	"Nagashi Mangan": ScoringInfo.Han.new("Nagashi Mangan", 5, 0, "A round ends with no other win, and your [i]discards[/i] consist solely of terminals and honors.", "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪  "),
 	
 #	"SPACER_2": "Runs",
@@ -46,7 +47,7 @@ var YAKUS = {
 	"Sanshoku Doukou": ScoringInfo.Han.new("Sanshoku Dōkō", 2, 0, "The same value set in three numbered suits.", "🀪🀪🀪🀪🀪🀔🀔 🀔 🀝🀝🀝🀋🀋🀋"),
 	
 	"SPACER_4": "Tiles",
-	"Flower": ScoringInfo.Han.new("Flower", 1, 0, "Called flower tile.", "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪 🀪 🀢"),
+	"Flower": ScoringInfo.Han.new("Flower", 1, 0, "Called flower tile. Does [i]not[/i] contribute to the one Han minimum required to go out.", "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪 🀪 🀢"),
 	"Tan'yao": ScoringInfo.Han.new("Tan'yao", 1, 0, "No terminals or honors in hand.", "🀞🀟🀠🀓🀓🀈🀉🀊🀎🀎 🀎 🀔🀕🀖"),
 	"Yakuhai": ScoringInfo.Han.new("Yakuhai", 1, 0, "Set or quad of seat wind, prevalent wind, or any dragon. Stacks with self if multiple qualifying sets are present.", "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪 🀪 🀄🀄🀄"),
 	"Shousangen": ScoringInfo.Han.new("Shōsangen", 2, 0, "Two Dragon sets/quads and a Dragon pair. Adds onto the existing two Yakuhai, for four total han awarded on the dragons.", "🀪🀪🀪🀪🀪🀄🀄 🀪 🀅🀅🀅🀆🀆🀆"),
@@ -62,7 +63,7 @@ var YAKUS = {
 	
 	"SPACER_X": "Yakuman",
 #	"TEXT_X": ["Unlike other yaku, Yakuman generally disable any han they imply. For example: Suukantsu disables Sankantsu, Daisangen disables Shousangen and those dragon's Yakuhai."],
-	"TEXT_X": ["Note that Yakuman are [i]automatic limit hands[/i]. That is, once you acheive [i]at least[/i] one Yakuman, the score rewarded is simply 32000 (48000 if sitting East) multiplied by the number of fulfilled Yakuman."],
+	"TEXT_X": ["Note that Yakuman are automatic limit hands. That is, once you acheive [i]at least[/i] one Yakuman, the score rewarded is simply 32000 (48000 if sitting East) multiplied by the number of fulfilled Yakuman."],
 	"Kazoe Yakuman": ScoringInfo.Han.new("Kazoe Yakuman", 13, 0, "Never awarded itself, simply a name for any hand that reaches or exceeds thirteen han without fulfilling any defined Yakuman pattern. Any other Yakuman disables this one, so there can be no multiple Yakuman hands containing Kazoe.", "🀙🀙🀄🀄 🀙 🀀🀀🀀🀀🀆🀆🀆🀆🀫🀅🀅🀫"),
 	"Daisangen": duplicated["Daisangen"],
 	"Shousuushii": ScoringInfo.Han.new("Shōsūshī", 13, 0, "Three sets/quads of winds and a pair of the fourth.", "🀪🀪 🀀🀀🀀🀃🀃 🀪 🀁🀁🀁🀂🀂🀂"),
@@ -89,34 +90,35 @@ var YAKUS = {
 #  spacers are just so the ui can generate titles, shouldn't be accessed
 # otherwise. probably a little dubious but i don't recall any fu named 
 # "SPACER_1".
+#  as with yaku, keys are just accesses, values are translation keys
 var FU = {
-	"SPACER_1": "[b]Special[/b]",
+	"SPACER_1": "[b][/b]" % tr("FU_HEADER_SPECIAL"),
 	
-	"Base": ScoringInfo.Fu.new("Base", 0),#20),
-	"Menzenkafu": ScoringInfo.Fu.new("Menzenkafu", 8),#10),
-	"Tsumo": ScoringInfo.Fu.new("Tsumo", 2),
-	"Chiitoitsu": ScoringInfo.Fu.new("Chītoitsu", 5),#25),
-	"Ao Dora": ScoringInfo.Fu.new("Ao Dora", 16),
+	"Base": ScoringInfo.Fu.new("FU_TYPE_BASE", 0),#20),
+	"Menzenkafu": ScoringInfo.Fu.new("FU_TYPE_MENZENKAFU", 10),#10),
+	"Tsumo": ScoringInfo.Fu.new("FU_TYPE_TSUMO", 2),
+	"Chiitoitsu": ScoringInfo.Fu.new("FU_TYPE_CHIITOITSU", 5),#25),
+	"Ao Dora": ScoringInfo.Fu.new("FU_TYPE_AO_DORA", 16),
 	
-	"SPACER_2": "[b]Groupings[/b]",
+	"SPACER_2": "[b][/b]" % tr("FU_HEADER_GROUPINGS"),
 	
-	"Pair": ScoringInfo.Fu.new("Pair", 0),
-	"Yakuhai Pair": ScoringInfo.Fu.new("Yakuhai Pair", 2),
-	"Open Run": ScoringInfo.Fu.new("Open Run", 0),
-	"Closed Run": ScoringInfo.Fu.new("Closed Run", 0),
-	"Open Set": ScoringInfo.Fu.new("Open Set", 2),
-	"Closed Set": ScoringInfo.Fu.new("Closed Set", 4),
-	"Open Quad": ScoringInfo.Fu.new("Open Quad", 8),
-	"Closed Quad": ScoringInfo.Fu.new("Closed Quad", 16),
+	"Pair": ScoringInfo.Fu.new("FU_TYPE_PAIR", 0),
+	"Yakuhai Pair": ScoringInfo.Fu.new("FU_TYPE_YAKUHAI_PAIR", 2),
+	"Open Run": ScoringInfo.Fu.new("FU_TYPE_OPEN_RUN", 0),
+	"Closed Run": ScoringInfo.Fu.new("FU_TYPE_CLOSED_RUN", 0),
+	"Open Set": ScoringInfo.Fu.new("FU_TYPE_OPEN_SET", 2),
+	"Closed Set": ScoringInfo.Fu.new("FU_TYPE_CLOSED_SET", 4),
+	"Open Quad": ScoringInfo.Fu.new("FU_TYPE_OPEN_QUAD", 8),
+	"Closed Quad": ScoringInfo.Fu.new("FU_TYPE_CLOSED_QUAD", 16),
 	#  weird because it's not a fu of its own but this allows us to hijack
 	# existing gui code.
-	"Yaochuu Multiplier": ScoringInfo.Fu.new("(Yaochū)", 2),
+	"Yaochuu Multiplier": ScoringInfo.Fu.new("FU_TYPE_YAOCHUU_MULT", 2),
 	
-	"SPACER_3": "[b]Waits",
+	"SPACER_3": "[b][/b]" % tr("FU_HEADER_WAITS"),
 	
-	"1-sided Wait": ScoringInfo.Fu.new("1-sided Wait", 2),
-	"2-sided Wait": ScoringInfo.Fu.new("2-sided Wait", 0),
-	">=3-sided Wait": ScoringInfo.Fu.new(">=3-sided Wait", 0),
+	"1-sided Wait": ScoringInfo.Fu.new("FU_TYPE_1SIDED", 2),
+	"2-sided Wait": ScoringInfo.Fu.new("FU_TYPE_2SIDED", 0),
+	">=3-sided Wait": ScoringInfo.Fu.new("FU_TYPE_3SIDED", 0),
 	
 #	"SPACER_4": "[b]Dora",
 #

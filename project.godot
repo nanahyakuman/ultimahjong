@@ -55,6 +55,17 @@ start_shop={
 ]
 }
 
+[internationalization]
+
+locale/translation_remaps={
+"res://text/font/Body2.png": PackedStringArray("res://text/font/Silver.ttf:ja"),
+"res://text/font/Body2Italic.png": PackedStringArray("res://text/font/Silver.ttf:ja"),
+"res://text/font/Title.png": PackedStringArray("res://text/font/Silver.ttf:ja")
+}
+locale/translations=PackedStringArray("res://text/MAHJONG_TRANSLATIONS.en.translation", "res://text/MAHJONG_TRANSLATIONS.ja.translation")
+locale/test="ja"
+locale/locale_filter_mode=0
+
 [rendering]
 
 environment/defaults/default_clear_color=Color(0.266667, 0.466667, 0.4, 1)

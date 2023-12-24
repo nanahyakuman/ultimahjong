@@ -8,10 +8,10 @@ extends HBoxContainer
 @export var _string = ""
 @export var upgrade_png = preload("res://image/fu_upgrade.png")
 
-func set_string(strin: String, yakufu: Node):
+func set_string(strin: String, fu: int):
 	_string = strin
 	label.text = strin + ":"
-	points_label.text = str(yakufu.FU[strin].fu)
+	points_label.text = str(fu)
 
 func set_upgrade_count(upgrades: int):
 	for c in upgrade_holder.get_children():

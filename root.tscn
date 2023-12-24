@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://xu6y8qdnuptt"]
+[gd_scene load_steps=68 format=3 uid="uid://c4jqvlnn3b7m2"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="2_j88jw"]
@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://yaku/YakuChecker.gd" id="4_k3lw2"]
 [ext_resource type="Texture2D" uid="uid://blcxpctsytj35" path="res://image/bg.png" id="4_txmfg"]
 [ext_resource type="Script" path="res://TileCounter.gd" id="5_abq0l"]
-[ext_resource type="PackedScene" path="res://TileGraphic.tscn" id="6_3ag2w"]
+[ext_resource type="PackedScene" uid="uid://brmkh2to242iv" path="res://TileGraphic.tscn" id="6_3ag2w"]
 [ext_resource type="AudioStream" uid="uid://crkug05d3uk76" path="res://audio/sfx/tap.wav" id="6_5a2qq"]
 [ext_resource type="AudioStream" uid="uid://fs4fwi2wiaj7" path="res://audio/sfx/taps.wav" id="7_358eq"]
 [ext_resource type="Script" path="res://Upgrades.gd" id="7_i15dy"]
@@ -54,6 +54,9 @@
 [ext_resource type="Texture2D" uid="uid://ng8eqocmaltm" path="res://image/sidebar_tiles_9pr.png" id="47_n10gp"]
 [ext_resource type="Script" path="res://ScoreTracker.gd" id="50_7li6w"]
 [ext_resource type="Texture2D" uid="uid://xoodhoigui53" path="res://image/optionsbutton.png" id="51_57d0l"]
+[ext_resource type="FontFile" uid="uid://bian1q53chnum" path="res://text/font/BodyTilesColor.png" id="51_huq5q"]
+[ext_resource type="Script" path="res://ScoreRichTextLabel.gd" id="52_0gmem"]
+[ext_resource type="Script" path="res://text/RTLTranslator.gd" id="52_jcp4g"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n8ei0"]
 texture = ExtResource("21_sffs3")
@@ -115,6 +118,18 @@ texture_margin_left = 2.0
 texture_margin_top = 3.0
 texture_margin_right = 2.0
 texture_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tmfx4"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yq7ui"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qwacc"]
+content_margin_left = 8.0
+content_margin_right = 8.0
 
 [node name="Root" type="Control"]
 texture_filter = 1
@@ -400,7 +415,7 @@ custom_minimum_size = Vector2(64, 24)
 layout_mode = 2
 size_flags_vertical = 4
 script = ExtResource("18_88w0a")
-hover_text = "The Prevalent Wind."
+hover_text = "The Prevalent Wind. Changes every 4 rounds."
 
 [node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/RoundWind"]
 texture = ExtResource("20_he7r1")
@@ -412,7 +427,7 @@ custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_vertical = 4
 script = ExtResource("20_14871")
-hover_text = "The Sitting Wind."
+hover_text = "The Sitting Wind. Changes every round."
 
 [node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/SittingWind"]
 texture = ExtResource("19_1d4n6")
@@ -802,10 +817,10 @@ grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
 
-[node name="Run" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+[node name="TAB_RUN" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
 layout_mode = 2
 
-[node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/Run"]
+[node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -814,10 +829,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("28_jde07")
 
-[node name="Tiles" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer"]
+[node name="TAB_RUN_TILES" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_TILES"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -826,30 +841,30 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="AllTilesDisplay" type="PanelContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer"]
+[node name="AllTilesDisplay" type="PanelContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_TILES/HBoxContainer"]
 custom_minimum_size = Vector2(158, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_02wl1")
 script = ExtResource("43_nbkwc")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/AllTilesDisplay"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_TILES/HBoxContainer/AllTilesDisplay"]
 layout_mode = 2
 
-[node name="SuitsRoot" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/AllTilesDisplay/ScrollContainer"]
+[node name="SuitsRoot" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_TILES/HBoxContainer/AllTilesDisplay/ScrollContainer"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Pin" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/AllTilesDisplay/ScrollContainer/SuitsRoot"]
+[node name="Pin" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_TILES/HBoxContainer/AllTilesDisplay/ScrollContainer/SuitsRoot"]
 layout_mode = 2
 
-[node name="IdenticalTiles" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Tiles/HBoxContainer/AllTilesDisplay/ScrollContainer/SuitsRoot/Pin"]
+[node name="IdenticalTiles" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_TILES/HBoxContainer/AllTilesDisplay/ScrollContainer/SuitsRoot/Pin"]
 layout_mode = 2
 
-[node name="Fu" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer"]
+[node name="TAB_RUN_FU" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Fu"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_FU"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -857,12 +872,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="FuTab" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Fu/ScrollContainer"]
+[node name="FuTab" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_FU/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("41_je4uv")
 
-[node name="FuInfo" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Fu"]
+[node name="FuInfo" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_FU"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -906,20 +921,20 @@ Fu awarded for your final wait. See Guide/Waits for more info.
 [cell]>=3-sided[/cell][cell]0[/cell]
 [/table]"
 
-[node name="Upgrades" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer"]
+[node name="TAB_RUN_UPGRADES" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Run/TabContainer/Upgrades"]
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_UPGRADES"]
 layout_mode = 0
 offset_right = 17.0
 offset_bottom = 40.0
 
-[node name="Yaku" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+[node name="TAB_YAKU" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="YakuTab" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/Yaku"]
+[node name="YakuTab" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_YAKU"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -930,11 +945,11 @@ theme_override_fonts/font = ExtResource("28_jde07")
 tab_alignment = 1
 script = ExtResource("45_rsntb")
 
-[node name="Guide" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+[node name="TAB_GUIDE" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/Guide"]
+[node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -944,10 +959,28 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("28_jde07")
 tab_alignment = 1
 
-[node name="Tiles" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Guide/TabContainer"]
+[node name="TAB_GUIDE_BASICS" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer"]
+visible = false
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Guide/TabContainer/Tiles"]
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_BASICS"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "漢字"
+tab_size = 2
+script = ExtResource("52_0gmem")
+
+[node name="TAB_GUIDE_TILES" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="OldRichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -973,11 +1006,364 @@ Some tiles are worth as many points as additional hands, although simply possesi
 Red: Printed as red.
 Quad: Every time a quad indicator is revealed, the tiles following it in sequence becomes a bonus tile. For number tiles, the order is numeric (1...9>1). For dragons, the order is W>G>R>W. For Winds: N>E>S>W>N."
 
-[node name="Waits" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Guide/TabContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "GUIDE_TILES_HEADER_TYPES"
+fit_content = true
+script = ExtResource("52_jcp4g")
+bold = true
+
+[node name="LabelWithTiles" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
+bbcode_enabled = true
+text = "GUIDE_TILES_TERMINAL"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
+text = "  🀙🀡 🀐🀘 🀇🀏"
+
+[node name="LabelWithTiles2" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles2"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
+bbcode_enabled = true
+text = "GUIDE_TILES_SIMPLE"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
+text = "  🀚🀛🀜🀝🀞🀟🀠 🀑🀒🀓🀔🀕🀖🀗 🀈🀉🀊🀋🀌🀍🀎"
+
+[node name="LabelWithTiles3" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles3"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
+bbcode_enabled = true
+text = "GUIDE_TILES_HONOR"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
+text = "  🀆🀅🀄 🀀🀁🀂🀃"
+
+[node name="LabelWithTiles4" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles4"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
+bbcode_enabled = true
+text = "GUIDE_TILES_YAKUHAI"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles4"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
+text = "  🀆🀅🀄 🀀🀃"
+
+[node name="LabelWithTiles11" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles11"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
+bbcode_enabled = true
+text = "GUIDE_TILES_FLOWER"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles11"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
+text = "  🀢🀣🀤🀥🀦🀧🀨🀩"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "GUIDE_TILES_HEADER_GROUPS"
+fit_content = true
+script = ExtResource("52_jcp4g")
+bold = true
+
+[node name="LabelWithTiles5" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles5"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
+bbcode_enabled = true
+text = "GUIDE_TILES_PAIR"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles5"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
+text = "  🀜🀜 / 🀏🀏 / 🀅🀅"
+
+[node name="LabelWithTiles6" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles6"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
+bbcode_enabled = true
+text = "GUIDE_TILES_SET"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles6"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
+text = "  🀙🀙🀙 / 🀒🀒🀒 / 🀁🀁🀁"
+
+[node name="LabelWithTiles7" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles7"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
+bbcode_enabled = true
+text = "GUIDE_TILES_QUAD"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles7"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
+text = "  🀊🀊🀊🀊 / 🀫🀄🀄🀫"
+
+[node name="LabelWithTiles8" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles8"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
+bbcode_enabled = true
+text = "GUIDE_TILES_RUN"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles8"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
+text = "  🀙🀚🀛 / 🀕🀖🀗"
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "GUIDE_TILES_HEADER_DORA"
+fit_content = true
+script = ExtResource("52_jcp4g")
+bold = true
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qwacc")
+bbcode_enabled = true
+text = "GUIDE_TILES_DESC_DORA"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="LabelWithTiles9" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles9"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
+bbcode_enabled = true
+text = "GUIDE_TILES_AKA_DORA"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles9"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
+text = "  🀋"
+
+[node name="LabelWithTiles10" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles10"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
+bbcode_enabled = true
+text = "GUIDE_TILES_KAN_DORA"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles10"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
+text = "  🀫🀫🀫🀫🀖→🀗 / 🀫🀫🀫🀡🀅→🀙🀄"
+
+[node name="TAB_GUIDE_WAITS" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_WAITS"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_WAITS/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_WAITS/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "GUIDE_WAITS_INTRO"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="LabelWithTiles" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_WAITS/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_WAITS/ScrollContainer/VBoxContainer/LabelWithTiles"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
+bbcode_enabled = true
+text = "GUIDE_WAITS_RYANMEN"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_WAITS/ScrollContainer/VBoxContainer/LabelWithTiles"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
+text = "  🀛🀜→🀚/🀝   🀖🀗→🀕/🀘"
+
+[node name="LabelWithTiles2" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_WAITS/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_WAITS/ScrollContainer/VBoxContainer/LabelWithTiles2"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
+bbcode_enabled = true
+text = "GUIDE_WAITS_SHANPON"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_WAITS/ScrollContainer/VBoxContainer/LabelWithTiles2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
+text = "  🀝🀝🀅🀅→🀝/🀅"
+
+[node name="LabelWithTiles3" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_WAITS/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_WAITS/ScrollContainer/VBoxContainer/LabelWithTiles3"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
+bbcode_enabled = true
+text = "GUIDE_WAITS_PENCHAN_KANCHAN"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_WAITS/ScrollContainer/VBoxContainer/LabelWithTiles3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
+text = "  🀇🀈→🀉   🀜🀞→🀝"
+
+[node name="LabelWithTiles4" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_WAITS/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_WAITS/ScrollContainer/VBoxContainer/LabelWithTiles4"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
+bbcode_enabled = true
+text = "GUIDE_WAITS_TANKI"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_WAITS/ScrollContainer/VBoxContainer/LabelWithTiles4"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
+text = "  🀁→🀁   🀉🀊🀋🀌→🀉/🀌"
+
+[node name="TAB_GUIDE_SCORE" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Guide/TabContainer/Waits"]
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_SCORE"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -985,45 +1371,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 bbcode_enabled = true
-text = "[b]Two-sided wait[/b]
-Two adjacent tiles awaiting a third consecutive tile from either side to complete them as a run. E.g. [45] is a two-sided wait on 3 and 6.
-
-[b]One-sided wait[/b]
-As above, but with only one wait. E.g. [12], [46], or [88].
-
-[b]Three-sided wait[/b]
-As example, [223] waits for 1, a duplicate 2, or 3. [45678] waits for a 3, 6, or 9.
-
-There are additional ways of waiting on even more tiles. These will be left as an excercise for the reader. Note that \"waits\" are largely conceptual, they're just a convenient way of thinking about the probabilities different hands have of being completed."
-
-[node name="Score" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/Guide/TabContainer"]
-visible = false
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/Guide/TabContainer/Score"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-bbcode_enabled = true
-text = "The base value of a hand is defined by:
-	fu×2^(2+han)
-This is then multiplied by 6 if in the East seat, else by 4, then finally rounded up to the nearest 10.
-
-Han, aka \"doublers\", are the real determining factor in a score. They are the sum of han from yaku met and the amount of dora tiles in hand.
-
-Base fu is 20, additional fu are determined by a number of factors, generally incentivizing risk. See the \"Fu\" tab.
-
-This is approximately how real riichi calculates base points, but there's more rounding and multiplying stages there."
+text = "GUIDE_SCORE_TEXT"
 tab_size = 2
+script = ExtResource("52_jcp4g")
 
-[node name="Options" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+[node name="TAB_OPTIONS" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Options"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1032,17 +1388,17 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="OptionsButton" type="TextureButton" parent="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer/VBoxContainer"]
+[node name="OptionsButton" type="TextureButton" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("51_57d0l")
 script = ExtResource("43_jd3i2")
 
-[node name="Label" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer/VBoxContainer/OptionsButton"]
+[node name="Label" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/HBoxContainer/VBoxContainer/OptionsButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1056,12 +1412,12 @@ text = "Options"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="QuitButton" type="TextureButton" parent="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer/VBoxContainer"]
+[node name="QuitButton" type="TextureButton" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("51_57d0l")
 script = ExtResource("43_uwhsm")
 
-[node name="Label" type="Label" parent="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer/VBoxContainer/QuitButton"]
+[node name="Label" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/HBoxContainer/VBoxContainer/QuitButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1077,5 +1433,5 @@ vertical_alignment = 1
 
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" to="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" method="_on_pressed"]
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" to="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" method="_on_pressed"]
-[connection signal="pressed" from="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer/VBoxContainer/OptionsButton" to="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer/VBoxContainer/OptionsButton" method="_on_pressed"]
-[connection signal="pressed" from="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer/VBoxContainer/QuitButton" to="HBoxContainer/Sidebar/TabContainer/Options/HBoxContainer/VBoxContainer/QuitButton" method="_on_pressed"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/HBoxContainer/VBoxContainer/OptionsButton" to="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/HBoxContainer/VBoxContainer/OptionsButton" method="_on_pressed"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/HBoxContainer/VBoxContainer/QuitButton" to="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/HBoxContainer/VBoxContainer/QuitButton" method="_on_pressed"]

@@ -709,12 +709,12 @@ func _try_enter_riichi():
 		return false
 	if score_tracker.score < 1000:
 		return false
-	for t in tile_counter.get_all_tiles():
+	for t in tile_counter.get_all_unique_tiles():
 		var full_hand = [t]
 		full_hand.append_array(hand)
 		# this is safe because we assert that the hand is closed
 		full_hand.sort_custom(Callable(MTile, "tile_compare"))
-		if yaku_checker.hand_meets_basic_reqs(full_hand, called_hand) or yaku_checker.is_kokushi(full_hand):
+		if yaku_checker.hand_meets_basic_reqs(full_hand, called_hand):
 			calls_manager.enable_calls(CALL_BITMASK.RCH, {})
 			_set_state(STATE_CALLS)
 			_assign_discard_count()

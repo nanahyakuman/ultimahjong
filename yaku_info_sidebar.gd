@@ -8,7 +8,12 @@ extends Control
 
 func set_info(info: ScoringInfo.Han):
 	name_label.text = info.nam
-	han_label.text = "[%d]" % info.closed_han
+	if info.closed_han < 13:
+		han_label.text = "[%d]" % info.closed_han
+	else:
+		han_label.text = "[]"
+		for i in info.closed_han / 13:
+			han_label.text = han_label.text.insert(1, "Y")
 	
 	if info.closed_han - info.open_penalty <= 0:
 		closed_label.text = " (Closed Only) "

@@ -1,0 +1,76 @@
+keys,en,ja
+TAB_RUN,Run,
+TAB_YAKU,Yaku,役
+TAB_GUIDE,Guide,説明
+TAB_OPTIONS,Options,設定
+TAB_RUN_TILES,Tiles,牌
+TAB_RUN_FU,Fu,符
+TAB_RUN_UPGRADES,Upgrades,アイテム
+TAB_YAKU_SPECIAL,Special,特別
+TAB_YAKU_GROUPS,Groups,面子
+TAB_YAKU_TILES,Tiles,牌
+TAB_YAKU_YAKUMAN,Yakuman,役満
+TAB_GUIDE_BASICS,Basics,基本
+TAB_GUIDE_TILES,Tiles,牌
+TAB_GUIDE_WAITS,Waits,待ち
+TAB_GUIDE_SCORE,Score,計算
+,,
+FU_HEADER_SPECIAL,Special,特別
+FU_TYPE_BASE,Base,符底
+FU_TYPE_MENZENKAFU,Menzenkafu,門前加符
+FU_TYPE_TSUMO,Tsumo,自摸
+FU_TYPE_CHIITOITSU,Chītoitsu,七対子
+FU_TYPE_AO_DORA,Ao Dora,青ドラ
+FU_HEADER_GROUPINGS,Groupings,面子
+FU_TYPE_PAIR,Pair,対子
+FU_TYPE_YAKUHAI_PAIR,Yakuhai Pair,役牌対子
+FU_TYPE_OPEN_RUN,Open Run,明順
+FU_TYPE_CLOSED_RUN,Closed Run,暗順
+FU_TYPE_OPEN_SET,Open Set,明刻
+FU_TYPE_CLOSED_SET,Closed Set,暗刻
+FU_TYPE_OPEN_QUAD,Open Quad,明槓
+FU_TYPE_CLOSED_QUAD,Closed Quad,暗槓
+FU_TYPE_YAOCHUU_MULT,Terminal/Honor Multiplier,幺九字牌かけ
+FU_HEADER_WAITS,Waits,待ち
+FU_TYPE_1SIDED,1-Sided,一面
+FU_TYPE_2SIDED,2-Sided,両面
+FU_TYPE_3SIDED,~~~~~,
+,,
+GUIDE_TILES_HEADER_TYPES,Tile Types,牌の種類
+GUIDE_TILES_TERMINAL,Terminal: 1 or 9 in any number suit.,老頭牌：数牌の１と９。
+GUIDE_TILES_SIMPLE,Simple: 2 through 8 in any number suit.,中張牌：数牌の２～８．
+GUIDE_TILES_HONOR,Honor: Dragons and Winds.,字牌：元牌と風牌。
+GUIDE_TILES_YAKUHAI,Yakuhai: Dragons and the sitting and prevalent winds (bottom left corner).,役牌：元牌と場風と自風。
+GUIDE_TILES_FLOWER,"Flowers: Not always included, indicated by a number in the top left. Worth bonus han if called. Calling them immediately draws a replacement tile.",花牌：普通に利用していない。ドラを得る。
+GUIDE_TILES_HEADER_GROUPS,Tile Groups,牌の面子
+GUIDE_TILES_PAIR,Pair: 2 tiles of the same value and suit.,対子：同じ牌の二枚。
+GUIDE_TILES_SET,Set: 3 tiles of the same value and suit.,刻子：同じ牌の三枚。
+GUIDE_TILES_QUAD,"Quad: 4 tiles of the same value and suit. [i]Must[/i] be called to count, this call's name is kan. Calling kan draws another tile into hand, so quads are effectively still sets of size 3, but with a bonus tile tacked on for extra fu. Calling kan also reveals another kan dora.",槓子：同じ牌の四枚。
+GUIDE_TILES_RUN,Run: 3 tiles in a row of the same number suit. Individual runs can [i]only[/i] be 3 tiles long.,順子：連続する三枚の牌。
+GUIDE_TILES_HEADER_DORA,Dora Tiles,ドラ牌
+GUIDE_TILES_DESC_DORA,"Some tiles are worth 1 han just for being in hand at completion. However, you still need to have at least one Yaku in hand to go out. They are as follows:",ある牌は手配に存在するだけで翻を得る。だが、ドラだけで和了できない、まだ役が必要だ。
+GUIDE_TILES_AKA_DORA,Aka: Printed fully in red.,赤ドラ：赤い。
+GUIDE_TILES_KAN_DORA,"Kan: Every time a kan is called, a tile is revealed from the dead wall. The tile following it in sequence becomes a bonus tile. For number tiles, the order is sequential (1...9>1). For dragons, the order is W>G>R>W. For Winds: N>E>S>W>N.",
+,,
+GUIDE_WAITS_INTRO,"These are the basic waits formally recognized in Riichi Mahjong. All waits award 2 fu if used as the final wait except Ryanmen, which awards 0. (More complex waits exist, but can be always broken down into a combination of these basic ones, although I leave discovering them as an exercise for the reader.)
+They are ordered here by approximate likelihood of completion (in a vacuum).",
+GUIDE_WAITS_RYANMEN,"Ryanmen: Often translated as ""two-sided,"" this is two adjacent tiles waiting for a third to complete a run from either end.",
+GUIDE_WAITS_SHANPON,Shanpon: Two pairs waiting for one to resolve to a set.,
+GUIDE_WAITS_PENCHAN_KANCHAN,"Penchan and Kanchan: Like Ryanmen, waits on a run to complete, but because of shape or terminality, only waits on one tile instead of two.",
+GUIDE_WAITS_TANKI,"Tanki: A single tile waits on a copy of itself to complete a pair. Note the common complex wait pattern Nobetan (e.g. 3456) [i]still counts[/i] as a Tanki wait, even though you are technically waiting on two tiles.",
+,,
+GUIDE_SCORE_TEXT,"Before we begin, the scoring used here is [i]not the same[/i] as in normal Riichi, although it approximates it fairly closely. If you already understand Riichi scoring, you should just know: Ron and Tsumo now award the same amount of points, 10 Fu is now worth 400 points exactly instead of ~300, Fu are rounded [i]down[/i] to the nearest 10, and Mangan rounding is smoothed so that more Han always equate to more points earned.
+
+A hand [i]demands[/i] at least 1 Han and scores 1000 points by default. There are two fundamental factors to inproving this score: Fu and more Han.
+
+Fu are awarded for completing sets and for riskier waits, among other factors. See the ""Fu"" tab. Every 10 fu rounded [i]down[/i] awards 400 more points.
+
+Han, also known as ""doublers,"" are the more significant factor. All Yaku award some number of Han, and again, you need at least 1. Every additional han doubles the basic score of {1000+fu points}. For example, a 3 Han hand without significant fu is worth {1000×2×2} = 4000 points. A 2 Han hand with 10 fu is worth {1400×2} = 2800 points.
+(It may be easier to think of the basic score as {500+200 per 10 Fu}, and the first Han as a doubler as well.)
+
+Once you exceed 8000 points, Fu are no longer counted, and the score rewarded is simply the number of Han multiplied by 2000. After you exceed 10 Han, every additional Han is worth 4000 more points, up to the Yakuman Limit at 13 Han = 32000 points.
+
+Sitting in the East seat multiplies the final value by 1.5. For example, the minimum scoring hand in the East seat is 1500, and a Yakuman is 48000 points.
+
+Here is a table:
+~TABLE~",

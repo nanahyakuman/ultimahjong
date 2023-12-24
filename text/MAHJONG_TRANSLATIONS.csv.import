@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://b2acr7ki1kvtv"
+
+[deps]
+
+files=["res://text/MAHJONG_TRANSLATIONS.en.translation", "res://text/MAHJONG_TRANSLATIONS.ja.translation"]
+
+source_file="res://text/MAHJONG_TRANSLATIONS.csv"
+dest_files=["res://text/MAHJONG_TRANSLATIONS.en.translation", "res://text/MAHJONG_TRANSLATIONS.ja.translation"]
+
+[params]
+
+compress=true
+delimiter=0
