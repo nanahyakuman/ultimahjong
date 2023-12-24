@@ -136,7 +136,8 @@ handling for persistent upgrades like adding flowers
 reset score expectation every 4 rounds? that way a yakuman doesnt end the game instantly
 cursor scaling
 dragons and winds tile explanation
-does honor mean yakuhai or any jihai?
+does honor mean yakuhai or any jihai? decide
+hovertext translation
 
 
 demo MVP:

@@ -38,7 +38,7 @@ FU_TYPE_3SIDED,,~~~~~,
 ,,,
 GUIDE_TILES_HEADER_TYPES,,Tile Types,牌の種類
 GUIDE_TILES_TERMINAL,,Terminal: 1 or 9 in any number suit.,老頭牌：数牌の１と９。
-GUIDE_TILES_SIMPLE,,Simple: 2 through 8 in any number suit.,中張牌：数牌の２～８．
+GUIDE_TILES_SIMPLE,,Simple: 2 through 8 in any number suit.,中張牌：数牌の２～８。
 GUIDE_TILES_HONOR,,Honor: Dragons and Winds.,字牌：元牌と風牌。
 GUIDE_TILES_YAKUHAI,,Yakuhai: Dragons and the sitting and prevalent winds (bottom left corner).,役牌：元牌と場風と自風。
 GUIDE_TILES_FLOWER,,"Flowers: Not always included, indicated by a number in the top left. Worth bonus han if called. Calling them immediately draws a replacement tile.",花牌：普通に利用していない。ドラを得る。
@@ -76,7 +76,7 @@ Here is a table:
 ~TABLE~",
 ,,,
 YAKU_RIICHI,,Riichi,立直
-YAKU_RIICHI_DESC,,"Once you're one tile away from a completed hand, you can enter Riichi. This prevents you from modifying your hand any further; all you can do is wait until your winning tile is discarded, or you draw it yourself.\nCosts 1000 points to enter, but these are returned if successful.\nEnables Ippatsu.",
+YAKU_RIICHI_DESC,,"Once you're one tile away from a completed hand, you can enter Riichi. This prevents you from modifying your hand any further; all you can do is wait until your winning tile is discarded, or you draw it yourself.\nCosts 1000 points to enter, but these are returned if successful.\nEnables Ippatsu.",聴牌したら、立直ができます。するとできる行為が自摸切れと上がることに限る。1000点を払い、上がったら戻す。
 YAKU_RIICHI_LIT,_LIT fields mean a literal translation of the name of the yaku. Japanese specifically should put a reading here instead!,Ready,リーチ
 YAKU_DOUBLE_RIICHI,,Double Riichi,ダブル立直
 YAKU_DOUBLE_RIICHI_DESC,,Declare Riichi with your first discard.,最初の捨牌で立直。
@@ -94,13 +94,13 @@ YAKU_MENZENTSUMO,,Menzentsumo,門前自摸
 YAKU_MENZENTSUMO_DESC,,Win by tsumo with a closed hand.,門前のまま自摸で上がる。
 YAKU_MENZENTSUMO_LIT,,Closed Self-Draw,メンゼンツモ
 YAKU_CHIITOITSU,,Chiitoitsu,七対子
-YAKU_CHIITOITSU_DESC,,"Hand contains seven pairs. Four of the same tile [i]does not count[/i] as two pairs, they [i]must[/i] all be unique.",七枚の対子。
+YAKU_CHIITOITSU_DESC,,"Hand contains seven pairs. Four of the same tile [i]does not count[/i] as two pairs, they [i]must[/i] all be unique.",七つの対子。
 YAKU_CHIITOITSU_LIT,,Seven Pairs,チートイツ
 YAKU_NAGASHI,,Nagashi Mangan,流し満貫
 YAKU_NAGASHI_DESC,,"A round ends with no other win, and your [i]discards[/i] consist solely of terminals and honors.",上がらなくて局を終えて、自分の捨牌は幺九牌だけだった。
 YAKU_NAGASHI_LIT,,Flowing Mangan,ながしマンガン
 YAKU_PINFU,,Pinfu,平和
-YAKU_PINFU_DESC,,"No fu except futei and dora fu. This works out to mean: All runs, non-yakuhai pair, and a ryanmen wait.",符を得ない。つまり、頭が役牌でない順子だけの両面待ち。
+YAKU_PINFU_DESC,,"No fu except futei and dora fu. This works out to mean: All runs, non-yakuhai pair, and a ryanmen wait.",符を得ない。つまり、頭が役牌でない、順子だけの両面待ち。
 YAKU_PINFU_LIT,,No Fu.,ピンフ
 YAKU_IIPEIKOU,,Iipeikou,一盃口
 YAKU_IIPEIKOU_DESC,,Two copies of the same run.,同じ順子の二つ。
@@ -112,7 +112,7 @@ YAKU_SANSHOKU_DOUJUN,,Sanshoku Doujun,三色同順
 YAKU_SANSHOKU_DOUJUN_DESC,,The same value run in three numbered suits.,三種類の数牌に同じ順子。
 YAKU_SANSHOKU_DOUJUN_LIT,,Three Mixed Sequences,サンショクドージュン
 YAKU_ITTSUU,,Ittsuu,一通
-YAKU_ITTSUU_DESC,,"1-9 in a single suit. [i]Specifically demands[/i] a winning hand containing the runs 123, 456, and 789, [i]not[/i] just having at least one of every tile.",ある数牌の種類に１～９。厳密に、１２３と４５６と７８９の順子が必要。
+YAKU_ITTSUU_DESC,,"1-9 in a single suit. [i]Specifically demands[/i] a winning hand containing the runs 123, 456, and 789, [i]not[/i] just having at least one of every tile.",ある数牌の種類の１～９。厳密に、１２３と４５６と７８９の順子が必要。
 YAKU_ITTSUU_LIT,,Full Straight,イッツ―
 YAKU_TOITOI,,Toitoi,対々和
 YAKU_TOITOI_DESC,,Hand consists of four set/quads and a pair.,頭一つ、残りの面子が刻子や槓子。
@@ -129,70 +129,70 @@ YAKU_SANSHOKU_DOUKOU_LIT,,Three Mixed Triplets,サンショクドーコー
 YAKU_FLOWER,,Flower,花牌
 YAKU_FLOWER_DESC,,Called flower tile. Does [i]not[/i] contribute to the one Han minimum required to go out.,花。厳密に、ドラだ。花牌で一翻縛りを越えない。
 YAKU_FLOWER_LIT,,Flower,ファパイ
-YAKU_TANYAO,,Tan'yao,断么
+YAKU_TANYAO,,Tan'yao,断么九
 YAKU_TANYAO_DESC,,No terminals or honors in hand.,字牌と数牌の１と９がない。
 YAKU_TANYAO_LIT,,All Simples,タンヤオ
 YAKU_YAKUHAI,,Yakuhai,役牌
 YAKU_YAKUHAI_DESC,,"Set or quad of seat wind, prevalent wind, or any dragon. Stacks with self if multiple qualifying sets are present.",元牌、または場風や自風。
 YAKU_YAKUHAI_LIT,,Honor Tile,ヤクハイ
 YAKU_SHOUSANGEN,,Shousangen,小三元
-YAKU_SHOUSANGEN_DESC,,"Two Dragon sets/quads and a Dragon pair. Adds onto the existing two Yakuhai, for four total han awarded on the dragons.",元牌の刻子二つ、対子一つ。
+YAKU_SHOUSANGEN_DESC,,"Two Dragon sets/quads and a Dragon pair. Adds onto the existing two Yakuhai, for four total han awarded on the dragons.",元牌の刻子や槓子二つ、対子一つ。
 YAKU_SHOUSANGEN_LIT,,Little Three Dragons,ショーサンゲン
 YAKU_CHANTA,,Chanta,混全帯么九
-YAKU_CHANTA_DESC,,Every grouping/pair contains an honor or terminal.,
+YAKU_CHANTA_DESC,,Every grouping/pair contains an honor or terminal.,全部の面子が字牌や老頭牌を含む。
 YAKU_CHANTA_LIT,,Half Outside,ホンチャンタイヤオチュウ、チャンタ
-YAKU_JUNCHAN,,Junchan,
-YAKU_JUNCHAN_DESC,,Every grouping/pair contains a terminal. Disables Chanta.,
-YAKU_JUNCHAN_LIT,,Full Outside,
-YAKU_HONROUTOU,,Honroutou,
-YAKU_HONROUTOU_DESC,,"Every grouping is composed entirely of terminals or honors. Additonally implies either Toitoi or Chiitoitsu, for at least four han. Disables Junchan and Chanta.",
-YAKU_HONROUTOU_LIT,,All Terminals and Honors,
-YAKU_HONITSU,,Hon'itsu,
-YAKU_HONITSU_DESC,,Hand only contains honors and tiles of a single suit.,
-YAKU_HONITSU_LIT,,Half Flush,
-YAKU_CHINITSU,,Chin'itsu,
-YAKU_CHINITSU_DESC,,Hand only contains tiles of a single suit.,
-YAKU_CHINITSU_LIT,,Full Flush,
+YAKU_JUNCHAN,,Junchan,純全帯么九
+YAKU_JUNCHAN_DESC,,Every grouping/pair contains a terminal. Disables Chanta.,全部の面子が老頭を含む。
+YAKU_JUNCHAN_LIT,,Full Outside,ジュンチャンタイヤオチュウ、ジュンチャン
+YAKU_HONROUTOU,,Honroutou,混老頭
+YAKU_HONROUTOU_DESC,,"Every grouping is composed entirely of terminals or honors. Additonally implies either Toitoi or Chiitoitsu, for at least four han. Disables Junchan and Chanta.",全部の牌が字牌や老頭牌。七対子か対々和はおろか。
+YAKU_HONROUTOU_LIT,,All Terminals and Honors,ホンロート―
+YAKU_HONITSU,,Hon'itsu,混一色
+YAKU_HONITSU_DESC,,Hand only contains honors and tiles of a single suit.,ある数牌の種類と字牌だけ。
+YAKU_HONITSU_LIT,,Half Flush,ホンイツ
+YAKU_CHINITSU,,Chin'itsu,清一色
+YAKU_CHINITSU_DESC,,Hand only contains tiles of a single suit.,ある数牌の種類だけ。
+YAKU_CHINITSU_LIT,,Full Flush,チンイツ
 YAKU_YAKUMAN_INTRO,,"Note that Yakuman are automatic limit hands. That is, once you acheive [i]at least[/i] one Yakuman, the score rewarded is simply 32000 (48000 if sitting East) multiplied by the number of fulfilled Yakuman.",
-YAKU_KAZOE,,Kazoe Yakuman,
-YAKU_KAZOE_DESC,,"Never awarded itself, simply a name for any hand that reaches or exceeds thirteen han without fulfilling any defined Yakuman pattern. Any other Yakuman disables this one, so there can be no multiple Yakuman hands containing Kazoe.",
-YAKU_KAZOE_LIT,,Accumulated Yakuman,
-YAKU_DAISANGEN,,Daisangen,
-YAKU_DAISANGEN_DESC,,Three Dragon sets/quads.,
-YAKU_DAISANGEN_LIT,,Big Three Dragons,
-YAKU_SHOUSUUSHII,,Shousuushii,
-YAKU_SHOUSUUSHII_DESC,,Three sets/quads of winds and a pair of the fourth.,
-YAKU_SHOUSUUSHII_LIT,,Little Four Winds,
-YAKU_DAISUUSHII,,Daisuushii,
-YAKU_DAISUUSHII_DESC,,Four sets/quads of winds.,
-YAKU_DAISUUSHII_LIT,,Big Four Winds,
-YAKU_SUUANKOU,,Suuankou,
-YAKU_SUUANKOU_DESC,,Four concealed sets/quads. The [i]sets themselves[/i] must be entirely concealed; finishing the last set with ron does [i]not[/i] qualify.,
-YAKU_SUUANKOU_LIT,,Four Concealed Triplets,
-YAKU_SUUKANTSU,,Suukantsu,
-YAKU_SUUKANTSU_DESC,,Call four quads.,
-YAKU_SUUKANTSU_LIT,,Four Quads,
-YAKU_KOKUSHI,,Kokushi Musou,
-YAKU_KOKUSHI_DESC,,"One of every terminal and honor, and a second of any of them.",
-YAKU_KOKUSHI_LIT,,Thirteen Orphans,
-YAKU_TSUUIISOU,,Tsuuiisou,
-YAKU_TSUUIISOU_DESC,,Hand only contains honors.,
-YAKU_TSUUIISOU_LIT,,All Honors,
-YAKU_CHINROUTOU,,Chinroutou,
-YAKU_CHINROUTOU_DESC,,Hand only contains terminals (no honors).,
-YAKU_CHINROUTOU_LIT,,All Terminals,
-YAKU_RYUUIISOU,,Ryuuiisou,
-YAKU_RYUUIISOU_DESC,,"Hand only contains 2/3/4/6/8-Sou and Green Dragons. These are traditionally the tiles with only green ink on them, however, recolored variants of these tiles still contribute.",
-YAKU_RYUUIISOU_LIT,,All Green,
-YAKU_CHUUREN,,Chuuren Poutou,
-YAKU_CHUUREN_DESC,,"1112345678999 of any suit, plus one more tile from the suit.",
-YAKU_CHUUREN_LIT,,Nine Gates,
-YAKU_KIHOU,,Kihou,
-YAKU_KIHOU_DESC,,Complete a hand without ever discarding.,
-YAKU_KIHOU_LIT,,Blessing,
-YAKU_KAN_DORA,these don't have attached descriptions or transliterations,Kan Dora,
-YAKU_URA_DORA,,Ura Dora,
-YAKU_AKA_DORA,,Aka Dora,
+YAKU_KAZOE,,Kazoe Yakuman,数え役満
+YAKU_KAZOE_DESC,,"Never awarded itself, simply a name for any hand that reaches or exceeds thirteen han without fulfilling any defined Yakuman pattern. Any other Yakuman disables this one, so there can be no multiple Yakuman hands containing Kazoe.",ちゃんとした役満じゃない、ほかの役満なしで十三翻を超えると数え役満になる。
+YAKU_KAZOE_LIT,,Accumulated Yakuman,かぞえヤクマン
+YAKU_DAISANGEN,,Daisangen,大三元
+YAKU_DAISANGEN_DESC,,Three Dragon sets/quads.,元牌の刻子や槓子三つ。
+YAKU_DAISANGEN_LIT,,Big Three Dragons,ダイサンゲン
+YAKU_SHOUSUUSHII,,Shousuushii,少四風
+YAKU_SHOUSUUSHII_DESC,,Three sets/quads of winds and a pair of the fourth.,風牌の刻子や槓子三つ、対子一つ。
+YAKU_SHOUSUUSHII_LIT,,Little Four Winds,ショースーシー
+YAKU_DAISUUSHII,,Daisuushii,大四風
+YAKU_DAISUUSHII_DESC,,Four sets/quads of winds.,風牌の刻子や槓子四つ。
+YAKU_DAISUUSHII_LIT,,Big Four Winds,ダイスーシー
+YAKU_SUUANKOU,,Suuankou,四暗刻
+YAKU_SUUANKOU_DESC,,Four concealed sets/quads. The [i]sets themselves[/i] must be entirely concealed; finishing the last set with ron does [i]not[/i] qualify.,四つの暗刻や暗槓。
+YAKU_SUUANKOU_LIT,,Four Concealed Triplets,スーアンコー
+YAKU_SUUKANTSU,,Suukantsu,四槓子
+YAKU_SUUKANTSU_DESC,,Call four quads.,四回カンを鳴く。暗槓でも明槓でもいい。
+YAKU_SUUKANTSU_LIT,,Four Quads,スーカンツ
+YAKU_KOKUSHI,,Kokushi Musou,国士無双
+YAKU_KOKUSHI_DESC,,"One of every terminal and honor, and a second of any of them.",字牌や老頭牌から、十二枚複数のない牌と一つの対子。
+YAKU_KOKUSHI_LIT,,Thirteen Orphans,コクシムソー
+YAKU_TSUUIISOU,,Tsuuiisou,字一色
+YAKU_TSUUIISOU_DESC,,Hand only contains honors.,字牌だけ。
+YAKU_TSUUIISOU_LIT,,All Honors,ツーイーソー
+YAKU_CHINROUTOU,,Chinroutou,清老頭
+YAKU_CHINROUTOU_DESC,,Hand only contains terminals (no honors).,老頭牌だけ。
+YAKU_CHINROUTOU_LIT,,All Terminals,チンロート―
+YAKU_RYUUIISOU,,Ryuuiisou,緑一色
+YAKU_RYUUIISOU_DESC,,"Hand only contains 2/3/4/6/8-Sou and Green Dragons. These are traditionally the tiles with only green ink on them, however, recolored variants of these tiles still contribute.",２３４６８索と發だけ。
+YAKU_RYUUIISOU_LIT,,All Green,リューイーソー
+YAKU_CHUUREN,,Chuuren Poutou,九蓮宝燈
+YAKU_CHUUREN_DESC,,"1112345678999 of any suit, plus one more tile from the suit.",ある数牌の種類の１１１２３４５６７８９９９とその種類から何でももう一つ。
+YAKU_CHUUREN_LIT,,Nine Gates,チューレンポート―
+YAKU_KIHOU,,Kihou,機和
+YAKU_KIHOU_DESC,,Complete a hand without ever discarding.,牌を捨てなくて上がる。
+YAKU_KIHOU_LIT,,Blessing,キホー
+YAKU_KAN_DORA,these don't have attached descriptions or transliterations,Kan Dora,槓ドラ
+YAKU_URA_DORA,,Ura Dora,裏ドラ
+YAKU_AKA_DORA,,Aka Dora,赤ドラ
 ,,,
 CALL_CHI_L,,Chi L,チー左
 CALL_CHI_M,,Chi M,チー中
