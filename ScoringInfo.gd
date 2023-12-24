@@ -2,6 +2,8 @@ extends Resource
 class_name ScoringInfo
 
 class Han:
+	# the translation key
+	var TR_KEY: String = ""
 	var nam: String = ""
 	# you probably want `calc_han()`
 	var closed_han: int = 0
@@ -9,7 +11,6 @@ class Han:
 	# integer (only ever 1 in base mahjong) is a penalty.
 	#  note that yakuchecker has seperate hardcoded checks for openness atm
 	var open_penalty: int = 0
-	var desc: String = ""
 	# visual aid for yaku. uses the colored tiles font expecting unicode mahj tiles.
 	var graphic_desc: String = ""
 	#  for things like dora or yakuhai that can be obtained multiple times. only
@@ -21,15 +22,15 @@ class Han:
 			return true
 		return false
 	
-	func _init(_name: String, _han: int, _penalty: int, _desc: String, _graphic_desc: String = ""):
-		nam = tr(_name)
+	func _init(_key: String, _han: int, _penalty: int, _graphic_desc: String = ""):
+		TR_KEY = _key
+		nam = tr(_key)
 		closed_han = _han
 		open_penalty = _penalty
-		desc = _desc
 		graphic_desc = _graphic_desc
 	
 	func duplicate():
-		return Han.new(nam, closed_han, open_penalty, desc, graphic_desc)
+		return Han.new(TR_KEY, closed_han, open_penalty, graphic_desc)
 	
 	func calc_han(open: bool):
 		return maxi(0, closed_han - (open_penalty * int(open))) * count

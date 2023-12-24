@@ -1,9 +1,25 @@
-[gd_scene load_steps=6 format=3 uid="uid://rb85jd55olq5"]
+[gd_scene load_steps=9 format=3 uid="uid://rb85jd55olq5"]
 
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="1_m2kay"]
 [ext_resource type="Script" path="res://yaku_info_sidebar.gd" id="1_wqere"]
 [ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="2_mlqvd"]
+[ext_resource type="Texture2D" uid="uid://b7h15nvxigut7" path="res://image/yaku_title_9pr.png" id="3_7srww"]
 [ext_resource type="FontFile" uid="uid://bian1q53chnum" path="res://text/font/BodyTilesColor.png" id="4_srsxn"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nqrn4"]
+texture = ExtResource("3_7srww")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_umf01"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d8jss"]
 
@@ -26,24 +42,37 @@ size_flags_horizontal = 3
 custom_minimum_size = Vector2(0, 4)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Panel" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_nqrn4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Panel"]
 layout_mode = 2
 
-[node name="NameLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="NameLabel" type="Label" parent="VBoxContainer/Panel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_mlqvd")
 text = "Sample Yaku"
 
-[node name="ClosedLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="ClosedLabel" type="Label" parent="VBoxContainer/Panel/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.6, 0.666667, 1)
 text = "(Closed Only) "
+vertical_alignment = 1
 
-[node name="HanLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="HanLabel" type="Label" parent="VBoxContainer/Panel/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_mlqvd")
 text = "[6]"
+
+[node name="TranslitLabel" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.933333, 0.866667, 0.8, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_umf01")
+bbcode_enabled = true
+text = "[i]Three Identical Triplets"
+fit_content = true
 
 [node name="DescLabel" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2

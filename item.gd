@@ -14,10 +14,11 @@ var popup_tile_select
 var mana_bar
 var shop_root
 
-#  diffrent item ids.
-enum TYPES {NONE, ERASER, WIND_MAGNET, BATTERY, KAN_SWAP, PIN_DUPE, SOU_ADJ, AKAFY, POCCHI, MAN_TERM, DRAGON_CYCLE, SUJI_OFFSET}
+#  diffrent item ids. also used as translation keys. do NOT assign custom values to keys,
+# it'll break translation support!
+enum TYPES {ITEM_NONE, ITEM_ERASER, ITEM_WIND_MAGNET, ITEM_BATTERY, ITEM_KAN_SWAP, ITEM_PIN_DUPE, ITEM_SOU_ADJ, ITEM_AKAFY, ITEM_POCCHI, ITEM_MAN_TERM, ITEM_DRAGON_CYCLE, ITEM_SUJI_OFFSET}
 #  items either use mana, charge themselves, or are one-time use
-@export var type: TYPES = TYPES.NONE
+@export var type: TYPES = TYPES.ITEM_NONE
 const COOLD = [0,     48,          15,      24,       70,       44,      52,    61,     59,       36,           31,          32]
 
 enum CH_TYPES {ONCE, MANA, TIMR}
@@ -37,48 +38,19 @@ func _ready():
 	connect("mouse_exited", _mouse_exited)
 	_mouse_exited()
 	
-	# when in the shop, don't block the button
+	#  when in the shop, don't block the button.
+	# cleared when `activate()` is called
 	mouse_filter = Control.MOUSE_FILTER_PASS
 	
 	cooldown_counter = COOLD[type]
 	
 	hover_body.clear()
 	
-	# hovertexting
-	match type:
-		TYPES.ERASER:
-			hover_name.text = "Eraser"
-			hover_body.append_text("Current tsumo tile is replaced with a White Dragon [i]temporarily[/i].")
-		TYPES.WIND_MAGNET:
-			hover_name.text = "Wind Charm"
-			hover_body.append_text("4th tile in the wall switches positions with a random wind from the remaining wall, if there is one.")
-		TYPES.BATTERY:
-			hover_name.text = "9-Volt"
-			hover_body.append_text("Reduce all [i]other[/i] item cooldown counters by 9. Only works on items with cooldowns.")
-		TYPES.KAN_SWAP:
-			hover_name.text = "Kan Swap"
-			hover_body.append_text("Replace the most recently revealed kan dora with a tile from hand or tsumo.")
-		TYPES.PIN_DUPE:
-			hover_name.text = "Pinplicator"
-			hover_body.append_text("Convert a selected Pin into a selected Pin [i]temporarily[/i].")
-		TYPES.SOU_ADJ:
-			hover_name.text = "Sou-so"
-			hover_body.append_text("Convert a selected Sou into a selected Sou's predecessor [i]temporarily[/i].")
-		TYPES.AKAFY:
-			hover_name.text = "Factory Seize"
-			hover_body.append_text("A random non-aka tile in hand [i]but not tsumo[/i] becomes aka.")
-		TYPES.POCCHI:
-			hover_name.text = "·A·Rock"
-			hover_body.append_text("Add a Pocchi to the current tsumo tile [i]permanently[/i].")
-		TYPES.MAN_TERM:
-			hover_name.text = "Hat Man"
-			hover_body.append_text("Shift a selected Man's value into the terminal further from it [i]temporarily[/i]. Distance ties are chosen at random.")
-		TYPES.DRAGON_CYCLE:
-			hover_name.text = "Dragon Cycle"
-			hover_body.append_text("Increment a selected Dragon's type (W>G>R>W).")
-		TYPES.SUJI_OFFSET:
-			hover_name.text = "Suji Shift"
-			hover_body.append_text("Adjust current tsumo tile's value by +/- 3. Only works on numbered tiles.")
+	#  hovertexting. little hacky looking but godot preserves enum keys as strings,
+	# might as well make use of it
+	var string_id = TYPES.keys()[type]
+	hover_name.text = tr(string_id)
+	hover_body.append_text(tr(string_id + "_DESC"))
 	
 	hover_body.append_text("[right][color=%s]" % COL.LBLUE)
 	# additional gfx that vary based on type
@@ -145,45 +117,45 @@ func _use():
 		return
 	
 	match type:
-		TYPES.NONE:
+		TYPES.ITEM_NONE:
 			#actual code here
 			pass
 		
-		TYPES.ERASER:
+		TYPES.ITEM_ERASER:
 			# old tile is cleared completely, dont maintain reference
 			mahjong_manager.tsumo = null
 			mahjong_manager.do_tsumo(MTile.new(MTile.SUITS.SPECIAL,MTile.SPECIALS.HAKU))
 			
-		TYPES.WIND_MAGNET:
+		TYPES.ITEM_WIND_MAGNET:
 			var wind_ids = []
 			for w in MTile.WINDS:
 				wind_ids.append(MTile.gen_id(MTile.SUITS.SPECIAL, w))
 			
 			mahjong_manager.swap_in_next_theoretical_tsumo(wind_ids)
 			
-		TYPES.BATTERY:
+		TYPES.ITEM_BATTERY:
 			# decrement other counters
 			for i in get_parent().get_children():
 				if i == self:
 					continue
 				i.decrement(9)
 			
-		TYPES.KAN_SWAP:
+		TYPES.ITEM_KAN_SWAP:
 			mahjong_manager.request_tile_select(self, true)
 			tile_select.update_text("Select a tile to swap in.")
 			return # more steps to follow so we skip over updating the counter
 			
-		TYPES.PIN_DUPE:
+		TYPES.ITEM_PIN_DUPE:
 			mahjong_manager.request_tile_select(self, true)
 			tile_select.update_text("Select a Pin to be swapped.")
 			return
 			
-		TYPES.SOU_ADJ:
+		TYPES.ITEM_SOU_ADJ:
 			mahjong_manager.request_tile_select(self, true)
 			tile_select.update_text("Select a Sou to be swapped.")
 			return
 			
-		TYPES.AKAFY:
+		TYPES.ITEM_AKAFY:
 			#  start at a random index and iterate until finmding a
 			# non-aka tile
 			var i = randi() % mahjong_manager.hand.size()
@@ -199,7 +171,7 @@ func _use():
 				if i == ii:
 					break
 		
-		TYPES.POCCHI:
+		TYPES.ITEM_POCCHI:
 			mahjong_manager.tsumo.pocchi = true
 			# it's permananent
 			mahjong_manager.tsumo.canon_tile.pocchi = true
@@ -208,17 +180,17 @@ func _use():
 			mahjong_manager.gui_manager.update_tsumo([mahjong_manager.tsumo])
 			
 		
-		TYPES.MAN_TERM:
+		TYPES.ITEM_MAN_TERM:
 			mahjong_manager.request_tile_select(self, true)
 			tile_select.update_text("Select a Man to be swapped.")
 			return
 		
-		TYPES.DRAGON_CYCLE:
+		TYPES.ITEM_DRAGON_CYCLE:
 			mahjong_manager.request_tile_select(self, true)
 			tile_select.update_text("Select a Dragon to cycle.")
 			return
 		
-		TYPES.SUJI_OFFSET:
+		TYPES.ITEM_SUJI_OFFSET:
 			mahjong_manager.stall_for_external_select()
 			
 			var tsumo = mahjong_manager.tsumo
@@ -252,16 +224,16 @@ func _use():
 #  default behavior is to return TRUE!
 func tile_valid(tile: MTile):
 	match type:
-		TYPES.PIN_DUPE:
+		TYPES.ITEM_PIN_DUPE:
 			if tile.suit != MTile.SUITS.PIN:
 				return false
-		TYPES.SOU_ADJ:
+		TYPES.ITEM_SOU_ADJ:
 			if tile.suit != MTile.SUITS.SOU:
 				return false
-		TYPES.MAN_TERM:
+		TYPES.ITEM_MAN_TERM:
 			if tile.suit != MTile.SUITS.MAN:
 				return false
-		TYPES.DRAGON_CYCLE:
+		TYPES.ITEM_DRAGON_CYCLE:
 			if tile.suit != MTile.SUITS.SPECIAL or !MTile.BASIC_DRAGONS.has(tile.value):
 				return false
 	return true
@@ -271,11 +243,11 @@ func tile_valid(tile: MTile):
 # existing code to prompt selection, then do with it what we will down here.
 func tile_selected(tile: MTile):
 	match type:
-		TYPES.KAN_SWAP:
+		TYPES.ITEM_KAN_SWAP:
 			var t = mahjong_manager.get_and_overwrite_most_recent_kan_dora(tile)
 			mahjong_manager.add_to_hand_and_update(t)
 			
-		TYPES.PIN_DUPE:
+		TYPES.ITEM_PIN_DUPE:
 			#  we dont actually even use the stored tile, lol. just an easy way to
 			# make a check. note that the PIN-type assurance is made in `tile_valid`.
 			if selected_tile_memory.size() == 0:
@@ -293,7 +265,7 @@ func tile_selected(tile: MTile):
 				mahjong_manager.add_to_hand_and_update(new_t)
 				selected_tile_memory.clear()
 		
-		TYPES.SOU_ADJ:
+		TYPES.ITEM_SOU_ADJ:
 			if selected_tile_memory.size() == 0:
 				selected_tile_memory.append(tile)
 				
@@ -315,7 +287,7 @@ func tile_selected(tile: MTile):
 				mahjong_manager.add_to_hand_and_update(new_t)
 				selected_tile_memory.clear()
 		
-		TYPES.MAN_TERM:
+		TYPES.ITEM_MAN_TERM:
 			var new_tile = tile.duplicate()
 			new_tile.value = 1 if randi()%1 else 9
 			
@@ -328,7 +300,7 @@ func tile_selected(tile: MTile):
 			
 			mahjong_manager.add_to_hand_and_update(new_tile)
 		
-		TYPES.DRAGON_CYCLE:
+		TYPES.ITEM_DRAGON_CYCLE:
 			var val
 			match tile.value:
 				MTile.SPECIALS.HAKU:
@@ -342,7 +314,7 @@ func tile_selected(tile: MTile):
 			new_tile.value = val
 			mahjong_manager.add_to_hand_and_update(new_tile)
 		
-		TYPES.SUJI_OFFSET:
+		TYPES.ITEM_SUJI_OFFSET:
 			var new_tile = mahjong_manager.tsumo.duplicate()
 			new_tile.value = tile.value
 			new_tile.former = mahjong_manager.tsumo

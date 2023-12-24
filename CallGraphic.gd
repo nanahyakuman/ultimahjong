@@ -11,16 +11,16 @@ var _tiles_involved = []
 
 var CALL_NAMES = {
 	MahjongManager.CALL_BITMASK.NONE: "None",
-	MahjongManager.CALL_BITMASK.CHI_L: "Chi L",
-	MahjongManager.CALL_BITMASK.CHI_M: "Chi M",
-	MahjongManager.CALL_BITMASK.CHI_R: "Chi R",
-	MahjongManager.CALL_BITMASK.PON: "Pon",
-	MahjongManager.CALL_BITMASK.KAN: "Kan",
-	MahjongManager.CALL_BITMASK.RON: "Ron",
-	MahjongManager.CALL_BITMASK.TSM: "Tsumo",
-	MahjongManager.CALL_BITMASK.CLOSED_KAN: "Kan",
-	MahjongManager.CALL_BITMASK.RCH: "Riichi",
-	MahjongManager.CALL_BITMASK.FLOWER: "Flower"
+	MahjongManager.CALL_BITMASK.CHI_L: tr("CALL_CHI_L"),
+	MahjongManager.CALL_BITMASK.CHI_M: tr("CALL_CHI_M"),
+	MahjongManager.CALL_BITMASK.CHI_R: tr("CALL_CHI_L"),
+	MahjongManager.CALL_BITMASK.PON: tr("CALL_PON"),
+	MahjongManager.CALL_BITMASK.KAN: tr("CALL_KAN"),
+	MahjongManager.CALL_BITMASK.RON: tr("CALL_RON"),
+	MahjongManager.CALL_BITMASK.TSM: tr("CALL_TSUMO"),
+	MahjongManager.CALL_BITMASK.CLOSED_KAN: tr("CALL_KAN"),
+	MahjongManager.CALL_BITMASK.RCH: tr("CALL_RIICHI"),
+	MahjongManager.CALL_BITMASK.FLOWER: tr("CALL_FLOWER")
 }
 
 # call BEFORE `_ready()`! also assign bitmask!
@@ -40,6 +40,7 @@ func _ready():
 		if [MahjongManager.CALL_BITMASK.FLOWER, MahjongManager.CALL_BITMASK.RCH, MahjongManager.CALL_BITMASK.TSM, MahjongManager.CALL_BITMASK.RON].has(bitmask):
 			get_theme_stylebox("panel").region_rect.position.x = 38
 			rich_text_label.add_theme_color_override("font_color", Color(COL.BLACK))
+			#rich_text_label.label_settings.font_color = Color(COL.BLACK)
 
 func enable(bm: int, tiles_involved: Dictionary):
 	visible = bm & bitmask

@@ -60,7 +60,6 @@ start_shop={
 locale/translation_remaps={}
 locale/translations=PackedStringArray("res://text/MAHJONG_TRANSLATIONS.en.translation", "res://text/MAHJONG_TRANSLATIONS.ja.translation")
 locale/test="ja"
-locale/locale_filter_mode=0
 
 [rendering]
 

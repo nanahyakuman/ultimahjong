@@ -98,6 +98,8 @@ ideas but not critical:
 	item upgrading? "smith" an item into a higher use tier
 	syntax hgilight yaku
 		make them orange and link back to their descriptions
+	consider better cjk font(s)
+		http://jikasei.me/font/jf-dotfont/ for jp
 
 
 
@@ -133,6 +135,8 @@ shop tiles cursor passthrough
 handling for persistent upgrades like adding flowers
 reset score expectation every 4 rounds? that way a yakuman doesnt end the game instantly
 cursor scaling
+dragons and winds tile explanation
+does honor mean yakuhai or any jihai?
 
 
 demo MVP:

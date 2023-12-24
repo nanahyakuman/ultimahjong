@@ -304,9 +304,9 @@ func _do_opp_discard():
 
 enum CALL_BITMASK {
 	NONE =		0,
-	CHI_L = 	0b100,
+	CHI_R = 	0b100,
 	CHI_M = 	0b010,
-	CHI_R = 	0b001,
+	CHI_L = 	0b001,
 	PON = 		0b1000,
 	KAN = 		0b10000,
 	CLOSED_KAN= 0b100000,

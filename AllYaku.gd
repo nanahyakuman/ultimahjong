@@ -6,8 +6,8 @@ extends Node
 #  holds yaku that are multiple-referenced so that they can appear multiple times in
 # the sidebar. msot of these are yaku that are also obviously themed
 var duplicated = {
-	"Chinroutou": ScoringInfo.Han.new("Chinrōtō", 13, 0, "Hand only contains terminals (no honors).", "🀙🀙🀙🀇🀇🀏🀏 🀏 🀡🀡🀡🀘🀘🀘"),
-	"Daisangen": ScoringInfo.Han.new("Daisangen", 13, 0, "Three Dragon sets/quads.", "🀪🀪🀪🀪🀪🀄🀄 🀄 🀅🀅🀅🀅🀆🀆🀆"),
+	"Chinroutou": ScoringInfo.Han.new("YAKU_CHINROUTOU", 13, 0, "🀙🀙🀙🀇🀇🀏🀏 🀏 🀡🀡🀡🀘🀘🀘"),
+	"Daisangen": ScoringInfo.Han.new("YAKU_DAISANGEN", 13, 0, "🀪🀪🀪🀪🀪🀄🀄 🀄 🀅🀅🀅🀅🀆🀆🀆"),
 }
 
 #  the yaku sidebar reads from this directly, so some additional highlighting like
@@ -19,72 +19,71 @@ var duplicated = {
 #  the tilestrings are NOT translated!
 var YAKUS = {
 	"SPACER_1": "Special",
-	"Riichi": ScoringInfo.Han.new("Rīchi", 1, 1, "Once you're one tile away from a completed hand, you can enter Rīchi. This prevents you from modifying your hand any further; all you can do is wait until your winning tile is discarded, or you draw it yourself.\nCosts 1000 points to enter, but these are returned if successful.\nEnables Ippatsu."),
-	"Double Riichi": ScoringInfo.Han.new("Double Rīchi", 2, 2, "Declare Rīchi with your first discard."),
-	"Ippatsu": ScoringInfo.Han.new("Ippatsu", 1, 1, "Win before or on your first draw after declaring Rīchi."),
+	"Riichi": ScoringInfo.Han.new("YAKU_RIICHI", 1, 1),
+	"Double Riichi": ScoringInfo.Han.new("YAKU_DOUBLE_RIICHI", 2, 2),
+	"Ippatsu": ScoringInfo.Han.new("YAKU_IPPATSU", 1, 1),
 	
 #	"SPACER_6": "Luck",
-	"Haitei": ScoringInfo.Han.new("Haitei", 1, 0, "Win off the last drawn tile in the wall."),
-	"Rinshan": ScoringInfo.Han.new("Rinshan", 1, 0, "Win off the tile redraw when calling a kan.", "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪 🀪←🀫🀪🀪🀫"),
-	"Menzentsumo": ScoringInfo.Han.new("Menzentsumo", 1, 1, "Win by tsumo with a closed hand."),
+	"Haitei": ScoringInfo.Han.new("YAKU_HAITEI", 1, 0),
+	"Rinshan": ScoringInfo.Han.new("YAKU_RINSHAN", 1, 0, "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪 🀪←🀫🀪🀪🀫"),
+	"Menzentsumo": ScoringInfo.Han.new("YAKU_MENZENTSUMO", 1, 1),
 	
 #	"SPACER_7": "Special",
-	"Chiitoitsu": ScoringInfo.Han.new("Chītoitsu", 2, 0, "Hand contains seven pairs. Four of the same tile [i]does not count[/i] as two pairs, they [i]must[/i] all be unique.", "🀚🀚🀛🀛🀔🀔🀖🀖🀍🀍🀂🀂🀅🀅"),
-	"Nagashi Mangan": ScoringInfo.Han.new("Nagashi Mangan", 5, 0, "A round ends with no other win, and your [i]discards[/i] consist solely of terminals and honors.", "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪  "),
+	"Chiitoitsu": ScoringInfo.Han.new("YAKU_CHIITOITSU", 2, 0, "🀚🀚🀛🀛🀔🀔🀖🀖🀍🀍🀂🀂🀅🀅"),
+	"Nagashi Mangan": ScoringInfo.Han.new("YAKU_NAGASHI", 5, 0, "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪  "),
 	
 #	"SPACER_2": "Runs",
 	"SPACER_2": "Groups",
-	"Pinfu": ScoringInfo.Han.new("Pinfu", 1, 1, "No fu except futei and dora fu. This works out to mean: All runs, non-yakuhai pair, and a ryanmen wait.", "🀋🀌🀍🀑🀒🀓🀔🀕🀛🀜🀝🀡🀡 🀖"),
-	"Iipeikou": ScoringInfo.Han.new("Īpeikō", 1, 1, "Two copies of the same run.", "🀇🀇🀈🀈🀉🀉"),
-	"Ryanpeikou": ScoringInfo.Han.new("Ryanpeikō", 3, 1, "Two copies of Īpeikō. The two Īpeikō [i]may[/i] be of different suits, or they [i]may[/i] contain duplicate tiles. [i]Incompatible[/i] with Chītoitsu.", "🀪🀪🀔🀕🀖🀇🀇🀈🀉🀉 🀈 🀔🀕🀖"),
-	"Sanshoku Doujun": ScoringInfo.Han.new("Sanshoku Dōjun", 2, 1, "The same value run in three numbered suits.", "🀈🀉🀊🀑🀒🀓🀚🀛🀜"),
-	"Ittsuu": ScoringInfo.Han.new("Ittsū", 2, 1, "A \"Full Straight\", 1-9 in a single suit. [i]Specifically demands[/i] a winning hand containing the runs 123, 456, and 789, [i]not[/i] just having at least one of every tile.", "🀐🀑🀒🀖🀗🀘🀪🀪🀪🀪 🀪 🀓🀔🀕"),
+	"Pinfu": ScoringInfo.Han.new("YAKU_PINFU", 1, 1, "🀋🀌🀍🀑🀒🀓🀔🀕🀛🀜🀝🀡🀡 🀖"),
+	"Iipeikou": ScoringInfo.Han.new("YAKU_IIPEIKOU", 1, 1, "🀇🀇🀈🀈🀉🀉"),
+	"Ryanpeikou": ScoringInfo.Han.new("YAKU_RYANPEIKOU", 3, 1, "🀪🀪🀔🀕🀖🀇🀇🀈🀉🀉 🀈 🀔🀕🀖"),
+	"Sanshoku Doujun": ScoringInfo.Han.new("YAKU_SANSHOKU_DOUJUN", 2, 1, "🀈🀉🀊🀑🀒🀓🀚🀛🀜"),
+	"Ittsuu": ScoringInfo.Han.new("YAKU_ITTSUU", 2, 1, "🀐🀑🀒🀖🀗🀘🀪🀪🀪🀪 🀪 🀓🀔🀕"),
 	
 #	"SPACER_3": "Sets",
-	"Toitoi": ScoringInfo.Han.new("Toitoi", 2, 0, "Hand consists of four set/quads and a pair.", "🀃🀃🀅🀅 🀅 🀛🀛🀛🀞🀞🀞🀏🀏🀏"),
-	"San'ankou": ScoringInfo.Han.new("San'ankō", 2, 0, "Three concealed sets (quads OK). The [i]sets themselves[/i] must be entirely concealed; finishing the last set with ron does [i]not[/i] qualify.", "🀝🀝🀝🀕🀕🀕🀇🀇🀇🀋 🀋 🀪🀪🀪"),
-	"Sankantsu": ScoringInfo.Han.new("Sankantsu", 2, 0, "Call kan three times.", "🀪🀪🀪🀪 🀪 🀫🀌🀌🀫🀫🀒🀒🀫🀫🀀🀀🀫"),
-	"Sanshoku Doukou": ScoringInfo.Han.new("Sanshoku Dōkō", 2, 0, "The same value set in three numbered suits.", "🀪🀪🀪🀪🀪🀔🀔 🀔 🀝🀝🀝🀋🀋🀋"),
+	"Toitoi": ScoringInfo.Han.new("YAKU_TOITOI", 2, 0, "🀃🀃🀅🀅 🀅 🀛🀛🀛🀞🀞🀞🀏🀏🀏"),
+	"San'ankou": ScoringInfo.Han.new("YAKU_SANANKOU", 2, 0, "🀝🀝🀝🀕🀕🀕🀇🀇🀇🀋 🀋 🀪🀪🀪"),
+	"Sankantsu": ScoringInfo.Han.new("YAKU_SANKANTSU", 2, 0, "🀪🀪🀪🀪 🀪 🀫🀌🀌🀫🀫🀒🀒🀫🀫🀀🀀🀫"),
+	"Sanshoku Doukou": ScoringInfo.Han.new("YAKU_SANSHOKU_DOUKOU", 2, 0, "🀪🀪🀪🀪🀪🀔🀔 🀔 🀝🀝🀝🀋🀋🀋"),
 	
 	"SPACER_4": "Tiles",
-	"Flower": ScoringInfo.Han.new("Flower", 1, 0, "Called flower tile. Does [i]not[/i] contribute to the one Han minimum required to go out.", "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪 🀪 🀢"),
-	"Tan'yao": ScoringInfo.Han.new("Tan'yao", 1, 0, "No terminals or honors in hand.", "🀞🀟🀠🀓🀓🀈🀉🀊🀎🀎 🀎 🀔🀕🀖"),
-	"Yakuhai": ScoringInfo.Han.new("Yakuhai", 1, 0, "Set or quad of seat wind, prevalent wind, or any dragon. Stacks with self if multiple qualifying sets are present.", "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪 🀪 🀄🀄🀄"),
-	"Shousangen": ScoringInfo.Han.new("Shōsangen", 2, 0, "Two Dragon sets/quads and a Dragon pair. Adds onto the existing two Yakuhai, for four total han awarded on the dragons.", "🀪🀪🀪🀪🀪🀄🀄 🀪 🀅🀅🀅🀆🀆🀆"),
+	"Flower": ScoringInfo.Han.new("YAKU_FLOWER", 1, 0, "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪 🀪 🀢"),
+	"Tan'yao": ScoringInfo.Han.new("YAKU_TANYAO", 1, 0, "🀞🀟🀠🀓🀓🀈🀉🀊🀎🀎 🀎 🀔🀕🀖"),
+	"Yakuhai": ScoringInfo.Han.new("YAKU_YAKUHAI", 1, 0, "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪 🀪 🀄🀄🀄"),
+	"Shousangen": ScoringInfo.Han.new("YAKU_SHOUSANGEN", 2, 0, "🀪🀪🀪🀪🀪🀄🀄 🀪 🀅🀅🀅🀆🀆🀆"),
 	#"Daisangen 2": duplicated["Daisangen"],
-	"Chanta": ScoringInfo.Han.new("Chanta", 2, 1, "Every grouping/pair contains an honor or terminal.", "🀙🀚🀛🀇🀇🀇🀆 🀆 🀂🀂🀂🀟🀠🀡"),
-	"Junchan": ScoringInfo.Han.new("Junchan", 3, 1, "Every grouping/pair contains a terminal. Disables Chanta.", "🀇🀉🀐🀑🀒 🀈 🀙🀙🀙🀖🀗🀘🀍🀎🀏"),
-	"Honroutou": ScoringInfo.Han.new("Honrōtō", 2, 0, "Every grouping is composed entirely of terminals or honors. Additonally implies either Toitoi or Chītoitsu, for at least four han. Disables Junchan and Chanta.", "🀇🀇🀏🀏 🀇 🀘🀘🀘🀂🀂🀂🀁🀁🀁"),
+	"Chanta": ScoringInfo.Han.new("YAKU_CHANTA", 2, 1, "🀙🀚🀛🀇🀇🀇🀆 🀆 🀂🀂🀂🀟🀠🀡"),
+	"Junchan": ScoringInfo.Han.new("YAKU_JUNCHAN", 3, 1, "🀇🀉🀐🀑🀒 🀈 🀙🀙🀙🀖🀗🀘🀍🀎🀏"),
+	"Honroutou": ScoringInfo.Han.new("YAKU_HONROUTOU", 2, 0, "🀇🀇🀏🀏 🀇 🀘🀘🀘🀂🀂🀂🀁🀁🀁"),
 	#"Chinroutou 2": duplicated["Chinroutou"],
 	
 #	"SPACER_5": "Suits",
-	"Hon'itsu": ScoringInfo.Han.new("Hon'itsu", 3, 1, "Hand only contains honors and tiles of a single suit.", "🀐🀑🀒🀔🀕🀖🀗 🀗 🀁🀁🀁🀆🀆🀆"),
-	"Chin'itsu": ScoringInfo.Han.new("Chin'itsu", 6, 1, "Hand only contains tiles of a single suit.", "🀙🀚🀛🀜🀝🀠🀠 🀛 🀞🀟🀠🀡🀡🀡"),
+	"Hon'itsu": ScoringInfo.Han.new("YAKU_HONITSU", 3, 1, "🀐🀑🀒🀔🀕🀖🀗 🀗 🀁🀁🀁🀆🀆🀆"),
+	"Chin'itsu": ScoringInfo.Han.new("YAKU_CHINITSU", 6, 1, "🀙🀚🀛🀜🀝🀠🀠 🀛 🀞🀟🀠🀡🀡🀡"),
 	
 	"SPACER_X": "Yakuman",
-#	"TEXT_X": ["Unlike other yaku, Yakuman generally disable any han they imply. For example: Suukantsu disables Sankantsu, Daisangen disables Shousangen and those dragon's Yakuhai."],
-	"TEXT_X": ["Note that Yakuman are automatic limit hands. That is, once you acheive [i]at least[/i] one Yakuman, the score rewarded is simply 32000 (48000 if sitting East) multiplied by the number of fulfilled Yakuman."],
-	"Kazoe Yakuman": ScoringInfo.Han.new("Kazoe Yakuman", 13, 0, "Never awarded itself, simply a name for any hand that reaches or exceeds thirteen han without fulfilling any defined Yakuman pattern. Any other Yakuman disables this one, so there can be no multiple Yakuman hands containing Kazoe.", "🀙🀙🀄🀄 🀙 🀀🀀🀀🀀🀆🀆🀆🀆🀫🀅🀅🀫"),
+	"TEXT_X": [tr("YAKU_YAKUMAN_INTRO")],
+	"Kazoe Yakuman": ScoringInfo.Han.new("YAKU_KAZOE", 13, 0, "🀙🀙🀄🀄 🀙 🀀🀀🀀🀀🀆🀆🀆🀆🀫🀅🀅🀫"),
 	"Daisangen": duplicated["Daisangen"],
-	"Shousuushii": ScoringInfo.Han.new("Shōsūshī", 13, 0, "Three sets/quads of winds and a pair of the fourth.", "🀪🀪 🀀🀀🀀🀃🀃 🀪 🀁🀁🀁🀂🀂🀂"),
-	"Daisuushii": ScoringInfo.Han.new("Daisūshī", 26, 0, "Four sets/quads of winds.", "🀪🀪🀀🀀 🀀 🀁🀁🀁🀂🀂🀂🀃🀃🀃"),
-	"Suuankou": ScoringInfo.Han.new("Sūankō", 13, 0, "Four concealed sets (quads OK). The [i]sets themselves[/i] must be entirely concealed; finishing the last set with ron does [i]not[/i] qualify.", "🀜🀜🀜🀞🀞🀞🀈🀈🀈🀎🀂🀂🀂 🀎"), 
-	"Suukantsu": ScoringInfo.Han.new("Sūkantsu", 13, 0, "Four quads.", "🀪 🀪 🀂🀂🀂🀂🀚🀚🀚🀚🀫🀓🀓🀫🀏🀏🀏🀏"),
-	"Kokushi Musou": ScoringInfo.Han.new("Kokushi Musō", 13, 0, "One of every terminal and honor, and a second of any of them.", "🀙🀡🀘🀇🀏🀀🀁🀂🀃🀆🀆🀅🀄 🀐"),
-	"Tsuuiisou": ScoringInfo.Han.new("Tsūīsō", 13, 0, "Hand only contains honors.", "🀄🀄🀅🀅 🀄 🀁🀁🀁🀃🀃🀃🀆🀆🀆"),
+	"Shousuushii": ScoringInfo.Han.new("YAKU_SHOUSUUSHII", 13, 0, "🀪🀪 🀀🀀🀀🀃🀃 🀪 🀁🀁🀁🀂🀂🀂"),
+	"Daisuushii": ScoringInfo.Han.new("YAKU_DAISUUSHII", 26, 0, "🀪🀪🀀🀀 🀀 🀁🀁🀁🀂🀂🀂🀃🀃🀃"),
+	"Suuankou": ScoringInfo.Han.new("YAKU_SUUANKOU", 13, 0, "🀜🀜🀜🀞🀞🀞🀈🀈🀈🀎🀂🀂🀂 🀎"), 
+	"Suukantsu": ScoringInfo.Han.new("YAKU_SUUKANTSU", 13, 0, "🀪 🀪 🀂🀂🀂🀂🀚🀚🀚🀚🀫🀓🀓🀫🀏🀏🀏🀏"),
+	"Kokushi Musou": ScoringInfo.Han.new("YAKU_KOKUSHI", 13, 0, "🀙🀡🀘🀇🀏🀀🀁🀂🀃🀆🀆🀅🀄 🀐"),
+	"Tsuuiisou": ScoringInfo.Han.new("YAKU_TSUUIISOU", 13, 0, "🀄🀄🀅🀅 🀄 🀁🀁🀁🀃🀃🀃🀆🀆🀆"),
 	"Chinroutou": duplicated["Chinroutou"],
-	"Ryuuiisou": ScoringInfo.Han.new("Ryūīsō", 13, 0, "Hand only contains 2/3/4/6/8-Sou and Green Dragons. These are traditionally the tiles with only green ink on them, however, recolored variants of these tiles still contribute.", "🀑🀒🀓🀕🀕🀗🀗 🀕 🀅🀅🀅🀑🀒🀓"),
-	"Chuuren Poutou": ScoringInfo.Han.new("Chūren Pōtō", 13, 13, "1112345678999 of any suit, plus one more tile from the suit.", "🀇🀇🀇🀈🀉🀊🀋🀌🀍🀎🀏🀏🀏 🀉"),
+	"Ryuuiisou": ScoringInfo.Han.new("YAKU_RYUUIISOU", 13, 0, "🀑🀒🀓🀕🀕🀗🀗 🀕 🀅🀅🀅🀑🀒🀓"),
+	"Chuuren Poutou": ScoringInfo.Han.new("YAKU_CHUUREN", 13, 13, "🀇🀇🀇🀈🀉🀊🀋🀌🀍🀎🀏🀏🀏 🀉"),
 	
-	"Kihou": ScoringInfo.Han.new("Kihō", 13, 0, "Complete a hand without ever discarding."),
+	"Kihou": ScoringInfo.Han.new("YAKU_KIHOU", 13, 0),
 	
 	#  read as a give up flag, so no yaku tab is created. maybe
 	# move to special??
 	"DORA": "Dora",
 	
-	"Kan Dora": ScoringInfo.Han.new("Kan Dora", 1, 0, ""),
-	"Ura Dora": ScoringInfo.Han.new("Ura Dora", 1, 0, ""),
-	"Aka Dora": ScoringInfo.Han.new("Aka Dora", 1, 0, ""),
+	"Kan Dora": ScoringInfo.Han.new("YAKU_KAN_DORA", 1, 0, ""),
+	"Ura Dora": ScoringInfo.Han.new("YAKU_URA_DORA", 1, 0, ""),
+	"Aka Dora": ScoringInfo.Han.new("YAKU_AKA_DORA", 1, 0, ""),
 }
 
 #  spacers are just so the ui can generate titles, shouldn't be accessed
@@ -92,7 +91,7 @@ var YAKUS = {
 # "SPACER_1".
 #  as with yaku, keys are just accesses, values are translation keys
 var FU = {
-	"SPACER_1": "[b][/b]" % tr("FU_HEADER_SPECIAL"),
+	"SPACER_1": "[b]%s[/b]" % tr("FU_HEADER_SPECIAL"),
 	
 	"Base": ScoringInfo.Fu.new("FU_TYPE_BASE", 0),#20),
 	"Menzenkafu": ScoringInfo.Fu.new("FU_TYPE_MENZENKAFU", 10),#10),
@@ -100,7 +99,7 @@ var FU = {
 	"Chiitoitsu": ScoringInfo.Fu.new("FU_TYPE_CHIITOITSU", 5),#25),
 	"Ao Dora": ScoringInfo.Fu.new("FU_TYPE_AO_DORA", 16),
 	
-	"SPACER_2": "[b][/b]" % tr("FU_HEADER_GROUPINGS"),
+	"SPACER_2": "[b]%s[/b]" % tr("FU_HEADER_GROUPINGS"),
 	
 	"Pair": ScoringInfo.Fu.new("FU_TYPE_PAIR", 0),
 	"Yakuhai Pair": ScoringInfo.Fu.new("FU_TYPE_YAKUHAI_PAIR", 2),
@@ -114,7 +113,7 @@ var FU = {
 	# existing gui code.
 	"Yaochuu Multiplier": ScoringInfo.Fu.new("FU_TYPE_YAOCHUU_MULT", 2),
 	
-	"SPACER_3": "[b][/b]" % tr("FU_HEADER_WAITS"),
+	"SPACER_3": "[b]%s[/b]" % tr("FU_HEADER_WAITS"),
 	
 	"1-sided Wait": ScoringInfo.Fu.new("FU_TYPE_1SIDED", 2),
 	"2-sided Wait": ScoringInfo.Fu.new("FU_TYPE_2SIDED", 0),
@@ -140,11 +139,11 @@ func get_fu_upgrade(str: String):
 		return 2 if FU[str].fu == 0 else FU[str].fu
 
 # syntax highlight yaku
-func format_han():
-	for h in YAKUS.values():
-		if !(h is ScoringInfo.Han):
-			continue
-		for hn in YAKUS.values():
-			if !(hn is ScoringInfo.Han):
-				continue
-			h.desc = h.desc.replace(hn.nam, "[color=%s]%s[/color]" % [COL.YELLOW, hn.nam])
+#func format_han():
+#	for h in YAKUS.values():
+#		if !(h is ScoringInfo.Han):
+#			continue
+#		for hn in YAKUS.values():
+#			if !(hn is ScoringInfo.Han):
+#				continue
+#			h.desc = h.desc.replace(hn.nam, "[color=%s]%s[/color]" % [COL.YELLOW, hn.nam])

@@ -6,10 +6,10 @@ uid="uid://b2acr7ki1kvtv"
 
 [deps]
 
-files=["res://text/MAHJONG_TRANSLATIONS.en.translation", "res://text/MAHJONG_TRANSLATIONS.ja.translation"]
+files=["res://text/MAHJONG_TRANSLATIONS.notes.translation", "res://text/MAHJONG_TRANSLATIONS.en.translation", "res://text/MAHJONG_TRANSLATIONS.ja.translation"]
 
 source_file="res://text/MAHJONG_TRANSLATIONS.csv"
-dest_files=["res://text/MAHJONG_TRANSLATIONS.en.translation", "res://text/MAHJONG_TRANSLATIONS.ja.translation"]
+dest_files=["res://text/MAHJONG_TRANSLATIONS.notes.translation", "res://text/MAHJONG_TRANSLATIONS.en.translation", "res://text/MAHJONG_TRANSLATIONS.ja.translation"]
 
 [params]
 

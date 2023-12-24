@@ -67,8 +67,10 @@ texture_margin_bottom = 2.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[sub_resource type="LabelSettings" id="LabelSettings_oxwec"]
+[sub_resource type="LabelSettings" id="LabelSettings_swivg"]
 line_spacing = 0.0
+font = ExtResource("28_jde07")
+font_size = 10
 font_color = Color(1, 1, 0.933333, 1)
 shadow_color = Color(0.8, 0.466667, 0.2, 1)
 shadow_offset = Vector2(0, 1)
@@ -461,8 +463,8 @@ stretch_mode = 1
 
 [node name="Label" type="Label" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/ManaBar"]
 layout_mode = 2
-text = "111"
-label_settings = SubResource("LabelSettings_oxwec")
+text = "50"
+label_settings = SubResource("LabelSettings_swivg")
 horizontal_alignment = 1
 
 [node name="Items" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer"]
@@ -960,7 +962,6 @@ theme_override_fonts/font = ExtResource("28_jde07")
 tab_alignment = 1
 
 [node name="TAB_GUIDE_BASICS" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_BASICS"]
@@ -1261,6 +1262,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
 text = "  🀫🀫🀫🀫🀖→🀗 / 🀫🀫🀫🀡🀅→🀙🀄"
 
 [node name="TAB_GUIDE_WAITS" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_WAITS"]
@@ -1282,6 +1284,10 @@ bbcode_enabled = true
 text = "GUIDE_WAITS_INTRO"
 fit_content = true
 script = ExtResource("52_jcp4g")
+
+[node name="Control" type="Control" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_WAITS/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
 
 [node name="LabelWithTiles" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_WAITS/ScrollContainer/VBoxContainer"]
 layout_mode = 2

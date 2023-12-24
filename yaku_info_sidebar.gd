@@ -1,9 +1,10 @@
 extends Control
 
-@onready var name_label = $VBoxContainer/HBoxContainer/NameLabel
-@onready var han_label = $VBoxContainer/HBoxContainer/HanLabel
+@onready var name_label = $VBoxContainer/Panel/HBoxContainer/NameLabel
+@onready var han_label = $VBoxContainer/Panel/HBoxContainer/HanLabel
 @onready var desc_label = $VBoxContainer/DescLabel
-@onready var closed_label = $VBoxContainer/HBoxContainer/ClosedLabel
+@onready var translit_label = $VBoxContainer/TranslitLabel
+@onready var closed_label = $VBoxContainer/Panel/HBoxContainer/ClosedLabel
 @onready var tile_label = $VBoxContainer/TileLabel
 
 func set_info(info: ScoringInfo.Han):
@@ -21,9 +22,13 @@ func set_info(info: ScoringInfo.Han):
 		closed_label.text = " (-%d Open) " % info.open_penalty
 	else:
 		closed_label.text = ""
+	
 	desc_label.clear()
-	desc_label.append_text(info.desc)
+	desc_label.append_text(tr(info.TR_KEY + "_DESC"))
+	translit_label.clear()
+	translit_label.append_text("[i]" + tr(info.TR_KEY + "_LIT"))
 	tile_label.text = info.graphic_desc
+	
 	if tile_label.text.length() < 14:
 		while tile_label.text.length() < 13:
 			tile_label.text += "🀪"

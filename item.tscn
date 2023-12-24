@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://xbdfpjmfa56k"]
+[gd_scene load_steps=19 format=3 uid="uid://xbdfpjmfa56k"]
 
 [ext_resource type="Script" path="res://item.gd" id="1_2a2qp"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="1_6ek5j"]
@@ -54,6 +54,11 @@ axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 region_rect = Rect2(0, 0, 8, 8)
 
+[sub_resource type="LabelSettings" id="LabelSettings_j4dpv"]
+line_spacing = 0.0
+font_size = 9
+font_color = Color(1, 1, 0.933333, 1)
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_83iqy"]
 content_margin_left = 2.0
 content_margin_top = 0.0
@@ -66,6 +71,11 @@ texture_margin_right = 3.0
 texture_margin_bottom = 3.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_174mr"]
+line_spacing = 0.0
+font_size = 12
+font_color = Color(1, 1, 0.933333, 1)
 
 [node name="Item" type="Control"]
 custom_minimum_size = Vector2(32, 32)
@@ -148,6 +158,7 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_jucxd")
 [node name="CounterLabel" type="Label" parent="PanelContainer"]
 layout_mode = 2
 text = "7"
+label_settings = SubResource("LabelSettings_j4dpv")
 
 [node name="SellPanelContainer" type="PanelContainer" parent="."]
 z_index = 1
@@ -163,3 +174,4 @@ script = ExtResource("9_u3qb0")
 [node name="Label" type="Label" parent="SellPanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
+label_settings = SubResource("LabelSettings_174mr")
