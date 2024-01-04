@@ -10,9 +10,13 @@ config_version=5
 
 [application]
 
-config/name="mahjong"
+config/name="ULTIMAHJONG"
 run/main_scene="res://root.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
+boot_splash/bg_color=Color(0.266667, 0.466667, 0.4, 1)
+boot_splash/image="res://image/splash.png"
+boot_splash/fullsize=false
+boot_splash/use_filter=false
 config/icon="res://icon.svg"
 
 [autoload]
@@ -23,6 +27,7 @@ COL="*res://global/Colors.gd"
 CursorText="*res://global/cursor_text.tscn"
 MusicManager="*res://global/MusicManager.tscn"
 AnimTimer="*res://AnimTimer.gd"
+LocaleChangedSignaller="*res://global/LocaleChangedSignaller.gd"
 
 [display]
 
@@ -59,7 +64,6 @@ start_shop={
 
 locale/translation_remaps={}
 locale/translations=PackedStringArray("res://text/MAHJONG_TRANSLATIONS.en.translation", "res://text/MAHJONG_TRANSLATIONS.ja.translation")
-locale/test="ja"
 
 [rendering]
 

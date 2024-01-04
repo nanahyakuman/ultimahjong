@@ -17,20 +17,24 @@ class Han:
 	# really used to clean up the scoring display.
 	var count: int = 1
 	
+	#  for marking some yaku as easy to go for for beginners
+	var easy = false
+	
 	func compare(a: Han, b: Han):
 		if a.han < b.han:
 			return true
 		return false
 	
-	func _init(_key: String, _han: int, _penalty: int, _graphic_desc: String = ""):
+	func _init(_key: String, _han: int, _penalty: int, _graphic_desc: String = "", _easy: bool = false):
 		TR_KEY = _key
-		nam = tr(_key)
+		nam = _key
 		closed_han = _han
 		open_penalty = _penalty
 		graphic_desc = _graphic_desc
+		easy = _easy
 	
 	func duplicate():
-		return Han.new(TR_KEY, closed_han, open_penalty, graphic_desc)
+		return Han.new(TR_KEY, closed_han, open_penalty, graphic_desc, easy)
 	
 	func calc_han(open: bool):
 		return maxi(0, closed_han - (open_penalty * int(open))) * count
@@ -43,7 +47,7 @@ class Fu:
 	var times_upgraded = 0
 	
 	func _init(_name: String, _fu):
-		nam = tr(_name)
+		nam = _name
 		fu = _fu
 	
 	func duplicate():

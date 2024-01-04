@@ -1,5 +1,5 @@
 keys,notes,en,ja
-TAB_RUN,"as in ""an isaac run"", a single playthrough of a arcade/rogulike game",Run,
+TAB_RUN,"as in ""an isaac run"", a single playthrough of a arcade/rogulike game",Run,当荘
 TAB_YAKU,,Yaku,役
 TAB_GUIDE,,Guide,説明
 TAB_OPTIONS,,Options,設定
@@ -19,7 +19,7 @@ FU_HEADER_SPECIAL,,Special,特別
 FU_TYPE_BASE,,Base,符底
 FU_TYPE_MENZENKAFU,,Menzenkafu,門前加符
 FU_TYPE_TSUMO,,Tsumo,自摸
-FU_TYPE_CHIITOITSU,,Chītoitsu,七対子
+FU_TYPE_CHIITOITSU,,Chiitoitsu,七対子
 FU_TYPE_AO_DORA,,Ao Dora,青ドラ
 FU_HEADER_GROUPINGS,,Groupings,面子
 FU_TYPE_PAIR,,Pair,対子
@@ -36,6 +36,17 @@ FU_TYPE_1SIDED,,1-Sided,一面
 FU_TYPE_2SIDED,,2-Sided,両面
 FU_TYPE_3SIDED,,~~~~~,
 ,,,
+GUIDE_BASICS_1,split into parts so that we can provide examples alongside text easily,"[b]Mahjong Fundamentals[/b]
+Every round, the basic aim is to build a winning hand with the 13 tiles in hand combined with a final 14th tile. This last tile is either drawn yourself or discarded by an opponent player.
+Wtih two exceptions (Chiitoitsu and Kokushi Musou), every hand is made up of 3 groups of 3 and a pair of 2. Groups are either runs in a suit of length 3, sets of identical tiles of size 3, or sets of size 4 (which trigger an additional draw, so that the rest of the hand still completes naturally). An example hand is given below:",
+GUIDE_BASICS_2,,"This hand consists of a run of 123-Pin, a run of 234-Sou and of 678-Sou, a pair of 9-Man, and a set of Red Dragons, totalling, once more, to 4 groups and a pair.
+Critically, this hand meets at least one win condition, more commonly referred to as [i]Yaku[/i]. Here, the hand meets [i]Yakuhai[/i] by having a set of Red Dragons. A hand [i]is not valid[/i] if it does not meet at least one Yaku. Refer to the Yaku tab for information on specific Yaku, but Yakuhai is one of the more easily acheivable ones (which have been starred for reference). Riichi is perhaps the most critical to understand, but the explanation behind it is left in the Yaku tab.
+A round ends when the number of tiles left in the wall reaches a cutoff, 30 by default. If you have not gone out by this point, you get no points.
+
+[b]UltiMahjong Fundamentals[/b]
+The whole game is played out across 16 rounds. Every round, your seat wind advances in counterclockwise compass order (N>W>S>E), and every four rounds, the prevalent wind advances in clockwise compass order (E>S>W>N).
+At the end of every round, you must have met a minimum score to continue the run. This minimum threshold increases every round. The amount that it will increase next round also increases.
+Finishing a round opens the shop, and grants you a static amount of money. You can buy anything you have enough money for, or sell items for money. All unspent money is [i]forfeited[/i] when you close the shop!",
 GUIDE_TILES_HEADER_TYPES,,Tile Types,牌の種類
 GUIDE_TILES_TERMINAL,,Terminal: 1 or 9 in any number suit.,老頭牌：数牌の１と９。
 GUIDE_TILES_SIMPLE,,Simple: 2 through 8 in any number suit.,中張牌：数牌の２～８。
@@ -76,7 +87,7 @@ Here is a table:
 ~TABLE~",
 ,,,
 YAKU_RIICHI,,Riichi,立直
-YAKU_RIICHI_DESC,,"Once you're one tile away from a completed hand, you can enter Riichi. This prevents you from modifying your hand any further; all you can do is wait until your winning tile is discarded, or you draw it yourself.\nCosts 1000 points to enter, but these are returned if successful.\nEnables Ippatsu.",聴牌したら、立直ができます。するとできる行為が自摸切れと上がることに限る。1000点を払い、上がったら戻す。
+YAKU_RIICHI_DESC,,"Once you're one tile away from a completed hand, you can enter Riichi. This prevents you from modifying your hand any further; all you can do is wait until your winning tile is discarded, or you draw it yourself.\nCosts 1000 points to enter, but these are returned if successful.\nEnables Ippatsu.",聴牌したら、立直ができます。するとできる行為が自摸切れと上がることに限る。１０００点を払い、上がったら戻す。
 YAKU_RIICHI_LIT,_LIT fields mean a literal translation of the name of the yaku. Japanese specifically should put a reading here instead!,Ready,リーチ
 YAKU_DOUBLE_RIICHI,,Double Riichi,ダブル立直
 YAKU_DOUBLE_RIICHI_DESC,,Declare Riichi with your first discard.,最初の捨牌で立直。
@@ -131,7 +142,7 @@ YAKU_FLOWER_DESC,,Called flower tile. Does [i]not[/i] contribute to the one Han 
 YAKU_FLOWER_LIT,,Flower,ファパイ
 YAKU_TANYAO,,Tan'yao,断么九
 YAKU_TANYAO_DESC,,No terminals or honors in hand.,字牌と数牌の１と９がない。
-YAKU_TANYAO_LIT,,All Simples,タンヤオ
+YAKU_TANYAO_LIT,,All Simples,タンヤオ、タンヤオチュー
 YAKU_YAKUHAI,,Yakuhai,役牌
 YAKU_YAKUHAI_DESC,,"Set or quad of seat wind, prevalent wind, or any dragon. Stacks with self if multiple qualifying sets are present.",元牌、または場風や自風。
 YAKU_YAKUHAI_LIT,,Honor Tile,ヤクハイ
@@ -140,10 +151,10 @@ YAKU_SHOUSANGEN_DESC,,"Two Dragon sets/quads and a Dragon pair. Adds onto the ex
 YAKU_SHOUSANGEN_LIT,,Little Three Dragons,ショーサンゲン
 YAKU_CHANTA,,Chanta,混全帯么九
 YAKU_CHANTA_DESC,,Every grouping/pair contains an honor or terminal.,全部の面子が字牌や老頭牌を含む。
-YAKU_CHANTA_LIT,,Half Outside,ホンチャンタイヤオチュウ、チャンタ
+YAKU_CHANTA_LIT,,Half Outside,チャンタ、ホンチャンタイヤオチュウ
 YAKU_JUNCHAN,,Junchan,純全帯么九
 YAKU_JUNCHAN_DESC,,Every grouping/pair contains a terminal. Disables Chanta.,全部の面子が老頭を含む。
-YAKU_JUNCHAN_LIT,,Full Outside,ジュンチャンタイヤオチュウ、ジュンチャン
+YAKU_JUNCHAN_LIT,,Full Outside,ジュンチャン、ジュンチャンタイヤオチュウ
 YAKU_HONROUTOU,,Honroutou,混老頭
 YAKU_HONROUTOU_DESC,,"Every grouping is composed entirely of terminals or honors. Additonally implies either Toitoi or Chiitoitsu, for at least four han. Disables Junchan and Chanta.",全部の牌が字牌や老頭牌。七対子か対々和はおろか。
 YAKU_HONROUTOU_LIT,,All Terminals and Honors,ホンロート―
@@ -204,25 +215,39 @@ CALL_TSUMO,,Tsumo,自摸
 CALL_RIICHI,,Riichi,リーチ
 CALL_FLOWER,,Flower,花
 ,,,
-ITEM_ERASER,,Eraser,
-ITEM_ERASER_DESC,,Current tsumo tile is replaced with a White Dragon [i]temporarily[/i].,
-ITEM_WIND_MAGNET,,Wind Charm,
-ITEM_WIND_MAGNET_DESC,,"4th tile in the wall switches positions with a random wind from the remaining wall, if there is one.",
-ITEM_BATTERY,,9-Volt,
-ITEM_BATTERY_DESC,,Reduce all [i]other[/i] item cooldown counters by 9. Only works on items with cooldowns.,
-ITEM_KAN_SWAP,,Kan Swap,
-ITEM_KAN_SWAP_DESC,,Replace the most recently revealed kan dora with a tile from hand or tsumo.,
-ITEM_PIN_DUPE,,Pinplicator,
-ITEM_PIN_DUPE_DESC,,Convert a selected Pin into a selected Pin [i]temporarily[/i].,
-ITEM_SOU_ADJ,,Sou-so,
-ITEM_SOU_ADJ_DESC,,Convert a selected Sou into a selected Sou's predecessor [i]temporarily[/i].,
-ITEM_AKAFY,,Factory Seize,
-ITEM_AKAFY_DESC,,A random non-aka tile in hand [i]but not tsumo[/i] becomes aka.,
-ITEM_POCCHI,,·A·Rock,
-ITEM_POCCHI_DESC,,Add a Pocchi to the current tsumo tile [i]permanently[/i].,
-ITEM_MAN_TERM,,Hat Man,
-ITEM_MAN_TERM_DESC,,Shift a selected Man's value into the terminal further from it [i]temporarily[/i]. Distance ties are chosen at random.,
-ITEM_DRAGON_CYCLE,,Dragon Cycle,
-ITEM_DRAGON_CYCLE_DESC,,Increment a selected Dragon's type (W>G>R>W).,
-ITEM_SUJI_OFFSET,,Suji Shift,
-ITEM_SUJI_OFFSET_DESC,,Adjust current tsumo tile's value by +/- 3. Only works on numbered tiles.,
+ITEM_ONE_TIME,use %d for inserted digits,One-time use.,一回
+ITEM_CONSUME_MANA,,Consumes %d Mana.,マナ%d
+ITEM_COOLDOWN,,Cooldown of %d.,充電%d
+ITEM_ERASER,,Eraser,消しゴム
+ITEM_ERASER_DESC,,Current tsumo tile is replaced with a White Dragon [i]temporarily[/i].,自摸牌は白になる。一時的。
+ITEM_WIND_MAGNET,,Wind Charm,風守り
+ITEM_WIND_MAGNET_DESC,,"Next tile in the wall you would draw switches positions with a random wind from the remaining wall, if there is one.",次に自模るべき牌が山にある風牌と居場所を交換。風牌がない場合に無益。
+ITEM_BATTERY,,9-Volt,９ヴォルト
+ITEM_BATTERY_DESC,,Reduce all [i]other[/i] item cooldown counters by 9. Only works on items with cooldowns.,９ヴォルトでない充電できるアイテムが９充電。
+ITEM_KAN_SWAP,,Kan Swap,カンカン
+ITEM_KAN_SWAP_DESC,,Replace the most recently revealed kan dora with a tile from hand or tsumo.,一番最近に現れた槓ドラを選べた手牌また自摸牌と交換。
+ITEM_PIN_DUPE,,Pinplicator,ピン副
+ITEM_PIN_DUPE_DESC,,Convert a selected Pin into a selected Pin [i]temporarily[/i].,選べた筒子を選べた筒子に変更。一時的。
+ITEM_SOU_ADJ,,Sou-so,ソウ代
+ITEM_SOU_ADJ_DESC,,Convert a selected Sou into a selected Sou's predecessor [i]temporarily[/i].,選べた索子を選べた索子の一つ下に変更。一時的。
+ITEM_AKAFY,,Factory Seize,赤化
+ITEM_AKAFY_DESC,,A random non-aka tile in hand [i]but not tsumo[/i] becomes aka (temporarily).,自摸じゃないランダムな手牌を赤くする。一時的。
+ITEM_POCCHI,,·A·Rock,・あ・ろっく
+ITEM_POCCHI_DESC,,Add a Pocchi to the current tsumo tile [i]permanently[/i].,自摸牌にポッチを埋め込む。永続的。
+ITEM_MAN_TERM,,Hat Man,極マン
+ITEM_MAN_TERM_DESC,,Shift a selected Man's value into the terminal further from it [i]temporarily[/i]. Distance ties are chosen at random.,選べた萬子を一番遠い老頭牌に変更。一時的。
+ITEM_DRAGON_CYCLE,,Dragon Cycle,元更
+ITEM_DRAGON_CYCLE_DESC,,Increment a selected Dragon's type (W>G>R>W).,選べた元牌の種類を変更。順は白發中。一時的。
+ITEM_SUJI_OFFSET,,Suji Shift,スジずり
+ITEM_SUJI_OFFSET_DESC,,Adjust current tsumo tile's value by +/- 3 [i]temporarily[/i]. Only works on numbered tiles.,自摸牌を＋／ー３変更。一時的。
+,,,
+HOVER_SEAT_WIND,,Your Sitting Wind. Changes every round.,場風。局ずつに変わる。
+HOVER_PREV_WIND,,The Prevalent Wind. Changes every 4 rounds.,場風。各四局に変わる。
+HOVER_MANA,,Mana. Increases every time a tile is drawn.,マナ。牌を自摸とマナを得る。
+HOVER_DEAD_TILES,,Dead Tiles. Not drawn normally.,牌山の後ろ。普通に自模らない。
+HOVER_WALL,,Tiles in the wall.,牌山。
+,,,
+TILESET_NAME_KANJI,"different tilesets, one has traditional kanji man and the other has arabic numerals",Kanji,漢数字
+TILESET_NAME_ARABIC,,Arabic,アラビア数字
+,,,
+BUTTON_QUIT,,Save and Quit,保存して終了

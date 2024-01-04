@@ -10,16 +10,18 @@ func _ready():
 		c.queue_free()
 	
 	for str in yakufu.FU.keys():
+		# headers
 		if yakufu.FU[str] is String:
 			var a = RichTextLabel.new()
 			add_child(a)
 			a.bbcode_enabled = true
-			a.append_text(yakufu.FU[str])
+			a.append_text(tr(yakufu.FU[str]))
 			a.fit_content = true
+		# fu
 		else:
 			var a = fu_graphical.instantiate()
 			add_child(a)
-			a.set_string(yakufu.FU[str].nam, yakufu.FU[str].fu)
+			a.set_string(tr(yakufu.FU[str].nam), (yakufu.FU[str].fu))
 			a.set_upgrade_count(yakufu.FU[str].times_upgraded)
 	
 	var a = Control.new()

@@ -6,6 +6,7 @@ extends Control
 @onready var translit_label = $VBoxContainer/TranslitLabel
 @onready var closed_label = $VBoxContainer/Panel/HBoxContainer/ClosedLabel
 @onready var tile_label = $VBoxContainer/TileLabel
+@onready var easy_texture_rect = $VBoxContainer/Panel/HBoxContainer/EasyTextureRect
 
 func set_info(info: ScoringInfo.Han):
 	name_label.text = info.nam
@@ -22,6 +23,8 @@ func set_info(info: ScoringInfo.Han):
 		closed_label.text = " (-%d Open) " % info.open_penalty
 	else:
 		closed_label.text = ""
+	
+	easy_texture_rect.visible = info.easy
 	
 	desc_label.clear()
 	desc_label.append_text(tr(info.TR_KEY + "_DESC"))

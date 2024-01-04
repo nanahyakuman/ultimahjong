@@ -120,6 +120,7 @@ func update_winds(prev: int, seat: int):
 func update_wall_count(c: int, d: int, k: int):
 	graphic_tile_counter.update_wall_count(c, d, k)
 
+
 func update_score(score: int, expected_score: int, expected_points_mod: int, expected_points_mod_mod: int):
 	score_label.set_text_colorized(str(score))
 	needed_score_label.set_text_colorized(str(expected_score))

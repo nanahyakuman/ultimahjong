@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://rb85jd55olq5"]
+[gd_scene load_steps=10 format=3 uid="uid://rb85jd55olq5"]
 
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="1_m2kay"]
 [ext_resource type="Script" path="res://yaku_info_sidebar.gd" id="1_wqere"]
 [ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="2_mlqvd"]
 [ext_resource type="Texture2D" uid="uid://b7h15nvxigut7" path="res://image/yaku_title_9pr.png" id="3_7srww"]
 [ext_resource type="FontFile" uid="uid://bian1q53chnum" path="res://text/font/BodyTilesColor.png" id="4_srsxn"]
+[ext_resource type="Texture2D" uid="uid://36cg5qylnrf8" path="res://image/yakustar.png" id="4_y6rvf"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nqrn4"]
 texture = ExtResource("3_7srww")
@@ -48,6 +49,12 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_nqrn4")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Panel"]
 layout_mode = 2
+
+[node name="EasyTextureRect" type="TextureRect" parent="VBoxContainer/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("4_y6rvf")
 
 [node name="NameLabel" type="Label" parent="VBoxContainer/Panel/HBoxContainer"]
 layout_mode = 2

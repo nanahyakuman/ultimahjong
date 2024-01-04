@@ -34,6 +34,7 @@ func assign_tiles(ts: Array, hidden: int = 0):
 	for i in tiles.size():
 		var tg = tile_graphic.instantiate()
 		tile_container.add_child(tg)
+		tg.mouse_filter = MOUSE_FILTER_PASS
 		tg.assign_tile(tiles[i])
 		if hidden_mask[i]:
 			tg.set_reversed(true)

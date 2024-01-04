@@ -56,13 +56,13 @@ func _ready():
 	# additional gfx that vary based on type
 	match charge_type:
 		CH_TYPES.ONCE:
-			hover_body.append_text("One-time use.")
+			hover_body.append_text(tr("ITEM_ONE_TIME"))
 			panel_container.get_theme_stylebox("panel").region_rect.position.x = 8 * 3
 		CH_TYPES.MANA:
-			hover_body.append_text("Consumes %d Mana." % COOLD[type])
+			hover_body.append_text(tr("ITEM_CONSUME_MANA") % COOLD[type])
 			panel_container.get_theme_stylebox("panel").region_rect.position.x = 8 * 1
 		CH_TYPES.TIMR:
-			hover_body.append_text("Cooldown of %d." % COOLD[type])
+			hover_body.append_text(tr("ITEM_COOLDOWN") % COOLD[type])
 			panel_container.get_theme_stylebox("panel").region_rect.position.x = 8 * 2
 	
 	

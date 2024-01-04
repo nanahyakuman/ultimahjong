@@ -18,8 +18,8 @@ var duplicated = {
 # but names and decriptions are automatically translated by the `Han` constructor.
 #  the tilestrings are NOT translated!
 var YAKUS = {
-	"SPACER_1": "Special",
-	"Riichi": ScoringInfo.Han.new("YAKU_RIICHI", 1, 1),
+	"SPACER_1": "TAB_YAKU_SPECIAL",
+	"Riichi": ScoringInfo.Han.new("YAKU_RIICHI", 1, 1, "", true),
 	"Double Riichi": ScoringInfo.Han.new("YAKU_DOUBLE_RIICHI", 2, 2),
 	"Ippatsu": ScoringInfo.Han.new("YAKU_IPPATSU", 1, 1),
 	
@@ -33,7 +33,7 @@ var YAKUS = {
 	"Nagashi Mangan": ScoringInfo.Han.new("YAKU_NAGASHI", 5, 0, "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪  "),
 	
 #	"SPACER_2": "Runs",
-	"SPACER_2": "Groups",
+	"SPACER_2": "TAB_YAKU_GROUPS",
 	"Pinfu": ScoringInfo.Han.new("YAKU_PINFU", 1, 1, "🀋🀌🀍🀑🀒🀓🀔🀕🀛🀜🀝🀡🀡 🀖"),
 	"Iipeikou": ScoringInfo.Han.new("YAKU_IIPEIKOU", 1, 1, "🀇🀇🀈🀈🀉🀉"),
 	"Ryanpeikou": ScoringInfo.Han.new("YAKU_RYANPEIKOU", 3, 1, "🀪🀪🀔🀕🀖🀇🀇🀈🀉🀉 🀈 🀔🀕🀖"),
@@ -46,10 +46,9 @@ var YAKUS = {
 	"Sankantsu": ScoringInfo.Han.new("YAKU_SANKANTSU", 2, 0, "🀪🀪🀪🀪 🀪 🀫🀌🀌🀫🀫🀒🀒🀫🀫🀀🀀🀫"),
 	"Sanshoku Doukou": ScoringInfo.Han.new("YAKU_SANSHOKU_DOUKOU", 2, 0, "🀪🀪🀪🀪🀪🀔🀔 🀔 🀝🀝🀝🀋🀋🀋"),
 	
-	"SPACER_4": "Tiles",
-	"Flower": ScoringInfo.Han.new("YAKU_FLOWER", 1, 0, "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪 🀪 🀢"),
-	"Tan'yao": ScoringInfo.Han.new("YAKU_TANYAO", 1, 0, "🀞🀟🀠🀓🀓🀈🀉🀊🀎🀎 🀎 🀔🀕🀖"),
-	"Yakuhai": ScoringInfo.Han.new("YAKU_YAKUHAI", 1, 0, "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪 🀪 🀄🀄🀄"),
+	"SPACER_4": "TAB_YAKU_TILES",
+	"Tan'yao": ScoringInfo.Han.new("YAKU_TANYAO", 1, 0, "🀞🀟🀠🀓🀓🀈🀉🀊🀎🀎 🀎 🀔🀕🀖", true),
+	"Yakuhai": ScoringInfo.Han.new("YAKU_YAKUHAI", 1, 0, "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪 🀪 🀄🀄🀄", true),
 	"Shousangen": ScoringInfo.Han.new("YAKU_SHOUSANGEN", 2, 0, "🀪🀪🀪🀪🀪🀄🀄 🀪 🀅🀅🀅🀆🀆🀆"),
 	#"Daisangen 2": duplicated["Daisangen"],
 	"Chanta": ScoringInfo.Han.new("YAKU_CHANTA", 2, 1, "🀙🀚🀛🀇🀇🀇🀆 🀆 🀂🀂🀂🀟🀠🀡"),
@@ -58,16 +57,16 @@ var YAKUS = {
 	#"Chinroutou 2": duplicated["Chinroutou"],
 	
 #	"SPACER_5": "Suits",
-	"Hon'itsu": ScoringInfo.Han.new("YAKU_HONITSU", 3, 1, "🀐🀑🀒🀔🀕🀖🀗 🀗 🀁🀁🀁🀆🀆🀆"),
+	"Hon'itsu": ScoringInfo.Han.new("YAKU_HONITSU", 3, 1, "🀐🀑🀒🀔🀕🀖🀗 🀗 🀁🀁🀁🀆🀆🀆", true),
 	"Chin'itsu": ScoringInfo.Han.new("YAKU_CHINITSU", 6, 1, "🀙🀚🀛🀜🀝🀠🀠 🀛 🀞🀟🀠🀡🀡🀡"),
 	
-	"SPACER_X": "Yakuman",
+	"SPACER_X": "TAB_YAKU_YAKUMAN",
 	"TEXT_X": [tr("YAKU_YAKUMAN_INTRO")],
 	"Kazoe Yakuman": ScoringInfo.Han.new("YAKU_KAZOE", 13, 0, "🀙🀙🀄🀄 🀙 🀀🀀🀀🀀🀆🀆🀆🀆🀫🀅🀅🀫"),
 	"Daisangen": duplicated["Daisangen"],
-	"Shousuushii": ScoringInfo.Han.new("YAKU_SHOUSUUSHII", 13, 0, "🀪🀪 🀀🀀🀀🀃🀃 🀪 🀁🀁🀁🀂🀂🀂"),
+	"Shousuushii": ScoringInfo.Han.new("YAKU_SHOUSUUSHII", 13, 0, "🀪🀪🀀🀀🀀🀃🀃 🀪 🀁🀁🀁🀂🀂🀂"),
 	"Daisuushii": ScoringInfo.Han.new("YAKU_DAISUUSHII", 26, 0, "🀪🀪🀀🀀 🀀 🀁🀁🀁🀂🀂🀂🀃🀃🀃"),
-	"Suuankou": ScoringInfo.Han.new("YAKU_SUUANKOU", 13, 0, "🀜🀜🀜🀞🀞🀞🀈🀈🀈🀎🀂🀂🀂 🀎"), 
+	"Suuankou": ScoringInfo.Han.new("YAKU_SUUANKOU", 13, 0, "🀜🀜🀜🀞🀞🀞🀎🀂🀂🀂 🀎 🀫🀈🀈🀫"), 
 	"Suukantsu": ScoringInfo.Han.new("YAKU_SUUKANTSU", 13, 0, "🀪 🀪 🀂🀂🀂🀂🀚🀚🀚🀚🀫🀓🀓🀫🀏🀏🀏🀏"),
 	"Kokushi Musou": ScoringInfo.Han.new("YAKU_KOKUSHI", 13, 0, "🀙🀡🀘🀇🀏🀀🀁🀂🀃🀆🀆🀅🀄 🀐"),
 	"Tsuuiisou": ScoringInfo.Han.new("YAKU_TSUUIISOU", 13, 0, "🀄🀄🀅🀅 🀄 🀁🀁🀁🀃🀃🀃🀆🀆🀆"),
@@ -81,9 +80,11 @@ var YAKUS = {
 	# move to special??
 	"DORA": "Dora",
 	
-	"Kan Dora": ScoringInfo.Han.new("YAKU_KAN_DORA", 1, 0, ""),
+	# moved here bc it's a bonus, not a tile
+	"Flower": ScoringInfo.Han.new("YAKU_FLOWER", 1, 0, "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪 🀪 🀢"),
+	"Kan Dora": ScoringInfo.Han.new("YAKU_KAN_DORA", 1, 0, "", true),
 	"Ura Dora": ScoringInfo.Han.new("YAKU_URA_DORA", 1, 0, ""),
-	"Aka Dora": ScoringInfo.Han.new("YAKU_AKA_DORA", 1, 0, ""),
+	"Aka Dora": ScoringInfo.Han.new("YAKU_AKA_DORA", 1, 0, "", true),
 }
 
 #  spacers are just so the ui can generate titles, shouldn't be accessed

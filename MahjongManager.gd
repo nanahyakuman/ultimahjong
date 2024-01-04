@@ -582,8 +582,8 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 			# redundant to clear bc we just draw another
 			#gui_manager.update_tsumo([])
 		was_last_draw_from_dead_wall = true
-#		do_tsumo(dead_wall.pop_back())
-		do_tsumo()
+		do_tsumo(wall.pop_back())
+#		do_tsumo()
 	else:
 		_do_post_call_discard()
 

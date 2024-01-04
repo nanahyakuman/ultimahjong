@@ -23,6 +23,8 @@ end of every round can purchase:
 		drawing a tile gives you 2 mana instead of 1 (20% speed buff)
 		pin-fu (pin award fu)
 		can score a 0-han hand
+		reduce opponent discards by one
+		riichi costs 2000 and adds 2 han
 	spell cards, refresh every x draws
 	x	next tile will be --honor-- wind
 	x	exchange one tile for a false haku
@@ -35,10 +37,13 @@ end of every round can purchase:
 		reclose a called set
 		spawn a random orphan
 		convert a wind to a chosen adjacent wind
+		pick up a discarded tile (actually make it the next tile you draw?)
 	scoew bonuses
 		1 han for every ~six tiles in your hand without any red ink toka
 		every 5 consecutive discards from hand adds a han
 		10 points for every tile left in wall?
+	other:
+		reduce scoring cutoff acceleration
 achievements
 	all yaku
 	all mangan
@@ -131,13 +136,22 @@ rewrite scoring tab
 mouse entering a item from the sell prompt cursorhovertexts "add item to wall???? wth???"
 	only occurs when setting the cursor style. deadass what??
 dont sell deadwall reducs if the size is already minmum
-shop tiles cursor passthrough
 handling for persistent upgrades like adding flowers
 reset score expectation every 4 rounds? that way a yakuman doesnt end the game instantly
 cursor scaling
 dragons and winds tile explanation
 does honor mean yakuhai or any jihai? decide
 hovertext translation
+close shop lose money warning
+proper wall gfx haitei drawing
+expected scoring fgx:
+	visually add to player score at end of roynd and test it then
+	vissually add to expected store after player draws their first tile
+next tile you draw code should account for sanma, i dont think it does rn
+change wind charm to a mamori
+support or disable control hovering
+riichi call (prob kan call too) hovers most recent discard
+duping in the tile tab generator pushing crazy errors
 
 
 demo MVP:
@@ -146,11 +160,14 @@ demo MVP:
 	title screen
 	settings screen
 		choose tileset
+		sound settings
 	marginally better score expectation indicator
-	"shape of the game" tab
+		cursor popups
+		retime changes
 	language support
-		all yaku translations :sob:
 		fix fu tab failing on headers
+		hovertext translation
+		finish jp
 
 
 

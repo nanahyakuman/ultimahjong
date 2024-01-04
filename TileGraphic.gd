@@ -27,6 +27,7 @@ var _rotated: bool = false
 func _ready():
 	TileGraphicKnower.highlight.connect(self._highlight_requested)
 	TileGraphicKnower.new_dora.connect(self._new_dora)
+	TileGraphicKnower.change_texture.connect(self._assign_tileset)
 	
 
 func assign_tile(t: MTile):
@@ -194,4 +195,5 @@ func clear_custom_overlays():
 		c.texture = null
 
 
-
+func _assign_tileset(tex: Texture2D):
+	sprite.texture = tex

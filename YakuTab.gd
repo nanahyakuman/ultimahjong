@@ -7,7 +7,14 @@ extends TabContainer
 
 # create tabs for all yaku procedurally.
 func _ready():
-	#ALL_YAKU.format_han()
+	generate()
+	
+	LocaleChangedSignaller.connect("locale_changed", generate)
+	
+
+func generate():
+	for c in get_children():
+		c.queue_free()
 	
 	var curr_tab_box: VBoxContainer = null
 	for i in ALL_YAKU.YAKUS.values():
@@ -16,7 +23,7 @@ func _ready():
 				break
 			
 			var a = TabBar.new()
-			a.name = i
+			a.name = tr(i)
 			add_child(a)
 			
 			var b = ScrollContainer.new()
@@ -35,7 +42,7 @@ func _ready():
 			l.fit_content = true
 			l.bbcode_enabled = true
 			curr_tab_box.add_child(l)
-			l.append_text(i[0])
+			l.append_text(tr(i[0]))
 			
 		else:
 			assert(i is ScoringInfo.Han)

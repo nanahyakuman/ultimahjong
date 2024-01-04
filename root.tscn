@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://c4jqvlnn3b7m2"]
+[gd_scene load_steps=72 format=3 uid="uid://d06ravao4frgl"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="2_j88jw"]
@@ -43,20 +43,23 @@
 [ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tile/tilecounter/tablediv.png" id="41_k312k"]
 [ext_resource type="Texture2D" uid="uid://cfmymgbxt6t6r" path="res://image/tile/tilecounter/tilecounter_dead.png" id="41_py2jx"]
 [ext_resource type="Texture2D" uid="uid://8eiqqlppwabi" path="res://image/tile/tilecounter/tilecounter.png" id="43_3nd3k"]
-[ext_resource type="Script" path="res://OptionsButton.gd" id="43_jd3i2"]
 [ext_resource type="Texture2D" uid="uid://c6hifrbh73ile" path="res://image/tile/tilecounter/tilecounter_ends.png" id="43_ki72n"]
 [ext_resource type="Script" path="res://AllTilesDisplay.gd" id="43_nbkwc"]
 [ext_resource type="Texture2D" uid="uid://c3krrdgaavn5i" path="res://image/tile/tilecounter/tilecounter_end_dead.png" id="43_stly7"]
 [ext_resource type="Script" path="res://QuitButton.gd" id="43_uwhsm"]
 [ext_resource type="Texture2D" uid="uid://cghgbw25enwyy" path="res://image/tile/tilecounter/tilecounter_dead_kandora.png" id="43_wl4wh"]
-[ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="44_cis8i"]
 [ext_resource type="Script" path="res://YakuTab.gd" id="45_rsntb"]
 [ext_resource type="Texture2D" uid="uid://ng8eqocmaltm" path="res://image/sidebar_tiles_9pr.png" id="47_n10gp"]
 [ext_resource type="Script" path="res://ScoreTracker.gd" id="50_7li6w"]
 [ext_resource type="Texture2D" uid="uid://xoodhoigui53" path="res://image/optionsbutton.png" id="51_57d0l"]
 [ext_resource type="FontFile" uid="uid://bian1q53chnum" path="res://text/font/BodyTilesColor.png" id="51_huq5q"]
-[ext_resource type="Script" path="res://ScoreRichTextLabel.gd" id="52_0gmem"]
 [ext_resource type="Script" path="res://text/RTLTranslator.gd" id="52_jcp4g"]
+[ext_resource type="Texture2D" uid="uid://jtl7gd0lo25b" path="res://image/tile/tiles_rep.png" id="53_af85s"]
+[ext_resource type="Script" path="res://TilesetButton.gd" id="54_0kukl"]
+[ext_resource type="Script" path="res://LanguageButton.gd" id="54_q66h1"]
+[ext_resource type="Texture2D" uid="uid://ccdv7r4ga7o3t" path="res://image/tile/tiles.png" id="55_an6og"]
+[ext_resource type="Texture2D" uid="uid://2gvfr87k662v" path="res://image/tile/tiles_numerals_rep.png" id="56_7eblf"]
+[ext_resource type="Texture2D" uid="uid://jt1w7bq0ji8r" path="res://image/tile/tile_numerals.png" id="57_gku8h"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n8ei0"]
 texture = ExtResource("21_sffs3")
@@ -132,6 +135,16 @@ content_margin_right = 8.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qwacc"]
 content_margin_left = 8.0
 content_margin_right = 8.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_puj4v"]
+texture = ExtResource("51_57d0l")
+texture_margin_left = 18.0
+texture_margin_top = 10.0
+texture_margin_right = 18.0
+texture_margin_bottom = 10.0
+expand_margin_bottom = 1.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [node name="Root" type="Control"]
 texture_filter = 1
@@ -279,11 +292,12 @@ center = false
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = -2
+theme_override_constants/separation = -13
 alignment = 1
 
 [node name="ScoreModLabel" type="Label" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
 text = "+0"
 
 [node name="ScoreModLabel2" type="Label" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer/HBoxContainer/VBoxContainer"]
@@ -417,7 +431,7 @@ custom_minimum_size = Vector2(64, 24)
 layout_mode = 2
 size_flags_vertical = 4
 script = ExtResource("18_88w0a")
-hover_text = "The Prevalent Wind. Changes every 4 rounds."
+hover_text = "HOVER_PREV_WIND"
 
 [node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/RoundWind"]
 texture = ExtResource("20_he7r1")
@@ -429,7 +443,7 @@ custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_vertical = 4
 script = ExtResource("20_14871")
-hover_text = "The Sitting Wind. Changes every round."
+hover_text = "HOVER_SEAT_WIND"
 
 [node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/SittingWind"]
 texture = ExtResource("19_1d4n6")
@@ -443,7 +457,7 @@ layout_mode = 2
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxTexture_n8ei0")
 script = ExtResource("21_w220a")
-hover_text = "Mana. Increases every time a tile is drawn."
+hover_text = "HOVER_MANA"
 
 [node name="Fill" type="TextureRect" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/ManaBar"]
 custom_minimum_size = Vector2(20, 0)
@@ -628,8 +642,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -58.0
-offset_top = -18.0
+offset_left = -61.0
+offset_top = -29.0
+offset_right = -3.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "Next"
@@ -637,7 +652,6 @@ script = ExtResource("21_8bhal")
 
 [node name="ShopRoot" type="Control" parent="HBoxContainer/MahjongRoot"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -736,8 +750,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -8.0
-offset_top = -8.0
+offset_left = -61.0
+offset_top = -29.0
+offset_right = -3.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "Next Round"
@@ -756,7 +771,7 @@ texture = ExtResource("41_py2jx")
 expand_mode = 1
 stretch_mode = 1
 script = ExtResource("16_8lthm")
-hover_text = "Dead Tiles. Not drawn normally."
+hover_text = "HOVER_DEAD_TILES"
 
 [node name="DeadTileKanCounter" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
 layout_mode = 0
@@ -765,7 +780,7 @@ texture = ExtResource("43_wl4wh")
 expand_mode = 1
 stretch_mode = 1
 script = ExtResource("16_8lthm")
-hover_text = "Dead Tiles. Not drawn normally."
+hover_text = "HOVER_DEAD_TILES"
 
 [node name="DeadEnd" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
 layout_mode = 1
@@ -784,7 +799,7 @@ texture = ExtResource("43_3nd3k")
 expand_mode = 1
 stretch_mode = 1
 script = ExtResource("16_8lthm")
-hover_text = "Tiles in the wall."
+hover_text = "HOVER_WALL"
 
 [node name="End" type="TextureRect" parent="HBoxContainer/GraphicTileCounter"]
 layout_mode = 1
@@ -820,6 +835,7 @@ grow_vertical = 2
 tab_alignment = 1
 
 [node name="TAB_RUN" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN"]
@@ -861,6 +877,7 @@ layout_mode = 2
 
 [node name="IdenticalTiles" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_TILES/HBoxContainer/AllTilesDisplay/ScrollContainer/SuitsRoot/Pin"]
 layout_mode = 2
+theme_override_constants/separation = 1
 
 [node name="TAB_RUN_FU" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer"]
 visible = false
@@ -964,17 +981,44 @@ tab_alignment = 1
 [node name="TAB_GUIDE_BASICS" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer"]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_BASICS"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_BASICS"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_BASICS/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_BASICS/ScrollContainer/VBoxContainer"]
+layout_mode = 2
 bbcode_enabled = true
-text = "漢字"
+text = "GUIDE_BASICS_1"
+fit_content = true
 tab_size = 2
-script = ExtResource("52_0gmem")
+script = ExtResource("52_jcp4g")
+
+[node name="Control3" type="Control" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_BASICS/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_BASICS/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+text = "  🀙🀚🀛🀑🀒🀓🀕🀖🀗🀏🀏🀄🀄 🀄"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_BASICS/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "GUIDE_BASICS_2"
+fit_content = true
+tab_size = 2
+script = ExtResource("52_jcp4g")
 
 [node name="TAB_GUIDE_TILES" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer"]
 visible = false
@@ -1382,62 +1426,66 @@ tab_size = 2
 script = ExtResource("52_jcp4g")
 
 [node name="TAB_OPTIONS" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
-visible = false
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/HBoxContainer"]
-layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="OptionsButton" type="TextureButton" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer"]
 layout_mode = 2
-texture_normal = ExtResource("51_57d0l")
-script = ExtResource("43_jd3i2")
+theme_override_constants/separation = 12
+alignment = 1
 
-[node name="Label" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/HBoxContainer/VBoxContainer/OptionsButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-theme_override_colors/font_color = Color(0.133333, 0.133333, 0.133333, 1)
-theme_override_fonts/font = ExtResource("44_cis8i")
-text = "Options"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="QuitButton" type="TextureButton" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/HBoxContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-texture_normal = ExtResource("51_57d0l")
+toggle_mode = true
+text = "TILESET_NAME_KANJI"
+icon = ExtResource("53_af85s")
+script = ExtResource("54_0kukl")
+tileset = ExtResource("55_an6og")
+
+[node name="Button2" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "TILESET_NAME_ARABIC"
+icon = ExtResource("56_7eblf")
+script = ExtResource("54_0kukl")
+tileset = ExtResource("57_gku8h")
+
+[node name="LanguageButtons" type="GridContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="Button" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/LanguageButtons"]
+layout_mode = 2
+toggle_mode = true
+text = "English"
+script = ExtResource("54_q66h1")
+
+[node name="Button2" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/LanguageButtons"]
+layout_mode = 2
+toggle_mode = true
+text = "日本語"
+script = ExtResource("54_q66h1")
+locale = "ja"
+
+[node name="QuitButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_puj4v")
+text = "BUTTON_QUIT"
 script = ExtResource("43_uwhsm")
-
-[node name="Label" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/HBoxContainer/VBoxContainer/QuitButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-theme_override_colors/font_color = Color(0.133333, 0.133333, 0.133333, 1)
-theme_override_fonts/font = ExtResource("44_cis8i")
-text = "Quit"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" to="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" method="_on_pressed"]
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" to="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" method="_on_pressed"]
-[connection signal="pressed" from="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/HBoxContainer/VBoxContainer/OptionsButton" to="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/HBoxContainer/VBoxContainer/OptionsButton" method="_on_pressed"]
-[connection signal="pressed" from="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/HBoxContainer/VBoxContainer/QuitButton" to="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/HBoxContainer/VBoxContainer/QuitButton" method="_on_pressed"]
+[connection signal="pressed" from="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/QuitButton" to="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/QuitButton" method="_on_pressed"]

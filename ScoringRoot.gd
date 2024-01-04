@@ -25,7 +25,7 @@ func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points:int, mu
 	for f in scoring_info.fus:
 		if f.fu == 0:
 			continue
-		fu_names.append_text(f.nam + "\n")
+		fu_names.append_text(tr(f.nam) + "\n")
 		fu_points.append_text(str(f.fu) + " fu\n")
 		if animate:
 			await AnimTimer.start_get(.1)
@@ -37,7 +37,7 @@ func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points:int, mu
 		if han_count <= 0:
 			continue
 		
-		han_names.append_text(h.nam + "\n")
+		han_names.append_text(tr(h.nam) + "\n")
 		han_points.append_text(str(han_count) + " han\n")
 		if animate:
 			for i in han_count: 

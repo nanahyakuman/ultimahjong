@@ -8,6 +8,6 @@ func _ready():
 	connect("mouse_exited", _mouse_exited)
 
 func _mouse_entered():
-	CursorText.set_text(hover_text)
+	CursorText.set_text(tr(hover_text))
 func _mouse_exited():
 	CursorText.set_text("")
