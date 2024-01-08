@@ -1,7 +1,7 @@
 extends Node
 
 # this MUST remain sorted for the tiles tab to display properly!
-var tile_data = []
+@export var tile_data = []
 
 signal updated
 

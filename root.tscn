@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://d06ravao4frgl"]
+[gd_scene load_steps=74 format=3 uid="uid://d06ravao4frgl"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="2_j88jw"]
@@ -60,6 +60,8 @@
 [ext_resource type="Texture2D" uid="uid://ccdv7r4ga7o3t" path="res://image/tile/tiles.png" id="55_an6og"]
 [ext_resource type="Texture2D" uid="uid://2gvfr87k662v" path="res://image/tile/tiles_numerals_rep.png" id="56_7eblf"]
 [ext_resource type="Texture2D" uid="uid://jt1w7bq0ji8r" path="res://image/tile/tile_numerals.png" id="57_gku8h"]
+[ext_resource type="Script" path="res://SkipAnimsButton.gd" id="59_a21bj"]
+[ext_resource type="Script" path="res://VolumeHSlider.gd" id="62_uapdn"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n8ei0"]
 texture = ExtResource("21_sffs3")
@@ -835,7 +837,6 @@ grow_vertical = 2
 tab_alignment = 1
 
 [node name="TAB_RUN" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN"]
@@ -1426,6 +1427,7 @@ tab_size = 2
 script = ExtResource("52_jcp4g")
 
 [node name="TAB_OPTIONS" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS"]
@@ -1437,6 +1439,72 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 8
 alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "SLIDER_MASTER_VOLUME"
+
+[node name="VolumeHSlider" type="HSlider" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.1
+script = ExtResource("62_uapdn")
+
+[node name="Label2" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "SLIDER_MUSIC_VOLUME"
+
+[node name="VolumeHSlider2" type="HSlider" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.1
+script = ExtResource("62_uapdn")
+bus_name = "Music"
+
+[node name="Label3" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "SLIDER_FX_VOLUME"
+
+[node name="VolumeHSlider3" type="HSlider" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.1
+value = 0.4
+script = ExtResource("62_uapdn")
+bus_name = "SFX"
+
+[node name="LanguageButtons" type="GridContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="Button" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/LanguageButtons"]
+layout_mode = 2
+toggle_mode = true
+text = "English"
+script = ExtResource("54_q66h1")
+
+[node name="Button2" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/LanguageButtons"]
+layout_mode = 2
+toggle_mode = true
+text = "日本語"
+script = ExtResource("54_q66h1")
+locale = "ja"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer"]
 layout_mode = 2
@@ -1459,30 +1527,22 @@ icon = ExtResource("56_7eblf")
 script = ExtResource("54_0kukl")
 tileset = ExtResource("57_gku8h")
 
-[node name="LanguageButtons" type="GridContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer"]
+[node name="SkipAnimsButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/h_separation = 12
-theme_override_constants/v_separation = 12
-columns = 3
-
-[node name="Button" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/LanguageButtons"]
-layout_mode = 2
+size_flags_vertical = 4
 toggle_mode = true
-text = "English"
-script = ExtResource("54_q66h1")
-
-[node name="Button2" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/LanguageButtons"]
-layout_mode = 2
-toggle_mode = true
-text = "日本語"
-script = ExtResource("54_q66h1")
-locale = "ja"
+text = "BUTTON_SKIP_ANIMS"
+script = ExtResource("59_a21bj")
 
 [node name="QuitButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxTexture_puj4v")
+theme_override_styles/hover = SubResource("StyleBoxTexture_puj4v")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_puj4v")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_puj4v")
+theme_override_styles/focus = SubResource("StyleBoxTexture_puj4v")
 text = "BUTTON_QUIT"
 script = ExtResource("43_uwhsm")
 

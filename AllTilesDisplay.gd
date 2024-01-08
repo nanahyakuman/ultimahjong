@@ -37,7 +37,7 @@ func add_tile_graphic(t: MTile):
 	
 	# dynamically expand
 	while current_suit_holder.get_child_count() < t.value:
-		var dupe = current_suit_holder.get_child(0).duplicate()
+		var dupe = current_suit_holder.get_child(0).duplicate(0)
 		for dc in dupe.get_children():
 			dc.queue_free()
 		current_suit_holder.add_child(dupe)

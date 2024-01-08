@@ -117,8 +117,8 @@ func update_winds(prev: int, seat: int):
 	prev_wind.set_wind(prev)
 	seat_wind.set_wind(seat)
 
-func update_wall_count(c: int, d: int, k: int):
-	graphic_tile_counter.update_wall_count(c, d, k)
+func update_wall_count(c: int, d: int, k: int, km: int):
+	graphic_tile_counter.update_wall_count(c, d, k, km)
 
 
 func update_score(score: int, expected_score: int, expected_points_mod: int, expected_points_mod_mod: int):

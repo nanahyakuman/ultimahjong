@@ -5,7 +5,16 @@ class_name RTLTranslator
 
 @export var bold = false
 
+var key = ""
+
+# onm startup read in the key
 func _ready():
-	var temp = ("" if !bold else "[b]") + tr(text)
+	key = text
+	generate()
+	
+	LocaleChangedSignaller.connect("locale_changed", generate)
+
+func generate():
+	var temp = ("" if !bold else "[b]") + tr(key)
 	clear()
 	append_text(temp)

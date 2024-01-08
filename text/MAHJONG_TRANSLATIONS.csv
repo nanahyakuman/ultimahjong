@@ -38,15 +38,15 @@ FU_TYPE_3SIDED,,~~~~~,
 ,,,
 GUIDE_BASICS_1,split into parts so that we can provide examples alongside text easily,"[b]Mahjong Fundamentals[/b]
 Every round, the basic aim is to build a winning hand with the 13 tiles in hand combined with a final 14th tile. This last tile is either drawn yourself or discarded by an opponent player.
-Wtih two exceptions (Chiitoitsu and Kokushi Musou), every hand is made up of 3 groups of 3 and a pair of 2. Groups are either runs in a suit of length 3, sets of identical tiles of size 3, or sets of size 4 (which trigger an additional draw, so that the rest of the hand still completes naturally). An example hand is given below:",
+Wtih two exceptions (Chiitoitsu and Kokushi Musou), every hand is made up of 4 groups of 3 tiles and a pair of 2. Groups are either runs in a suit of length 3, sets of identical tiles of size 3, or sets of size 4 (which trigger an additional draw, so that the rest of the hand still completes naturally). An example hand is given below:",まだ書いてませんでございますわ！
 GUIDE_BASICS_2,,"This hand consists of a run of 123-Pin, a run of 234-Sou and of 678-Sou, a pair of 9-Man, and a set of Red Dragons, totalling, once more, to 4 groups and a pair.
 Critically, this hand meets at least one win condition, more commonly referred to as [i]Yaku[/i]. Here, the hand meets [i]Yakuhai[/i] by having a set of Red Dragons. A hand [i]is not valid[/i] if it does not meet at least one Yaku. Refer to the Yaku tab for information on specific Yaku, but Yakuhai is one of the more easily acheivable ones (which have been starred for reference). Riichi is perhaps the most critical to understand, but the explanation behind it is left in the Yaku tab.
-A round ends when the number of tiles left in the wall reaches a cutoff, 30 by default. If you have not gone out by this point, you get no points.
+A round ends when the number of tiles left in the wall reaches a cutoff, 30 by default. If you have not gone out by this point, you get no points. (There is no ryuukoku tenpai payout by default.)
 
 [b]UltiMahjong Fundamentals[/b]
 The whole game is played out across 16 rounds. Every round, your seat wind advances in counterclockwise compass order (N>W>S>E), and every four rounds, the prevalent wind advances in clockwise compass order (E>S>W>N).
 At the end of every round, you must have met a minimum score to continue the run. This minimum threshold increases every round. The amount that it will increase next round also increases.
-Finishing a round opens the shop, and grants you a static amount of money. You can buy anything you have enough money for, or sell items for money. All unspent money is [i]forfeited[/i] when you close the shop!",
+Finishing a round opens the shop, and grants you a static amount of money. You can buy anything you have enough money for, or sell items for money. All unspent money is [i]forfeited[/i] when you close the shop!",まだ書いてませんでございますわ！
 GUIDE_TILES_HEADER_TYPES,,Tile Types,牌の種類
 GUIDE_TILES_TERMINAL,,Terminal: 1 or 9 in any number suit.,老頭牌：数牌の１と９。
 GUIDE_TILES_SIMPLE,,Simple: 2 through 8 in any number suit.,中張牌：数牌の２～８。
@@ -61,14 +61,14 @@ GUIDE_TILES_RUN,,Run: 3 tiles in a row of the same number suit. Individual runs 
 GUIDE_TILES_HEADER_DORA,,Dora Tiles,ドラ牌
 GUIDE_TILES_DESC_DORA,,"Some tiles are worth 1 han just for being in hand at completion. However, you still need to have at least one Yaku in hand to go out. They are as follows:",ある牌は手配に存在するだけで翻を得る。だが、ドラだけで和了できない、まだ役が必要だ。
 GUIDE_TILES_AKA_DORA,,Aka: Printed fully in red.,赤ドラ：赤い。
-GUIDE_TILES_KAN_DORA,,"Kan: Every time a kan is called, a tile is revealed from the dead wall. The tile following it in sequence becomes a bonus tile. For number tiles, the order is sequential (1...9>1). For dragons, the order is W>G>R>W. For Winds: N>E>S>W>N.",
+GUIDE_TILES_KAN_DORA,,"Kan: Every time a kan is called, a tile is revealed from the dead wall. The tile following it in sequence becomes a bonus tile. For number tiles, the order is sequential (1...9>1). For dragons, the order is W>G>R>W. For Winds: N>E>S>W>N.",まだ書いてませんでございますわ！
 ,,,
 GUIDE_WAITS_INTRO,,"These are the basic waits formally recognized in Riichi Mahjong. All waits award 2 fu if used as the final wait except Ryanmen, which awards 0. (More complex waits exist, but can be always broken down into a combination of these basic ones, although I leave discovering them as an exercise for the reader.)
-They are ordered here by approximate likelihood of completion (in a vacuum).",
-GUIDE_WAITS_RYANMEN,"i wouldn't translate the names for these wait terms, just leave them as is. even in normal english ""ryanmen"" or ""tanki"" are accepted, no need to invent vocab","Ryanmen: Often translated as ""two-sided,"" this is two adjacent tiles waiting for a third to complete a run from either end.",
-GUIDE_WAITS_SHANPON,,Shanpon: Two pairs waiting for one to resolve to a set.,
-GUIDE_WAITS_PENCHAN_KANCHAN,,"Penchan and Kanchan: Like Ryanmen, waits on a run to complete, but because of shape or terminality, only waits on one tile instead of two.",
-GUIDE_WAITS_TANKI,,"Tanki: A single tile waits on a copy of itself to complete a pair. Note the common complex wait pattern Nobetan (e.g. 3456) [i]still counts[/i] as a Tanki wait, even though you are technically waiting on two tiles.",
+They are ordered here by approximate likelihood of completion (in a vacuum).",まだ書いてませんでございますわ！
+GUIDE_WAITS_RYANMEN,"i wouldn't translate the names for these wait terms, just leave them as is. even in normal english ""ryanmen"" or ""tanki"" are accepted, no need to invent vocab","Ryanmen: Often translated as ""two-sided,"" this is two adjacent tiles waiting for a third to complete a run from either end.",まだ書いてませんでございますわ！
+GUIDE_WAITS_SHANPON,,Shanpon: Two pairs waiting for one to resolve to a set.,まだ書いてませんでございますわ！
+GUIDE_WAITS_PENCHAN_KANCHAN,,"Penchan and Kanchan: Like Ryanmen, waits on a run to complete, but because of shape or terminality, only waits on one tile instead of two.",まだ書いてませんでございますわ！
+GUIDE_WAITS_TANKI,,"Tanki: A single tile waits on a copy of itself to complete a pair. Note the common complex wait pattern Nobetan (e.g. 3456) [i]still counts[/i] as a Tanki wait, even though you are technically waiting on two tiles.",まだ書いてませんでございますわ！
 ,,,
 GUIDE_SCORE_TEXT,,"Before we begin, the scoring used here is [i]not the same[/i] as in normal Riichi, although it approximates it fairly closely. (If you already understand Riichi scoring, you should just know: Ron and Tsumo now award the same amount of points, 10 Fu is now worth 400 points exactly instead of ~300, Fu are rounded [i]down[/i] to the nearest 10, and Mangan rounding is smoothed so that more Han always equate to more points earned.)
 
@@ -84,7 +84,7 @@ Once you exceed 8000 points, Fu are no longer counted, and the score rewarded is
 Sitting in the East seat multiplies the final value by 1.5. For example, the minimum scoring hand in the East seat is 1500, and a Yakuman is 48000 points.
 
 Here is a table:
-~TABLE~",
+~TABLE~",まだ書いてませんでございますわ！
 ,,,
 YAKU_RIICHI,,Riichi,立直
 YAKU_RIICHI_DESC,,"Once you're one tile away from a completed hand, you can enter Riichi. This prevents you from modifying your hand any further; all you can do is wait until your winning tile is discarded, or you draw it yourself.\nCosts 1000 points to enter, but these are returned if successful.\nEnables Ippatsu.",聴牌したら、立直ができます。するとできる行為が自摸切れと上がることに限る。１０００点を払い、上がったら戻す。
@@ -157,14 +157,14 @@ YAKU_JUNCHAN_DESC,,Every grouping/pair contains a terminal. Disables Chanta.,全
 YAKU_JUNCHAN_LIT,,Full Outside,ジュンチャン、ジュンチャンタイヤオチュウ
 YAKU_HONROUTOU,,Honroutou,混老頭
 YAKU_HONROUTOU_DESC,,"Every grouping is composed entirely of terminals or honors. Additonally implies either Toitoi or Chiitoitsu, for at least four han. Disables Junchan and Chanta.",全部の牌が字牌や老頭牌。七対子か対々和はおろか。
-YAKU_HONROUTOU_LIT,,All Terminals and Honors,ホンロート―
+YAKU_HONROUTOU_LIT,,All Terminals and Honors,ホンロートー
 YAKU_HONITSU,,Hon'itsu,混一色
 YAKU_HONITSU_DESC,,Hand only contains honors and tiles of a single suit.,ある数牌の種類と字牌だけ。
 YAKU_HONITSU_LIT,,Half Flush,ホンイツ
 YAKU_CHINITSU,,Chin'itsu,清一色
 YAKU_CHINITSU_DESC,,Hand only contains tiles of a single suit.,ある数牌の種類だけ。
 YAKU_CHINITSU_LIT,,Full Flush,チンイツ
-YAKU_YAKUMAN_INTRO,,"Note that Yakuman are automatic limit hands. That is, once you acheive [i]at least[/i] one Yakuman, the score rewarded is simply 32000 (48000 if sitting East) multiplied by the number of fulfilled Yakuman.",
+YAKU_YAKUMAN_INTRO,,"Note that Yakuman are automatic limit hands. That is, once you acheive [i]at least[/i] one Yakuman, the score rewarded is simply 32000 (48000 if sitting East) multiplied by the number of fulfilled Yakuman.",まだ書いてませんでございますわ！
 YAKU_KAZOE,,Kazoe Yakuman,数え役満
 YAKU_KAZOE_DESC,,"Never awarded itself, simply a name for any hand that reaches or exceeds thirteen han without fulfilling any defined Yakuman pattern. Any other Yakuman disables this one, so there can be no multiple Yakuman hands containing Kazoe.",ちゃんとした役満じゃない、ほかの役満なしで十三翻を超えると数え役満になる。
 YAKU_KAZOE_LIT,,Accumulated Yakuman,かぞえヤクマン
@@ -241,7 +241,7 @@ ITEM_DRAGON_CYCLE_DESC,,Increment a selected Dragon's type (W>G>R>W).,選べた�
 ITEM_SUJI_OFFSET,,Suji Shift,スジずり
 ITEM_SUJI_OFFSET_DESC,,Adjust current tsumo tile's value by +/- 3 [i]temporarily[/i]. Only works on numbered tiles.,自摸牌を＋／ー３変更。一時的。
 ,,,
-HOVER_SEAT_WIND,,Your Sitting Wind. Changes every round.,場風。局ずつに変わる。
+HOVER_SEAT_WIND,,Your Sitting Wind. Changes every round.,自風。局ずつに変わる。
 HOVER_PREV_WIND,,The Prevalent Wind. Changes every 4 rounds.,場風。各四局に変わる。
 HOVER_MANA,,Mana. Increases every time a tile is drawn.,マナ。牌を自摸とマナを得る。
 HOVER_DEAD_TILES,,Dead Tiles. Not drawn normally.,牌山の後ろ。普通に自模らない。
@@ -251,3 +251,8 @@ TILESET_NAME_KANJI,"different tilesets, one has traditional kanji man and the ot
 TILESET_NAME_ARABIC,,Arabic,アラビア数字
 ,,,
 BUTTON_QUIT,,Save and Quit,保存して終了
+BUTTON_TITLE,,Save and Return to Title,保存してタイトルに戻る
+BUTTON_SKIP_ANIMS,,Skip Animations,アニメーション無し
+SLIDER_MASTER_VOLUME,,Master Volume,MASTER音量
+SLIDER_MUSIC_VOLUME,,Music Volume,BGM音量
+SLIDER_FX_VOLUME,,Effects Volume,SE音量

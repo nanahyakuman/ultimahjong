@@ -6,6 +6,11 @@ extends VBoxContainer
 @export var fu_graphical = preload("res://fu_info_graphical.tscn")
 
 func _ready():
+	generate()
+	
+	LocaleChangedSignaller.connect("locale_changed", generate)
+
+func generate():
 	for c in get_children():
 		c.queue_free()
 	
@@ -15,7 +20,7 @@ func _ready():
 			var a = RichTextLabel.new()
 			add_child(a)
 			a.bbcode_enabled = true
-			a.append_text(tr(yakufu.FU[str]))
+			a.append_text("[b]%s[/b]" % tr(yakufu.FU[str]))
 			a.fit_content = true
 		# fu
 		else:

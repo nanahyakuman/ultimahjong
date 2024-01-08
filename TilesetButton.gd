@@ -11,6 +11,8 @@ func _pressed():
 	
 	for s in get_parent().get_children():
 		if s == self:
-			continue
+			s.button_pressed = true
 		else:
 			s.button_pressed = false
+	
+	release_focus()

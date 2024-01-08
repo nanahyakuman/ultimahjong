@@ -74,7 +74,7 @@ func start_round():
 	gui_manager.update_made_calls([])
 	gui_manager.update_kan_dora([],0)
 	gui_manager.update_hand([])
-	gui_manager.update_wall_count(0,0,revealed_kan_dora)
+	gui_manager.update_wall_count(0,0,revealed_kan_dora,0)
 	calls_manager.enable_calls(0, {})
 	
 	in_riichi = false
@@ -86,10 +86,10 @@ func start_round():
 	
 	await _init_wall()
 	
-	await AnimTimer.start_mod(.15)
+#	await AnimTimer.start_mod(.15)
 	
 	for i in upgrades.get_kan_size():
-		await AnimTimer.start_mod(.1)
+	#	await AnimTimer.start_mod(.1)
 		tile_sfx_player.play()
 		_draw_kan_dora()
 	
@@ -127,9 +127,9 @@ func _init_wall():
 	
 	for i in range(0, wall.size(), 6):
 		await AnimTimer.start_mod(.04)
-		gui_manager.update_wall_count(i, upgrades.get_dead_tiles(),revealed_kan_dora)
+		update_wall_counter(i)
 		call_sfx_player.play()
-	gui_manager.update_wall_count(wall.size(), upgrades.get_dead_tiles(),revealed_kan_dora)
+	update_wall_counter()
 	
 
 func _draw_hand():
@@ -219,7 +219,7 @@ func get_and_overwrite_most_recent_kan_dora(tile: MTile) -> MTile:
 
 func update_revealed_kan_dora():
 	gui_manager.update_kan_dora(kan_dora, upgrades.get_kan_size() - revealed_kan_dora)
-	gui_manager.update_wall_count(wall.size(), upgrades.get_dead_tiles(),revealed_kan_dora)
+	update_wall_counter()
 	
 	var revealed_dora_ids = []
 	for i in range(upgrades.get_kan_size() - revealed_kan_dora, kan_dora.size()):
@@ -734,6 +734,9 @@ func _do_riichi():
 	_start_rotation()
 
 
+func update_wall_counter(size_override: int = wall.size()):
+	gui_manager.update_wall_count(size_override, upgrades.get_dead_tiles(),revealed_kan_dora, upgrades.get_kan_size())
+
 # some items call this after making mods
 func update_hand_label(override_sort = false):
 	if !override_sort:
@@ -747,7 +750,7 @@ func _get_next_from_wall(mana_count: int):
 		_end_round()
 		return null
 	var ret = wall.pop_back()
-	gui_manager.update_wall_count(wall.size(), upgrades.get_dead_tiles(),revealed_kan_dora)
+	update_wall_counter()
 	
 	items.tile_drawn(mana_count)
 	

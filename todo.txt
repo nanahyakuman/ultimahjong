@@ -7,9 +7,8 @@ end of every round can purchase:
 		wild digit
 	x	flowers
 		"almighty" tile (リーチ自摸の場合、和了が出来。それに幡)
-			would probably have to remove dora dragons or at least dora haku
-		pocchi-ing a tile means you can switch it out for any other pocchi tile in deck?
-		kin dragon is 2yakuhai, and doras all other dragons. costs 5y
+		pocchi-ing a tile means you can switch it out for any other pocchi tile in deck
+		kin dragon is 2yakuhai, and doras all other dragons. costs ~5y
 	new rules (south also counts as seat wind toka)?
 		get two ura every reveal
 		call atama?
@@ -39,11 +38,12 @@ end of every round can purchase:
 		convert a wind to a chosen adjacent wind
 		pick up a discarded tile (actually make it the next tile you draw?)
 	scoew bonuses
-		1 han for every ~six tiles in your hand without any red ink toka
+		1 han for every 7 tiles in your hand without any red ink toka
 		every 5 consecutive discards from hand adds a han
 		10 points for every tile left in wall?
 	other:
 		reduce scoring cutoff acceleration
+		reduce scoring cutoff vel
 achievements
 	all yaku
 	all mangan
@@ -137,7 +137,6 @@ mouse entering a item from the sell prompt cursorhovertexts "add item to wall???
 	only occurs when setting the cursor style. deadass what??
 dont sell deadwall reducs if the size is already minmum
 handling for persistent upgrades like adding flowers
-reset score expectation every 4 rounds? that way a yakuman doesnt end the game instantly
 cursor scaling
 dragons and winds tile explanation
 does honor mean yakuhai or any jihai? decide
@@ -147,20 +146,24 @@ proper wall gfx haitei drawing
 expected scoring fgx:
 	visually add to player score at end of roynd and test it then
 	vissually add to expected store after player draws their first tile
-next tile you draw code should account for sanma, i dont think it does rn
-change wind charm to a mamori
 support or disable control hovering
 riichi call (prob kan call too) hovers most recent discard
-duping in the tile tab generator pushing crazy errors
-
+acknowledge yaochjuu sets on scoring
+4 han hand gave me 6 points? yakuhai honitsu
+item display issues in shop
+	dragon cycle uncharged
+pocchi almighty and pocci selection code
+menzenka overrides pinfu
+couldnt riichi with toitoi sanankou
+	possibly pocchi related
 
 demo MVP:
 	save and load runs
-		persistant items manager, flowers/dora
+		persistent items manager, flowers/dora
 	title screen
 	settings screen
-		choose tileset
 		sound settings
+	win/lose screens
 	marginally better score expectation indicator
 		cursor popups
 		retime changes

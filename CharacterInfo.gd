@@ -22,6 +22,7 @@ var expected_points_mod_mod: int
 # how many rounds to win the game after
 var number_of_rounds: int
 
+# this is ugly but im not putting in a json reader just for this, sorz
 func set_type(ty:int):
 	match ty:
 		REGULAR:
@@ -31,7 +32,7 @@ func set_type(ty:int):
 			valid_seats = 4
 			opponents_its_legal_to_chii_from_count = 1
 			
-			base_score = 1000
+			base_score = 1500
 			base_expected_points = 0
 			base_expected_points_mod = 0
 			expected_points_mod_mod = 500
@@ -45,7 +46,7 @@ func set_type(ty:int):
 			valid_seats = 3
 			opponents_its_legal_to_chii_from_count = 0
 			
-			base_score = 1000
+			base_score = 1500
 			base_expected_points = 0
 			base_expected_points_mod = 0
 			expected_points_mod_mod = 500
@@ -59,7 +60,7 @@ func set_type(ty:int):
 			valid_seats = 4
 			opponents_its_legal_to_chii_from_count = 1
 			
-			base_score = 1000
+			base_score = 1500
 			base_expected_points = 0
 			base_expected_points_mod = 0
 			expected_points_mod_mod = 500

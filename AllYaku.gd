@@ -18,7 +18,7 @@ var duplicated = {
 # but names and decriptions are automatically translated by the `Han` constructor.
 #  the tilestrings are NOT translated!
 var YAKUS = {
-	"SPACER_1": "TAB_YAKU_SPECIAL",
+	"TAB_YAKU_SPECIAL": "TAB_YAKU_SPECIAL",
 	"Riichi": ScoringInfo.Han.new("YAKU_RIICHI", 1, 1, "", true),
 	"Double Riichi": ScoringInfo.Han.new("YAKU_DOUBLE_RIICHI", 2, 2),
 	"Ippatsu": ScoringInfo.Han.new("YAKU_IPPATSU", 1, 1),
@@ -33,7 +33,7 @@ var YAKUS = {
 	"Nagashi Mangan": ScoringInfo.Han.new("YAKU_NAGASHI", 5, 0, "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪  "),
 	
 #	"SPACER_2": "Runs",
-	"SPACER_2": "TAB_YAKU_GROUPS",
+	"TAB_YAKU_GROUPS": "TAB_YAKU_GROUPS",
 	"Pinfu": ScoringInfo.Han.new("YAKU_PINFU", 1, 1, "🀋🀌🀍🀑🀒🀓🀔🀕🀛🀜🀝🀡🀡 🀖"),
 	"Iipeikou": ScoringInfo.Han.new("YAKU_IIPEIKOU", 1, 1, "🀇🀇🀈🀈🀉🀉"),
 	"Ryanpeikou": ScoringInfo.Han.new("YAKU_RYANPEIKOU", 3, 1, "🀪🀪🀔🀕🀖🀇🀇🀈🀉🀉 🀈 🀔🀕🀖"),
@@ -46,7 +46,7 @@ var YAKUS = {
 	"Sankantsu": ScoringInfo.Han.new("YAKU_SANKANTSU", 2, 0, "🀪🀪🀪🀪 🀪 🀫🀌🀌🀫🀫🀒🀒🀫🀫🀀🀀🀫"),
 	"Sanshoku Doukou": ScoringInfo.Han.new("YAKU_SANSHOKU_DOUKOU", 2, 0, "🀪🀪🀪🀪🀪🀔🀔 🀔 🀝🀝🀝🀋🀋🀋"),
 	
-	"SPACER_4": "TAB_YAKU_TILES",
+	"TAB_YAKU_TILES": "TAB_YAKU_TILES",
 	"Tan'yao": ScoringInfo.Han.new("YAKU_TANYAO", 1, 0, "🀞🀟🀠🀓🀓🀈🀉🀊🀎🀎 🀎 🀔🀕🀖", true),
 	"Yakuhai": ScoringInfo.Han.new("YAKU_YAKUHAI", 1, 0, "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪 🀪 🀄🀄🀄", true),
 	"Shousangen": ScoringInfo.Han.new("YAKU_SHOUSANGEN", 2, 0, "🀪🀪🀪🀪🀪🀄🀄 🀪 🀅🀅🀅🀆🀆🀆"),
@@ -60,7 +60,7 @@ var YAKUS = {
 	"Hon'itsu": ScoringInfo.Han.new("YAKU_HONITSU", 3, 1, "🀐🀑🀒🀔🀕🀖🀗 🀗 🀁🀁🀁🀆🀆🀆", true),
 	"Chin'itsu": ScoringInfo.Han.new("YAKU_CHINITSU", 6, 1, "🀙🀚🀛🀜🀝🀠🀠 🀛 🀞🀟🀠🀡🀡🀡"),
 	
-	"SPACER_X": "TAB_YAKU_YAKUMAN",
+	"TAB_YAKU_YAKUMAN": "TAB_YAKU_YAKUMAN",
 	"TEXT_X": [tr("YAKU_YAKUMAN_INTRO")],
 	"Kazoe Yakuman": ScoringInfo.Han.new("YAKU_KAZOE", 13, 0, "🀙🀙🀄🀄 🀙 🀀🀀🀀🀀🀆🀆🀆🀆🀫🀅🀅🀫"),
 	"Daisangen": duplicated["Daisangen"],
@@ -92,7 +92,7 @@ var YAKUS = {
 # "SPACER_1".
 #  as with yaku, keys are just accesses, values are translation keys
 var FU = {
-	"SPACER_1": "[b]%s[/b]" % tr("FU_HEADER_SPECIAL"),
+	"SPACER_1": "FU_HEADER_SPECIAL",
 	
 	"Base": ScoringInfo.Fu.new("FU_TYPE_BASE", 0),#20),
 	"Menzenkafu": ScoringInfo.Fu.new("FU_TYPE_MENZENKAFU", 10),#10),
@@ -100,7 +100,7 @@ var FU = {
 	"Chiitoitsu": ScoringInfo.Fu.new("FU_TYPE_CHIITOITSU", 5),#25),
 	"Ao Dora": ScoringInfo.Fu.new("FU_TYPE_AO_DORA", 16),
 	
-	"SPACER_2": "[b]%s[/b]" % tr("FU_HEADER_GROUPINGS"),
+	"SPACER_2": "FU_HEADER_GROUPINGS",
 	
 	"Pair": ScoringInfo.Fu.new("FU_TYPE_PAIR", 0),
 	"Yakuhai Pair": ScoringInfo.Fu.new("FU_TYPE_YAKUHAI_PAIR", 2),
@@ -114,7 +114,7 @@ var FU = {
 	# existing gui code.
 	"Yaochuu Multiplier": ScoringInfo.Fu.new("FU_TYPE_YAOCHUU_MULT", 2),
 	
-	"SPACER_3": "[b]%s[/b]" % tr("FU_HEADER_WAITS"),
+	"SPACER_3": "FU_HEADER_WAITS",
 	
 	"1-sided Wait": ScoringInfo.Fu.new("FU_TYPE_1SIDED", 2),
 	"2-sided Wait": ScoringInfo.Fu.new("FU_TYPE_2SIDED", 0),

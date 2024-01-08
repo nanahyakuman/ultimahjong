@@ -692,7 +692,7 @@ func get_fu(groupings: Array, doras: Array, waited_tile: MTile):
 			
 			if is_yao:
 				fus.back().fu *= ALL_YAKU.FU["Yaochuu Multiplier"].fu
-				fus.back().nam = "Yaochuu " + fus.back().nam
+			#	fus.back().nam = "Yaochuu " + fus.back().nam
 		
 		elif g.type == Grouping.PAIR:
 			if g.tiles[0].suit == MTile.SUITS.SPECIAL and get_yakuhai_vals().has(g.tiles[0].value):

@@ -11,9 +11,11 @@ extends TextureRect
 
 @export var text_offset = Vector2(11,12)
 
-func update_wall_count(c: int, dead_wall_size: int, kan_count: int):
+#  c is the wall size (mostly for animation effect), kanmax allows us to add on the removed
+# kan part of the deadwall graphically
+func update_wall_count(c: int, dead_wall_size: int, kan_count: int, kan_max: int):
 	# do a min here to animate in the wall
-	dead_tile_counter.size.y = ((min(c,dead_wall_size-kan_count*2)) / 2) * 4
+	dead_tile_counter.size.y = ((min(c+kan_max*2,dead_wall_size-kan_count*2+kan_max*2)) / 2) * 4
 	tile_counter.position.y = 2
 	
 	dead_tile_kan_counter.position.y = dead_tile_counter.position.y + dead_tile_counter.size.y
@@ -32,5 +34,6 @@ func update_wall_count(c: int, dead_wall_size: int, kan_count: int):
 	if c-dead_wall_size == 1:
 		end_sprite.frame = 2
 	
+	label.visible = c - dead_wall_size >= 0
 	label.text = str(c - dead_wall_size)
 	label.position = end.position + text_offset

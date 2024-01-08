@@ -5,7 +5,8 @@ extends Control
 @onready var scoring_root = %ScoringRoot
 @onready var score_tracker = $ScoreTracker
 
-var round_counter = 0
+# gets incremented once we start
+var round_counter = -1
 
 func _ready():
 	await get_tree().process_frame
@@ -25,6 +26,10 @@ func start_round():
 	shop_root.visible = false
 	scoring_root.visible = false
 	mahjong_manager.start_round()
+	round_counter += 1
+	
+	# give player live updates on expectations
+	score_tracker.add_future_score()
 
 # also start scoring
 func end_round(scoring_info: ScoringInfo, multiplier_info: MultiplierInfo):

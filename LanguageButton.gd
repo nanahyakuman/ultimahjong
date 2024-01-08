@@ -16,3 +16,5 @@ func _pressed():
 		c.button_pressed = false
 	
 	LocaleChangedSignaller.emit_signal("locale_changed")
+	
+	release_focus()
