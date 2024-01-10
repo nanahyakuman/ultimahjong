@@ -106,6 +106,23 @@ ideas but not critical:
 	consider better cjk font(s)
 		http://jikasei.me/font/jf-dotfont/ for jp
 
+languages
+	jibun de yare:
+		en
+		jp
+	bc its mahjong themed:
+		ch_s
+		ch_t
+		korean
+	ver common:
+		russian
+		spanish
+		portuguese
+		french and german?
+	asia but not very large markets usually:
+		filipino (pinay? idk)
+		viet
+		thai
 
 
 doraizing anim when you buy dora, clear feedback as to what it was
@@ -157,6 +174,7 @@ menzenka overrides pinfu
 couldnt riichi with toitoi sanankou
 	possibly pocchi related
 
+
 demo MVP:
 	save and load runs
 		persistent items manager, flowers/dora
@@ -168,7 +186,6 @@ demo MVP:
 		cursor popups
 		retime changes
 	language support
-		fix fu tab failing on headers
 		hovertext translation
 		finish jp
 

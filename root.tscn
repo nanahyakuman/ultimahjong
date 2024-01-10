@@ -55,11 +55,11 @@
 [ext_resource type="FontFile" uid="uid://bian1q53chnum" path="res://text/font/BodyTilesColor.png" id="51_huq5q"]
 [ext_resource type="Script" path="res://text/RTLTranslator.gd" id="52_jcp4g"]
 [ext_resource type="Texture2D" uid="uid://jtl7gd0lo25b" path="res://image/tile/tiles_rep.png" id="53_af85s"]
+[ext_resource type="Script" path="res://OptionsLoader.gd" id="53_fnvq8"]
 [ext_resource type="Script" path="res://TilesetButton.gd" id="54_0kukl"]
 [ext_resource type="Script" path="res://LanguageButton.gd" id="54_q66h1"]
-[ext_resource type="Texture2D" uid="uid://ccdv7r4ga7o3t" path="res://image/tile/tiles.png" id="55_an6og"]
+[ext_resource type="Script" path="res://OneofManySelectorSaver.gd" id="55_36kcy"]
 [ext_resource type="Texture2D" uid="uid://2gvfr87k662v" path="res://image/tile/tiles_numerals_rep.png" id="56_7eblf"]
-[ext_resource type="Texture2D" uid="uid://jt1w7bq0ji8r" path="res://image/tile/tile_numerals.png" id="57_gku8h"]
 [ext_resource type="Script" path="res://SkipAnimsButton.gd" id="59_a21bj"]
 [ext_resource type="Script" path="res://VolumeHSlider.gd" id="62_uapdn"]
 
@@ -837,6 +837,7 @@ grow_vertical = 2
 tab_alignment = 1
 
 [node name="TAB_RUN" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN"]
@@ -1427,8 +1428,10 @@ tab_size = 2
 script = ExtResource("52_jcp4g")
 
 [node name="TAB_OPTIONS" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
-visible = false
 layout_mode = 2
+
+[node name="OptionsLoader" type="Node" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS"]
+script = ExtResource("53_fnvq8")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS"]
 layout_mode = 1
@@ -1451,24 +1454,28 @@ columns = 2
 layout_mode = 2
 text = "SLIDER_MASTER_VOLUME"
 
-[node name="VolumeHSlider" type="HSlider" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/GridContainer"]
+[node name="VolumeHSlider" type="HSlider" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/GridContainer" groups=["save_options"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0
 step = 0.1
+tick_count = 11
+ticks_on_borders = true
 script = ExtResource("62_uapdn")
 
 [node name="Label2" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "SLIDER_MUSIC_VOLUME"
 
-[node name="VolumeHSlider2" type="HSlider" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/GridContainer"]
+[node name="VolumeHSlider2" type="HSlider" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/GridContainer" groups=["save_options"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0
 step = 0.1
+tick_count = 11
+ticks_on_borders = true
 script = ExtResource("62_uapdn")
 bus_name = "Music"
 
@@ -1476,58 +1483,86 @@ bus_name = "Music"
 layout_mode = 2
 text = "SLIDER_FX_VOLUME"
 
-[node name="VolumeHSlider3" type="HSlider" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/GridContainer"]
+[node name="VolumeHSlider3" type="HSlider" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/GridContainer" groups=["save_options"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0
 step = 0.1
 value = 0.4
+tick_count = 11
+ticks_on_borders = true
 script = ExtResource("62_uapdn")
 bus_name = "SFX"
 
-[node name="LanguageButtons" type="GridContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer"]
+[node name="LanguageButtons" type="GridContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" groups=["save_options"]]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/h_separation = 12
-theme_override_constants/v_separation = 12
+theme_override_constants/h_separation = 9
+theme_override_constants/v_separation = 2
 columns = 3
+script = ExtResource("55_36kcy")
 
-[node name="Button" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/LanguageButtons"]
+[node name="EN_Button" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/LanguageButtons"]
 layout_mode = 2
 toggle_mode = true
 text = "English"
 script = ExtResource("54_q66h1")
 
-[node name="Button2" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/LanguageButtons"]
+[node name="JA_Button" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/LanguageButtons"]
 layout_mode = 2
 toggle_mode = true
 text = "日本語"
 script = ExtResource("54_q66h1")
-locale = "ja"
+val = "ja"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer"]
+[node name="KO_Button" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/LanguageButtons"]
+visible = false
+layout_mode = 2
+toggle_mode = true
+text = "한국어"
+script = ExtResource("54_q66h1")
+val = "ko"
+
+[node name="ZH_CN_Button" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/LanguageButtons"]
+visible = false
+layout_mode = 2
+toggle_mode = true
+text = "简体字"
+script = ExtResource("54_q66h1")
+val = "zh_CN"
+
+[node name="ZH_TW_Button" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/LanguageButtons"]
+visible = false
+layout_mode = 2
+toggle_mode = true
+text = "繁體字"
+script = ExtResource("54_q66h1")
+val = "zh_TW"
+
+[node name="TilesetButtons" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" groups=["save_options"]]
 layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 1
+script = ExtResource("55_36kcy")
 
-[node name="Button" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/HBoxContainer"]
+[node name="KanjiButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/TilesetButtons"]
 layout_mode = 2
 toggle_mode = true
 text = "TILESET_NAME_KANJI"
 icon = ExtResource("53_af85s")
 script = ExtResource("54_0kukl")
-tileset = ExtResource("55_an6og")
+val = "res://image/tile/tiles.png"
 
-[node name="Button2" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/HBoxContainer"]
+[node name="ArabicButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/TilesetButtons"]
 layout_mode = 2
 toggle_mode = true
 text = "TILESET_NAME_ARABIC"
 icon = ExtResource("56_7eblf")
 script = ExtResource("54_0kukl")
-tileset = ExtResource("57_gku8h")
+val = "res://image/tile/tile_numerals.png"
 
-[node name="SkipAnimsButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer"]
+[node name="SkipAnimsButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" groups=["save_options"]]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

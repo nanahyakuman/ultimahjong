@@ -1,14 +1,14 @@
 extends Button
 
-@export var locale = "en"
+@export var val = "en"
 
 
-func _ready():
-	if locale.substr(0,2) == TranslationServer.get_locale().substr(0,2):
-		button_pressed = true
+#func _ready():
+#	if val.substr(0,2) == TranslationServer.get_locale().substr(0,2):
+#		button_pressed = true
 
 func _pressed():
-	TranslationServer.set_locale(locale)
+	TranslationServer.set_locale(val)
 	
 	for c in get_parent().get_children():
 		if c == self:

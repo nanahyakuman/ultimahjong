@@ -1,13 +1,13 @@
 extends Button
 
-@export var tileset: Texture2D
+@export var val: String
 
-func _ready():
-	if tileset == TileGraphicKnower.tileset:
-		button_pressed = true
+#func _ready():
+#	if tileset == TileGraphicKnower.tileset:
+#		button_pressed = true
 
 func _pressed():
-	TileGraphicKnower.new_texture(tileset)
+	TileGraphicKnower.new_texture(load(val))
 	
 	for s in get_parent().get_children():
 		if s == self:

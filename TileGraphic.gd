@@ -28,7 +28,7 @@ func _ready():
 	TileGraphicKnower.highlight.connect(self._highlight_requested)
 	TileGraphicKnower.new_dora.connect(self._new_dora)
 	TileGraphicKnower.change_texture.connect(self._assign_tileset)
-	
+	_assign_tileset(TileGraphicKnower.tileset)
 
 func assign_tile(t: MTile):
 	if !t:

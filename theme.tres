@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=28 format=3 uid="uid://b313koco087ot"]
+[gd_resource type="Theme" load_steps=29 format=3 uid="uid://b313koco087ot"]
 
 [ext_resource type="Texture2D" uid="uid://d3kdrvkiw5fwl" path="res://image/optionsbuttonlocale.png" id="1_vcmmg"]
 [ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="2_2v4im"]
@@ -8,6 +8,7 @@
 [ext_resource type="FontFile" uid="uid://cgpl6x7wsovy4" path="res://text/font/Body2Italic.png" id="3_qp3f2"]
 [ext_resource type="Texture2D" uid="uid://b5liq6i15i6gh" path="res://image/scrollbar.png" id="4_30idf"]
 [ext_resource type="Texture2D" uid="uid://hncwuni3ypib" path="res://image/tabbar_bg.png" id="4_31o0s"]
+[ext_resource type="Texture2D" uid="uid://b0wbxgramiuxb" path="res://image/slider/tick.png" id="4_brb54"]
 [ext_resource type="Texture2D" uid="uid://xdjwb1vhtfvu" path="res://image/slider/slider_area.png" id="4_oadwj"]
 [ext_resource type="Texture2D" uid="uid://c7whv0ller3si" path="res://image/slider/slider.png" id="5_1pkx1"]
 
@@ -143,6 +144,7 @@ Button/styles/normal = SubResource("StyleBoxTexture_da314")
 Button/styles/pressed = SubResource("StyleBoxTexture_2188t")
 HSlider/icons/grabber = ExtResource("3_jdk2l")
 HSlider/icons/grabber_highlight = ExtResource("3_jdk2l")
+HSlider/icons/tick = ExtResource("4_brb54")
 HSlider/styles/grabber_area = SubResource("StyleBoxTexture_7i8so")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxTexture_q5kdu")
 HSlider/styles/slider = SubResource("StyleBoxTexture_udfgb")
