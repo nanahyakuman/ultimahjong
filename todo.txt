@@ -127,17 +127,13 @@ languages
 
 doraizing anim when you buy dora, clear feedback as to what it was
 tsumo call tile hover broken, highlights most recent discard instead of tsumo
-some debug keys
-	end round, reroll hand, set hand to {x}, printout hand
 record sounds
 rework deadwall to be resizeable inround?
 when you discard a pocchi, can choose to exchange the 4th tile in the wall with
 	another not-yet-discarded pocchi, even if it turns out to be in the dead wall.
 	 forcing it to be on discard means you can't cycle them ifinitely
 shiro pocchi instant win if riichitsumo
-aodora
 get_terminals function
-assert that all the chanta type yaku still work
 permit riichi kan
 flower call redraw did NOT propmt tsumo properly. might have been other now-solved
 	issue but should verify
@@ -149,15 +145,12 @@ SHOP THINGS:
 	aoize and kinize, put akaize back
 does kan/flowers actually draw haitei?
 sequentialize wind change anims
-rewrite scoring tab
 mouse entering a item from the sell prompt cursorhovertexts "add item to wall???? wth???"
 	only occurs when setting the cursor style. deadass what??
 dont sell deadwall reducs if the size is already minmum
 handling for persistent upgrades like adding flowers
 cursor scaling
 dragons and winds tile explanation
-does honor mean yakuhai or any jihai? decide
-hovertext translation
 close shop lose money warning
 proper wall gfx haitei drawing
 expected scoring fgx:
@@ -173,6 +166,13 @@ pocchi almighty and pocci selection code
 menzenka overrides pinfu
 couldnt riichi with toitoi sanankou
 	possibly pocchi related
+
+nuki dora and explanations
+dora tab that explains the types and colors
+
+change character bttons
+	<|asdf|>
+language buttons down right side of title screen
 
 
 demo MVP:

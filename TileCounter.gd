@@ -9,7 +9,7 @@ signal updated
 func initialize(character_info: CharacterInfo):
 	match character_info.type:
 		# normal riichi, with a single shiropocchi
-		character_info.REGULAR:
+		CharacterInfo.TYPES.REGULAR:
 			for i in [MTile.SUITS.MAN, MTile.SUITS.PIN, MTile.SUITS.SOU]:
 				for j in 9:
 					for k in 4:
@@ -29,7 +29,7 @@ func initialize(character_info: CharacterInfo):
 		
 		
 		# normal sanma
-		character_info.SANMA:
+		CharacterInfo.TYPES.SANMA:
 			for k in 4:
 				for val in [1,9]:
 					var a = (MTile.new(MTile.SUITS.MAN,val))
@@ -40,8 +40,8 @@ func initialize(character_info: CharacterInfo):
 					for k in 4:
 						var a = MTile.new(i,j+1)
 						tile_data.append(a)
-					if j == 4:
-						tile_data[-4].color = MTile.COL_AKA
+					if j+1 == 3:
+						tile_data[-4].color = MTile.COL_AO
 			
 			for i in MTile.DEF_SPECIALS:
 				for k in 4:
@@ -50,7 +50,7 @@ func initialize(character_info: CharacterInfo):
 		
 		
 		#no honors
-		character_info.NO_HONORS:
+		CharacterInfo.TYPES.NO_HONORS:
 			for i in [MTile.SUITS.MAN, MTile.SUITS.PIN, MTile.SUITS.SOU, MTile.SUITS.CHO]:
 				for j in 9:
 					for k in 4:

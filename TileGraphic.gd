@@ -16,7 +16,7 @@ class_name TileGraphic
 @export var suit = 0
 @export var value = 0
 var tile = null
-enum {SIDE_RIGHT, SIDE_TOP, SIDE_LEFT, SIDE_BOT}
+enum {SIDE_NONE = -1, SIDE_RIGHT, SIDE_TOP, SIDE_LEFT, SIDE_BOT}
 var visible_side = SIDE_BOT
 var _reversed = false
 var _rotated: bool = false
@@ -72,7 +72,7 @@ func assign_visible_side(side: int):
 	var calc_side = side + (int(_rotated) * -3)
 	
 	visible_side = side
-	if visible_side == -1:
+	if visible_side == SIDE_NONE:
 		sides.visible = false
 		sim_tile_highlight.frame_coords.x = 4
 		adj_tile_highlight.frame_coords.x = 4

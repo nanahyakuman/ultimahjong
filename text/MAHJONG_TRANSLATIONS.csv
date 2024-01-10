@@ -197,7 +197,7 @@ YAKU_RYUUIISOU_DESC,,"Hand only contains 2/3/4/6/8-Sou and Green Dragons. These 
 YAKU_RYUUIISOU_LIT,,All Green,リューイーソー
 YAKU_CHUUREN,,Chuuren Poutou,九蓮宝燈
 YAKU_CHUUREN_DESC,,"1112345678999 of any suit, plus one more tile from the suit.",ある数牌の種類の１１１２３４５６７８９９９とその種類から何でももう一つ。
-YAKU_CHUUREN_LIT,,Nine Gates,チューレンポート―
+YAKU_CHUUREN_LIT,,Nine Gates,チューレンポートー
 YAKU_KIHOU,,Kihou,機和
 YAKU_KIHOU_DESC,,Complete a hand without ever discarding.,牌を捨てなくて上がる。
 YAKU_KIHOU_LIT,,Blessing,キホー
@@ -250,9 +250,18 @@ HOVER_WALL,,Tiles in the wall.,牌山。
 TILESET_NAME_KANJI,"different tilesets, one has traditional kanji man and the other has arabic numerals",Kanji,漢数字
 TILESET_NAME_ARABIC,,Arabic,アラビア数字
 ,,,
-BUTTON_QUIT,,Save and Quit,保存して終了
+BUTTON_SAVE_QUIT,,Save and Quit,保存して終了
 BUTTON_TITLE,,Save and Return to Title,保存してタイトルに戻る
 BUTTON_SKIP_ANIMS,,Skip Animations,アニメーション無し
 SLIDER_MASTER_VOLUME,,Master Volume,MASTER音量
 SLIDER_MUSIC_VOLUME,,Music Volume,BGM音量
 SLIDER_FX_VOLUME,,Effects Volume,SE音量
+,,,
+BUTTON_NEW_GAME,,New Game,初めから
+BUTTON_CONTINUE,,Continue,続きから
+BUTTON_QUIT,,Quit,終了
+,,,
+CHARACTER_RIICHI_NAME,,Riichi,
+CHARACTER_RIICHI_DESC,,"Classic Mahjong. 4 copies of: 1-9 Pin/Sou/Man, the 3 dragons, and the 4 winds. 1 Red Five in every numbered suit.",
+CHARACTER_SANMA_NAME,,Sanma,
+CHARACTER_SANMA_DESC,,"3-player Mahjong. Remove the 2-8 Man. Never sit North, but the tile remains as Nuki Dora.",

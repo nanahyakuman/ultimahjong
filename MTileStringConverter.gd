@@ -1,5 +1,5 @@
 ## converts between mtiles and a readable formatted string.
-extends Resource
+extends Object
 class_name MTileStringConverter
 
 # character or emoji based encoding
@@ -33,8 +33,13 @@ static func mtile_to_str(tiles: Array, type = CHARACTER) -> String:
 			else:
 				ret += SPECIALS_BY_VALUE[t.value]
 			
-			if t.aka:
-				ret += "'"
+			match t.color:
+				MTile.COL_AKA:
+					ret += "'"
+				MTile.COL_AO:
+					ret += "`"
+				MTile.COL_KIN:
+					ret +="\""
 		
 		ret += SUITS[prev_suit]
 		
@@ -73,7 +78,13 @@ static func str_to_mtile(str: String) -> Array:
 		
 		# aka
 		if c == "'":
-			vals[-1].aka = true
+			vals[-1].color = MTile.COL_AKA
+			continue
+		if c == "`":
+			vals[-1].color = MTile.COL_AO
+			continue
+		if c == "\"":
+			vals[-1].color = MTile.COL_KIN
 			continue
 		
 		if c == " ":

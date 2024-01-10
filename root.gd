@@ -8,11 +8,12 @@ extends Control
 # gets incremented once we start
 var round_counter = -1
 
+# this is temp
 func _ready():
 	await get_tree().process_frame
 	
 	var character_info = CharacterInfo.new()
-	character_info.set_type(character_info.REGULAR)
+	character_info.set_type(CharacterInfo.TYPES.SANMA)
 	
 	start_game(character_info)
 

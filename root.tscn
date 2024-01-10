@@ -837,7 +837,6 @@ grow_vertical = 2
 tab_alignment = 1
 
 [node name="TAB_RUN" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN"]
@@ -1428,6 +1427,7 @@ tab_size = 2
 script = ExtResource("52_jcp4g")
 
 [node name="TAB_OPTIONS" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="OptionsLoader" type="Node" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS"]
@@ -1570,7 +1570,7 @@ toggle_mode = true
 text = "BUTTON_SKIP_ANIMS"
 script = ExtResource("59_a21bj")
 
-[node name="QuitButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" node_paths=PackedStringArray("options_loader")]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxTexture_puj4v")
@@ -1578,9 +1578,9 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_puj4v")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_puj4v")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_puj4v")
 theme_override_styles/focus = SubResource("StyleBoxTexture_puj4v")
-text = "BUTTON_QUIT"
+text = "BUTTON_SAVE_QUIT"
 script = ExtResource("43_uwhsm")
+options_loader = NodePath("../../OptionsLoader")
 
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" to="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" method="_on_pressed"]
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" to="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" method="_on_pressed"]
-[connection signal="pressed" from="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/QuitButton" to="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/QuitButton" method="_on_pressed"]

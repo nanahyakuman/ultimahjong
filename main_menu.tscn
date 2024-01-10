@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://cgmxodp5kpx8n"]
+
+[ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="1_v6jm1"]
+[ext_resource type="Script" path="res://ButtonNewGame.gd" id="2_0gcdp"]
+[ext_resource type="Script" path="res://QuitButton.gd" id="2_1hehv"]
+[ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="2_tmh4p"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ahn04"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+texture = ExtResource("2_tmh4p")
+texture_margin_left = 4.0
+texture_margin_top = 5.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_v6jm1")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.5
+offset_top = -47.5
+offset_right = 41.5
+offset_bottom = 47.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ahn04")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "BUTTON_NEW_GAME"
+script = ExtResource("2_0gcdp")
+
+[node name="Button2" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "BUTTON_CONTINUE"
+
+[node name="Button3" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "BUTTON_QUIT"
+script = ExtResource("2_1hehv")
