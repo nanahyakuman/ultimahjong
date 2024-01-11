@@ -28,6 +28,9 @@ var tr_root: String
 
 # used to generate the preview at character select
 var preview_tile_strings: Array
+# same as above, additional field for colored tiles
+var preview_tile_with_strings: Array
+
 
 # this is ugly but im not putting in a json reader just for this, sorz
 func set_type(ty:int):
@@ -49,6 +52,7 @@ func set_type(ty:int):
 			tr_root = "CHARACTER_RIICHI"
 			
 			preview_tile_strings = ["123456789p", "123456789s", "123456789m", "東南西北白發中"]
+			preview_tile_with_strings = ["5'p5's5'm"]
 			
 		TYPES.SANMA:
 			type = TYPES.SANMA
@@ -67,7 +71,8 @@ func set_type(ty:int):
 			tr_root = "CHARACTER_SANMA"
 			
 			preview_tile_strings = ["123456789p", "123456789s", "19m", "東南西北白發中"]
-		
+			preview_tile_with_strings = ["7`p7`s"]
+			
 		TYPES.NO_HONORS:
 			type = TYPES.NO_HONORS
 			dead_wall_size = 20

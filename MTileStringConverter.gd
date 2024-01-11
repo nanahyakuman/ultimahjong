@@ -55,6 +55,17 @@ static func str_to_mtile(str: String) -> Array:
 	var vals = []
 	
 	for c in str:
+		# aka
+		if c == "'":
+			vals[-1].color = MTile.COL_AKA
+			continue
+		if c == "`":
+			vals[-1].color = MTile.COL_AO
+			continue
+		if c == "\"":
+			vals[-1].color = MTile.COL_KIN
+			continue
+		
 		# if numeral, append to stack
 		var num = int(c)
 		if 1 <= num and num <= 9:
@@ -76,16 +87,6 @@ static func str_to_mtile(str: String) -> Array:
 			ret.append(MTile.new(MTile.SUITS.SPECIAL, special_value))
 			continue
 		
-		# aka
-		if c == "'":
-			vals[-1].color = MTile.COL_AKA
-			continue
-		if c == "`":
-			vals[-1].color = MTile.COL_AO
-			continue
-		if c == "\"":
-			vals[-1].color = MTile.COL_KIN
-			continue
 		
 		if c == " ":
 			continue

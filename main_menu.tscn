@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cgmxodp5kpx8n"]
+[gd_scene load_steps=9 format=3 uid="uid://cgmxodp5kpx8n"]
 
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="1_v6jm1"]
 [ext_resource type="Script" path="res://ButtonNewGame.gd" id="2_0gcdp"]
 [ext_resource type="Script" path="res://QuitButton.gd" id="2_1hehv"]
 [ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="2_tmh4p"]
+[ext_resource type="Script" path="res://OneofManySelectorSaver.gd" id="5_4g0di"]
+[ext_resource type="Script" path="res://LanguageButton.gd" id="6_74lkm"]
+[ext_resource type="Script" path="res://OptionsLoader.gd" id="7_ecfaq"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ahn04"]
 content_margin_left = 16.0
@@ -27,36 +30,74 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_v6jm1")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -41.5
-offset_top = -47.5
-offset_right = 41.5
-offset_bottom = 47.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_ahn04")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1
 
-[node name="Button" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="VBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "BUTTON_NEW_GAME"
 script = ExtResource("2_0gcdp")
 
-[node name="Button2" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="Button2" type="Button" parent="VBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "BUTTON_CONTINUE"
 
-[node name="Button3" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="Button3" type="Button" parent="VBoxContainer/PanelContainer/VBoxContainer" node_paths=PackedStringArray("options_loader")]
 layout_mode = 2
 text = "BUTTON_QUIT"
 script = ExtResource("2_1hehv")
+options_loader = NodePath("../../../../OptionsLoader")
+
+[node name="LanguageButtons" type="GridContainer" parent="." groups=["save_options"]]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -30.0
+offset_right = -5.0
+offset_bottom = 30.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 9
+theme_override_constants/v_separation = 2
+script = ExtResource("5_4g0di")
+
+[node name="EN_Button" type="Button" parent="LanguageButtons"]
+layout_mode = 2
+toggle_mode = true
+text = "English"
+script = ExtResource("6_74lkm")
+
+[node name="JA_Button" type="Button" parent="LanguageButtons"]
+layout_mode = 2
+toggle_mode = true
+text = "日本語"
+script = ExtResource("6_74lkm")
+val = "ja"
+
+[node name="OptionsLoader" type="Node" parent="."]
+script = ExtResource("7_ecfaq")

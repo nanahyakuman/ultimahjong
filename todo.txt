@@ -166,13 +166,11 @@ pocchi almighty and pocci selection code
 menzenka overrides pinfu
 couldnt riichi with toitoi sanankou
 	possibly pocchi related
+abstract hand size and add a 17-sizer
 
 nuki dora and explanations
 dora tab that explains the types and colors
 
-change character bttons
-	<|asdf|>
-language buttons down right side of title screen
 
 
 demo MVP:

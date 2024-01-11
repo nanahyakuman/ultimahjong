@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://b86kl4mmtl6wy"]
+[gd_scene load_steps=4 format=3 uid="uid://b86kl4mmtl6wy"]
 
 [ext_resource type="Texture2D" uid="uid://bmqa5eyuh48qx" path="res://image/call_indicator.png" id="1_gvbuy"]
-[ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="1_qahuk"]
 [ext_resource type="Script" path="res://CallGraphic.gd" id="2_ji2gx"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6pw4h"]
@@ -17,7 +16,6 @@ region_rect = Rect2(0, 0, 38, 16)
 
 [node name="Call" type="PanelContainer"]
 custom_minimum_size = Vector2(38, 16)
-theme = ExtResource("1_qahuk")
 theme_override_styles/panel = SubResource("StyleBoxTexture_6pw4h")
 script = ExtResource("2_ji2gx")
 
