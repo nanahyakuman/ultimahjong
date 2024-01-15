@@ -161,88 +161,90 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			if pairs.size() >= 7:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Chiitoitsu"])
 			
-			## SET-BASED YAKU (all req. at least 3 sets)
-			if sets.size() >= 3:
-				# toitoi
-				if sets.size() >= 4:
-					scoring_info.hans.append(ALL_YAKU.YAKUS["Toitoi"])
-				
-				# sanankou, sankantsu, suuankou, suukantsu
-				var hidden_sets = []
-				var kans = []
-				for s in sets:
-					if !s.is_open():
-						hidden_sets.append(s)
-					if s.tiles.size() == 4:
-						kans.append(s)
-				
-				#  have to un-open a set if it's a ron-ned tile completing it. this 
-				# has to be more complicated than i'd like to account for dopey supersets
-				# like 333/333p as two koutsu.
-				var sets_that_might_contain_ronned_tile = []
-				for g in groupings_that_might_contain_ronned_tile:
-					if hidden_sets.has(g):
-						sets_that_might_contain_ronned_tile.append(g)
-				# check if there's any other grouping that could contain it instead.
-				if sets_that_might_contain_ronned_tile.size() > 0:
-					if sets_that_might_contain_ronned_tile.size() == groupings_that_might_contain_ronned_tile.size():
-						hidden_sets.erase(sets_that_might_contain_ronned_tile[-1])
-				
-				if hidden_sets.size() >= 4:
-					scoring_info.hans.append(ALL_YAKU.YAKUS["Suuankou"])
-				elif hidden_sets.size() == 3:
-					scoring_info.hans.append(ALL_YAKU.YAKUS["San'ankou"])
-				if kans.size() >= 4:
-					scoring_info.hans.append(ALL_YAKU.YAKUS["Suukantsu"])
-				elif kans.size() == 3:
-					scoring_info.hans.append(ALL_YAKU.YAKUS["Sankantsu"])
-				
-				#sanshoku doukou
-				var possesed_sets = []
-				possesed_sets.resize(9)
-				possesed_sets.fill(0)
-				for s in sets:
-					possesed_sets[s.tiles[0].value-1] |= s.tiles[0].suit
-				
-				for ps in possesed_sets:
-					if ps == 7:
-						scoring_info.hans.append(ALL_YAKU.YAKUS["Sanshoku Doukou"])
-			
-			
-			## RUN-BASED YAKU (note all require at least 2 runs)
-			if runs.size() >= 2:
-				# 1/2peikou
-				var run_dupe_count = 0
-				for d in duplicates:
-					if duplicates[0].type == Grouping.RUN:
-						run_dupe_count += 1
-				if run_dupe_count == 1:
-					scoring_info.hans.append(ALL_YAKU.YAKUS["Iipeikou"])
-				if run_dupe_count > 1:
-					scoring_info.hans.append(ALL_YAKU.YAKUS["Ryanpeikou"])
-				
-				if runs.size() >= 3:
-					# ittsuu
-					# weird optimization but basically generates a bitmask for each run in each suit
-					var itsuu_suits = {MTile.SUITS.PIN: 0b000, MTile.SUITS.SOU: 0b000, MTile.SUITS.MAN: 0b000, MTile.SUITS.CHO: 0b000}
-					for g in runs:
-						for index in [0,1,2]:
-							if g.tiles[0].value == index*3 + 1:
-								itsuu_suits[g.tiles[0].suit] |= int(pow(2,index))
-					for s in itsuu_suits.keys():
-						if itsuu_suits[s] == 7:
-							scoring_info.hans.append(ALL_YAKU.YAKUS["Ittsuu"])
+			# filter out chiitoi
+			else:
+				## SET-BASED YAKU (all req. at least 3 sets)
+				if sets.size() >= 3:
+					# toitoi
+					if runs.size() == 0:
+						scoring_info.hans.append(ALL_YAKU.YAKUS["Toitoi"])
 					
-					# sanshoku
-					# works similar to itsuu, but by val instead of suit
-					var sanshoku_vals = {}
-					for i in 9:
-						sanshoku_vals[i+1] = 0
-					for g in runs:
-						sanshoku_vals[g.tiles[0].value] |= g.tiles[0].suit
-					for v in sanshoku_vals.keys():
-						if sanshoku_vals[v] == 7:
-							scoring_info.hans.append(ALL_YAKU.YAKUS["Sanshoku Doujun"])
+					# sanankou, sankantsu, suuankou, suukantsu
+					var hidden_sets = []
+					var kans = []
+					for s in sets:
+						if !s.is_open():
+							hidden_sets.append(s)
+						if s.tiles.size() == 4:
+							kans.append(s)
+					
+					#  have to un-open a set if it's a ron-ned tile completing it. this 
+					# has to be more complicated than i'd like to account for dopey supersets
+					# like 333/333p as two koutsu.
+					var sets_that_might_contain_ronned_tile = []
+					for g in groupings_that_might_contain_ronned_tile:
+						if hidden_sets.has(g):
+							sets_that_might_contain_ronned_tile.append(g)
+					# check if there's any other grouping that could contain it instead.
+					if sets_that_might_contain_ronned_tile.size() > 0:
+						if sets_that_might_contain_ronned_tile.size() == groupings_that_might_contain_ronned_tile.size():
+							hidden_sets.erase(sets_that_might_contain_ronned_tile[-1])
+					
+					if hidden_sets.size() >= 4:
+						scoring_info.hans.append(ALL_YAKU.YAKUS["Suuankou"])
+					elif hidden_sets.size() == 3:
+						scoring_info.hans.append(ALL_YAKU.YAKUS["San'ankou"])
+					if kans.size() >= 4:
+						scoring_info.hans.append(ALL_YAKU.YAKUS["Suukantsu"])
+					elif kans.size() == 3:
+						scoring_info.hans.append(ALL_YAKU.YAKUS["Sankantsu"])
+					
+					#sanshoku doukou
+					var possesed_sets = []
+					possesed_sets.resize(9)
+					possesed_sets.fill(0)
+					for s in sets:
+						possesed_sets[s.tiles[0].value-1] |= s.tiles[0].suit
+					
+					for ps in possesed_sets:
+						if ps == 7: # i.e. 1 | 2 | 4
+							scoring_info.hans.append(ALL_YAKU.YAKUS["Sanshoku Doukou"])
+				
+				
+				## RUN-BASED YAKU (note all require at least 2 runs)
+				if runs.size() >= 2:
+					# 1/2peikou
+					var run_dupe_count = 0
+					for d in duplicates:
+						if duplicates[0].type == Grouping.RUN:
+							run_dupe_count += 1
+					if run_dupe_count == 1:
+						scoring_info.hans.append(ALL_YAKU.YAKUS["Iipeikou"])
+					if run_dupe_count > 1:
+						scoring_info.hans.append(ALL_YAKU.YAKUS["Ryanpeikou"])
+					
+					if runs.size() >= 3:
+						# ittsuu
+						# weird optimization but basically generates a bitmask for each run in each suit
+						var itsuu_suits = {MTile.SUITS.PIN: 0b000, MTile.SUITS.SOU: 0b000, MTile.SUITS.MAN: 0b000, MTile.SUITS.CHO: 0b000}
+						for g in runs:
+							for index in [0,1,2]:
+								if g.tiles[0].value == index*3 + 1:
+									itsuu_suits[g.tiles[0].suit] |= int(pow(2,index))
+						for s in itsuu_suits.keys():
+							if itsuu_suits[s] == 7:
+								scoring_info.hans.append(ALL_YAKU.YAKUS["Ittsuu"])
+						
+						# sanshoku
+						# works similar to itsuu, but by val instead of suit
+						var sanshoku_vals = {}
+						for i in 9:
+							sanshoku_vals[i+1] = 0
+						for g in runs:
+							sanshoku_vals[g.tiles[0].value] |= g.tiles[0].suit
+						for v in sanshoku_vals.keys():
+							if sanshoku_vals[v] == 7:
+								scoring_info.hans.append(ALL_YAKU.YAKUS["Sanshoku Doujun"])
 			
 			
 			## SUIT-BASED YAKU
@@ -389,24 +391,26 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			
 			# get fu
 			if do_fu:
-				# chiitoi fu
-				if pairs.size() >= 7:
-					scoring_info.fus.append(ALL_YAKU.FU["Chiitoitsu"].duplicate())
-				else:
-					scoring_info.fus = get_fu(groupings, doras, final_tile)
-					
-					#tsumo
-					if is_tsumo:
-						scoring_info.fus.insert(1, ALL_YAKU.FU["Tsumo"].duplicate())
-					
-					#menzenka
-					if !is_open and !is_tsumo:
-						scoring_info.fus.insert(1, ALL_YAKU.FU["Menzenkafu"].duplicate())
+				scoring_info.fus = get_fu(groupings, doras, final_tile)
+				
+				#tsumo
+				if is_tsumo:
+					scoring_info.fus.insert(1, ALL_YAKU.FU["Tsumo"].duplicate())
+				
+				#menzenka
+				if !is_open and !is_tsumo:
+					scoring_info.fus.insert(1, ALL_YAKU.FU["Menzenkafu"].duplicate())
 				
 			
 				# sneak pinfu in here. we don't check for it unless also checking for fu
 				if scoring_info.pinfu_check():
 					scoring_info.hans.append(ALL_YAKU.YAKUS["Pinfu"])
+				
+				
+				# chiitoi fu. overrides other fu
+				if pairs.size() >= 7:
+					scoring_info.fus.clear()
+					scoring_info.fus.append(ALL_YAKU.FU["Chiitoitsu"].duplicate())
 			
 			
 			
