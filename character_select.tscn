@@ -240,3 +240,5 @@ Round Count: %d
 Base Score: %d
 Expected Score Velocity: %d
 Expected Score Acceleration: %d"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button2" to="." method="start_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://d06ravao4frgl"]
+[gd_scene load_steps=75 format=3 uid="uid://d06ravao4frgl"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="2_j88jw"]
@@ -62,6 +62,7 @@
 [ext_resource type="Texture2D" uid="uid://2gvfr87k662v" path="res://image/tile/tiles_numerals_rep.png" id="56_7eblf"]
 [ext_resource type="Script" path="res://SkipAnimsButton.gd" id="59_a21bj"]
 [ext_resource type="Script" path="res://VolumeHSlider.gd" id="62_uapdn"]
+[ext_resource type="Script" path="res://TitleButton.gd" id="62_wl2hd"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n8ei0"]
 texture = ExtResource("21_sffs3")
@@ -148,7 +149,7 @@ expand_margin_bottom = 1.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Root" type="Control"]
+[node name="Root" type="Control" groups=["GameplayRoot"]]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -1569,6 +1570,18 @@ size_flags_vertical = 4
 toggle_mode = true
 text = "BUTTON_SKIP_ANIMS"
 script = ExtResource("59_a21bj")
+
+[node name="TitleButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" node_paths=PackedStringArray("options_loader")]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_puj4v")
+theme_override_styles/hover = SubResource("StyleBoxTexture_puj4v")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_puj4v")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_puj4v")
+theme_override_styles/focus = SubResource("StyleBoxTexture_puj4v")
+text = "BUTTON_TITLE"
+script = ExtResource("62_wl2hd")
+options_loader = NodePath("../../OptionsLoader")
 
 [node name="QuitButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" node_paths=PackedStringArray("options_loader")]
 layout_mode = 2

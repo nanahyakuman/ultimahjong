@@ -17,10 +17,7 @@ class_name MahjongManager
 # gui holds these guys, it's gross but probably easier overall
 @onready var items = %Items
 
-# base size of the hand
-const BASE_HAND_SIZE = 13
-
-var character_info = null
+var character_info: CharacterInfo = null
 
 var wall = [] # of `MTile`s
 #var dead_wall = [] # of `MTile`s
@@ -66,6 +63,7 @@ func initialize(ch: CharacterInfo):
 	character_info = ch
 	tile_counter.initialize(character_info)
 	upgrades.initialize(character_info)
+	yaku_checker.initialize(character_info)
 
 func start_round():
 	gui_manager.update_discard([])
@@ -133,7 +131,7 @@ func _init_wall():
 	
 
 func _draw_hand():
-	for i in BASE_HAND_SIZE:
+	for i in character_info.hand_size - 1:
 		await AnimTimer.start_mod(.07)
 		hand.append(_get_next_from_wall(0))
 		call_sfx_player.play()
@@ -662,7 +660,7 @@ func add_to_hand_and_update(tile: MTile):
 		tsumo = tile
 	else:
 		hand.append(tile)
-	assert(hand.size() + int(tsumo != null) + get_called_hand_size() == 14, "hand size messed up!")
+	assert(hand.size() + int(tsumo != null) + get_called_hand_size() == character_info.hand_size, "hand size messed up!")
 	update_hand_label()
 	gui_manager.update_tsumo([tsumo])
 	
@@ -705,7 +703,7 @@ func _switch_tile_with_tsumo(tile: MTile, index: int = -1):
 
 
 func _try_enter_riichi():
-	if in_riichi or hand_is_open() or wall.size() < 4:
+	if in_riichi or hand_is_open() or wall.size() < upgrades.get_dead_tiles()+upgrades.get_discard_count()+1:
 		return false
 	if score_tracker.score < 1000:
 		return false

@@ -3,7 +3,7 @@
 extends Node
 class_name CharacterInfo
 
-enum TYPES {REGULAR, SANMA, NO_HONORS}
+enum TYPES {REGULAR, SANMA, NO_HONORS, XL}
 
 # use set_type onegaishimasu, the rest will follow
 var type: int
@@ -12,6 +12,7 @@ var dead_wall_size: int
 var discard_count: int
 var valid_seats: int
 var opponents_its_legal_to_chii_from_count: int
+var hand_size: int
 
 # scoring expectations
 var base_score: int
@@ -34,13 +35,14 @@ var preview_tile_with_strings: Array
 
 # this is ugly but im not putting in a json reader just for this, sorz
 func set_type(ty:int):
+	type = ty
 	match ty:
 		TYPES.REGULAR:
-			type = TYPES.REGULAR
 			dead_wall_size = 32
 			discard_count = 3
 			valid_seats = 4
 			opponents_its_legal_to_chii_from_count = 1
+			hand_size = 14
 			
 			base_score = 2000
 			base_expected_points = 0
@@ -55,11 +57,11 @@ func set_type(ty:int):
 			preview_tile_with_strings = ["5'p5's5'm"]
 			
 		TYPES.SANMA:
-			type = TYPES.SANMA
 			dead_wall_size = 20
 			discard_count = 2
 			valid_seats = 3
 			opponents_its_legal_to_chii_from_count = 0
+			hand_size = 14
 			
 			base_score = 2000
 			base_expected_points = 0
@@ -74,11 +76,11 @@ func set_type(ty:int):
 			preview_tile_with_strings = ["7`p7`s"]
 			
 		TYPES.NO_HONORS:
-			type = TYPES.NO_HONORS
 			dead_wall_size = 20
 			discard_count = 3
 			valid_seats = 4
 			opponents_its_legal_to_chii_from_count = 1
+			hand_size = 14
 			
 			base_score = 2000
 			base_expected_points = 0
@@ -88,4 +90,23 @@ func set_type(ty:int):
 			number_of_rounds = 16
 			
 			tr_root = "CHARACTER_NO_HONORS"
+		
+		TYPES.XL:
+			dead_wall_size = 40
+			discard_count = 3
+			valid_seats = 4
+			opponents_its_legal_to_chii_from_count = 1
+			hand_size = 17
+			
+			base_score = 2000
+			base_expected_points = 0
+			base_expected_points_mod = 0
+			expected_points_mod_mod = 500
+			
+			number_of_rounds = 16
+			
+			tr_root = "CHARACTER_XL"
+			
+			preview_tile_strings = ["123456789p", "123456789s", "123456789m", "東南西北白發中"]
+			preview_tile_with_strings = ["12345678f"]
 			

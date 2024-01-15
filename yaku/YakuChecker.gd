@@ -3,6 +3,10 @@ class_name YakuChecker
 @onready var mahjong_manager = %MahjongManager
 @onready var ALL_YAKU = $"../YakuFu"
 
+var character_info: CharacterInfo
+
+func initialize(ci: CharacterInfo):
+	character_info = ci
 
 # hand should be sorted by MTile id. this is slow
 func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_met_yaku: ScoringInfo = null) -> ScoringInfo:
@@ -456,10 +460,12 @@ func _groupings_meet_basic_reqs(groupings: Array) -> bool:
 	var setruns = 0 # sets or runs
 	var pairs = 0 # pairs
 	var biruntripairs = 0 # 223344 type shapes that could be either
+	var sets = 0
 	for gi in groupings.size():
 		var g = groupings[gi]
 		if g.type == Grouping.SET:
 			setruns += 1
+			sets += 1
 		elif g.type == Grouping.PAIR:
 			pairs += 1
 		elif g.type == Grouping.RUN:
@@ -467,8 +473,12 @@ func _groupings_meet_basic_reqs(groupings: Array) -> bool:
 		elif g.type == Grouping.BIRUNTRIPAIR:
 			biruntripairs += 1
 	
-	return ((setruns + 2 * biruntripairs == 4) and (pairs == 1)) or (pairs + biruntripairs * 3 == 7)
-
+	if character_info.hand_size == 14:
+		return ((setruns + 2 * biruntripairs == 4) and (pairs == 1)) or (pairs + biruntripairs * 3 == 7)
+	elif character_info.hand_size == 17:
+		return ((setruns + 2 * biruntripairs == 5) and (pairs == 1)) or ((pairs + biruntripairs * 3 == 7) and sets == 1)
+	assert(false,"invalid hand size!")
+	return false
 
 func _is_kokushi(hand: Array):
 	# only allow full hands

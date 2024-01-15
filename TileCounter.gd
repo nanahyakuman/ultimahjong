@@ -17,8 +17,6 @@ func initialize(character_info: CharacterInfo):
 						tile_data.append(a)
 					if j+1 == 5:
 						tile_data[-4].color = MTile.COL_AKA
-#					if j+1 == 3:
-#						tile_data[-4].color = MTile.COL_AO
 			
 			for i in MTile.DEF_SPECIALS:
 				for k in 4:
@@ -28,7 +26,7 @@ func initialize(character_info: CharacterInfo):
 					tile_data.back().pocchi = true
 		
 		
-		# normal sanma
+		# normal sanma with ao 7s
 		CharacterInfo.TYPES.SANMA:
 			for k in 4:
 				for val in [1,9]:
@@ -40,7 +38,7 @@ func initialize(character_info: CharacterInfo):
 					for k in 4:
 						var a = MTile.new(i,j+1)
 						tile_data.append(a)
-					if j+1 == 3:
+					if j+1 == 7:
 						tile_data[-4].color = MTile.COL_AO
 			
 			for i in MTile.DEF_SPECIALS:
@@ -58,10 +56,26 @@ func initialize(character_info: CharacterInfo):
 						tile_data.append(a)
 					if j+1 == 5:
 						tile_data[-4].color = MTile.COL_AKA
+		
+		
+		#XL- 17 sized hand, no dora but 8 flowers
+		CharacterInfo.TYPES.XL:
+			for i in [MTile.SUITS.MAN, MTile.SUITS.PIN, MTile.SUITS.SOU]:
+				for j in 9:
+					for k in 4:
+						var a = MTile.new(i,j+1)
+						tile_data.append(a)
+			
+			for i in MTile.DEF_SPECIALS:
+				for k in 4:
+					var a = MTile.new(MTile.SUITS.SPECIAL, i)
+					tile_data.append(a)
+			
+			for i in 8:
+				tile_data.append(MTile.new(MTile.SUITS.FLOWER, i+1))
 	
-	# temp flower code here
-#	for i in 4:
-#		tile_data.append(MTile.new(MTile.SUITS.FLOWER, i+1))
+#	for t in tile_data:
+#		print(t.get_name())
 	
 	#  this should ideally do nothing at all, but for safety we call it
 	# anyway
