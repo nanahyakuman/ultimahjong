@@ -264,7 +264,9 @@ BUTTON_QUIT,,Quit,終了
 CHARACTER_RIICHI_NAME,,Riichi,
 CHARACTER_RIICHI_DESC,,"Classic Riichi Mahjong. 4 copies of: 1-9 Pin/Sou/Man, the 3 dragons, and the 4 winds. 1 Red Five in every numbered suit.",
 CHARACTER_SANMA_NAME,,Sanma,
-CHARACTER_SANMA_DESC,,"3-player Mahjong. Compared to Riichi: Remove the 2-8 Man. Never sit nor prevail North, but the tile remains as Nuki Dora. Cannot Chi by default, and there are 3 discards every rotation instead of 2. The 3 Red Fives are replaced by 2 Blue Sevens (and North Nuki Dora).",
+CHARACTER_SANMA_DESC,,"3-player Mahjong. Compared to Riichi: Remove the 2-8 Man. Never sit nor prevail North, but the tile remains as Nuki Dora. Cannot Chi by default, and there are 3 discards every rotation instead of 4. The 3 Red Fives are replaced by 2 Blue Sevens (and North Nuki Dora).",
+CHARACTER_XL_NAME,,XL,
+CHARACTER_XL_DESC,,"Hand is 17 tiles instead of 14. No dora by default, but start with 8 Flower Tiles.",
 ,,,
 LABEL_SELECT_CHARACTER,,Select a Deck!,牌を選べ！
 ,,,

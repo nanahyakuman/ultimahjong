@@ -5,7 +5,7 @@
 extends Node
 class_name CharacterInfo
 
-enum TYPES {REGULAR, SANMA, NO_HONORS, XL}
+enum TYPES {REGULAR, SANMA, XL, NO_HONORS}
 
 # use set_type onegaishimasu, the rest will follow
 var type: int
@@ -56,7 +56,7 @@ func set_type(ty:int):
 			tr_root = "CHARACTER_RIICHI"
 			
 			preview_tile_strings = ["123456789p", "123456789s", "123456789m", "東南西北白發中"]
-			preview_tile_with_strings = ["5'p5's5'm"]
+			preview_tile_with_strings = ["5'p5's5'm白*"]
 			
 		TYPES.SANMA:
 			dead_wall_size = 20
@@ -92,6 +92,9 @@ func set_type(ty:int):
 			number_of_rounds = 8
 			
 			tr_root = "CHARACTER_NO_HONORS"
+			
+			preview_tile_strings = ["123456789p", "123456789s", "123456789m", "123456789c"]
+			preview_tile_with_strings = [""]
 		
 		TYPES.XL:
 			dead_wall_size = 40

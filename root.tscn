@@ -1577,7 +1577,7 @@ toggle_mode = true
 text = "BUTTON_SKIP_ANIMS"
 script = ExtResource("59_a21bj")
 
-[node name="TitleButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" node_paths=PackedStringArray("options_loader")]
+[node name="TitleButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" node_paths=PackedStringArray("options_loader", "main_loader")]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxTexture_puj4v")
@@ -1588,6 +1588,7 @@ theme_override_styles/focus = SubResource("StyleBoxTexture_puj4v")
 text = "BUTTON_TITLE"
 script = ExtResource("62_wl2hd")
 options_loader = NodePath("../../OptionsLoader")
+main_loader = NodePath("../../../../../../StateSaver")
 
 [node name="QuitButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" node_paths=PackedStringArray("options_loader", "main_loader")]
 layout_mode = 2
