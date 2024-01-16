@@ -32,7 +32,5 @@ func change_char(type: int):
 
 
 func start_pressed():
+	CharInfoForwarder.load = false
 	get_tree().change_scene_to_packed(load("res://root.tscn"))
-	await get_tree().process_frame
-	get_tree().get_first_node_in_group("GameplayRoot").start_game(char_info)
-	print("a")

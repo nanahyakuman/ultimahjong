@@ -1,5 +1,7 @@
 ##  container for all of a run's default stats.
 ## only exception is the wall, which `MahjongManager/TileCounter` generates.
+##  NOTHING HERE SHOULD BE MODIFIED!!!!!!
+## save all changes to stats here in `MahjongManager/Upgrades`!
 extends Node
 class_name CharacterInfo
 
@@ -49,7 +51,7 @@ func set_type(ty:int):
 			base_expected_points_mod = 0
 			expected_points_mod_mod = 500
 			
-			number_of_rounds = 16
+			number_of_rounds = 8
 			
 			tr_root = "CHARACTER_RIICHI"
 			
@@ -68,7 +70,7 @@ func set_type(ty:int):
 			base_expected_points_mod = 0
 			expected_points_mod_mod = 500
 			
-			number_of_rounds = 18
+			number_of_rounds = 9
 			
 			tr_root = "CHARACTER_SANMA"
 			
@@ -87,7 +89,7 @@ func set_type(ty:int):
 			base_expected_points_mod = 0
 			expected_points_mod_mod = 500
 			
-			number_of_rounds = 16
+			number_of_rounds = 8
 			
 			tr_root = "CHARACTER_NO_HONORS"
 		
@@ -103,7 +105,7 @@ func set_type(ty:int):
 			base_expected_points_mod = 0
 			expected_points_mod_mod = 500
 			
-			number_of_rounds = 16
+			number_of_rounds = 8
 			
 			tr_root = "CHARACTER_XL"
 			

@@ -7,7 +7,7 @@ class_name Upgrades
 var character_info: CharacterInfo
 
 ## these should only change when the game is not active.
-func initialize(ch: CharacterInfo):
+func initialize(ch: CharacterInfo, load: bool):
 	character_info = ch
 
 #  amount of tiles to kill at the start. (it's the present value * 3).

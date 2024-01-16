@@ -4,17 +4,27 @@ extends Control
 @onready var shop_root = %ShopRoot
 @onready var scoring_root = %ScoringRoot
 @onready var score_tracker = $ScoreTracker
+@onready var state_saver = $StateSaver
 
 # gets incremented once we start
 var round_counter = -1
 
 func _ready():
 	await get_tree().process_frame
-	start_game(CharInfoForwarder.ci)
+	
+	start_game()
 
-func start_game(character_info: CharacterInfo):
-	mahjong_manager.initialize(character_info)
-	score_tracker.initialize(character_info)
+func start_game():
+	#  this procs individual node's loading code before any
+	# init code!
+	if CharInfoForwarder.load:
+		state_saver.load_cfg()
+	
+	#  nodes should do their actual loading in their respective `save_cfg()` calls,
+	# passing bool `load` through should only be used to disable normal init code that would
+	# conflict, not trigger any loading itself.
+	mahjong_manager.initialize(CharInfoForwarder.ci, CharInfoForwarder.load)
+	score_tracker.initialize(CharInfoForwarder.ci, CharInfoForwarder.load)
 	start_round()
 
 
@@ -56,3 +66,10 @@ func start_shop():
 	
 	# raise the threshhold
 	score_tracker.increment_counters()
+
+
+#overwrite global charinfo
+func load_cfg(config: ConfigFile):
+	CharInfoForwarder.ci.set_type(config.get_value("state", "CharInfoType"))
+func save_cfg(config: ConfigFile):
+	config.set_value("state", "CharInfoType", CharInfoForwarder.ci.type)

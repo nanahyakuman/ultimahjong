@@ -4,28 +4,33 @@
 ## quit the game
 extends Node
 
-const SAVE_PATH = "user://settings.cfg"
+@export var SAVE_PATH = "user://settings.cfg"
+@export var associated_group = "save_options"
+@export var autoload = true
 
 var config
 
 func _ready():
-	queue_initialize()
+	if autoload:
+		_queue_load()
 
 # docs imply you shouldnt await in `_ready`
-func queue_initialize():
+func _queue_load():
 	await get_tree().process_frame
-	initialize()
+	load_cfg()
 
 func initialize():
 	config = ConfigFile.new()
 	var err = config.load(SAVE_PATH)
 	if err != OK:
 		return
-	
-	load_cfg()
 
 func load_cfg():
-	get_tree().call_group("save_options", "load_cfg", config)
+	if !config:
+		initialize()
+	get_tree().call_group(associated_group, "load_cfg", config)
 func save_cfg():
-	get_tree().call_group("save_options", "save_cfg", config)
+	if !config:
+		initialize()
+	get_tree().call_group(associated_group, "save_cfg", config)
 	config.save(SAVE_PATH)

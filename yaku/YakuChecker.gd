@@ -5,7 +5,7 @@ class_name YakuChecker
 
 var character_info: CharacterInfo
 
-func initialize(ci: CharacterInfo):
+func initialize(ci: CharacterInfo, load: bool):
 	character_info = ci
 
 # hand should be sorted by MTile id. this is slow

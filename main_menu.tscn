@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://cgmxodp5kpx8n"]
+[gd_scene load_steps=10 format=3 uid="uid://cktxx4oqgso8u"]
 
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="1_v6jm1"]
 [ext_resource type="Script" path="res://ButtonNewGame.gd" id="2_0gcdp"]
 [ext_resource type="Script" path="res://QuitButton.gd" id="2_1hehv"]
 [ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="2_tmh4p"]
+[ext_resource type="Script" path="res://ContinueButton.gd" id="4_rawt5"]
 [ext_resource type="Script" path="res://OneofManySelectorSaver.gd" id="5_4g0di"]
 [ext_resource type="Script" path="res://LanguageButton.gd" id="6_74lkm"]
-[ext_resource type="Script" path="res://OptionsLoader.gd" id="7_ecfaq"]
+[ext_resource type="Script" path="res://SaverLoader.gd" id="7_2o14x"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ahn04"]
 content_margin_left = 16.0
@@ -61,6 +62,7 @@ script = ExtResource("2_0gcdp")
 [node name="Button2" type="Button" parent="VBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "BUTTON_CONTINUE"
+script = ExtResource("4_rawt5")
 
 [node name="Button3" type="Button" parent="VBoxContainer/PanelContainer/VBoxContainer" node_paths=PackedStringArray("options_loader")]
 layout_mode = 2
@@ -100,4 +102,4 @@ script = ExtResource("6_74lkm")
 val = "ja"
 
 [node name="OptionsLoader" type="Node" parent="."]
-script = ExtResource("7_ecfaq")
+script = ExtResource("7_2o14x")

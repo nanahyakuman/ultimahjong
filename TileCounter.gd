@@ -5,8 +5,11 @@ extends Node
 
 signal updated
 
-# fairly striaghtforward gen code, just don't forget to assign tiles unique ids!!
-func initialize(character_info: CharacterInfo):
+# fairly striaghtforward gen code
+func initialize(character_info: CharacterInfo, load: bool):
+	# code is handled in `load_cfg()`
+	if load:
+		return
 	match character_info.type:
 		# normal riichi, with a single shiropocchi
 		CharacterInfo.TYPES.REGULAR:
@@ -73,9 +76,6 @@ func initialize(character_info: CharacterInfo):
 			
 			for i in 8:
 				tile_data.append(MTile.new(MTile.SUITS.FLOWER, i+1))
-	
-#	for t in tile_data:
-#		print(t.get_name())
 	
 	#  this should ideally do nothing at all, but for safety we call it
 	# anyway
@@ -177,3 +177,11 @@ func set_color(tile: MTile, color: int):
 	tile.canon_tile.color = color
 	
 	emit_signal("updated")
+
+
+
+func load_cfg(config: ConfigFile):
+	tile_data = MTileStringConverter.str_to_mtile(config.get_value("state", "tile_data"))
+	emit_signal("updated")
+func save_cfg(config: ConfigFile):
+	config.set_value("state", "tile_data", MTileStringConverter.mtile_to_str(tile_data))

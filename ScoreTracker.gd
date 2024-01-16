@@ -15,13 +15,14 @@ var max_score = 0
 # kept so we can reference constants
 var ci: CharacterInfo
 
-func initialize(character_info: CharacterInfo):
+func initialize(character_info: CharacterInfo, load: bool):
 	ci = character_info
-	score = character_info.base_score
-	expected_score = character_info.base_expected_points
-	expected_points_mod = character_info.base_expected_points_mod
-	expected_points_mod_mod = character_info.expected_points_mod_mod
-	future_expected_score = character_info.expected_points_mod_mod
+	if !load:
+		score = character_info.base_score
+		expected_score = character_info.base_expected_points
+		expected_points_mod = character_info.base_expected_points_mod
+		expected_points_mod_mod = character_info.expected_points_mod_mod
+		future_expected_score = character_info.expected_points_mod_mod
 	
 	update_score(0)
 
@@ -57,3 +58,19 @@ func increment_counters():
 func add_future_score():
 	future_expected_score = expected_score + expected_points_mod + expected_points_mod_mod
 	update_score(0)
+
+
+func load_cfg(config: ConfigFile):
+	score = config.get_value("scoring", "score")
+	expected_score = config.get_value("scoring", "expected_score")
+	expected_points_mod = config.get_value("scoring", "expected_points_mod")
+	expected_points_mod_mod = config.get_value("scoring", "expected_points_mod_mod")
+	future_expected_score = config.get_value("scoring", "future_expected_score")
+	max_score = config.get_value("scoring", "max_score")
+func save_cfg(config: ConfigFile):
+	config.set_value("scoring", "score", score)
+	config.set_value("scoring", "expected_score", expected_score)
+	config.set_value("scoring", "expected_points_mod", expected_points_mod)
+	config.set_value("scoring", "expected_points_mod_mod", expected_points_mod_mod)
+	config.set_value("scoring", "future_expected_score", future_expected_score)
+	config.set_value("scoring", "max_score", max_score)

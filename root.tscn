@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://d06ravao4frgl"]
+[gd_scene load_steps=75 format=3 uid="uid://vit286boe7sq"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="2_j88jw"]
@@ -55,7 +55,7 @@
 [ext_resource type="FontFile" uid="uid://bian1q53chnum" path="res://text/font/BodyTilesColor.png" id="51_huq5q"]
 [ext_resource type="Script" path="res://text/RTLTranslator.gd" id="52_jcp4g"]
 [ext_resource type="Texture2D" uid="uid://jtl7gd0lo25b" path="res://image/tile/tiles_rep.png" id="53_af85s"]
-[ext_resource type="Script" path="res://OptionsLoader.gd" id="53_fnvq8"]
+[ext_resource type="Script" path="res://SaverLoader.gd" id="53_pk3io"]
 [ext_resource type="Script" path="res://TilesetButton.gd" id="54_0kukl"]
 [ext_resource type="Script" path="res://LanguageButton.gd" id="54_q66h1"]
 [ext_resource type="Script" path="res://OneofManySelectorSaver.gd" id="55_36kcy"]
@@ -149,7 +149,7 @@ expand_margin_bottom = 1.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Root" type="Control" groups=["GameplayRoot"]]
+[node name="Root" type="Control" groups=["GameplayRoot", "save_state"]]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -160,7 +160,13 @@ grow_vertical = 2
 theme = ExtResource("2_j88jw")
 script = ExtResource("2_r4pf7")
 
-[node name="ScoreTracker" type="Node" parent="."]
+[node name="StateSaver" type="Node" parent="."]
+script = ExtResource("53_pk3io")
+SAVE_PATH = "user://save.cfg"
+associated_group = "save_state"
+autoload = false
+
+[node name="ScoreTracker" type="Node" parent="." groups=["save_state"]]
 unique_name_in_owner = true
 script = ExtResource("50_7li6w")
 
@@ -201,7 +207,7 @@ script = ExtResource("1_x3kjf")
 [node name="YakuChecker" type="Node" parent="HBoxContainer/MahjongRoot/MahjongManager"]
 script = ExtResource("4_k3lw2")
 
-[node name="TileCounter" type="Node" parent="HBoxContainer/MahjongRoot/MahjongManager"]
+[node name="TileCounter" type="Node" parent="HBoxContainer/MahjongRoot/MahjongManager" groups=["save_state"]]
 script = ExtResource("5_abq0l")
 
 [node name="Upgrades" type="Node" parent="HBoxContainer/MahjongRoot/MahjongManager"]
@@ -1432,7 +1438,7 @@ visible = false
 layout_mode = 2
 
 [node name="OptionsLoader" type="Node" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS"]
-script = ExtResource("53_fnvq8")
+script = ExtResource("53_pk3io")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS"]
 layout_mode = 1
@@ -1583,7 +1589,7 @@ text = "BUTTON_TITLE"
 script = ExtResource("62_wl2hd")
 options_loader = NodePath("../../OptionsLoader")
 
-[node name="QuitButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" node_paths=PackedStringArray("options_loader")]
+[node name="QuitButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" node_paths=PackedStringArray("options_loader", "main_loader")]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxTexture_puj4v")
@@ -1594,6 +1600,7 @@ theme_override_styles/focus = SubResource("StyleBoxTexture_puj4v")
 text = "BUTTON_SAVE_QUIT"
 script = ExtResource("43_uwhsm")
 options_loader = NodePath("../../OptionsLoader")
+main_loader = NodePath("../../../../../../StateSaver")
 
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" to="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" method="_on_pressed"]
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" to="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" method="_on_pressed"]

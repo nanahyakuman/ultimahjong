@@ -17,7 +17,14 @@ const EMOJIS = [
 ]
 
 #  tiles should be sorted. (techincally doesn't matter but
-# will return a dopey looking string if they're not)
+# will return a dopey looking string if they're not)=
+#  string is formatted mostly normally, but with more metadata for aka/ao/kin.
+# instead of 0 meaning aka five, `5'` means red five, and this extends to any
+# other number, with similar formatting for ao and kin. metadata always comes before
+# suit, so `5'*p` is a red pocchi 5pin but `5'p*` is malformed. i believe we can actually
+# still read it in but it is avoided.
+#  additionally, we forgo the dopey 1z for east wind thing, we just write the literal
+# character 發 instead.
 static func mtile_to_str(tiles: Array, type = CHARACTER) -> String:
 	if type == CHARACTER:
 		var ret = ""
@@ -40,6 +47,9 @@ static func mtile_to_str(tiles: Array, type = CHARACTER) -> String:
 					ret += "`"
 				MTile.COL_KIN:
 					ret +="\""
+			
+			if t.pocchi:
+				ret +="*"
 		
 		ret += SUITS[prev_suit]
 		
@@ -64,6 +74,13 @@ static func str_to_mtile(str: String) -> Array:
 			continue
 		if c == "\"":
 			vals[-1].color = MTile.COL_KIN
+			continue
+		
+		if c == "*":
+			if vals.size() > 0:
+				vals[-1].pocchi = true
+			else:
+				ret[-1].pocchi = true
 			continue
 		
 		# if numeral, append to stack

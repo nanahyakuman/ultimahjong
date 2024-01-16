@@ -59,11 +59,13 @@ func _process(delta: float):
 	if Input.is_action_just_pressed("start_shop"):
 		_end_round()
 
-func initialize(ch: CharacterInfo):
+#  load is passed through so nodes can decide whether to init themselves or
+# let their own `load_cfg()` handle it instead.
+func initialize(ch: CharacterInfo, load: bool):
 	character_info = ch
-	tile_counter.initialize(character_info)
-	upgrades.initialize(character_info)
-	yaku_checker.initialize(character_info)
+	tile_counter.initialize(character_info, load)
+	upgrades.initialize(character_info, load)
+	yaku_checker.initialize(character_info, load)
 
 func start_round():
 	gui_manager.update_discard([])
@@ -865,4 +867,3 @@ static func count_by_id(id: int, tiles: Array) -> int:
 		if tiles[t].get_id() == id:
 			count += 1
 	return count
-
