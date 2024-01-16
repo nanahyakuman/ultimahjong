@@ -438,6 +438,8 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 				for t in all_tiles:
 					if t.color == MTile.COL_AKA:
 						_append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Aka Dora"])
+					if t.color == MTile.COL_AKA:
+						_append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kin Dora"])
 					if doras[0].has(t.get_id()):
 						_append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kan Dora"])
 					if !is_open and doras[1].has(t.get_id()):
