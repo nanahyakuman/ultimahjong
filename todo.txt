@@ -163,13 +163,12 @@ nuki dora and better explanations
 dora tab that explains the types and colors
 
 really nneed to go through scoring again
-	4 han hand gave me 6 points? yakuhai honitsu
-		open honitsu did as well
 	acknowledge yaochjuu sets on scoring
 	scoring display is out of date
 	expected scoring fgx:
 		visually add to player score at end of roynd and test it then
 		vissually add to expected store after player draws their first tile
+	open ryanpeikou failed to trigger
 
 save whether in shop or not
 save hand and wall info?

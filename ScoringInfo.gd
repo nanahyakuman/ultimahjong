@@ -147,6 +147,8 @@ static func _alt_points_count(fu: int, han: int, yakuman: int):
 			if yakuman >= 1:
 				base = yakuman * 8000
 	
+	print(fu, " ", han, " ", base)
+	
 	return base
 
 func pinfu_check():
