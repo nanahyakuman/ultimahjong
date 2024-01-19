@@ -6,8 +6,13 @@ extends Control
 @onready var score_tracker = $ScoreTracker
 @onready var state_saver = $StateSaver
 
-# gets incremented once we start
+# gets incremented once we start.
+# also accessed by mahjmanager
 var round_counter = -1
+
+# mostly used on save/load
+enum {STATE_ROUND, STATE_SHOP}
+var state = STATE_ROUND
 
 func _ready():
 	await get_tree().process_frame
@@ -25,17 +30,22 @@ func start_game():
 	# conflict, not trigger any loading itself.
 	mahjong_manager.initialize(CharInfoForwarder.ci, CharInfoForwarder.load)
 	score_tracker.initialize(CharInfoForwarder.ci, CharInfoForwarder.load)
-	start_round()
+	if state == STATE_ROUND:
+		start_round()
+	else:
+		start_shop()
 
 
 func start_round():
+	round_counter += 1
 	shop_root.visible = false
 	scoring_root.visible = false
 	mahjong_manager.start_round()
-	round_counter += 1
 	
 	# give player live updates on expectations
 	score_tracker.add_future_score()
+	
+	state = STATE_ROUND
 
 # also start scoring
 func end_round(scoring_info: ScoringInfo, multiplier_info: MultiplierInfo):
@@ -56,6 +66,9 @@ func end_round(scoring_info: ScoringInfo, multiplier_info: MultiplierInfo):
 	
 	# add points and check we beat the threshhold
 	score_tracker.update_score(points)
+	
+	# update early so you can't quit to retry a round
+	state = STATE_SHOP
 
 func start_shop():
 	TileGraphicKnower.update_dora_ids([])
@@ -71,5 +84,11 @@ func start_shop():
 #overwrite global charinfo
 func load_cfg(config: ConfigFile):
 	CharInfoForwarder.ci.set_type(config.get_value("state", "CharInfoType"))
+	state = config.get_value("state", "root_state", STATE_ROUND)
+	round_counter = config.get_value("state", "round_counter", round_counter)
 func save_cfg(config: ConfigFile):
 	config.set_value("state", "CharInfoType", CharInfoForwarder.ci.type)
+	config.set_value("state", "root_state", state)
+	# reincremented when a round is started
+	config.set_value("state", "round_counter", round_counter-1)
+	

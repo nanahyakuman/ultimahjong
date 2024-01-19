@@ -168,7 +168,6 @@ really nneed to go through scoring again
 		visually add to player score at end of roynd and test it then
 		vissually add to expected store after player draws their first tile
 
-save whether in shop or not
 save hand and wall info?
 save round info
 

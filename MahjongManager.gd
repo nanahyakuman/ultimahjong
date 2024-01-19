@@ -103,12 +103,10 @@ func start_round():
 	
 
 func _increment_winds():
-	# because modding negative numbers doesnt work right
-	seat_wind += character_info.valid_seats-1
-	seat_wind %= character_info.valid_seats
-	if seat_wind == character_info.valid_seats-1:
-		prevalent_wind += 1
-		prevalent_wind %= 4
+	var curr_round = root.round_counter
+	seat_wind = (7-curr_round) % character_info.valid_seats
+	prevalent_wind = curr_round / character_info.valid_seats
+	if seat_wind == WINDS.NORTH:
 		MusicManager.queue_next_song()
 	gui_manager.update_winds(prevalent_wind, seat_wind)
 
