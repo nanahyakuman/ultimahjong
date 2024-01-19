@@ -30,7 +30,11 @@ FU_TYPE_OPEN_SET,,Open Set,明刻
 FU_TYPE_CLOSED_SET,,Closed Set,暗刻
 FU_TYPE_OPEN_QUAD,,Open Quad,明槓
 FU_TYPE_CLOSED_QUAD,,Closed Quad,暗槓
-FU_TYPE_YAOCHUU_MULT,,Terminal/Honor Multiplier,幺九字牌かけ
+FU_TYPE_OPEN_SET_YAOCHUU,,Open Set (Yaochuu),明刻（幺九牌）
+FU_TYPE_CLOSED_SET_YAOCHUU,,Closed Set (Yaochuu),暗刻（幺九牌）
+FU_TYPE_OPEN_QUAD_YAOCHUU,,Open Quad (Yaochuu),明槓（幺九牌）
+FU_TYPE_CLOSED_QUAD_YAOCHUU,,Closed Quad (Yaochuu),暗槓（幺九牌）
+FU_TYPE_YAOCHUU_MULT,,Terminal/Honor Multiplier,幺九牌かけ
 FU_HEADER_WAITS,,Waits,待ち
 FU_TYPE_1SIDED,,1-Sided,一面
 FU_TYPE_2SIDED,,2-Sided,両面
@@ -51,6 +55,7 @@ GUIDE_TILES_HEADER_TYPES,,Tile Types,牌の種類
 GUIDE_TILES_TERMINAL,,Terminal: 1 or 9 in any number suit.,老頭牌：数牌の１と９。
 GUIDE_TILES_SIMPLE,,Simple: 2 through 8 in any number suit.,中張牌：数牌の２～８。
 GUIDE_TILES_HONOR,,Honor: Dragons and Winds.,字牌：元牌と風牌。
+GUIDE_TILES_YAOCHUU,,Yaochuu: Terminal or Honor.,幺九牌：老頭牌または字牌。
 GUIDE_TILES_YAKUHAI,,Yakuhai: Dragons and the sitting and prevalent winds (bottom left corner).,役牌：元牌と場風と自風。
 GUIDE_TILES_FLOWER,,"Flowers: Not always included, indicated by a number in the top left. Worth bonus han if called. Calling them immediately draws a replacement tile.",花牌：普通に利用していない。ドラを得る。
 GUIDE_TILES_HEADER_GROUPS,,Tile Groups,牌の面子
@@ -59,7 +64,7 @@ GUIDE_TILES_SET,,Set: 3 tiles of the same value and suit.,刻子：同じ牌の�
 GUIDE_TILES_QUAD,,"Quad: 4 tiles of the same value and suit. [i]Must[/i] be called to count, this call's name is kan. Calling kan draws another tile into hand, so quads are effectively still sets of size 3, but with a bonus tile tacked on for extra fu. Calling kan also reveals another kan dora.",槓子：同じ牌の四枚。
 GUIDE_TILES_RUN,,Run: 3 tiles in a row of the same number suit. Individual runs can [i]only[/i] be 3 tiles long.,順子：連続する三枚の牌。
 GUIDE_TILES_HEADER_DORA,,Dora Tiles,ドラ牌
-GUIDE_TILES_DESC_DORA,,"Some tiles are worth 1 han just for being in hand at completion. However, you still need to have at least one Yaku in hand to go out. They are as follows:",ある牌は手配に存在するだけで翻を得る。だが、ドラだけで和了できない、まだ役が必要だ。
+GUIDE_TILES_DESC_DORA,,"Some tiles provide value just for being in hand at completion. However, you still need to have at least one Yaku in hand to go out. They are as follows:",ある牌は手配に存在するだけで翻を得る。だが、ドラだけで和了できない、まだ役が必要だ。
 GUIDE_TILES_AKA_DORA,,Aka: Printed fully in red.,赤ドラ：赤い。
 GUIDE_TILES_KAN_DORA,,"Kan: Every time a kan is called, a tile is revealed from the dead wall. The tile following it in sequence becomes a bonus tile. For number tiles, the order is sequential (1...9>1). For dragons, the order is W>G>R>W. For Winds: N>E>S>W>N.",まだ書いてませんでございますわ！
 ,,,
@@ -204,6 +209,7 @@ YAKU_KIHOU_LIT,,Blessing,キホー
 YAKU_KAN_DORA,these don't have attached descriptions or transliterations,Kan Dora,槓ドラ
 YAKU_URA_DORA,,Ura Dora,裏ドラ
 YAKU_AKA_DORA,,Aka Dora,赤ドラ
+YAKU_KIN_DORA,,Kin Dora,金ドラ
 ,,,
 CALL_CHI_L,,Chi L,チー左
 CALL_CHI_M,,Chi M,チー中
@@ -262,11 +268,11 @@ BUTTON_CONTINUE,,Continue,続きから
 BUTTON_QUIT,,Quit,終了
 ,,,
 CHARACTER_RIICHI_NAME,,Riichi,
-CHARACTER_RIICHI_DESC,,"Classic Riichi Mahjong. 4 copies of: 1-9 Pin/Sou/Man, the 3 dragons, and the 4 winds. 1 Red Five in every numbered suit.",
+CHARACTER_RIICHI_DESC,,"Classic Riichi Mahjong. 4 copies of: 1-9 Pin/Sou/Man, the 3 dragons, and the 4 winds. 1 Red Five in every numbered suit. Adds a single Almighty Pocchi White Dragon.",
 CHARACTER_SANMA_NAME,,Sanma,
 CHARACTER_SANMA_DESC,,"3-player Mahjong. Compared to Riichi: Remove the 2-8 Man. Never sit nor prevail North, but the tile remains as Nuki Dora. Cannot Chi by default, and there are 3 discards every rotation instead of 4. The 3 Red Fives are replaced by 2 Blue Sevens (and North Nuki Dora).",
 CHARACTER_XL_NAME,,XL,
-CHARACTER_XL_DESC,,"Hand is 17 tiles instead of 14. No dora by default, but start with 8 Flower Tiles.",
+CHARACTER_XL_DESC,,"Hand is 17 tiles large instead of 14. No dora by default, but start with 8 Flower Tiles.",
 ,,,
 LABEL_SELECT_CHARACTER,,Select a Deck!,牌を選べ！
 ,,,

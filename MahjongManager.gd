@@ -187,13 +187,17 @@ func _draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.SOU, 9))
 #	temp.append(MTile.new(MTile.SUITS.SOU, 1))
 	
-
+#	temp = MTileStringConverter.str_to_mtile("12m88p445566s")
+#	var a = Grouping.new(Grouping.RUN, MTileStringConverter.str_to_mtile("123m"))
+#	a.open_tile = 1
+#	a.player_taken_from_offset = 1
+#	called_hand.append(a)
+	
 	if temp:
-		assert(temp.size() == 13)
 		temp.sort()
 		hand = temp
 	update_hand_label()
-	
+	gui_manager.update_made_calls(called_hand)
 
 func _draw_kan_dora():
 	kan_dora.append(_get_next_from_wall(0))

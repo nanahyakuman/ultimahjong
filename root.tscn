@@ -844,6 +844,7 @@ grow_vertical = 2
 tab_alignment = 1
 
 [node name="TAB_RUN" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN"]
@@ -973,7 +974,6 @@ tab_alignment = 1
 script = ExtResource("45_rsntb")
 
 [node name="TAB_GUIDE" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE"]
@@ -987,6 +987,7 @@ theme_override_fonts/font = ExtResource("28_jde07")
 tab_alignment = 1
 
 [node name="TAB_GUIDE_BASICS" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_BASICS"]
@@ -1029,7 +1030,6 @@ tab_size = 2
 script = ExtResource("52_jcp4g")
 
 [node name="TAB_GUIDE_TILES" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="OldRichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES"]
@@ -1099,25 +1099,6 @@ theme_override_fonts/font = ExtResource("51_huq5q")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
 text = "  🀙🀡 🀐🀘 🀇🀏"
 
-[node name="LabelWithTiles2" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 2
-
-[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles2"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
-bbcode_enabled = true
-text = "GUIDE_TILES_SIMPLE"
-fit_content = true
-script = ExtResource("52_jcp4g")
-
-[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles2"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("51_huq5q")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
-text = "  🀚🀛🀜🀝🀞🀟🀠 🀑🀒🀓🀔🀕🀖🀗 🀈🀉🀊🀋🀌🀍🀎"
-
 [node name="LabelWithTiles3" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 2
@@ -1155,6 +1136,44 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("51_huq5q")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
 text = "  🀆🀅🀄 🀀🀃"
+
+[node name="LabelWithTiles12" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles12"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
+bbcode_enabled = true
+text = "GUIDE_TILES_YAOCHUU"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles12"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
+text = "  🀙🀡 🀐🀘 🀇🀏 🀆🀅🀄 🀀🀁🀂🀃"
+
+[node name="LabelWithTiles2" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles2"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
+bbcode_enabled = true
+text = "GUIDE_TILES_SIMPLE"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
+text = "  🀚🀛🀜🀝🀞🀟🀠 🀑🀒🀓🀔🀕🀖🀗 🀈🀉🀊🀋🀌🀍🀎"
 
 [node name="LabelWithTiles11" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
 layout_mode = 2

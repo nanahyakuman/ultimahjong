@@ -111,18 +111,21 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 						if t.get_id() == hand_info.most_recent_discard.get_id():
 							groupings_that_might_contain_ronned_tile.append(g)
 			
-			# have to use a manual iterator so we can advance it
+			
+			#  find dupes. have to use a manual iterator so we can reset it.
+			# its not that sightly but we just run thruogh the array over and
+			# over until there's no dupes, every time we find one we just delete
+			# both from the dupe array and start back over
+			var groupings_clone = groupings.duplicate()
 			var it = 0
-			while it < groupings.size():
-				for j in range(it+1, groupings.size()):
-					#  pass on if a dupe is found.
-					# this way 111122223333p returns two duplicates ([123.a]>123.b) and ([123.c]>123.d),
-					# (bracketed group is the actual one in `duplicates`)
-					#  i know calling `equivalent()` here is redundant because we
-					# maintain biruntripair trackers, but whatever it works
-					if groupings[it].equivalent(groupings[j]):
-						duplicates.append(groupings[it])
-						it = j
+			while it < groupings_clone.size():
+				for j in range(it+1, groupings_clone.size()):
+					if groupings_clone[it].equivalent(groupings_clone[j]):
+						duplicates.append(groupings_clone[it])
+						groupings_clone.remove_at(it)
+						# ugly ahh offsetter becuase removals are int based
+						groupings_clone.remove_at(j - int(it < j))
+						it = 0
 						break
 				it += 1
 			
@@ -218,6 +221,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 					for d in duplicates:
 						if duplicates[0].type == Grouping.RUN:
 							run_dupe_count += 1
+					
 					if run_dupe_count == 1:
 						scoring_info.hans.append(ALL_YAKU.YAKUS["Iipeikou"])
 					if run_dupe_count > 1:
@@ -281,25 +285,26 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 				elif is_half:
 					scoring_info.hans.append(ALL_YAKU.YAKUS["Hon'itsu"])
 				
-				var chuuren_bitmask = []
-				chuuren_bitmask.resize(9)
-				chuuren_bitmask.fill(0)
-				for g in groupings:
-					for t in g.tiles:
-						chuuren_bitmask[t.value-1] += 1
-				
-				var chuuren_valid = true
-				if chuuren_bitmask[9-1] < 3:
-					chuuren_valid = false
-				if chuuren_bitmask[1-1] < 3:
-					chuuren_valid = false
-				for i in range(2-1, 8-1+1):
-					if chuuren_bitmask[i] < 1:
+				if is_full:
+					var chuuren_bitmask = []
+					chuuren_bitmask.resize(9)
+					chuuren_bitmask.fill(0)
+					for g in groupings:
+						for t in g.tiles:
+							chuuren_bitmask[t.value-1] += 1
+					
+					var chuuren_valid = true
+					if chuuren_bitmask[9-1] < 3:
 						chuuren_valid = false
-						break
-				
-				if chuuren_valid:
-					scoring_info.hans.append(ALL_YAKU.YAKUS["Chuuren Poutou"])
+					if chuuren_bitmask[1-1] < 3:
+						chuuren_valid = false
+					for i in range(2-1, 8-1+1):
+						if chuuren_bitmask[i] < 1:
+							chuuren_valid = false
+							break
+					
+					if chuuren_valid:
+						scoring_info.hans.append(ALL_YAKU.YAKUS["Chuuren Poutou"])
 			
 			# putting ryuuii here as well
 			var ryuuii = true
@@ -708,7 +713,8 @@ func get_fu(groupings: Array, doras: Array, waited_tile: MTile):
 			
 			if is_yao:
 				fus.back().fu *= ALL_YAKU.FU["Yaochuu Multiplier"].fu
-			#	fus.back().nam = "Yaochuu " + fus.back().nam
+				# will be tr()'d
+				fus.back().nam += ("_YAOCHUU")
 		
 		elif g.type == Grouping.PAIR:
 			if g.tiles[0].suit == MTile.SUITS.SPECIAL and get_yakuhai_vals().has(g.tiles[0].value):

@@ -105,7 +105,7 @@ func get_dora_id():
 		ret.append(MTile.gen_id(suit, v))
 	return ret
 
-# does not care about aka
+# does not care about color or canon, so two different 5p are equal
 static func gen_id(s: int, v: int):
 	return s * 100 + v * 1
 
