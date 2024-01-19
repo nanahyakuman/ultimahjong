@@ -37,6 +37,7 @@ end of every round can purchase:
 		spawn a random orphan
 		convert a wind to a chosen adjacent wind
 		pick up a discarded tile (actually make it the next tile you draw?)
+		transmute a tile's color to another color
 	scoew bonuses
 		1 han for every 7 tiles in your hand without any red ink toka
 		every 5 consecutive discards from hand adds a han
@@ -51,6 +52,8 @@ achievements
 	joke about there not being furiten. "furiten furi"
 	pocchi a false white dragon
 	get any hand with multiple ways of scoring it
+	kin iisou (chonbo)
+	kazoe double
 	
 	not sure i want to add even more dopey yaku clogging up menus, but they'd make cool hidden achievements
 		daichiishin (chiitoi tsuuii) (+1y)
@@ -107,6 +110,7 @@ ideas but not critical:
 		make them orange and link back to their descriptions
 	consider better cjk font(s)
 		http://jikasei.me/font/jf-dotfont/ for jp
+	better delivery for new dora
 
 languages
 	jibun de yare:
@@ -168,14 +172,11 @@ really nneed to go through scoring again
 		visually add to player score at end of roynd and test it then
 		vissually add to expected store after player draws their first tile
 
-save hand and wall info?
-save round info
-
 persistant items!
 
 demo MVP:
 	save and load runs
-		persistent items manager, flowers/dora
+		persistent items manager
 	win/lose screens
 	marginally better score expectation indicator
 		cursor popups

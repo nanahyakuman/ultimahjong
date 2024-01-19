@@ -340,13 +340,14 @@ func update_graphics(mana: int, force: int = false):
 			cant_use = true
 		CH_TYPES.MANA:
 			cant_use = COOLD[type] > mana
-			sprite_2d.frame_coords.y = (type / sprite_2d.hframes) * 2  +  int(cant_use and !force)
 			
 		CH_TYPES.TIMR:
 			cant_use = cooldown_counter > 0
 			panel_container.visible = cant_use or force
 			counter_label.text = str(maxi(0,cooldown_counter))
-			sprite_2d.frame_coords.y = (type / sprite_2d.hframes) * 2  +  int(cant_use and !force)
+	
+	
+	sprite_2d.frame_coords.y = (type / sprite_2d.hframes) * (2 + int(cant_use and !force))
 	
 	if !cant_use:
 		mouse_default_cursor_shape = CURSOR_POINTING_HAND

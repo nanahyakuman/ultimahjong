@@ -1,4 +1,5 @@
 extends HBoxContainer
+class_name PurchaseablesHolder
 
 @onready var mahjong_manager = %MahjongManager
 @onready var tile_counter = mahjong_manager.tile_counter
@@ -67,6 +68,14 @@ func pressed(node: Purchaseable):
 		Purchaseable.TYPES.AKA:
 			for t in node.tiles:
 				tile_counter.set_color(t, MTile.COL_AKA)
+				await AnimTimer.start_mod(.15)
+		Purchaseable.TYPES.AO:
+			for t in node.tiles:
+				tile_counter.set_color(t, MTile.COL_AO)
+				await AnimTimer.start_mod(.15)
+		Purchaseable.TYPES.KIN:
+			for t in node.tiles:
+				tile_counter.set_color(t, MTile.COL_KIN)
 				await AnimTimer.start_mod(.15)
 		Purchaseable.TYPES.ADD:
 			for t in node.tiles:

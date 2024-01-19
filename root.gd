@@ -9,6 +9,8 @@ extends Control
 # gets incremented once we start.
 # also accessed by mahjmanager
 var round_counter = -1
+#  so the shop knows whether to give you free dora or not
+var last_round_was_victory = false
 
 # mostly used on save/load
 enum {STATE_ROUND, STATE_SHOP}
@@ -69,13 +71,16 @@ func end_round(scoring_info: ScoringInfo, multiplier_info: MultiplierInfo):
 	
 	# update early so you can't quit to retry a round
 	state = STATE_SHOP
+	
+	# tracker for shop
+	last_round_was_victory = points > 0
 
 func start_shop():
 	TileGraphicKnower.update_dora_ids([])
 	
 	scoring_root.visible = false
 	shop_root.visible = true
-	shop_root.start()
+	shop_root.start(last_round_was_victory)
 	
 	# raise the threshhold
 	score_tracker.increment_counters()
@@ -85,10 +90,12 @@ func start_shop():
 func load_cfg(config: ConfigFile):
 	CharInfoForwarder.ci.set_type(config.get_value("state", "CharInfoType"))
 	state = config.get_value("state", "root_state", STATE_ROUND)
-	round_counter = config.get_value("state", "round_counter", round_counter)
+	# reincremented when a round is started
+	round_counter = config.get_value("state", "round_counter", round_counter)-1
+	last_round_was_victory = config.get_value("state", "last_round_was_victory", false)
 func save_cfg(config: ConfigFile):
 	config.set_value("state", "CharInfoType", CharInfoForwarder.ci.type)
 	config.set_value("state", "root_state", state)
-	# reincremented when a round is started
-	config.set_value("state", "round_counter", round_counter-1)
+	config.set_value("state", "round_counter", round_counter)
+	config.set_value("state", "last_round_was_victory", last_round_was_victory)
 	

@@ -2,7 +2,8 @@
 extends Object
 class_name MTileStringConverter
 
-# character or emoji based encoding
+#  character or emoji based encoding.
+# emoji is not feature complete
 enum {CHARACTER, EMOJI}
 
 const SUITS = {MTile.SUITS.MAN: "m", MTile.SUITS.PIN: "p", MTile.SUITS.SOU: "s", MTile.SUITS.CHO: "c", MTile.SUITS.SPECIAL: "", MTile.SUITS.FLOWER: "f", null: ""}
@@ -17,12 +18,11 @@ const EMOJIS = [
 ]
 
 #  tiles should be sorted. (techincally doesn't matter but
-# will return a dopey looking string if they're not)=
+# will return a dopey looking string if they're not)
 #  string is formatted mostly normally, but with more metadata for aka/ao/kin.
 # instead of 0 meaning aka five, `5'` means red five, and this extends to any
-# other number, with similar formatting for ao and kin. metadata always comes before
-# suit, so `5'*p` is a red pocchi 5pin but `5'p*` is malformed. i believe we can actually
-# still read it in but it is avoided.
+# other number, like 3' as red 3. there is similar formatting for ao and kin.
+#  decent malformation handling, so `5'*p` is a red pocchi 5pin, `5*p'` is as well.
 #  additionally, we forgo the dopey 1z for east wind thing, we just write the literal
 # character 發 instead.
 static func mtile_to_str(tiles: Array, type = CHARACTER) -> String:
@@ -67,20 +67,17 @@ static func str_to_mtile(str: String) -> Array:
 	for c in str:
 		# aka
 		if c == "'":
-			vals[-1].color = MTile.COL_AKA
+			get_last_assigned(vals,ret).color = MTile.COL_AKA
 			continue
 		if c == "`":
-			vals[-1].color = MTile.COL_AO
+			get_last_assigned(vals,ret).color = MTile.COL_AO
 			continue
 		if c == "\"":
-			vals[-1].color = MTile.COL_KIN
+			get_last_assigned(vals,ret).color = MTile.COL_KIN
 			continue
 		
 		if c == "*":
-			if vals.size() > 0:
-				vals[-1].pocchi = true
-			else:
-				ret[-1].pocchi = true
+			get_last_assigned(vals,ret).pocchi = true
 			continue
 		
 		# if numeral, append to stack
@@ -112,3 +109,13 @@ static func str_to_mtile(str: String) -> Array:
 	
 	
 	return ret
+
+
+# return the most recently created tile, so both 5'p and 5p' return an aka 5sou
+static func get_last_assigned(vals: Array, ret: Array):
+	if vals.size() > 0:
+		return vals[-1]
+	elif ret.size() > 0:
+		return ret[-1]
+	else:
+		return null

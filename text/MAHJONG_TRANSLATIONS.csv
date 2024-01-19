@@ -48,7 +48,7 @@ Critically, this hand meets at least one win condition, more commonly referred t
 A round ends when the number of tiles left in the wall reaches a cutoff, 30 by default. If you have not gone out by this point, you get no points. (There is no ryuukoku tenpai payout by default.)
 
 [b]UltiMahjong Fundamentals[/b]
-The whole game is played out across 16 rounds. Every round, your seat wind advances in counterclockwise compass order (N>W>S>E), and every four rounds, the prevalent wind advances in clockwise compass order (E>S>W>N).
+The whole game is played out across 8 rounds. Every round, your seat wind advances in counterclockwise compass order (N>W>S>E), and every four rounds, the prevalent wind advances in clockwise compass order (E>S>W>N).
 At the end of every round, you must have met a minimum score to continue the run. This minimum threshold increases every round. The amount that it will increase next round also increases.
 Finishing a round opens the shop, and grants you a static amount of money. You can buy anything you have enough money for, or sell items for money. All unspent money is [i]forfeited[/i] when you close the shop!",まだ書いてませんでございますわ！
 GUIDE_TILES_HEADER_TYPES,,Tile Types,牌の種類
@@ -278,3 +278,7 @@ LABEL_SELECT_CHARACTER,,Select a Deck!,牌を選べ！
 ,,,
 BUTTON_BACK,,Back,戻る
 BUTTON_START,,Start,開始
+,,,
+SHOP_NAME,,Shop,店
+SHOP_DORA_DESC_W,,"You won last round, choose one of the above Dora Paints above as a reward!",まだ書いてませんでございますわ！
+SHOP_DORA_DESC_L,,Win the round to get Dora rewards!,まだ書いてませんでございますわ！

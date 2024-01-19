@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://vit286boe7sq"]
+[gd_scene load_steps=76 format=3 uid="uid://vit286boe7sq"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="2_j88jw"]
@@ -39,6 +39,7 @@
 [ext_resource type="Script" path="res://PopupTileSelector.gd" id="28_st0rv"]
 [ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="32_on5h8"]
 [ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="35_14yv6"]
+[ext_resource type="Script" path="res://ColoredPurchaseables.gd" id="37_xpxeh"]
 [ext_resource type="Script" path="res://FuTab.gd" id="41_je4uv"]
 [ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tile/tilecounter/tablediv.png" id="41_k312k"]
 [ext_resource type="Texture2D" uid="uid://cfmymgbxt6t6r" path="res://image/tile/tilecounter/tilecounter_dead.png" id="41_py2jx"]
@@ -698,16 +699,21 @@ bbcode_enabled = true
 text = "[center][b]Shop"
 fit_content = true
 
-[node name="AkaPurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
+[node name="ColoredPurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1
-script = ExtResource("20_wmn33")
+script = ExtResource("37_xpxeh")
 purchaseable = ExtResource("21_3mckx")
-BUTTONS = 2
-PER_BUTTON = 2
+
+[node name="DoraInfoLabel" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]you won the last round! pick one of the above as award!"
+fit_content = true
 
 [node name="TilePurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1
@@ -1066,6 +1072,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scroll_vertical = 88
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer"]
 layout_mode = 2
@@ -1312,6 +1319,44 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("51_huq5q")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
 text = "  🀋"
+
+[node name="LabelWithTiles13" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles13"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
+bbcode_enabled = true
+text = "GUIDE_TILES_AO_DORA"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles13"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
+text = "  🀟"
+
+[node name="LabelWithTiles14" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles14"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
+bbcode_enabled = true
+text = "GUIDE_TILES_KIN_DORA"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles14"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
+text = "  🀓"
 
 [node name="LabelWithTiles10" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
 layout_mode = 2
