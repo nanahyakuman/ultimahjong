@@ -9,8 +9,8 @@ class_name Purchaseable
 @onready var label = $PanelBuster/Label
 
 
-enum TYPES {AKA, AO, KIN, ADD, DEAD_REDUCE, KAN_REVEAL, ITEM, UPGRADE}
-const HOVER_TEXTS = ["Convert tiles to aka.", "Convert tiles to ao.", "Convert tiles to kin.", "Add tiles to wall.", "Increase the number of tiles drawn in a round by four.", "Start with an additional kan dora revealed."]
+enum TYPES {AKA, AO, KIN, ITEM, UPGRADE}
+const HOVER_TEXTS = ["Convert tiles to aka.", "Convert tiles to ao.", "Convert tiles to kin."]
 var type = null
 # should only possess one either tiles or item or upgrade
 var tiles = []
@@ -62,12 +62,12 @@ func assign_type(ty: int):
 func calc_cost():
 	if type == TYPES.AKA:
 		cost = 2
-	elif type == TYPES.ADD:
-		cost = 1
-	elif type == TYPES.DEAD_REDUCE:
-		cost = 1
-	elif type == TYPES.KAN_REVEAL:
-		cost = 3
+#	elif type == TYPES.ADD:
+#		cost = 1
+#	elif type == TYPES.DEAD_REDUCE:
+#		cost = 1
+#	elif type == TYPES.KAN_REVEAL:
+#		cost = 3
 	elif type == TYPES.ITEM:
 		match item.charge_type:
 			Item.CH_TYPES.ONCE:

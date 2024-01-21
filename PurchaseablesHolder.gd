@@ -6,6 +6,7 @@ class_name PurchaseablesHolder
 @onready var upgrades = mahjong_manager.upgrades
 @onready var shop_root = %ShopRoot
 @onready var items = %Items
+@onready var upgrades_grid_container = %UpgradesGridContainer
 
 @export var purchaseable: PackedScene
 
@@ -22,8 +23,8 @@ func start():
 	match type:
 		Purchaseable.TYPES.AKA:
 			tiles = tile_counter.get_random_non_colored_ids(PER_BUTTON, BUTTONS)
-		Purchaseable.TYPES.ADD:
-			tiles = tile_counter.get_random_tiles_to_add(PER_BUTTON, BUTTONS)
+#		Purchaseable.TYPES.ADD:
+#			tiles = tile_counter.get_random_tiles_to_add(PER_BUTTON, BUTTONS)
 		Purchaseable.TYPES.ITEM:
 			var possessed_items = []
 			for i in items.get_children():
@@ -83,19 +84,23 @@ func pressed(node: Purchaseable):
 			for t in node.tiles:
 				tile_counter.set_color(t, MTile.COL_KIN)
 				await AnimTimer.start_mod(.15)
-		Purchaseable.TYPES.ADD:
-			for t in node.tiles:
-				tile_counter.increment_tile(t)
-				await AnimTimer.start_mod(.15)
-		Purchaseable.TYPES.DEAD_REDUCE:
-			# 4 is a lot ig but you're prob. not buying this every round
-			upgrades.dead_wall_size_reduce += 4
-		Purchaseable.TYPES.KAN_REVEAL:
-			upgrades.additional_revealed_kandora += 1
+#		Purchaseable.TYPES.ADD:
+#			for t in node.tiles:
+#				tile_counter.increment_tile(t)
+#				await AnimTimer.start_mod(.15)
+#		Purchaseable.TYPES.DEAD_REDUCE:
+#			# 4 is a lot ig but you're prob. not buying this every round
+#			upgrades.dead_wall_size_reduce += 4
+#		Purchaseable.TYPES.KAN_REVEAL:
+#			upgrades.additional_revealed_kandora += 1
 		Purchaseable.TYPES.ITEM:
-			var a = node.item.duplicate()
-			items.add_child(a)
+			var a = node.item
+			a.reparent(items)
 			a.activate(mahjong_manager, %TileSelectPanel, %PopupTileSelector, %ManaBar, shop_root)
+		Purchaseable.TYPES.UPGRADE:
+			var a = node.upgrade
+			a.reparent(upgrades_grid_container)
+			a.bought(upgrades)
 	
 	shop_root.state = shop_root.STATE_ACTIVE
 	
@@ -103,5 +108,5 @@ func pressed(node: Purchaseable):
 
 
 func hovered(node: Purchaseable, yes: bool):
-	if !node.item and !node.upgrade:
-		CursorText.set_text(node.HOVER_TEXTS[node.type] if yes else "")
+	if node and !node.item and !node.upgrade:
+		CursorText.set_text(Purchaseable.HOVER_TEXTS[node.type] if yes else "")

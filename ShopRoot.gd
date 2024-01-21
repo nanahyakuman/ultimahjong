@@ -14,8 +14,6 @@ var state
 	#$VBoxContainer/ColoredPurchaseables,
 	# no longer selling these, don't liek how it messes up counts
 	#$VBoxContainer/TilePurchaseables,
-	$VBoxContainer/HBoxContainer/DeadWallPurchaseables,
-	$VBoxContainer/HBoxContainer/KanRevealPurchaseables,
 	$VBoxContainer/UpgradePurchaseables,
 	$VBoxContainer/ItemPurchaseables
 ]

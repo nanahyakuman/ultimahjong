@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://vit286boe7sq"]
+[gd_scene load_steps=78 format=3 uid="uid://vit286boe7sq"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="2_j88jw"]
@@ -54,6 +54,7 @@
 [ext_resource type="Script" path="res://ScoreTracker.gd" id="50_7li6w"]
 [ext_resource type="Texture2D" uid="uid://xoodhoigui53" path="res://image/optionsbutton.png" id="51_57d0l"]
 [ext_resource type="FontFile" uid="uid://bian1q53chnum" path="res://text/font/BodyTilesColor.png" id="51_huq5q"]
+[ext_resource type="Script" path="res://UpgradesGridContainer.gd" id="52_bpkb5"]
 [ext_resource type="Script" path="res://text/RTLTranslator.gd" id="52_jcp4g"]
 [ext_resource type="Texture2D" uid="uid://jtl7gd0lo25b" path="res://image/tile/tiles_rep.png" id="53_af85s"]
 [ext_resource type="Script" path="res://SaverLoader.gd" id="53_pk3io"]
@@ -718,49 +719,13 @@ bbcode_enabled = true
 text = "[center]you won the last round! pick one of the above as award!"
 fit_content = true
 
-[node name="TilePurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 4
-alignment = 1
-script = ExtResource("20_wmn33")
-purchaseable = ExtResource("21_3mckx")
-type = 3
-BUTTONS = 2
-PER_BUTTON = 4
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 4
-alignment = 1
-
-[node name="DeadWallPurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 4
-alignment = 1
-script = ExtResource("20_wmn33")
-purchaseable = ExtResource("21_3mckx")
-type = 4
-BUTTONS = 1
-PER_BUTTON = 0
-
-[node name="KanRevealPurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 4
-alignment = 1
-script = ExtResource("20_wmn33")
-purchaseable = ExtResource("21_3mckx")
-type = 5
-BUTTONS = 1
-PER_BUTTON = 0
-
 [node name="UpgradePurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1
 script = ExtResource("20_wmn33")
 purchaseable = ExtResource("21_3mckx")
-type = 7
+type = 4
 PER_BUTTON = 0
 
 [node name="ItemPurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
@@ -769,7 +734,7 @@ theme_override_constants/separation = 4
 alignment = 1
 script = ExtResource("20_wmn33")
 purchaseable = ExtResource("21_3mckx")
-type = 6
+type = 3
 BUTTONS = 4
 PER_BUTTON = 0
 
@@ -877,6 +842,7 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("28_jde07")
 
 [node name="TAB_RUN_TILES" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_TILES"]
@@ -970,7 +936,6 @@ Fu awarded for your final wait. See Guide/Waits for more info.
 [/table]"
 
 [node name="TAB_RUN_UPGRADES" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_UPGRADES"]
@@ -982,59 +947,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_vswds")
 
-[node name="GridContainer" type="GridContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_UPGRADES/ScrollContainer"]
+[node name="UpgradesGridContainer" type="GridContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_UPGRADES/ScrollContainer" groups=["save_state"]]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 6
 theme_override_constants/v_separation = 6
 columns = 6
-
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_UPGRADES/ScrollContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="ColorRect2" type="ColorRect" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_UPGRADES/ScrollContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="ColorRect3" type="ColorRect" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_UPGRADES/ScrollContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="ColorRect4" type="ColorRect" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_UPGRADES/ScrollContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="ColorRect5" type="ColorRect" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_UPGRADES/ScrollContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="ColorRect6" type="ColorRect" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_UPGRADES/ScrollContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="ColorRect7" type="ColorRect" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_UPGRADES/ScrollContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="ColorRect8" type="ColorRect" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_UPGRADES/ScrollContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="ColorRect9" type="ColorRect" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_UPGRADES/ScrollContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="ColorRect10" type="ColorRect" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_UPGRADES/ScrollContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="ColorRect11" type="ColorRect" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_UPGRADES/ScrollContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="ColorRect12" type="ColorRect" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_UPGRADES/ScrollContainer/GridContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
+script = ExtResource("52_bpkb5")
 
 [node name="TAB_YAKU" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
 visible = false

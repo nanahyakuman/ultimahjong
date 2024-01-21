@@ -1,6 +1,6 @@
 ##  data relating to integer upgrades to base stats, liek dead wall size.
 ## most of this is inherited from character_info.
-##  should be able to @export and save all of these in future
+##  doesnt save itself, but reloading upgrades on save reapplies their upgrades
 extends Node
 class_name Upgrades
 
@@ -42,6 +42,6 @@ func get_kan_revealed():
 var mana_gained_on_player_draw = 1
 
 # kita nuki
-var _can_kita_nuki = false
+var can_kita_nuki = false
 func get_can_kita_nuki():
-	return _can_kita_nuki or character_info.can_kita_nuki
+	return can_kita_nuki or character_info.can_kita_nuki

@@ -1,40 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://dxybp8m2q7w22"]
+[gd_scene load_steps=4 format=3 uid="uid://dxybp8m2q7w22"]
 
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="1_f2o7i"]
 [ext_resource type="Script" path="res://upgrade.gd" id="2_wunkm"]
-[ext_resource type="Texture2D" uid="uid://cw1dmiad2vqgy" path="res://image/item/item.png" id="3_ngg58"]
-[ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="4_a6woe"]
-[ext_resource type="Script" path="res://ItemDescription.gd" id="5_qqhjj"]
-[ext_resource type="Texture2D" uid="uid://dqi3m54qu1jyy" path="res://image/title9pr.png" id="6_risyo"]
-[ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="7_hw52t"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8xg4c"]
-content_margin_top = 1.0
-content_margin_bottom = 4.0
-texture = ExtResource("4_a6woe")
-texture_margin_left = 4.0
-texture_margin_top = 4.0
-texture_margin_right = 4.0
-texture_margin_bottom = 4.0
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6rwdg"]
-texture = ExtResource("6_risyo")
-texture_margin_left = 2.0
-texture_margin_right = 2.0
-axis_stretch_horizontal = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vhro3"]
-bg_color = Color(0.266667, 0.2, 0.2, 1)
-border_width_bottom = 1
-border_color = Color(0.133333, 0.133333, 0.133333, 1)
-expand_margin_left = 2.0
-expand_margin_right = 1.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3a2yn"]
-content_margin_left = 2.0
-content_margin_right = 1.0
+[ext_resource type="Texture2D" uid="uid://fl1npbvked00" path="res://image/item/persistent_item.png" id="3_cl58r"]
 
 [node name="Upgrade" type="Control"]
 custom_minimum_size = Vector2(32, 32)
@@ -44,54 +12,7 @@ theme = ExtResource("1_f2o7i")
 script = ExtResource("2_wunkm")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("3_ngg58")
+texture = ExtResource("3_cl58r")
 centered = false
 hframes = 8
 vframes = 4
-
-[node name="Description" type="PanelContainer" parent="."]
-z_index = 1
-z_as_relative = false
-custom_minimum_size = Vector2(132, 0)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -62.5
-offset_top = -40.0
-offset_right = 62.5
-offset_bottom = -2.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_8xg4c")
-script = ExtResource("5_qqhjj")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Description"]
-layout_mode = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="Description/VBoxContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_6rwdg")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Description/VBoxContainer/PanelContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="PanelContainer" type="PanelContainer" parent="Description/VBoxContainer/PanelContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_vhro3")
-
-[node name="Name" type="Label" parent="Description/VBoxContainer/PanelContainer/HBoxContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("7_hw52t")
-text = "Unknown"
-horizontal_alignment = 1
-
-[node name="Label" type="RichTextLabel" parent="Description/VBoxContainer"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_3a2yn")
-bbcode_enabled = true
-text = "Unknown Item! Padding text padding text padding text"
-fit_content = true
