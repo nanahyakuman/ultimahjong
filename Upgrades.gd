@@ -40,3 +40,8 @@ func get_kan_revealed():
 
 # how much mana to charge every time the player draws a tile
 var mana_gained_on_player_draw = 1
+
+# kita nuki
+var _can_kita_nuki = false
+func get_can_kita_nuki():
+	return _can_kita_nuki or character_info.can_kita_nuki

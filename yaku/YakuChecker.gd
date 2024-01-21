@@ -269,10 +269,11 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 				var is_full = true
 				var is_half = true
 				for g in groupings:
+					# disregard nuki dora
+					if g.type == Grouping.SPECIAL:
+						continue
 					for t in g.tiles:
 						if t.suit == suit:
-							continue
-						if t.suit == MTile.SUITS.FLOWER:
 							continue
 						if t.suit == MTile.SUITS.SPECIAL:
 							is_full = false
@@ -431,8 +432,13 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			# only counts called flowers, in nukidora fashion
 			for g in hand_info.already_made_groupings:
 				for t in g.tiles:
-					if t.suit == MTile.SUITS.FLOWER:
-						_append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Flower"])
+					if g.type == Grouping.SPECIAL:
+						if t.suit == MTile.SUITS.FLOWER:
+							_append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Flower"])
+						#  these can only be called if you have the upgrade, so no reason
+						# to recheck for the upgrade
+						if t.suit == MTile.SUITS.SPECIAL and t.value == MTile.SPECIALS.NORTH:
+							_append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["North"])
 			
 			# dora
 			var all_tiles = remaining_hand.duplicate()

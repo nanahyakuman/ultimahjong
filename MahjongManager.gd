@@ -102,11 +102,13 @@ func start_round():
 	MusicManager.start_round()
 	
 
+#  ugly but works. changes the track every prevellent wind change,
+# although there's still only 1 track atm
 func _increment_winds():
 	var curr_round = root.round_counter
-	seat_wind = (7-curr_round) % character_info.valid_seats
+	seat_wind = ((character_info.valid_seats)*2-1-curr_round) % character_info.valid_seats
 	prevalent_wind = curr_round / character_info.valid_seats
-	if seat_wind == WINDS.NORTH:
+	if seat_wind ==  character_info.valid_seats-1:
 		MusicManager.queue_next_song()
 	gui_manager.update_winds(prevalent_wind, seat_wind)
 
@@ -315,7 +317,8 @@ enum CALL_BITMASK {
 	RON = 		0b1000000,
 	TSM = 		0b10000000,
 	RCH =		0b100000000,
-	FLOWER =	0b1000000000
+	FLOWER =	0b1000000000,
+	KITA =		0b10000000000
 }
 # returns a bitmask for what can be called
 func _can_cpkr(disc: MTile, tiles_involved: Dictionary) -> int:
@@ -481,9 +484,25 @@ func _do_if_can_tsumo():
 					if from_hand <= 0:
 						break
 			involved[CALL_BITMASK.CLOSED_KAN] = four_tiles
+		
+		# kita in riichi
+		if upgrades.get_can_kita_nuki():
+			if tsumo.suit == MTile.SUITS.SPECIAL and tsumo.value == MTile.SPECIALS.NORTH:
+				involved[CALL_BITMASK.KITA] = [tsumo]
+				btm |= CALL_BITMASK.KITA
+	
+	# kita not in riichi
+	if upgrades.get_can_kita_nuki():
+		for t in full_hand:
+			if t.suit == MTile.SUITS.SPECIAL and t.value == MTile.SPECIALS.NORTH:
+				involved[CALL_BITMASK.KITA] = [t]
+				btm |= CALL_BITMASK.KITA
+				break
 	
 	#  flowers. same as kan, we pass the tile itself instead of assuming
 	# there's a discard involved, bc. there isnt.
+	#  doesnt really matter about bein in riichi becaise its impossible
+	# to riichi with flowers
 	for t in full_hand:
 		if t.suit == MTile.SUITS.FLOWER:
 			btm |= CALL_BITMASK.FLOWER
@@ -535,6 +554,8 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 			_reveal_dora()
 		CALL_BITMASK.FLOWER:
 			new_grouping = Grouping.new(Grouping.SPECIAL, tiles_involved)
+		CALL_BITMASK.KITA:
+			new_grouping = Grouping.new(Grouping.SPECIAL, tiles_involved)
 		CALL_BITMASK.RCH:
 			_do_riichi()
 			return
@@ -554,16 +575,14 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 		assert(to_remove == 0, "not as many tiles as expected removed from hand!")
 		
 		# append final tile
-		if bitmask == CALL_BITMASK.FLOWER:
-			pass
-		elif bitmask == CALL_BITMASK.CLOSED_KAN:
+		if bitmask == CALL_BITMASK.FLOWER or bitmask == CALL_BITMASK.CLOSED_KAN or bitmask == CALL_BITMASK.KITA:
 			pass
 		else:
 			new_grouping.tiles.append(opp_discard.pop_back())
 		new_grouping.tiles.sort_custom(Callable(MTile, "tile_compare"))
 		
 		# closed kan stay closed
-		if ![CALL_BITMASK.CLOSED_KAN, CALL_BITMASK.FLOWER].has(bitmask):
+		if ![CALL_BITMASK.CLOSED_KAN, CALL_BITMASK.FLOWER, CALL_BITMASK.KITA].has(bitmask):
 			new_grouping.open_tile = 0
 			new_grouping.player_taken_from_offset = remaining_opp_discards
 		called_hand = [new_grouping] + called_hand
@@ -575,7 +594,7 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 	
 	
 	call_sfx_player.play()
-	if [CALL_BITMASK.FLOWER, CALL_BITMASK.KAN, CALL_BITMASK.CLOSED_KAN].has(bitmask):
+	if [CALL_BITMASK.FLOWER, CALL_BITMASK.KAN, CALL_BITMASK.CLOSED_KAN, CALL_BITMASK.KITA].has(bitmask):
 		# tiles you spawn with can subvert the current tsumo
 		if tsumo:
 			hand.append(tsumo)

@@ -18,6 +18,7 @@ class_name PurchaseablesHolder
 func start():
 	var tiles
 	var valid_items
+	var valid_ups
 	match type:
 		Purchaseable.TYPES.AKA:
 			tiles = tile_counter.get_random_non_colored_ids(PER_BUTTON, BUTTONS)
@@ -31,6 +32,8 @@ func start():
 			for t in possessed_items:
 				valid_items.erase(t)
 			valid_items.erase(0)
+		Purchaseable.TYPES.UPGRADE:
+			valid_ups = [Upgrade.TYPES.UPR_KITA]
 		
 	for c in get_children():
 		c.queue_free()
@@ -50,6 +53,9 @@ func start():
 			var item_type = maxi(0, i - 1)
 			a.assign_item(itm, item_type)
 			valid_items.erase(itm)
+		if valid_ups:
+			var upr = valid_ups.pick_random()
+			a.assign_upgrade(upr)
 		
 		a.calc_cost()
 
@@ -97,5 +103,5 @@ func pressed(node: Purchaseable):
 
 
 func hovered(node: Purchaseable, yes: bool):
-	if !node.item:
+	if !node.item and !node.upgrade:
 		CursorText.set_text(node.HOVER_TEXTS[node.type] if yes else "")

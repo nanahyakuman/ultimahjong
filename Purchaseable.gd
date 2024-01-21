@@ -4,17 +4,19 @@ class_name Purchaseable
 @onready var tile_container = $HBoxContainer/TileContainer
 @export var tile_graphic = preload("res://TileGraphic.tscn")
 @export var item_scene = preload("res://item.tscn")
+@export var upgrade_scene = preload("res://upgrade.tscn")
 @onready var sprite = $HBoxContainer/TextureHolder/Sprite2D
 @onready var label = $PanelBuster/Label
 
 
-enum TYPES {AKA, AO, KIN, ADD, DEAD_REDUCE, KAN_REVEAL, ITEM}
+enum TYPES {AKA, AO, KIN, ADD, DEAD_REDUCE, KAN_REVEAL, ITEM, UPGRADE}
 const HOVER_TEXTS = ["Convert tiles to aka.", "Convert tiles to ao.", "Convert tiles to kin.", "Add tiles to wall.", "Increase the number of tiles drawn in a round by four.", "Start with an additional kan dora revealed."]
 var type = null
-# should only possess one either tiles or item
+# should only possess one either tiles or item or upgrade
 var tiles = []
 var hidden_mask = []
 var item: Item
+var upgrade: Upgrade
 var cost = 3
 
 
@@ -48,6 +50,11 @@ func assign_item(id: int, charge: int):
 	# force the item to show up nicely.
 	item.set_shop_graphics()
 
+func assign_upgrade(id: int):
+	upgrade = upgrade_scene.instantiate()
+	upgrade.type = id
+	tile_container.add_child(upgrade)
+
 func assign_type(ty: int):
 	type = ty
 	sprite.frame = ty
@@ -69,17 +76,23 @@ func calc_cost():
 				cost = 3
 			Item.CH_TYPES.TIMR:
 				cost = 4
+	elif type == TYPES.UPGRADE:
+		# tune this in future
+		cost = 2
 	
 	label.text = "%d" % cost
 
 
+#  parent deals with it. kinda gross ngl, i think was in a caffeine daze when i wrote
+# all this, but it aint broke.
 func _gui_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			if await get_parent().pressed(self):
 				get_parent().hovered(self, false)
 				queue_free()
-	
+
+
 func _mouse_entered():
 	get_parent().hovered(self, true)
 

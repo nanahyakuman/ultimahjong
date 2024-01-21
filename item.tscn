@@ -1,6 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://xbdfpjmfa56k"]
+[gd_scene load_steps=19 format=3 uid="uid://xbdfpjmfa56k"]
 
 [ext_resource type="Script" path="res://item.gd" id="1_2a2qp"]
+[ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="1_hx5g6"]
 [ext_resource type="Texture2D" uid="uid://cw1dmiad2vqgy" path="res://image/item/item.png" id="1_tsqfh"]
 [ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="4_1p2ne"]
 [ext_resource type="Texture2D" uid="uid://cdmm4yumwpnvp" path="res://image/item/counter9pr.png" id="4_3qxpy"]
@@ -80,6 +81,7 @@ font_color = Color(1, 1, 0.933333, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 3
 anchors_preset = 0
+theme = ExtResource("1_hx5g6")
 script = ExtResource("1_2a2qp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

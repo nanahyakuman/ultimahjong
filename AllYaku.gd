@@ -82,6 +82,7 @@ var YAKUS = {
 	
 	# moved here bc it's a bonus, not a tile
 	"Flower": ScoringInfo.Han.new("YAKU_FLOWER", 1, 0, "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪 🀪 🀢"),
+	"North": ScoringInfo.Han.new("YAKU_KITA", 1, 0, "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪 🀪 🀃"),
 	"Kan Dora": ScoringInfo.Han.new("YAKU_KAN_DORA", 1, 0, "", true),
 	"Ura Dora": ScoringInfo.Han.new("YAKU_URA_DORA", 1, 0, ""),
 	"Aka Dora": ScoringInfo.Han.new("YAKU_AKA_DORA", 1, 0, "", true),

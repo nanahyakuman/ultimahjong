@@ -20,7 +20,8 @@ var CALL_NAMES = {
 	MahjongManager.CALL_BITMASK.TSM: tr("CALL_TSUMO"),
 	MahjongManager.CALL_BITMASK.CLOSED_KAN: tr("CALL_KAN"),
 	MahjongManager.CALL_BITMASK.RCH: tr("CALL_RIICHI"),
-	MahjongManager.CALL_BITMASK.FLOWER: tr("CALL_FLOWER")
+	MahjongManager.CALL_BITMASK.FLOWER: tr("CALL_FLOWER"),
+	MahjongManager.CALL_BITMASK.KITA: tr("CALL_KITA"),
 }
 
 # call BEFORE `_ready()`! also assign bitmask!

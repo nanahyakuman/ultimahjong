@@ -143,15 +143,9 @@ flower call redraw did NOT propmt tsumo properly. might have been other now-solv
 	issue but should verify
 	stop counting fu after 4, name mangan
 attempting to suji shift an illegal tile softlocks
-SHOP THINGS:
-	addtile purchaseable getting illegal tiles again. ?157p
-	aoize and kinize, put akaize back
-does kan/flowers actually draw haitei?
-sequentialize wind change anims
 mouse entering a item from the sell prompt cursorhovertexts "add item to wall???? wth???"
 	only occurs when setting the cursor style. deadass what??
 dont sell deadwall reducs if the size is already minmum
-handling for persistent upgrades like adding flowers
 cursor scaling
 close shop lose money warning
 proper wall gfx haitei drawing
@@ -160,10 +154,7 @@ riichi call (prob kan call too) hovers most recent discard
 item display issues in shop
 	dragon cycle uncharged
 pocchi almighty and pocci selection code
-couldnt riichi with toitoi sanankou
-	possibly pocchi related
 
-nuki dora and better explanations
 dora tab that explains the types and colors
 
 really nneed to go through scoring again
@@ -177,10 +168,12 @@ persistant items!
 demo MVP:
 	save and load runs
 		persistent items manager
+		save upgrades
 	win/lose screens
 	marginally better score expectation indicator
 		cursor popups
 		retime changes
+	also fix score display
 	language support
 		finish jp
 

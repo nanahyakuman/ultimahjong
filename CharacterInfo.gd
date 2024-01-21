@@ -15,6 +15,7 @@ var discard_count: int
 var valid_seats: int
 var opponents_its_legal_to_chii_from_count: int
 var hand_size: int
+var can_kita_nuki: bool
 
 # scoring expectations
 var base_score: int
@@ -31,7 +32,7 @@ var tr_root: String
 
 # used to generate the preview at character select
 var preview_tile_strings: Array
-# same as above, additional field for colored tiles
+# same as above, additional field for bonus tiles
 var preview_tile_with_strings: Array
 
 
@@ -45,6 +46,7 @@ func set_type(ty:int):
 			valid_seats = 4
 			opponents_its_legal_to_chii_from_count = 1
 			hand_size = 14
+			can_kita_nuki = false
 			
 			base_score = 2000
 			base_expected_points = 0
@@ -64,6 +66,7 @@ func set_type(ty:int):
 			valid_seats = 3
 			opponents_its_legal_to_chii_from_count = 0
 			hand_size = 14
+			can_kita_nuki = true
 			
 			base_score = 2000
 			base_expected_points = 0
@@ -83,6 +86,7 @@ func set_type(ty:int):
 			valid_seats = 4
 			opponents_its_legal_to_chii_from_count = 1
 			hand_size = 14
+			can_kita_nuki = false
 			
 			base_score = 2000
 			base_expected_points = 0
@@ -102,6 +106,7 @@ func set_type(ty:int):
 			valid_seats = 4
 			opponents_its_legal_to_chii_from_count = 1
 			hand_size = 17
+			can_kita_nuki = false
 			
 			base_score = 2000
 			base_expected_points = 0

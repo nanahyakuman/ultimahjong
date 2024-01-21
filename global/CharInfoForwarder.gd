@@ -8,4 +8,4 @@ var ci: CharacterInfo = CharacterInfo.new()
 var load = false
 
 func _ready():
-	ci.set_type(CharacterInfo.TYPES.REGULAR)
+	ci.set_type(CharacterInfo.TYPES.SANMA)

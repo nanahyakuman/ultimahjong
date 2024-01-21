@@ -33,6 +33,7 @@ var cooldown_counter = 0
 # rememvers selected tiles, for example if necessary to select two tiles
 var selected_tile_memory = []
 
+# type is assigned before ready is called
 func _ready():
 	connect("mouse_entered", _mouse_entered)
 	connect("mouse_exited", _mouse_exited)

@@ -16,6 +16,7 @@ var state
 	#$VBoxContainer/TilePurchaseables,
 	$VBoxContainer/HBoxContainer/DeadWallPurchaseables,
 	$VBoxContainer/HBoxContainer/KanRevealPurchaseables,
+	$VBoxContainer/UpgradePurchaseables,
 	$VBoxContainer/ItemPurchaseables
 ]
 @onready var colored_purchaseables = $VBoxContainer/ColoredPurchaseables
