@@ -13,8 +13,6 @@ func load_cfg(config: ConfigFile):
 			if !upgrades:
 				upgrades = $"../../../../../../../MahjongRoot/MahjongManager/Upgrades"
 			a.bought(upgrades)
-	
-	print(get_child_count())
 
 func save_cfg(config: ConfigFile):
 	var a = ExpandingCounterDict.new()

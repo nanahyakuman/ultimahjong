@@ -48,3 +48,10 @@ func close():
 	adjust_money(-money)
 	MusicManager.stop_music()
 	root.start_round()
+
+
+func load_cfg(config: ConfigFile):
+	money = config.get_value("shop", "money") - MONEY_PER_ROUND
+	
+func save_cfg(config: ConfigFile):
+	config.set_value("shop", "money", money)

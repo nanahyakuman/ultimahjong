@@ -667,7 +667,7 @@ grow_vertical = 0
 text = "Next"
 script = ExtResource("21_8bhal")
 
-[node name="ShopRoot" type="Control" parent="HBoxContainer/MahjongRoot"]
+[node name="ShopRoot" type="Control" parent="HBoxContainer/MahjongRoot" groups=["save_state"]]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -842,7 +842,6 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("28_jde07")
 
 [node name="TAB_RUN_TILES" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_TILES"]
@@ -936,6 +935,7 @@ Fu awarded for your final wait. See Guide/Waits for more info.
 [/table]"
 
 [node name="TAB_RUN_UPGRADES" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_UPGRADES"]

@@ -167,7 +167,9 @@ persistant items (dubbed upgrades)!
 		max amount for items, usually 1
 		always_show flag for a few (kan up(?), dead wall size down)
 
-save money!!!!
+save bought items
+
+
 
 demo MVP:
 	save and load runs
