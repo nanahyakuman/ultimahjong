@@ -41,8 +41,8 @@ func initialize(character_info: CharacterInfo, load: bool):
 					for k in 4:
 						var a = MTile.new(i,j+1)
 						tile_data.append(a)
-					if j+1 == 7:
-						tile_data[-4].color = MTile.COL_AO
+			# gold iisou
+			tile_data[-9*4].color = MTile.COL_KIN
 			
 			for i in MTile.DEF_SPECIALS:
 				for k in 4:

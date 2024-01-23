@@ -22,15 +22,14 @@ func _queue_load():
 func initialize():
 	config = ConfigFile.new()
 	var err = config.load(SAVE_PATH)
-	if err != OK:
-		return
+#	if err != OK:
+#		return
 
 func load_cfg():
 	if !config:
 		initialize()
 	get_tree().call_group(associated_group, "load_cfg", config)
 func save_cfg():
-	if !config:
-		initialize()
+	config = ConfigFile.new()
 	get_tree().call_group(associated_group, "save_cfg", config)
 	config.save(SAVE_PATH)

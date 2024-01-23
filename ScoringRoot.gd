@@ -47,7 +47,7 @@ func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points:int, mu
 		if !animate: #only queue once if not animating, should prevent weird transients
 			MusicManager.play_han()
 	
-	await AnimTimer.start_get(.3)
+	await AnimTimer.start_get(.3, true)
 	
 	calc.text = "[center][b][color=%s]%d[/color]×2[/b](2+[color=%s]%d[/color])[b]×%d=" % [COL.LBLUE, fu, COL.YELLOW, han, mult]
 	total.set_text_colorized(str(points))

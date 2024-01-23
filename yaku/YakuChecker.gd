@@ -145,7 +145,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 				if g.type == Grouping.SET:
 					if g.tiles[0].suit == MTile.SUITS.SPECIAL:
 						for i in ykvals.count(g.tiles[0].value):
-							_append_or_merge_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Yakuhai"])
+							YakuChecker.append_or_merge_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Yakuhai"])
 			
 			# tanyao
 			#if !is_open:
@@ -434,11 +434,11 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 				for t in g.tiles:
 					if g.type == Grouping.SPECIAL:
 						if t.suit == MTile.SUITS.FLOWER:
-							_append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Flower"])
+							YakuChecker.append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Flower"])
 						#  these can only be called if you have the upgrade, so no reason
 						# to recheck for the upgrade
 						if t.suit == MTile.SUITS.SPECIAL and t.value == MTile.SPECIALS.NORTH:
-							_append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["North"])
+							YakuChecker.append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["North"])
 			
 			# dora
 			var all_tiles = remaining_hand.duplicate()
@@ -448,17 +448,18 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			if doras.size() > 0:
 				for t in all_tiles:
 					if t.color == MTile.COL_AKA:
-						_append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Aka Dora"])
+						YakuChecker.append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Aka Dora"])
 					if t.color == MTile.COL_KIN:
-						_append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kin Dora"])
+						YakuChecker.append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kin Dora"])
 					if doras[0].has(t.get_id()):
-						_append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kan Dora"])
+						YakuChecker.append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kan Dora"])
 					if !is_open and doras[1].has(t.get_id()):
-						_append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Ura Dora"])
+						YakuChecker.append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Ura Dora"])
 	
 	return max
 
-func _append_or_merge_yaku(array: Array, yaku: ScoringInfo.Han):
+# also called by mahjmanager to stack riichis
+static func append_or_merge_yaku(array: Array, yaku: ScoringInfo.Han):
 	var nam = yaku.nam
 	for h in array:
 		if h.nam == nam:

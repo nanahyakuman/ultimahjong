@@ -78,7 +78,7 @@ func calc_cost():
 				cost = 4
 	elif type == TYPES.UPGRADE:
 		# tune this in future
-		cost = 2
+		cost = Upgrade.METADATA[upgrade.type][Upgrade.METADATA_COST]
 	
 	label.text = "%d" % cost
 

@@ -35,7 +35,7 @@ func start_game():
 	if state == STATE_ROUND:
 		start_round()
 	else:
-		start_shop()
+		start_shop(CharInfoForwarder.load)
 
 
 func start_round():
@@ -71,11 +71,12 @@ func end_round(scoring_info: ScoringInfo, multiplier_info: MultiplierInfo):
 	
 	# update early so you can't quit to retry a round
 	state = STATE_SHOP
+	shop_root.adjust_money(shop_root.MONEY_PER_ROUND)
 	
 	# tracker for shop
 	last_round_was_victory = points > 0
 
-func start_shop():
+func start_shop(was_load: bool = false):
 	TileGraphicKnower.update_dora_ids([])
 	
 	scoring_root.visible = false
@@ -83,7 +84,8 @@ func start_shop():
 	shop_root.start(last_round_was_victory)
 	
 	# raise the threshhold
-	score_tracker.increment_counters()
+	if !was_load:
+		score_tracker.increment_counters()
 
 
 #overwrite global charinfo

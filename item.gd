@@ -16,10 +16,10 @@ var shop_root
 
 #  diffrent item ids. also used as translation keys. do NOT assign custom values to keys,
 # it'll break translation support!
-enum TYPES {ITEM_NONE, ITEM_ERASER, ITEM_WIND_MAGNET, ITEM_BATTERY, ITEM_KAN_SWAP, ITEM_PIN_DUPE, ITEM_SOU_ADJ, ITEM_AKAFY, ITEM_POCCHI, ITEM_MAN_TERM, ITEM_DRAGON_CYCLE, ITEM_SUJI_OFFSET}
+enum TYPES {ITEM_NONE, ITEM_ERASER, ITEM_WIND_MAGNET, ITEM_BATTERY, ITEM_KAN_SWAP, ITEM_PIN_DUPE, ITEM_SOU_ADJ, ITEM_AKAFY, ITEM_POCCHI, ITEM_MAN_TERM, ITEM_DRAGON_CYCLE, ITEM_SUJI_OFFSET, ITEM_COLOR_SHIFT}
 #  items either use mana, charge themselves, or are one-time use
 @export var type: TYPES = TYPES.ITEM_NONE
-const COOLD = [0,     48,          15,      24,       70,       44,      52,    61,     59,       36,           31,          32]
+const COOLD = [     0,          48,               15,           24,            70,            44,           52,         61,          59,            36,                31,               32,               43]
 
 enum CH_TYPES {ONCE, MANA, TIMR}
 # make sure to set BEFORE calling _ready()!
@@ -168,7 +168,7 @@ func _use():
 					mahjong_manager.hand[ii].color = MTile.COL_AKA
 					mahjong_manager.update_hand_label()
 					break
-				# excape case for all aka
+				# escape case for all aka
 				if i == ii:
 					break
 		
@@ -213,7 +213,22 @@ func _use():
 			popup_tile_select.set_tiles(new_tiles)
 			popup_tile_select.request_tile_select(self)
 			tile_select.update_text("Select a new value.")
+		
+		TYPES.ITEM_COLOR_SHIFT:
+			var tile = mahjong_manager.tsumo
+			if !MTile.NUMERALS.has(tile.suit):
+				return
 			
+			mahjong_manager.stall_for_external_select()
+			
+			var suits = MTile.NUMERALS.duplicate()
+			suits.erase(tile.suit)
+			var new_tiles = []
+			for s in suits:
+				new_tiles.append(MTile.new(s, tile.value))
+			popup_tile_select.set_tiles(new_tiles)
+			popup_tile_select.request_tile_select(self)
+			tile_select.update_text("Select a new suit.")
 	
 	#  default item behaviour assumes the usage is immediate, if not
 	# call return in switch above.
@@ -316,8 +331,17 @@ func tile_selected(tile: MTile):
 			mahjong_manager.add_to_hand_and_update(new_tile)
 		
 		TYPES.ITEM_SUJI_OFFSET:
+			# maintain canon ref
 			var new_tile = mahjong_manager.tsumo.duplicate()
 			new_tile.value = tile.value
+			new_tile.former = mahjong_manager.tsumo
+			mahjong_manager.tsumo = null
+			mahjong_manager.add_to_hand_and_update(new_tile)
+		
+		TYPES.ITEM_COLOR_SHIFT:
+			# maintain canon ref
+			var new_tile = mahjong_manager.tsumo.duplicate()
+			new_tile.suit = tile.suit
 			new_tile.former = mahjong_manager.tsumo
 			mahjong_manager.tsumo = null
 			mahjong_manager.add_to_hand_and_update(new_tile)

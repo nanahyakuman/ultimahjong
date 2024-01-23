@@ -3,8 +3,8 @@ extends Timer
 var anim_speed_mod = 2.0
 var skip = true
 
-func start_get(time: float):
-	if skip:
+func start_get(time: float, unskippable: bool = false):
+	if skip and !unskippable:
 		return
 	
 	# we generate a new timer if tthis one is already runnung

@@ -1,3 +1,4 @@
+# intentionally added to the main menu and hidden to reload audio settings
 extends HSlider
 
 @export var bus_name = "Master"
@@ -20,5 +21,5 @@ func save_cfg(config: ConfigFile):
 func _value_changed(new_value):
 	AudioServer.set_bus_volume_db(bus_id, linear_to_db(new_value))
 
-func drag_ended(val):
+func drag_ended(_val):
 	release_focus()

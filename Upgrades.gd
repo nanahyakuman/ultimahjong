@@ -45,3 +45,9 @@ var mana_gained_on_player_draw = 1
 var can_kita_nuki = false
 func get_can_kita_nuki():
 	return can_kita_nuki or character_info.can_kita_nuki
+
+# makes san/suu ankou easier
+var ron_counted_as_tsumo = false
+
+# riichi power (and cost) multiplier
+var riichi_multiplier = 1

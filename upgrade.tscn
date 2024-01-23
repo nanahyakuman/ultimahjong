@@ -8,6 +8,7 @@
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 3
 anchors_preset = 0
+mouse_filter = 1
 theme = ExtResource("1_f2o7i")
 script = ExtResource("2_wunkm")
 

@@ -3,11 +3,11 @@ class_name ExpandingCounterDict
 
 var counts: Dictionary = {}
 
-func add(item):
+func add(item, amount: int = 1):
 	if counts.has(item):
-		counts[item] += 1
+		counts[item] += amount
 	else:
-		counts[item] = 1
+		counts[item] = amount
 
 # return array of all present counts greater than a value
 func get_count_greater_than(min: int) -> Array:

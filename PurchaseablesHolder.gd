@@ -34,7 +34,7 @@ func start():
 				valid_items.erase(t)
 			valid_items.erase(0)
 		Purchaseable.TYPES.UPGRADE:
-			valid_ups = [Upgrade.TYPES.UPR_KITA]
+			valid_ups = upgrades_grid_container.get_random_from_pool(BUTTONS)
 		
 	for c in get_children():
 		c.queue_free()
@@ -42,10 +42,10 @@ func start():
 	for i in BUTTONS:
 		var a: Purchaseable = purchaseable.instantiate()
 		add_child(a)
-		var hidden = mini(randi()%(PER_BUTTON+1),randi()%(PER_BUTTON+1))
-		hidden = mini(randi()%(PER_BUTTON+1), hidden)
+		var hidden_c = mini(randi()%(PER_BUTTON+1),randi()%(PER_BUTTON+1))
+		hidden_c = mini(randi()%(PER_BUTTON+1), hidden_c)
 		if tiles:
-			a.assign_tiles(tiles[i], hidden)
+			a.assign_tiles(tiles[i], hidden_c)
 		else:
 			a.assign_tiles([], 0)
 		a.assign_type(type)
@@ -55,7 +55,7 @@ func start():
 			a.assign_item(itm, item_type)
 			valid_items.erase(itm)
 		if valid_ups:
-			var upr = valid_ups.pick_random()
+			var upr = valid_ups[i]
 			a.assign_upgrade(upr)
 		
 		a.calc_cost()
@@ -101,6 +101,8 @@ func pressed(node: Purchaseable):
 			var a = node.upgrade
 			a.reparent(upgrades_grid_container)
 			a.bought(upgrades)
+			upgrades_grid_container.alert_bought(a.type)
+			CursorText.set_text("")
 	
 	shop_root.state = shop_root.STATE_ACTIVE
 	

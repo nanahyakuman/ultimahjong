@@ -23,7 +23,7 @@ var state
 func start(was_victory: bool):
 	state = STATE_ACTIVE
 	
-	adjust_money(MONEY_PER_ROUND)
+	#adjust_money(MONEY_PER_ROUND)
 	
 	MusicManager.start_shop()
 	
@@ -51,7 +51,8 @@ func close():
 
 
 func load_cfg(config: ConfigFile):
-	money = config.get_value("shop", "money") - MONEY_PER_ROUND
+	money = config.get_value("shop", "money")
+	adjust_money(0)
 	
 func save_cfg(config: ConfigFile):
 	config.set_value("shop", "money", money)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://vit286boe7sq"]
+[gd_scene load_steps=79 format=3 uid="uid://vit286boe7sq"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="2_j88jw"]
@@ -37,6 +37,7 @@
 [ext_resource type="Script" path="res://NumberColorizer.gd" id="27_yfh58"]
 [ext_resource type="FontFile" uid="uid://dmoumxbcf3gn" path="res://text/font/Body2.png" id="28_jde07"]
 [ext_resource type="Script" path="res://PopupTileSelector.gd" id="28_st0rv"]
+[ext_resource type="PackedScene" uid="uid://xbdfpjmfa56k" path="res://item.tscn" id="29_dfc1m"]
 [ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="32_on5h8"]
 [ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="35_14yv6"]
 [ext_resource type="Script" path="res://ColoredPurchaseables.gd" id="37_xpxeh"]
@@ -498,13 +499,18 @@ text = "50"
 label_settings = SubResource("LabelSettings_swivg")
 horizontal_alignment = 1
 
-[node name="Items" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer"]
+[node name="Items" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer" groups=["save_state"]]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 alignment = 2
 script = ExtResource("22_nsrp2")
+
+[node name="Item" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("29_dfc1m")]
+layout_mode = 2
+type = 12
+activate_self = true
 
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
 layout_mode = 1
@@ -572,6 +578,7 @@ offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("21_yhd2i")
+animate = null
 
 [node name="Window" type="PanelContainer" parent="HBoxContainer/MahjongRoot/ScoringRoot"]
 custom_minimum_size = Vector2(160, 0)

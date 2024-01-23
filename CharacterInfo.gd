@@ -78,10 +78,10 @@ func set_type(ty:int):
 			tr_root = "CHARACTER_SANMA"
 			
 			preview_tile_strings = ["123456789p", "123456789s", "19m", "東南西北白發中"]
-			preview_tile_with_strings = ["7`p7`s"]
+			preview_tile_with_strings = ["1\"s"]
 			
 		TYPES.NO_HONORS:
-			dead_wall_size = 20
+			dead_wall_size = 32
 			discard_count = 3
 			valid_seats = 4
 			opponents_its_legal_to_chii_from_count = 1

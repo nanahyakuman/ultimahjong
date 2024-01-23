@@ -13,17 +13,17 @@ end of every round can purchase:
 		get two ura every reveal
 		call atama?
 		create runs with winds/dragons
-		call kita
-		kuitan
+	x	call kita
+	--	kuitan
 		see ura dora
-		ron counts as tsumo (adds menzentsumo to closed hands, makes sanankou easier, etc.)
+	x	ron counts as tsumo (adds menzentsumo to closed hands, makes sanankou easier, etc.)
 		swap in akadora when in riichi
 		riichi ryuukyoku rewards half points off the best hand you could've gotten
 		drawing a tile gives you 2 mana instead of 1 (20% speed buff)
 		pin-fu (pin award fu)
 		can score a 0-han hand
-		reduce opponent discards by one
-		riichi costs 2000 and adds 2 han
+	x	reduce opponent discards by one
+	x	riichi costs 2000 and adds 2 han (actually a multiple-buy allowed mult.)
 	spell cards, refresh every x draws
 	x	next tile will be --honor-- wind
 	x	exchange one tile for a false haku
@@ -37,11 +37,13 @@ end of every round can purchase:
 		spawn a random orphan
 		convert a wind to a chosen adjacent wind
 		pick up a discarded tile (actually make it the next tile you draw?)
-		transmute a tile's color to another color
+	x	transmute a tile's color to another color
+		draw a tile from the last discard rotation
 	scoew bonuses
 		1 han for every 7 tiles in your hand without any red ink toka
 		every 5 consecutive discards from hand adds a han
 		10 points for every tile left in wall?
+		discard 4 chun for an automatic free mangan
 	other:
 		reduce scoring cutoff acceleration
 		reduce scoring cutoff vel
@@ -110,7 +112,6 @@ ideas but not critical:
 		make them orange and link back to their descriptions
 	consider better cjk font(s)
 		http://jikasei.me/font/jf-dotfont/ for jp
-	better delivery for new dora
 
 languages
 	jibun de yare:
@@ -131,8 +132,6 @@ languages
 		thai
 
 
-doraizing anim when you buy dora, clear feedback as to what it was
-tsumo call tile hover broken, highlights most recent discard instead of tsumo
 record sounds
 rework deadwall to be resizeable inround?
 when you discard a pocchi, can choose to exchange the 4th tile in the wall with
@@ -146,42 +145,35 @@ attempting to suji shift an illegal tile softlocks
 mouse entering a item from the sell prompt cursorhovertexts "add item to wall???? wth???"
 	only occurs when setting the cursor style. deadass what??
 dont sell deadwall reducs if the size is already minmum
+	calc how many to pool from the charinfo
 cursor scaling
 close shop lose money warning
 proper wall gfx haitei drawing
-support or disable control hovering
 riichi call (prob kan call too) hovers most recent discard
+tsumo call tile hover broken, highlights most recent discard instead of tsumo
 pocchi almighty and pocci selection code
 translate hovertext
-
 dora tab that explains the types and colors
-
 really nneed to go through scoring again
 	scoring display is out of date
-	expected scoring fgx:
-		visually add to player score at end of roynd and test it then
-		vissually add to expected store after player draws their first tile
+	11223p789s11m 3p NRRRN returned open ryanpeikou
+loading into shop doesnt have a song loaded and crashes
+pay riichi bet back!
+does kandora [???44s] give double for 5s?
+characters can start with upgrades
+	give sanma the kita item by default
+readd buying tiles but only jihai
 
-persistant items (dubbed upgrades)!
-	need to be pooled.
-		max amount for items, usually 1
-		always_show flag for a few (kan up(?), dead wall size down)
-
-save bought items
+save hand and tile state
+save shop items
 
 
 
 demo MVP:
-	save and load runs
-		persistent items manager
-		save upgrades
 	win/lose screens
-	marginally better score expectation indicator
-		cursor popups
-		retime changes
-	also fix score display
+	finish saving
 	language support
-		finish jp
+		finish jp. dont need to write everything, but at least finish ultimahjong info
 
 
 

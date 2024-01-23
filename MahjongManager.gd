@@ -187,11 +187,7 @@ func _draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.SOU, 9))
 #	temp.append(MTile.new(MTile.SUITS.SOU, 1))
 	
-#	temp = MTileStringConverter.str_to_mtile("12m88p445566s")
-#	var a = Grouping.new(Grouping.RUN, MTileStringConverter.str_to_mtile("123m"))
-#	a.open_tile = 1
-#	a.player_taken_from_offset = 1
-#	called_hand.append(a)
+#	temp = MTileStringConverter.str_to_mtile("123456789p1234s")
 	
 	if temp:
 		temp.sort()
@@ -568,7 +564,7 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 				gui_manager.update_tsumo([])
 				to_remove -= 1
 				continue
-			var found = first_by_id(t.get_id(), hand)
+			var found = MahjongManager.first_by_id(t.get_id(), hand)
 			assert(found != -1, "could not find tile that's meant to exist in hand!")
 			hand.remove_at(found)
 			to_remove -= 1
@@ -728,7 +724,7 @@ func _switch_tile_with_tsumo(tile: MTile, index: int = -1):
 func _try_enter_riichi():
 	if in_riichi or hand_is_open() or wall.size() < upgrades.get_dead_tiles()+upgrades.get_discard_count()+1:
 		return false
-	if score_tracker.score < 1000:
+	if score_tracker.score < 1000 * upgrades.riichi_multiplier:
 		return false
 	for t in tile_counter.get_all_unique_tiles():
 		var full_hand = [t]
@@ -746,12 +742,13 @@ func _try_enter_riichi():
 func _do_riichi():
 	in_riichi = true
 	ippatsu_counter = upgrades.get_discard_count() + 1
-	if discard.size() == 1:
-		met_yaku.hans.append(ALL_YAKU.YAKUS["Double Riichi"])
-	else:
-		met_yaku.hans.append(ALL_YAKU.YAKUS["Riichi"])
+	for i in upgrades.riichi_multiplier:
+		if discard.size() == 1:
+			YakuChecker.append_or_merge_yaku(met_yaku.hans, ALL_YAKU.YAKUS["Double Riichi"])
+		else:
+			YakuChecker.append_or_merge_yaku(met_yaku.hans, ALL_YAKU.YAKUS["Riichi"])
 	MusicManager.start_tenpai()
-	score_tracker.update_score(-1000)
+	score_tracker.update_score(-1000 * upgrades.riichi_multiplier)
 	_start_rotation()
 
 
@@ -787,7 +784,7 @@ func _end_round(win_is_tsumo_not_ron = false):
 	for i in range(upgrades.get_kan_size()-revealed_kan_dora, kan_dora.size()):
 		for id in kan_dora[i].get_dora_id():
 			omote_doras.append(id)
-	if !hand_is_open():
+	if in_riichi:
 		for i in range(upgrades.get_kan_size()-revealed_kan_dora, kan_dora.size()):
 			for id in ura_dora[i].get_dora_id():
 				ura_doras.append(id)
@@ -803,7 +800,12 @@ func _end_round(win_is_tsumo_not_ron = false):
 	if discard.size() == 0:
 		met_yaku.hans.append(ALL_YAKU.YAKUS["Kihou"])
 	
-	var score_info = yaku_checker.hand_get_han(get_hand_info(), doras, true, met_yaku)
+	# ron doesnt open hand upgrade
+	var hand_info = get_hand_info()
+	if upgrades.ron_counted_as_tsumo and !hand_info.tsumo:
+		hand_info.tsumo = hand_info.most_recent_discard
+	
+	var score_info = yaku_checker.hand_get_han(hand_info, doras, true, met_yaku)
 	
 	var multiplier_info = MultiplierInfo.new(seat_wind == WINDS.EAST, win_is_tsumo_not_ron)
 	
