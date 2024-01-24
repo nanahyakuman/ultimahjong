@@ -2,7 +2,6 @@ extends Control
 
 var money = 0
 
-var MONEY_PER_ROUND = 3
 
 enum {STATE_ANIMATING, STATE_ACTIVE}
 var state
@@ -20,10 +19,11 @@ var state
 @onready var colored_purchaseables = $VBoxContainer/ColoredPurchaseables
 @onready var dora_info_label = $VBoxContainer/DoraInfoLabel
 
+
 func start(was_victory: bool):
 	state = STATE_ACTIVE
 	
-	#adjust_money(MONEY_PER_ROUND)
+	# money is added elsewhere
 	
 	MusicManager.start_shop()
 	

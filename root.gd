@@ -5,6 +5,7 @@ extends Control
 @onready var scoring_root = %ScoringRoot
 @onready var score_tracker = $ScoreTracker
 @onready var state_saver = $StateSaver
+@onready var upgrades = $HBoxContainer/MahjongRoot/MahjongManager/Upgrades
 
 # gets incremented once we start.
 # also accessed by mahjmanager
@@ -71,7 +72,7 @@ func end_round(scoring_info: ScoringInfo, multiplier_info: MultiplierInfo):
 	
 	# update early so you can't quit to retry a round
 	state = STATE_SHOP
-	shop_root.adjust_money(shop_root.MONEY_PER_ROUND)
+	shop_root.adjust_money(upgrades.get_money_per_round())
 	
 	# tracker for shop
 	last_round_was_victory = points > 0

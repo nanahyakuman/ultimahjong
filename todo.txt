@@ -161,8 +161,10 @@ loading into shop doesnt have a song loaded and crashes
 pay riichi bet back!
 does kandora [???44s] give double for 5s?
 characters can start with upgrades
-	give sanma the kita item by default
-readd buying tiles but only jihai
+	give sanma the kita item by default instead of a flag
+re-add buying tiles but only jihai
+remove 3-sided waits
+ronned sets score fu as if open
 
 save hand and tile state
 save shop items

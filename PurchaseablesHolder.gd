@@ -34,7 +34,7 @@ func start():
 				valid_items.erase(t)
 			valid_items.erase(0)
 		Purchaseable.TYPES.UPGRADE:
-			valid_ups = upgrades_grid_container.get_random_from_pool(BUTTONS)
+			valid_ups = [Upgrade.TYPES.UPR_DEAD_REDUCE] + upgrades_grid_container.get_random_from_pool(BUTTONS-1)
 		
 	for c in get_children():
 		c.queue_free()

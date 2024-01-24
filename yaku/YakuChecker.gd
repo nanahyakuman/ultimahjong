@@ -151,9 +151,9 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			#if !is_open:
 			var tanyao = true
 			for g in groupings:
+				if g.type == Grouping.SPECIAL:
+					continue
 				for t in g.tiles:
-					if t.suit == MTile.SUITS.FLOWER:
-						continue
 					if t.suit == MTile.SUITS.SPECIAL or t.value == 1 or t.value == 9:
 						tanyao = false
 			if tanyao:

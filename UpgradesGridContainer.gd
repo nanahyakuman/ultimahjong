@@ -1,7 +1,7 @@
 ##  graphically displays items, and also keeps track of item pooling
 extends GridContainer
 
-@onready var upgrades
+@onready var upgrades: Upgrades
 @onready var upgrade = preload("res://upgrade.tscn")
 
 var pool: ExpandingCounterDict
@@ -13,8 +13,6 @@ func _ready():
 			continue
 		var count = Upgrade.METADATA[i][Upgrade.METADATA_COUNT]
 		pool.add(i, count)
-	
-	print(pool.counts)
 
 
 # return an array of randomly selected items left in pool

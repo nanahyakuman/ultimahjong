@@ -51,3 +51,8 @@ var ron_counted_as_tsumo = false
 
 # riichi power (and cost) multiplier
 var riichi_multiplier = 1
+
+var BASE_MONEY_PER_ROUND = 3
+var additional_money_per_round = 0
+func get_money_per_round():
+	return BASE_MONEY_PER_ROUND + additional_money_per_round

@@ -733,6 +733,7 @@ alignment = 1
 script = ExtResource("20_wmn33")
 purchaseable = ExtResource("21_3mckx")
 type = 4
+BUTTONS = 4
 PER_BUTTON = 0
 
 [node name="ItemPurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]

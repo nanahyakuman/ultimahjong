@@ -4,7 +4,7 @@ extends CursorTextRequester
 class_name Upgrade
 
 # pooled by upgradegridcontainer.
-enum TYPES {UPR_NONE, UPR_DEAD_REDUCE, UPR_KAN_REVEAL, UPR_KITA, UPR_OPPONENT_KILL, UPR_MANA_UP, UPR_RONANKOU, UPR_STRONGER_RIICHI}
+enum TYPES {UPR_NONE, UPR_DEAD_REDUCE, UPR_KAN_REVEAL, UPR_KITA, UPR_OPPONENT_KILL, UPR_MANA_UP, UPR_RONANKOU, UPR_STRONGER_RIICHI, UPR_MORE_MONEY}
 #  metadata about items.
 # generally want these to cost 2, but probably go all the way up to 5
 enum {METADATA_COST = 0, METADATA_COUNT = 1}
@@ -16,6 +16,7 @@ const METADATA = {		# cost, pool size
 	TYPES.UPR_MANA_UP:			[2, 2],
 	TYPES.UPR_RONANKOU:			[2, 1],
 	TYPES.UPR_STRONGER_RIICHI:	[2, 3],
+	TYPES.UPR_MORE_MONEY:		[4, 1],
 }
 var type = TYPES.UPR_NONE
 
@@ -51,3 +52,5 @@ func bought(upgrades: Upgrades):
 			upgrades.ron_counted_as_tsumo = true
 		TYPES.UPR_STRONGER_RIICHI:
 			upgrades.riichi_multiplier += 1
+		TYPES.UPR_MORE_MONEY:
+			upgrades.additional_money_per_round += 1
