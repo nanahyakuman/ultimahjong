@@ -164,8 +164,9 @@ characters can start with upgrades
 	give sanma the kita item by default instead of a flag
 re-add buying tiles but only jihai
 remove 3-sided waits
-ronned sets score fu as if open
+ronned sets score fu as if closed
 translate select a tile text
+acknowledge lack of furiten in guide somewhere
 
 save hand and tile state
 save shop items

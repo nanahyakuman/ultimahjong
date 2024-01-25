@@ -161,37 +161,41 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			
 			
 			## PAIR-BASED YAKU (the only one)
-			if pairs.size() >= 7:
+			##  defifnition is funny to permit different hand sizes
+			if runs.size() == 0 and sets.size() <= 1:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Chiitoitsu"])
 			
 			# filter out chiitoi
 			else:
+				#  sanankou, sankantsu, suuankou, suukantsu. moved
+				# here to disable fu from overscoring
+				var hidden_sets = []
+				var kans = []
+				for s in sets:
+					if !s.is_open():
+						hidden_sets.append(s)
+					if s.tiles.size() == 4:
+						kans.append(s)
+				
+				#  have to un-open a set if it's a ron-ned tile completing it. this 
+				# has to be more complicated than i'd like to account for dopey supersets
+				# like 333/333p as two koutsu.
+				var sets_that_might_contain_ronned_tile = []
+				for g in groupings_that_might_contain_ronned_tile:
+					if hidden_sets.has(g):
+						sets_that_might_contain_ronned_tile.append(g)
+				# check if there's any other grouping that could contain it instead.
+				if sets_that_might_contain_ronned_tile.size() > 0:
+					if sets_that_might_contain_ronned_tile.size() == groupings_that_might_contain_ronned_tile.size():
+						# doesnt work 
+						sets_that_might_contain_ronned_tile[-1].open_tile = 99
+						hidden_sets.erase(sets_that_might_contain_ronned_tile[-1])
+					
 				## SET-BASED YAKU (all req. at least 3 sets)
 				if sets.size() >= 3:
 					# toitoi
 					if runs.size() == 0:
 						scoring_info.hans.append(ALL_YAKU.YAKUS["Toitoi"])
-					
-					# sanankou, sankantsu, suuankou, suukantsu
-					var hidden_sets = []
-					var kans = []
-					for s in sets:
-						if !s.is_open():
-							hidden_sets.append(s)
-						if s.tiles.size() == 4:
-							kans.append(s)
-					
-					#  have to un-open a set if it's a ron-ned tile completing it. this 
-					# has to be more complicated than i'd like to account for dopey supersets
-					# like 333/333p as two koutsu.
-					var sets_that_might_contain_ronned_tile = []
-					for g in groupings_that_might_contain_ronned_tile:
-						if hidden_sets.has(g):
-							sets_that_might_contain_ronned_tile.append(g)
-					# check if there's any other grouping that could contain it instead.
-					if sets_that_might_contain_ronned_tile.size() > 0:
-						if sets_that_might_contain_ronned_tile.size() == groupings_that_might_contain_ronned_tile.size():
-							hidden_sets.erase(sets_that_might_contain_ronned_tile[-1])
 					
 					if hidden_sets.size() >= 4:
 						scoring_info.hans.append(ALL_YAKU.YAKUS["Suuankou"])
@@ -491,10 +495,21 @@ func _groupings_meet_basic_reqs(groupings: Array) -> bool:
 		elif g.type == Grouping.BIRUNTRIPAIR:
 			biruntripairs += 1
 	
+	##  these can probably be figured out programatically
+	## but it's honestly easier just to hardcode
+	# regular
 	if character_info.hand_size == 14:
 		return ((setruns + 2 * biruntripairs == 4) and (pairs == 1)) or (pairs + biruntripairs * 3 == 7)
+	#'xl'
 	elif character_info.hand_size == 17:
 		return ((setruns + 2 * biruntripairs == 5) and (pairs == 1)) or ((pairs + biruntripairs * 3 == 7) and sets == 1)
+	# 'sichuan'
+	elif character_info.hand_size == 8:
+		return ((setruns + 2 * biruntripairs == 2) and (pairs == 1)) or (pairs + biruntripairs * 3 == 4)
+	# slightly smaller
+	elif character_info.hand_size == 11:
+		return ((setruns + 2 * biruntripairs == 3) and (pairs == 1)) or ((pairs + biruntripairs * 3 == 4) and sets == 1)
+	
 	assert(false,"invalid hand size!")
 	return false
 
