@@ -16,10 +16,10 @@ var shop_root
 
 #  diffrent item ids. also used as translation keys. do NOT assign custom values to keys,
 # it'll break translation support!
-enum TYPES {ITEM_NONE, ITEM_ERASER, ITEM_WIND_MAGNET, ITEM_BATTERY, ITEM_KAN_SWAP, ITEM_PIN_DUPE, ITEM_SOU_ADJ, ITEM_AKAFY, ITEM_POCCHI, ITEM_MAN_TERM, ITEM_DRAGON_CYCLE, ITEM_SUJI_OFFSET, ITEM_COLOR_SHIFT}
+enum TYPES {ITEM_NONE, ITEM_ERASER, ITEM_WIND_MAGNET, ITEM_BATTERY, ITEM_KAN_SWAP, ITEM_PIN_DUPE, ITEM_SOU_ADJ, ITEM_AKAFY, ITEM_POCCHI, ITEM_MAN_TERM, ITEM_DRAGON_CYCLE, ITEM_SUJI_OFFSET, ITEM_COLOR_SHIFT, ITEM_WIND_ROT}
 #  items either use mana, charge themselves, or are one-time use
 @export var type: TYPES = TYPES.ITEM_NONE
-const COOLD = [     0,          48,               15,           24,            70,            44,           52,         61,          59,            36,                31,               32,               43]
+const COOLD = [     0,          48,               15,           24,            70,            44,           52,         61,          59,            36,                31,               32,               43,            22]
 
 enum CH_TYPES {ONCE, MANA, TIMR}
 # make sure to set BEFORE calling _ready()!
@@ -229,6 +229,11 @@ func _use():
 			popup_tile_select.set_tiles(new_tiles)
 			popup_tile_select.request_tile_select(self)
 			tile_select.update_text("Select a new suit.")
+		
+		TYPES.ITEM_WIND_ROT:
+			mahjong_manager.request_tile_select(self, true)
+			tile_select.update_text("Select a Wind to be rotated.")
+			return
 	
 	#  default item behaviour assumes the usage is immediate, if not
 	# call return in switch above.
@@ -251,6 +256,9 @@ func tile_valid(tile: MTile):
 				return false
 		TYPES.ITEM_DRAGON_CYCLE:
 			if tile.suit != MTile.SUITS.SPECIAL or !MTile.BASIC_DRAGONS.has(tile.value):
+				return false
+		TYPES.ITEM_WIND_ROT:
+			if tile.suit != MTile.SUITS.SPECIAL or !MTile.WINDS.has(tile.value):
 				return false
 	return true
 
@@ -345,6 +353,42 @@ func tile_selected(tile: MTile):
 			new_tile.former = mahjong_manager.tsumo
 			mahjong_manager.tsumo = null
 			mahjong_manager.add_to_hand_and_update(new_tile)
+		
+		TYPES.ITEM_WIND_ROT:
+			if selected_tile_memory.size() == 0:
+				selected_tile_memory.append(tile)
+				
+				
+				# inelegant. i do not care
+				var new_tiles_vals = []
+				match tile.value:
+					MTile.SPECIALS.NORTH:
+						new_tiles_vals = [MTile.SPECIALS.EAST, MTile.SPECIALS.WEST]
+					MTile.SPECIALS.EAST:
+						new_tiles_vals = [MTile.SPECIALS.SOUTH, MTile.SPECIALS.NORTH]
+					MTile.SPECIALS.SOUTH:
+						new_tiles_vals = [MTile.SPECIALS.EAST, MTile.SPECIALS.WEST]
+					MTile.SPECIALS.WEST:
+						new_tiles_vals = [MTile.SPECIALS.SOUTH, MTile.SPECIALS.NORTH]
+				
+				var new_tiles = []
+				for i in new_tiles_vals:
+					new_tiles.append(MTile.new(MTile.SUITS.SPECIAL, i))
+				
+				# override def behavior
+				mahjong_manager.complete_tile_select()
+				mahjong_manager.stall_for_external_select()
+				popup_tile_select.set_tiles(new_tiles)
+				popup_tile_select.request_tile_select(self)
+				tile_select.update_text("Select a Wind to become.")
+				return
+			else:
+				var new_t = selected_tile_memory[0].duplicate()
+				#new_t.suit = tile.suit
+				new_t.value = tile.value
+				new_t.former = tile
+				mahjong_manager.add_to_hand_and_update(new_t)
+				selected_tile_memory.clear()
 	
 	# default completion behaviour
 	mahjong_manager.complete_tile_select()

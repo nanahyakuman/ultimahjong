@@ -107,6 +107,7 @@ script = ExtResource("7_2o14x")
 
 [node name="VolumeHSlider" type="HSlider" parent="." groups=["save_options"]]
 visible = false
+layout_mode = 0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0
@@ -117,6 +118,7 @@ script = ExtResource("9_twv7l")
 
 [node name="VolumeHSlider2" type="HSlider" parent="." groups=["save_options"]]
 visible = false
+layout_mode = 0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0
@@ -128,6 +130,7 @@ bus_name = "Music"
 
 [node name="VolumeHSlider3" type="HSlider" parent="." groups=["save_options"]]
 visible = false
+layout_mode = 0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0

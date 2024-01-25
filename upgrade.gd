@@ -6,10 +6,11 @@ class_name Upgrade
 # pooled by upgradegridcontainer.
 enum TYPES {UPR_NONE, UPR_DEAD_REDUCE, UPR_KAN_REVEAL, UPR_KITA, UPR_OPPONENT_KILL, UPR_MANA_UP, UPR_RONANKOU, UPR_STRONGER_RIICHI, UPR_MORE_MONEY}
 #  metadata about items.
-# generally want these to cost 2, but probably go all the way up to 5
+# generally want these to cost 2, but probably go all the way up to 5.
+# 3+ end the shop unceremoniously so taitei to be avoided
 enum {METADATA_COST = 0, METADATA_COUNT = 1}
 const METADATA = {		# cost, pool size
-	TYPES.UPR_DEAD_REDUCE:		[1, 5], # count for this needs to be overridden
+	TYPES.UPR_DEAD_REDUCE:		[1, 0], # never chosen by pool, just shows up until there's no point buying more
 	TYPES.UPR_KAN_REVEAL:		[2, 4],
 	TYPES.UPR_KITA:				[4, 1],
 	TYPES.UPR_OPPONENT_KILL:	[4, 1],

@@ -165,6 +165,7 @@ characters can start with upgrades
 re-add buying tiles but only jihai
 remove 3-sided waits
 ronned sets score fu as if open
+translate select a tile text
 
 save hand and tile state
 save shop items
