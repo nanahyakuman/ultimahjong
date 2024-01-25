@@ -24,6 +24,7 @@ end of every round can purchase:
 		can score a 0-han hand
 	x	reduce opponent discards by one
 	x	riichi costs 2000 and adds 2 han (actually a multiple-buy allowed mult.)
+		sell special dragons and winds here
 	spell cards, refresh every x draws
 	x	next tile will be --honor-- wind
 	x	exchange one tile for a false haku
@@ -162,9 +163,9 @@ pay riichi bet back!
 does kandora [???44s] give double for 5s?
 characters can start with upgrades
 	give sanma the kita item by default instead of a flag
+	give xl flowers and seasons
 re-add buying tiles but only jihai
 remove 3-sided waits
-ronned sets score fu as if closed
 translate select a tile text
 acknowledge lack of furiten in guide somewhere
 

@@ -2,6 +2,7 @@
 extends GridContainer
 
 @onready var upgrades: Upgrades
+@onready var tile_counter = $"../../../../../../../MahjongRoot/MahjongManager/TileCounter"
 @onready var upgrade = preload("res://upgrade.tscn")
 
 var pool: ExpandingCounterDict
@@ -37,7 +38,7 @@ func load_cfg(config: ConfigFile):
 			if !upgrades:
 				upgrades = $"../../../../../../../MahjongRoot/MahjongManager/Upgrades"
 			# retrigger upgrades
-			a.bought(upgrades)
+			a.bought(upgrades, tile_counter)
 
 func save_cfg(config: ConfigFile):
 	var a = ExpandingCounterDict.new()

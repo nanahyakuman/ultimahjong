@@ -100,7 +100,7 @@ func pressed(node: Purchaseable):
 		Purchaseable.TYPES.UPGRADE:
 			var a = node.upgrade
 			a.reparent(upgrades_grid_container)
-			a.bought(upgrades)
+			a.bought(upgrades, tile_counter)
 			upgrades_grid_container.alert_bought(a.type)
 			CursorText.set_text("")
 	
