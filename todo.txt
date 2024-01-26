@@ -150,8 +150,6 @@ dont sell deadwall reducs if the size is already minmum
 cursor scaling
 close shop lose money warning
 proper wall gfx haitei drawing
-riichi call (prob kan call too) hovers most recent discard
-tsumo call tile hover broken, highlights most recent discard instead of tsumo
 pocchi almighty and pocci selection code
 translate hovertext
 dora tab that explains the types and colors
@@ -178,6 +176,8 @@ save shop items
 demo MVP:
 	win/lose screens
 	finish saving
+		shop state
+		hand and wall state
 	language support
 		finish jp. dont need to write everything, but at least finish ultimahjong info
 

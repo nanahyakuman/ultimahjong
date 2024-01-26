@@ -74,6 +74,22 @@ func animate():
 
 # tells the hand to tell relevant tiles to highlight themselves
 func _on_mouse_entered():
-	hand.highlight_relevant_tiles(_tiles_involved, true)
+	var highlight_most_recent_disc = [
+		MahjongManager.CALL_BITMASK.CHI_L,
+		MahjongManager.CALL_BITMASK.CHI_M,
+		MahjongManager.CALL_BITMASK.CHI_R,
+		MahjongManager.CALL_BITMASK.PON,
+		MahjongManager.CALL_BITMASK.KAN,
+		MahjongManager.CALL_BITMASK.RON
+	].has(bitmask)
+	hand.highlight_relevant_tiles(_tiles_involved, highlight_most_recent_disc, true)
 func _on_mouse_exited():
-	hand.highlight_relevant_tiles([], false)
+	var highlight_most_recent_disc = [
+		MahjongManager.CALL_BITMASK.CHI_L,
+		MahjongManager.CALL_BITMASK.CHI_M,
+		MahjongManager.CALL_BITMASK.CHI_R,
+		MahjongManager.CALL_BITMASK.PON,
+		MahjongManager.CALL_BITMASK.KAN,
+		MahjongManager.CALL_BITMASK.RON
+	].has(bitmask)
+	hand.highlight_relevant_tiles([], highlight_most_recent_disc, false)

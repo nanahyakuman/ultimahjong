@@ -4,7 +4,7 @@ extends HBoxContainer
 @onready var tsumo = $"../Tsumo"
 
 #  highlight tiles used in a chi/pon/kan. called by individual calls
-func highlight_relevant_tiles(tiles: Array, val: bool):
+func highlight_relevant_tiles(tiles: Array, include_most_recent_discard: bool, val: bool):
 	if !val:
 		for tg in get_children():
 			tg.direct_request_highlight(false)
@@ -18,7 +18,7 @@ func highlight_relevant_tiles(tiles: Array, val: bool):
 				tg.direct_request_highlight(true)
 				tids.erase(tgid)
 	
-	if gui_manager.most_recent_discard:
+	if include_most_recent_discard and gui_manager.most_recent_discard:
 		gui_manager.most_recent_discard.direct_request_highlight(val)
 
 func do_hover_cursor(do: bool):
