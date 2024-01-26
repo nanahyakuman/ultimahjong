@@ -5,8 +5,12 @@ extends Node
 
 signal updated
 
+var tile_counts: ExpandingCounterDict
+
 # fairly striaghtforward gen code
 func initialize(character_info: CharacterInfo, load: bool):
+	tile_counts = ExpandingCounterDict.new()
+	
 	# code is handled in `load_cfg()`
 	if load:
 		return
@@ -177,7 +181,27 @@ func increment_tile(tile: MTile):
 	tile_data.append(new_tile)
 	tile_data.sort_custom(Callable(MTile, "tile_compare"))
 	
+	tile_counts.add(tile.get_id())
+	
 	emit_signal("updated")
+
+#  add a number of flowers/seasons, minimizing seen tiles.
+# lowkey probably overengineered lol
+func add_flowers(count: int, season: bool):
+	var offset = 5 if season else 1
+	
+	# find the first tile with less. wrap back to the beginning if all the same
+	var next_index = 0
+	var min = tile_counts.at(MTile.gen_id(MTile.SUITS.FLOWER, next_index+offset))
+	for i in 4:
+		next_index += 1
+		if tile_counts.at(MTile.gen_id(MTile.SUITS.FLOWER, next_index+offset)) < min:
+			break
+	
+	for i in count:
+		increment_tile(MTile.new(MTile.SUITS.FLOWER, (next_index%4)+offset))
+		next_index += 1
+
 
 func set_color(tile: MTile, color: int):
 	

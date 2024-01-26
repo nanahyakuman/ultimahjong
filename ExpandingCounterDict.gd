@@ -9,6 +9,12 @@ func add(item, amount: int = 1):
 	else:
 		counts[item] = amount
 
+func at(item):
+	if !counts.has(item):
+		return 0
+	else:
+		return counts[item]
+
 # return array of all present counts greater than a value
 func get_count_greater_than(min: int) -> Array:
 	var ret = []

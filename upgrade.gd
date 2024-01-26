@@ -18,8 +18,8 @@ const METADATA = {		# cost, pool size
 	TYPES.UPR_RONANKOU:			[1, 1],
 	TYPES.UPR_STRONGER_RIICHI:	[2, 3],
 	TYPES.UPR_MORE_MONEY:		[4, 1],
-	TYPES.UPR_FLOWER:			[2, 1],
-	TYPES.UPR_SEASON:			[2, 1],
+	TYPES.UPR_FLOWER:			[2, 2],
+	TYPES.UPR_SEASON:			[2, 2],
 	TYPES.UPR_KIN_DRAGON:		[4, 1],
 	TYPES.UPR_RISING_WIND:		[4, 1],
 }
@@ -60,11 +60,9 @@ func bought(upgrades: Upgrades, tile_counter: Node):
 		TYPES.UPR_MORE_MONEY:
 			upgrades.additional_money_per_round += 1
 		TYPES.UPR_FLOWER:
-			for i in 4:
-				tile_counter.increment_tile(MTile.new(MTile.SUITS.FLOWER, i+1))
+			tile_counter.add_flowers(2, false)
 		TYPES.UPR_SEASON:
-			for i in 4:
-				tile_counter.increment_tile(MTile.new(MTile.SUITS.FLOWER, i+5))
+			tile_counter.add_flowers(2, true)
 		TYPES.UPR_KIN_DRAGON:
 			for i in 4:
 				tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.KIN))
