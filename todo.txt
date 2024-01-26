@@ -168,6 +168,7 @@ re-add buying tiles but only jihai
 remove 3-sided waits
 translate select a tile text
 acknowledge lack of furiten in guide somewhere
+prevent coloring flowers/winds/kin dragon
 
 save hand and tile state
 save shop items

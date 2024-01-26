@@ -4,7 +4,7 @@ extends CursorTextRequester
 class_name Upgrade
 
 # pooled by upgradegridcontainer.
-enum TYPES {UPR_NONE, UPR_DEAD_REDUCE, UPR_KAN_REVEAL, UPR_KITA, UPR_OPPONENT_KILL, UPR_MANA_UP, UPR_RONANKOU, UPR_STRONGER_RIICHI, UPR_MORE_MONEY, UPR_FLOWER, UPR_SEASON}
+enum TYPES {UPR_NONE, UPR_DEAD_REDUCE, UPR_KAN_REVEAL, UPR_KITA, UPR_OPPONENT_KILL, UPR_MANA_UP, UPR_RONANKOU, UPR_STRONGER_RIICHI, UPR_MORE_MONEY, UPR_FLOWER, UPR_SEASON, UPR_KIN_DRAGON, UPR_RISING_WIND}
 #  metadata about items.
 # generally want these to cost 2, but probably go all the way up to 5.
 # 3+ end the shop unceremoniously so taitei to be avoided
@@ -20,6 +20,8 @@ const METADATA = {		# cost, pool size
 	TYPES.UPR_MORE_MONEY:		[4, 1],
 	TYPES.UPR_FLOWER:			[2, 1],
 	TYPES.UPR_SEASON:			[2, 1],
+	TYPES.UPR_KIN_DRAGON:		[4, 1],
+	TYPES.UPR_RISING_WIND:		[4, 1],
 }
 var type = TYPES.UPR_NONE
 
@@ -63,3 +65,10 @@ func bought(upgrades: Upgrades, tile_counter: Node):
 		TYPES.UPR_SEASON:
 			for i in 4:
 				tile_counter.increment_tile(MTile.new(MTile.SUITS.FLOWER, i+5))
+		TYPES.UPR_KIN_DRAGON:
+			for i in 4:
+				tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.KIN))
+		TYPES.UPR_RISING_WIND:
+			for i in 4:
+				tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.UP))
+			

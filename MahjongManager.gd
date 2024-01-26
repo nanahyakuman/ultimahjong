@@ -107,8 +107,8 @@ func start_round():
 func _increment_winds():
 	var curr_round = root.round_counter
 	seat_wind = ((character_info.valid_seats)*2-1-curr_round) % character_info.valid_seats
-	prevalent_wind = curr_round / character_info.valid_seats
-	if seat_wind ==  character_info.valid_seats-1:
+	prevalent_wind = (curr_round / character_info.valid_seats) % character_info.valid_seats
+	if seat_wind == character_info.valid_seats-1:
 		MusicManager.queue_next_song()
 	gui_manager.update_winds(prevalent_wind, seat_wind)
 

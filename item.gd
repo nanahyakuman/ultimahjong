@@ -255,7 +255,7 @@ func tile_valid(tile: MTile):
 			if tile.suit != MTile.SUITS.MAN:
 				return false
 		TYPES.ITEM_DRAGON_CYCLE:
-			if tile.suit != MTile.SUITS.SPECIAL or !MTile.BASIC_DRAGONS.has(tile.value):
+			if tile.suit != MTile.SUITS.SPECIAL or !MTile.DRAGONS.has(tile.value):
 				return false
 		TYPES.ITEM_WIND_ROT:
 			if tile.suit != MTile.SUITS.SPECIAL or !MTile.WINDS.has(tile.value):
@@ -325,18 +325,35 @@ func tile_selected(tile: MTile):
 			mahjong_manager.add_to_hand_and_update(new_tile)
 		
 		TYPES.ITEM_DRAGON_CYCLE:
-			var val
-			match tile.value:
-				MTile.SPECIALS.HAKU:
-					val = MTile.SPECIALS.HATSU
-				MTile.SPECIALS.HATSU:
-					val = MTile.SPECIALS.CHUN
-				MTile.SPECIALS.CHUN:
-					val = MTile.SPECIALS.HAKU
-			var new_tile = tile.duplicate()
-			new_tile.former = tile
-			new_tile.value = val
-			mahjong_manager.add_to_hand_and_update(new_tile)
+			if selected_tile_memory.size() == 0:
+				var val
+				match tile.value:
+					MTile.SPECIALS.HAKU:
+						val = MTile.SPECIALS.HATSU
+					MTile.SPECIALS.HATSU:
+						val = MTile.SPECIALS.CHUN
+					MTile.SPECIALS.CHUN:
+						val = MTile.SPECIALS.HAKU
+					# prompt selection for kin
+					MTile.SPECIALS.KIN:
+						var new_tiles = [MTile.new(MTile.SUITS.SPECIAL,MTile.SPECIALS.HAKU),MTile.new(MTile.SUITS.SPECIAL,MTile.SPECIALS.HATSU),MTile.new(MTile.SUITS.SPECIAL,MTile.SPECIALS.CHUN)]
+						mahjong_manager.complete_tile_select()
+						mahjong_manager.stall_for_external_select()
+						popup_tile_select.set_tiles(new_tiles)
+						popup_tile_select.request_tile_select(self)
+						tile_select.update_text("Select a Dragon to become.")
+						return
+				var new_tile = tile.duplicate()
+				new_tile.former = tile
+				new_tile.value = val
+				mahjong_manager.add_to_hand_and_update(new_tile)
+			else:
+				var new_t = selected_tile_memory[0].duplicate()
+				new_t.value = tile.value
+				new_t.former = tile
+				
+				mahjong_manager.add_to_hand_and_update(new_t)
+				selected_tile_memory.clear()
 		
 		TYPES.ITEM_SUJI_OFFSET:
 			# maintain canon ref
@@ -370,6 +387,8 @@ func tile_selected(tile: MTile):
 						new_tiles_vals = [MTile.SPECIALS.EAST, MTile.SPECIALS.WEST]
 					MTile.SPECIALS.WEST:
 						new_tiles_vals = [MTile.SPECIALS.SOUTH, MTile.SPECIALS.NORTH]
+					MTile.SPECIALS.UP:
+						new_tiles_vals = [MTile.SPECIALS.EAST, MTile.SPECIALS.SOUTH, MTile.SPECIALS.WEST, MTile.SPECIALS.NORTH]
 				
 				var new_tiles = []
 				for i in new_tiles_vals:
