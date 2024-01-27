@@ -38,7 +38,7 @@ func _ready():
 		rich_text_label = $RichTextLabel
 		rich_text_label.text = CALL_NAMES[bitmask]
 		# gild certain buttons
-		if [MahjongManager.CALL_BITMASK.FLOWER, MahjongManager.CALL_BITMASK.RCH, MahjongManager.CALL_BITMASK.TSM, MahjongManager.CALL_BITMASK.RON].has(bitmask):
+		if [MahjongManager.CALL_BITMASK.FLOWER, MahjongManager.CALL_BITMASK.RCH, MahjongManager.CALL_BITMASK.TSM, MahjongManager.CALL_BITMASK.RON, MahjongManager.CALL_BITMASK.KITA].has(bitmask):
 			get_theme_stylebox("panel").region_rect.position.x = 38
 			rich_text_label.add_theme_color_override("font_color", Color(COL.BLACK))
 			#rich_text_label.label_settings.font_color = Color(COL.BLACK)

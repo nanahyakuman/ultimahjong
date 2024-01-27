@@ -106,7 +106,8 @@ func start_round():
 # although there's still only 1 track atm
 func _increment_winds():
 	var curr_round = root.round_counter
-	seat_wind = ((character_info.valid_seats)*2-1-curr_round) % character_info.valid_seats
+	# 999 is just to prevent the mod from running negative
+	seat_wind = ((character_info.valid_seats)*999-(1+curr_round)) % character_info.valid_seats
 	prevalent_wind = (curr_round / character_info.valid_seats) % character_info.valid_seats
 	if seat_wind == character_info.valid_seats-1:
 		MusicManager.queue_next_song()

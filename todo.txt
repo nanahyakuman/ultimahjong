@@ -46,8 +46,8 @@ end of every round can purchase:
 		10 points for every tile left in wall?
 		discard 4 chun for an automatic free mangan
 	other:
-		reduce scoring cutoff acceleration
-		reduce scoring cutoff vel
+	x	reduce scoring cutoff acceleration 200 ~2
+		reduce scoring cutoff vel? seems weird to do both
 achievements
 	all yaku
 	all mangan
@@ -57,6 +57,7 @@ achievements
 	get any hand with multiple ways of scoring it
 	kin iisou (chonbo)
 	kazoe double
+	yabai kan
 	
 	not sure i want to add even more dopey yaku clogging up menus, but they'd make cool hidden achievements
 		daichiishin (chiitoi tsuuii) (+1y)
@@ -133,7 +134,6 @@ languages
 		thai
 
 
-record sounds
 rework deadwall to be resizeable inround?
 when you discard a pocchi, can choose to exchange the 4th tile in the wall with
 	another not-yet-discarded pocchi, even if it turns out to be in the dead wall.
@@ -141,7 +141,6 @@ when you discard a pocchi, can choose to exchange the 4th tile in the wall with
 shiro pocchi instant win if riichitsumo
 flower call redraw did NOT propmt tsumo properly. might have been other now-solved
 	issue but should verify
-	stop counting fu after 4, name mangan
 attempting to suji shift an illegal tile softlocks
 mouse entering a item from the sell prompt cursorhovertexts "add item to wall???? wth???"
 	only occurs when setting the cursor style. deadass what??
@@ -156,19 +155,19 @@ dora tab that explains the types and colors
 really nneed to go through scoring again
 	scoring display is out of date
 	11223p789s11m 3p NRRRN returned open ryanpeikou
+	stop counting fu after 4, name mangan
 loading into shop doesnt have a song loaded and crashes
 pay riichi bet back!
 does kandora [???44s] give double for 5s?
-characters can start with upgrades
-	give sanma the kita item by default instead of a flag
-	give xl flowers and seasons
 re-add buying tiles but only jihai
 remove 3-sided waits
 translate select a tile text
 acknowledge lack of furiten in guide somewhere
 prevent coloring flowers/winds/kin dragon
+ensure max scoring code works for variable acceleration
+draw add to kan
 
-save hand and tile state
+save hand and tile state ?
 save shop items
 
 
@@ -180,6 +179,7 @@ demo MVP:
 		hand and wall state
 	language support
 		finish jp. dont need to write everything, but at least finish ultimahjong info
+	finish current item art
 
 
 

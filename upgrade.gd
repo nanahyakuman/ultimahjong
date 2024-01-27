@@ -4,7 +4,7 @@ extends CursorTextRequester
 class_name Upgrade
 
 # pooled by upgradegridcontainer.
-enum TYPES {UPR_NONE, UPR_DEAD_REDUCE, UPR_KAN_REVEAL, UPR_KITA, UPR_OPPONENT_KILL, UPR_MANA_UP, UPR_RONANKOU, UPR_STRONGER_RIICHI, UPR_MORE_MONEY, UPR_FLOWER, UPR_SEASON, UPR_KIN_DRAGON, UPR_RISING_WIND}
+enum TYPES {UPR_NONE, UPR_DEAD_REDUCE, UPR_KAN_REVEAL, UPR_KITA, UPR_OPPONENT_KILL, UPR_MANA_UP, UPR_RONANKOU, UPR_STRONGER_RIICHI, UPR_MORE_MONEY, UPR_FLOWER, UPR_SEASON, UPR_KIN_DRAGON, UPR_RISING_WIND, UPR_DECEL, UPR_MORE_DRAGONS}
 #  metadata about items.
 # generally want these to cost 2, but probably go all the way up to 5.
 # 3+ end the shop unceremoniously so taitei to be avoided
@@ -22,6 +22,8 @@ const METADATA = {		# cost, pool size
 	TYPES.UPR_SEASON:			[2, 2],
 	TYPES.UPR_KIN_DRAGON:		[4, 1],
 	TYPES.UPR_RISING_WIND:		[4, 1],
+	TYPES.UPR_DECEL:			[2, 2],
+	TYPES.UPR_MORE_DRAGONS:		[1, 2]
 }
 var type = TYPES.UPR_NONE
 
@@ -38,7 +40,7 @@ func _ready():
 
 
 # called when bought. (and on reload)
-func bought(upgrades: Upgrades, tile_counter: Node):
+func bought(upgrades: Upgrades, tile_counter: Node, score_tracker: Node):
 	assert(type != TYPES.UPR_NONE, "not a valid upgrade!")
 	match type:
 		TYPES.UPR_DEAD_REDUCE:
@@ -69,4 +71,9 @@ func bought(upgrades: Upgrades, tile_counter: Node):
 		TYPES.UPR_RISING_WIND:
 			for i in 4:
 				tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.UP))
-			
+		TYPES.UPR_DECEL:
+			score_tracker.expected_points_mod_mod -= 200
+		TYPES.UPR_MORE_DRAGONS:
+			tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+			tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+			tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.KIN))

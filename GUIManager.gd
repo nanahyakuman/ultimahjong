@@ -125,4 +125,4 @@ func update_score(score: int, expected_score: int, expected_points_mod: int, exp
 	score_label.set_text_colorized(str(score))
 	needed_score_label.set_text_colorized(str(expected_score))
 	score_mod_label.text = "+%04d" % expected_points_mod
-	score_mod_label_2.text = " +" + str(expected_points_mod_mod)
+	score_mod_label_2.text = "+" + str(expected_points_mod_mod)

@@ -33,6 +33,8 @@ func start_game():
 	# conflict, not trigger any loading itself.
 	mahjong_manager.initialize(CharInfoForwarder.ci, CharInfoForwarder.load)
 	score_tracker.initialize(CharInfoForwarder.ci, CharInfoForwarder.load)
+	%UpgradesGridContainer.initialize(CharInfoForwarder.ci, CharInfoForwarder.load)
+
 	if state == STATE_ROUND:
 		start_round()
 	else:
@@ -77,7 +79,10 @@ func end_round(scoring_info: ScoringInfo, multiplier_info: MultiplierInfo):
 	# tracker for shop
 	last_round_was_victory = points > 0
 
+# called whe nyou press ther next button on scoring
 func start_shop(was_load: bool = false):
+	win_or_lose()
+	
 	TileGraphicKnower.update_dora_ids([])
 	
 	scoring_root.visible = false
@@ -87,6 +92,18 @@ func start_shop(was_load: bool = false):
 	# raise the threshhold
 	if !was_load:
 		score_tracker.increment_counters()
+
+
+func win_or_lose():
+	# lose early
+	if score_tracker.has_lost():
+		print("already lost!")
+	# get to the final round but dont lose
+	elif round_counter == CharInfoForwarder.ci.number_of_rounds - 1:
+		print("won!")
+	# hit the score cap early
+	elif score_tracker.has_won_early():
+		print("premature win!")
 
 
 #overwrite global charinfo

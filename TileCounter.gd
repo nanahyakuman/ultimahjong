@@ -33,7 +33,7 @@ func initialize(character_info: CharacterInfo, load: bool):
 					tile_data.back().pocchi = true
 		
 		
-		# normal sanma with ao 7s
+		# normal sanma with kin 1
 		CharacterInfo.TYPES.SANMA:
 			for k in 4:
 				for val in [1,9]:
@@ -78,8 +78,8 @@ func initialize(character_info: CharacterInfo, load: bool):
 					var a = MTile.new(MTile.SUITS.SPECIAL, i)
 					tile_data.append(a)
 			
-			for i in 8:
-				tile_data.append(MTile.new(MTile.SUITS.FLOWER, i+1))
+#			for i in 8:
+#				tile_data.append(MTile.new(MTile.SUITS.FLOWER, i+1))
 		
 		CharacterInfo.TYPES.SICHUAN:
 			for i in [MTile.SUITS.PIN, MTile.SUITS.SOU]:

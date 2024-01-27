@@ -7,6 +7,7 @@ class_name PurchaseablesHolder
 @onready var shop_root = %ShopRoot
 @onready var items = %Items
 @onready var upgrades_grid_container = %UpgradesGridContainer
+@onready var score_tracker = %ScoreTracker
 
 @export var purchaseable: PackedScene
 
@@ -96,11 +97,12 @@ func pressed(node: Purchaseable):
 		Purchaseable.TYPES.ITEM:
 			var a = node.item
 			a.reparent(items)
+			a._mouse_exited()
 			a.activate(mahjong_manager, %TileSelectPanel, %PopupTileSelector, %ManaBar, shop_root)
 		Purchaseable.TYPES.UPGRADE:
 			var a = node.upgrade
 			a.reparent(upgrades_grid_container)
-			a.bought(upgrades, tile_counter)
+			a.bought(upgrades, tile_counter, score_tracker)
 			upgrades_grid_container.alert_bought(a.type)
 			CursorText.set_text("")
 	

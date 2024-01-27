@@ -23,6 +23,8 @@ func initialize(character_info: CharacterInfo, load: bool):
 		expected_points_mod = character_info.base_expected_points_mod
 		expected_points_mod_mod = character_info.expected_points_mod_mod
 		future_expected_score = character_info.expected_points_mod_mod
+		
+		recalc_max()
 	
 	update_score(0)
 
@@ -37,27 +39,33 @@ func update_score(score_add: int):
 func increment_counters():
 	expected_points_mod += expected_points_mod_mod
 	expected_score += expected_points_mod
-	
-	#  i know gauss's would be faster but it doesn't account for changes in acceleration
-	# like i may implement in future
-	var max_score = expected_score
-	for i in ci.number_of_rounds - root.round_counter:
-		max_score += expected_points_mod + expected_points_mod_mod * i
-	if score >= max_score:
-		# trigger win screen
-		pass
-	
-	if score < expected_score:
-		# trigger lose screen
-		pass
+
+	recalc_max()
 	
 	update_score(0)
 
+func recalc_max():
+	#  i know gauss's would be faster but it doesn't account for changes in acceleration
+	# like i may implement in future
+	#  this is inprecise if you buy decel upgrades sadly, but only by a few 100 and
+	# not in a direction that changes balance
+	max_score = expected_score - expected_points_mod_mod * (root.round_counter+1)
+	for i in ci.number_of_rounds - root.round_counter:
+		max_score += expected_points_mod + expected_points_mod_mod * i
 
 # called at the start of a round to give live updates on expectations
 func add_future_score():
 	future_expected_score = expected_score + expected_points_mod + expected_points_mod_mod
 	update_score(0)
+
+
+# just disabled for right now. reenable as an option like "continue play? or end early" on the victory screen
+func has_won_early():
+	return false
+#	return score >= max_score
+
+func has_lost():
+	return score < expected_score
 
 
 func load_cfg(config: ConfigFile):

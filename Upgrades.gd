@@ -9,6 +9,7 @@ var character_info: CharacterInfo
 ## these should only change when the game is not active.
 func initialize(ch: CharacterInfo, load: bool):
 	character_info = ch
+	
 
 #  amount of tiles to kill at the start. (it's the present value * 3).
 # this should be an even number or the dead wall display will break
@@ -44,7 +45,7 @@ var mana_gained_on_player_draw = 1
 # kita nuki
 var can_kita_nuki = false
 func get_can_kita_nuki():
-	return can_kita_nuki or character_info.can_kita_nuki
+	return can_kita_nuki
 
 # makes san/suu ankou easier
 var ron_counted_as_tsumo = false

@@ -16,13 +16,14 @@ var discard_count: int
 var valid_seats: int
 var opponents_its_legal_to_chii_from_count: int
 var hand_size: int
-var can_kita_nuki: bool
+
+var starting_uprgrades: Array #of ints
 
 # scoring expectations
-var base_score: int
-var base_expected_points: int
-var base_expected_points_mod: int
-var expected_points_mod_mod: int
+var base_score: int					= 2000
+var base_expected_points: int 		= 0
+var base_expected_points_mod: int	= 0
+var expected_points_mod_mod: int	= 1000
 
 # how many rounds to win the game after
 var number_of_rounds: int
@@ -47,12 +48,7 @@ func set_type(ty:int):
 			valid_seats = 4
 			opponents_its_legal_to_chii_from_count = 1
 			hand_size = 14
-			can_kita_nuki = false
 			
-			base_score = 2000
-			base_expected_points = 0
-			base_expected_points_mod = 0
-			expected_points_mod_mod = 500
 			
 			number_of_rounds = 8
 			
@@ -67,12 +63,9 @@ func set_type(ty:int):
 			valid_seats = 3
 			opponents_its_legal_to_chii_from_count = 0
 			hand_size = 14
-			can_kita_nuki = true
 			
-			base_score = 2000
-			base_expected_points = 0
-			base_expected_points_mod = 0
-			expected_points_mod_mod = 500
+			starting_uprgrades = [Upgrade.TYPES.UPR_KITA]
+			
 			
 			number_of_rounds = 9
 			
@@ -87,12 +80,7 @@ func set_type(ty:int):
 			valid_seats = 4
 			opponents_its_legal_to_chii_from_count = 1
 			hand_size = 14
-			can_kita_nuki = false
 			
-			base_score = 2000
-			base_expected_points = 0
-			base_expected_points_mod = 0
-			expected_points_mod_mod = 500
 			
 			number_of_rounds = 8
 			
@@ -107,12 +95,8 @@ func set_type(ty:int):
 			valid_seats = 4
 			opponents_its_legal_to_chii_from_count = 1
 			hand_size = 17
-			can_kita_nuki = false
 			
-			base_score = 2000
-			base_expected_points = 0
-			base_expected_points_mod = 0
-			expected_points_mod_mod = 500
+			starting_uprgrades = [Upgrade.TYPES.UPR_FLOWER, Upgrade.TYPES.UPR_FLOWER, Upgrade.TYPES.UPR_SEASON, Upgrade.TYPES.UPR_SEASON]
 			
 			number_of_rounds = 8
 			
@@ -129,12 +113,7 @@ func set_type(ty:int):
 			valid_seats = 4
 			opponents_its_legal_to_chii_from_count = 1
 			hand_size = 11
-			can_kita_nuki = false
 			
-			base_score = 2000
-			base_expected_points = 0
-			base_expected_points_mod = 0
-			expected_points_mod_mod = 500
 			
 			number_of_rounds = 8
 			
