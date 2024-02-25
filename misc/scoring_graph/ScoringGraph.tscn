@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfn2cpm0njoqj"]
+
+[ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="1_rxdl7"]
+[ext_resource type="Texture2D" uid="uid://ct02ag045kpw1" path="res://misc/scoring_graph/graph.png" id="2_jkorb"]
+[ext_resource type="Script" path="res://misc/scoring_graph/GraphPanel.gd" id="3_1q6vk"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bmqga"]
+texture = ExtResource("2_jkorb")
+texture_margin_left = 1.0
+texture_margin_bottom = 1.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="ScoringGraph" type="Control"]
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 3
+anchors_preset = 0
+theme = ExtResource("1_rxdl7")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 0.933333, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -165.5
+offset_right = 20.0
+offset_bottom = 165.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+
+[node name="YLabels" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="GraphPanel" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_bmqga")
+script = ExtResource("3_1q6vk")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/GraphPanel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+alignment = 1
+
+[node name="XLabels" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="IndexContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+alignment = 1

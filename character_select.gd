@@ -10,6 +10,9 @@ var char_info: CharacterInfo
 @onready var texture_button = $VBoxContainer/PanelContainer/HBoxContainer/TextureButton
 @onready var texture_button_2 = $VBoxContainer/PanelContainer/HBoxContainer/TextureButton2
 
+# override to hide unfinished characters
+var DISPLAY_AMOUNT = 3
+
 func _ready():
 	char_info = CharacterInfo.new()
 	change_char(CharacterInfo.TYPES.REGULAR)
@@ -28,7 +31,7 @@ func change_char(type: int):
 	tile_grid_container_with.generate(char_info.preview_tile_with_strings)
 	
 	texture_button.disabled = !(char_info.type > 0)
-	texture_button_2.disabled = !(char_info.type < 3)
+	texture_button_2.disabled = !(char_info.type < DISPLAY_AMOUNT-1)
 
 
 func start_pressed():

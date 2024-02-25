@@ -29,8 +29,9 @@ func initialize(character_info: CharacterInfo, load: bool):
 				for k in 4:
 					var a = MTile.new(MTile.SUITS.SPECIAL, i)
 					tile_data.append(a)
-				if i == MTile.SPECIALS.HAKU:
-					tile_data.back().pocchi = true
+				# pocchi removed for the demo
+				#if i == MTile.SPECIALS.HAKU:
+				#	tile_data.back().pocchi = true
 		
 		
 		# normal sanma with kin 1
@@ -122,6 +123,10 @@ func get_random_non_colored_ids(amount_in_group: int, groups: int):
 		while tiles.size() > 0 and counter < amount_in_group:
 			var next = tiles.pop_back()
 			if next.color != MTile.COL_NONE:
+				continue
+			if next.suit == MTile.SUITS.FLOWER:
+				continue
+			if next.suit == MTile.SUITS.SPECIAL and [MTile.SPECIALS.KIN, MTile.SPECIALS.SEI].has(next.value):
 				continue
 			subret.append(next)
 			counter += 1

@@ -35,12 +35,14 @@ func queue_next_song():
 func start_round():
 	audio_stream_player.stop()
 	
+	try_start()
 	audio_stream_player.stream = data[BASE]
 	audio_stream_player.play()
 
 func start_tenpai():
 	audio_stream_player.stop()
 	
+	try_start()
 	audio_stream_player.stream = data[TENPAI]
 	await get_tree().create_timer(0.2).timeout
 	audio_stream_player.play()
@@ -59,6 +61,8 @@ func play_han():
 
 func start_win():
 	audio_stream_player.stop()
+	
+	try_start()
 	audio_stream_player.stream = data[WIN]
 	audio_stream_player.play()
 	
@@ -67,6 +71,7 @@ func start_win():
 func start_shop():
 	audio_stream_player.stop()
 	
+	try_start()
 	audio_stream_player.stream = data[SHOP]
 	await get_tree().create_timer(0.2).timeout
 	audio_stream_player.play()
@@ -74,3 +79,9 @@ func start_shop():
 
 func stop_music():
 	audio_stream_player.stop()
+
+
+# start the manager if there's no song queued but we ask for one anyway
+func try_start():
+	if data.size() == 0:
+		queue_next_song()

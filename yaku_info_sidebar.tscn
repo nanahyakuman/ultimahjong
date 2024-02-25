@@ -65,7 +65,7 @@ text = "Sample Yaku"
 [node name="ClosedLabel" type="Label" parent="VBoxContainer/Panel/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.6, 0.666667, 1)
-text = "(Closed Only) "
+text = "YAKU_CLOSED_ONLY"
 vertical_alignment = 1
 
 [node name="HanLabel" type="Label" parent="VBoxContainer/Panel/HBoxContainer"]

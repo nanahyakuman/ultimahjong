@@ -51,6 +51,8 @@ func start():
 			a.assign_tiles([], 0)
 		a.assign_type(type)
 		if valid_items:
+			# inelegant temp solution while pocchis dont exist
+			valid_items.erase(Item.TYPES.ITEM_POCCHI)
 			var itm = valid_items.pick_random()
 			var item_type = maxi(0, i - 1)
 			a.assign_item(itm, item_type)

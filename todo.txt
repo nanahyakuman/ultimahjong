@@ -9,7 +9,7 @@ end of every round can purchase:
 		"almighty" tile (リーチ自摸の場合、和了が出来。それに幡)
 		pocchi-ing a tile means you can switch it out for any other pocchi tile in deck
 		kin dragon is 2yakuhai, and doras all other dragons. costs ~5y
-	new rules (south also counts as seat wind toka)?
+	new rules (upgrades)
 		get two ura every reveal
 		call atama?
 		create runs with winds/dragons
@@ -24,8 +24,9 @@ end of every round can purchase:
 		can score a 0-han hand
 	x	reduce opponent discards by one
 	x	riichi costs 2000 and adds 2 han (actually a multiple-buy allowed mult.)
-		sell special dragons and winds here
-	spell cards, refresh every x draws
+	x	sell special dragons and winds here
+		play for an extra round
+	spell cards, refresh every x draws (items)
 	x	next tile will be --honor-- wind
 	x	exchange one tile for a false haku
 		autocomplete a wait? seems op
@@ -129,7 +130,7 @@ languages
 		portuguese
 		french and german?
 	asia but not very large markets usually:
-		filipino (pinay? idk)
+		phillipines
 		viet
 		thai
 
@@ -142,7 +143,7 @@ shiro pocchi instant win if riichitsumo
 flower call redraw did NOT propmt tsumo properly. might have been other now-solved
 	issue but should verify
 attempting to suji shift an illegal tile softlocks
-mouse entering a item from the sell prompt cursorhovertexts "add item to wall???? wth???"
+mouse entering a item from the sell prompt cursorhovertexts "add item to wall????" wth???
 	only occurs when setting the cursor style. deadass what??
 dont sell deadwall reducs if the size is already minmum
 	calc how many to pool from the charinfo
@@ -158,33 +159,26 @@ really nneed to go through scoring again
 	stop counting fu after 4, name mangan
 loading into shop doesnt have a song loaded and crashes
 pay riichi bet back!
-does kandora [???44s] give double for 5s?
-re-add buying tiles but only jihai
+re-add buying tiles but only jihai?
 remove 3-sided waits
 translate select a tile text
 acknowledge lack of furiten in guide somewhere
-prevent coloring flowers/winds/kin dragon
-ensure max scoring code works for variable acceleration
 draw add to kan
-
-save hand and tile state ?
-save shop items
-
-
+sidebar hover over tiles should give explanations of all the modifiers it has
+charselect show score accel, round max, etc. should be dynamic
+update score accel the frame you buy the upgrade
+scoring table
+probably rework flowers so they do have to match your seat to score
+kazoe double yakuman
 
 demo MVP:
-	win/lose screens
-	finish saving
-		shop state
-		hand and wall state
-	language support
-		finish jp. dont need to write everything, but at least finish ultimahjong info
+	finish jp. dont need to write everything, but at least finish ultimahjong info
 	finish current item art
-
+	scoring display. just remove the math segment
+	buy and figure out steam dev
 
 
 music
-	just make like 4~8 tracksets
 	we want oggs for clean looping but overwriting/deleting them sucks, so just finalize in fl and export once
 	
 	finalize and reexport 1.

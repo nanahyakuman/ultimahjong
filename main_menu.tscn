@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cktxx4oqgso8u"]
+[gd_scene load_steps=10 format=3 uid="uid://cktxx4oqgso8u"]
 
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="1_v6jm1"]
 [ext_resource type="Script" path="res://ButtonNewGame.gd" id="2_0gcdp"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://OneofManySelectorSaver.gd" id="5_4g0di"]
 [ext_resource type="Script" path="res://LanguageButton.gd" id="6_74lkm"]
 [ext_resource type="Script" path="res://SaverLoader.gd" id="7_2o14x"]
-[ext_resource type="Script" path="res://VolumeHSlider.gd" id="9_twv7l"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ahn04"]
 content_margin_left = 16.0
@@ -55,23 +54,28 @@ layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1
 
-[node name="Button2" type="Button" parent="VBoxContainer/PanelContainer/VBoxContainer"]
+[node name="Button2" type="Button" parent="VBoxContainer/PanelContainer/VBoxContainer" node_paths=PackedStringArray("options_loader")]
 layout_mode = 2
 text = "BUTTON_CONTINUE"
 script = ExtResource("4_rawt5")
+options_loader = NodePath("../../../../OptionsLoader")
 
-[node name="Button" type="Button" parent="VBoxContainer/PanelContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="VBoxContainer/PanelContainer/VBoxContainer" node_paths=PackedStringArray("options_loader")]
 layout_mode = 2
 text = "BUTTON_NEW_GAME"
 script = ExtResource("2_0gcdp")
+options_loader = NodePath("../../../../OptionsLoader")
 
-[node name="Button3" type="Button" parent="VBoxContainer/PanelContainer/VBoxContainer"]
+[node name="Button3" type="Button" parent="VBoxContainer/PanelContainer/VBoxContainer" node_paths=PackedStringArray("options_loader")]
 layout_mode = 2
 text = "BUTTON_QUIT"
 script = ExtResource("2_1hehv")
+options_loader = NodePath("../../../../OptionsLoader")
+
+[node name="OptionsLoader" type="Node" parent="."]
+script = ExtResource("7_2o14x")
 
 [node name="LanguageButtons" type="GridContainer" parent="." groups=["save_options"]]
-visible = false
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -101,42 +105,3 @@ toggle_mode = true
 text = "日本語"
 script = ExtResource("6_74lkm")
 val = "ja"
-
-[node name="OptionsLoader" type="Node" parent="."]
-script = ExtResource("7_2o14x")
-
-[node name="VolumeHSlider" type="HSlider" parent="." groups=["save_options"]]
-visible = false
-layout_mode = 0
-size_flags_horizontal = 3
-size_flags_vertical = 4
-max_value = 1.0
-step = 0.1
-tick_count = 11
-ticks_on_borders = true
-script = ExtResource("9_twv7l")
-
-[node name="VolumeHSlider2" type="HSlider" parent="." groups=["save_options"]]
-visible = false
-layout_mode = 0
-size_flags_horizontal = 3
-size_flags_vertical = 4
-max_value = 1.0
-step = 0.1
-tick_count = 11
-ticks_on_borders = true
-script = ExtResource("9_twv7l")
-bus_name = "Music"
-
-[node name="VolumeHSlider3" type="HSlider" parent="." groups=["save_options"]]
-visible = false
-layout_mode = 0
-size_flags_horizontal = 3
-size_flags_vertical = 4
-max_value = 1.0
-step = 0.1
-value = 0.4
-tick_count = 11
-ticks_on_borders = true
-script = ExtResource("9_twv7l")
-bus_name = "SFX"

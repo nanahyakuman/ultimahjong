@@ -32,7 +32,7 @@ func initialize(character_info: CharacterInfo, load: bool):
 func update_score(score_add: int):
 	score += score_add
 	
-	gui_manager.update_score(score, future_expected_score, expected_points_mod, expected_points_mod_mod)
+	gui_manager.update_score(score, expected_score, expected_points_mod, expected_points_mod_mod)
 
 
 # called at the end of around / start of shop

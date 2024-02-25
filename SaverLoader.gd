@@ -21,15 +21,18 @@ func _queue_load():
 
 func initialize():
 	config = ConfigFile.new()
-	var err = config.load(SAVE_PATH)
-#	if err != OK:
-#		return
+	var _err = config.load(SAVE_PATH)
 
 func load_cfg():
 	if !config:
 		initialize()
 	get_tree().call_group(associated_group, "load_cfg", config)
 func save_cfg():
-	config = ConfigFile.new()
+	if !config:
+		initialize()
 	get_tree().call_group(associated_group, "save_cfg", config)
 	config.save(SAVE_PATH)
+# erase saves on loss
+func clear_cfg():
+	config =  null
+	DirAccess.remove_absolute(SAVE_PATH)

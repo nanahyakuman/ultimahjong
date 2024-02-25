@@ -23,7 +23,7 @@ var starting_uprgrades: Array #of ints
 var base_score: int					= 2000
 var base_expected_points: int 		= 0
 var base_expected_points_mod: int	= 0
-var expected_points_mod_mod: int	= 1000
+var expected_points_mod_mod: int	= 2000
 
 # how many rounds to win the game after
 var number_of_rounds: int
@@ -55,7 +55,7 @@ func set_type(ty:int):
 			tr_root = "CHARACTER_RIICHI"
 			
 			preview_tile_strings = ["123456789p", "123456789s", "123456789m", "東南西北白發中"]
-			preview_tile_with_strings = ["5'p5's5'm白*"]
+			preview_tile_with_strings = ["5'p5's5'm"] #haku removed rn
 			
 		TYPES.SANMA:
 			dead_wall_size = 20
@@ -73,6 +73,8 @@ func set_type(ty:int):
 			
 			preview_tile_strings = ["123456789p", "123456789s", "19m", "東南西北白發中"]
 			preview_tile_with_strings = ["1\"s"]
+			
+			expected_points_mod_mod = 3000
 			
 		TYPES.NO_HONORS:
 			dead_wall_size = 32
@@ -96,14 +98,14 @@ func set_type(ty:int):
 			opponents_its_legal_to_chii_from_count = 1
 			hand_size = 17
 			
-			starting_uprgrades = [Upgrade.TYPES.UPR_FLOWER, Upgrade.TYPES.UPR_FLOWER, Upgrade.TYPES.UPR_SEASON, Upgrade.TYPES.UPR_SEASON]
+			starting_uprgrades = [Upgrade.TYPES.UPR_FLOWER, Upgrade.TYPES.UPR_FLOWER]
 			
 			number_of_rounds = 8
 			
 			tr_root = "CHARACTER_XL"
 			
 			preview_tile_strings = ["123456789p", "123456789s", "123456789m", "東南西北白發中"]
-			preview_tile_with_strings = ["12345678f"]
+			preview_tile_with_strings = ["1234f"]
 		
 		#  apparently this version of this variant is reported by like 1 guy (https://sloperama.com/mjfaq/mjfaq02b.html),
 		# probably super local. this is temp but i like the idea of an 11-size char

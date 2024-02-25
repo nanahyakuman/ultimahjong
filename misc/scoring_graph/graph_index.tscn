@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://misc/scoring_graph/graph_index.gd" id="1_xngu7"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+theme_override_constants/separation = 4
+script = ExtResource("1_xngu7")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.133333, 0.133333, 0.133333, 1)
+text = "40 Fu"

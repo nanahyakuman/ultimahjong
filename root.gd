@@ -6,6 +6,7 @@ extends Control
 @onready var score_tracker = $ScoreTracker
 @onready var state_saver = $StateSaver
 @onready var upgrades = $HBoxContainer/MahjongRoot/MahjongManager/Upgrades
+@onready var game_end_panel = $%GameEndPanel
 
 # gets incremented once we start.
 # also accessed by mahjmanager
@@ -81,7 +82,8 @@ func end_round(scoring_info: ScoringInfo, multiplier_info: MultiplierInfo):
 
 # called whe nyou press ther next button on scoring
 func start_shop(was_load: bool = false):
-	win_or_lose()
+	if win_or_lose():
+		return
 	
 	TileGraphicKnower.update_dora_ids([])
 	
@@ -94,16 +96,30 @@ func start_shop(was_load: bool = false):
 		score_tracker.increment_counters()
 
 
-func win_or_lose():
+# returns whether the game ended
+func win_or_lose() -> bool:
 	# lose early
 	if score_tracker.has_lost():
-		print("already lost!")
+		finish(false)
+		return true
 	# get to the final round but dont lose
 	elif round_counter == CharInfoForwarder.ci.number_of_rounds - 1:
-		print("won!")
+		finish(true)
+		return true
 	# hit the score cap early
-	elif score_tracker.has_won_early():
-		print("premature win!")
+#	elif score_tracker.has_won_early():
+#		print("premature win!")
+	return false
+
+func finish(was_win: bool):
+	var ret = GameEndPanel.FinishInfo.new()
+	ret.win = was_win
+	ret.points = score_tracker.score
+	ret.expected_points = score_tracker.expected_score
+	ret.round = round_counter+1
+	ret.expected_round = CharInfoForwarder.ci.number_of_rounds
+	
+	game_end_panel.display(ret)
 
 
 #overwrite global charinfo

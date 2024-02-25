@@ -22,7 +22,7 @@ const METADATA = {		# cost, pool size
 	TYPES.UPR_SEASON:			[2, 2],
 	TYPES.UPR_KIN_DRAGON:		[4, 1],
 	TYPES.UPR_RISING_WIND:		[4, 1],
-	TYPES.UPR_DECEL:			[2, 2],
+	TYPES.UPR_DECEL:			[2, 0], # muted rn bc it's kinda lame, and because the gui doesnt update right rn
 	TYPES.UPR_MORE_DRAGONS:		[1, 2]
 }
 var type = TYPES.UPR_NONE
@@ -76,4 +76,4 @@ func bought(upgrades: Upgrades, tile_counter: Node, score_tracker: Node):
 		TYPES.UPR_MORE_DRAGONS:
 			tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
 			tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-			tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.KIN))
+			tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))

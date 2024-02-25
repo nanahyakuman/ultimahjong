@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://vit286boe7sq"]
+[gd_scene load_steps=83 format=3 uid="uid://vit286boe7sq"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="2_j88jw"]
@@ -37,7 +37,6 @@
 [ext_resource type="Script" path="res://NumberColorizer.gd" id="27_yfh58"]
 [ext_resource type="FontFile" uid="uid://dmoumxbcf3gn" path="res://text/font/Body2.png" id="28_jde07"]
 [ext_resource type="Script" path="res://PopupTileSelector.gd" id="28_st0rv"]
-[ext_resource type="PackedScene" uid="uid://xbdfpjmfa56k" path="res://item.tscn" id="29_dfc1m"]
 [ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="32_on5h8"]
 [ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="35_14yv6"]
 [ext_resource type="Script" path="res://ColoredPurchaseables.gd" id="37_xpxeh"]
@@ -63,9 +62,13 @@
 [ext_resource type="Script" path="res://LanguageButton.gd" id="54_q66h1"]
 [ext_resource type="Script" path="res://OneofManySelectorSaver.gd" id="55_36kcy"]
 [ext_resource type="Texture2D" uid="uid://2gvfr87k662v" path="res://image/tile/tiles_numerals_rep.png" id="56_7eblf"]
+[ext_resource type="Script" path="res://ScoringTableGen.gd" id="56_iu0f6"]
 [ext_resource type="Script" path="res://SkipAnimsButton.gd" id="59_a21bj"]
 [ext_resource type="Script" path="res://VolumeHSlider.gd" id="62_uapdn"]
 [ext_resource type="Script" path="res://TitleButton.gd" id="62_wl2hd"]
+[ext_resource type="Texture2D" uid="uid://he6swdbodca8" path="res://image/plain9pr_outline.png" id="67_5e4rm"]
+[ext_resource type="Script" path="res://GameEndPanel.gd" id="68_bui82"]
+[ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="69_xvrgp"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n8ei0"]
 texture = ExtResource("21_sffs3")
@@ -155,6 +158,19 @@ texture_margin_top = 10.0
 texture_margin_right = 18.0
 texture_margin_bottom = 10.0
 expand_margin_bottom = 1.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ibnqx"]
+content_margin_left = 4.0
+content_margin_top = 8.0
+content_margin_right = 4.0
+content_margin_bottom = 7.0
+texture = ExtResource("67_5e4rm")
+texture_margin_left = 4.0
+texture_margin_top = 5.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
@@ -507,11 +523,6 @@ size_flags_vertical = 4
 alignment = 2
 script = ExtResource("22_nsrp2")
 
-[node name="Item" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("29_dfc1m")]
-layout_mode = 2
-type = 13
-activate_self = true
-
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
 layout_mode = 1
 anchors_preset = 2
@@ -838,6 +849,7 @@ grow_vertical = 2
 tab_alignment = 1
 
 [node name="TAB_RUN" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN"]
@@ -979,7 +991,6 @@ tab_alignment = 1
 script = ExtResource("45_rsntb")
 
 [node name="TAB_GUIDE" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE"]
@@ -993,6 +1004,7 @@ theme_override_fonts/font = ExtResource("28_jde07")
 tab_alignment = 1
 
 [node name="TAB_GUIDE_BASICS" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_BASICS"]
@@ -1482,20 +1494,37 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
 text = "  🀁→🀁   🀉🀊🀋🀌→🀉/🀌"
 
 [node name="TAB_GUIDE_SCORE" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer"]
-visible = false
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_SCORE"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_SCORE"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_SCORE/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_SCORE/ScrollContainer/VBoxContainer"]
+layout_mode = 2
 bbcode_enabled = true
 text = "GUIDE_SCORE_TEXT"
+fit_content = true
 tab_size = 2
 script = ExtResource("52_jcp4g")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_SCORE/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/table_h_separation = 5
+theme_override_constants/table_v_separation = 5
+bbcode_enabled = true
+fit_content = true
+tab_size = 2
+script = ExtResource("56_iu0f6")
 
 [node name="TAB_OPTIONS" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
 visible = false
@@ -1666,6 +1695,74 @@ text = "BUTTON_SAVE_QUIT"
 script = ExtResource("43_uwhsm")
 options_loader = NodePath("../../OptionsLoader")
 main_loader = NodePath("../../../../../../StateSaver")
+
+[node name="GameEndBlocker" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -256.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameEndPanel" type="PanelContainer" parent="GameEndBlocker"]
+unique_name_in_owner = true
+z_index = 10
+z_as_relative = false
+custom_minimum_size = Vector2(150, 120)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -60.5
+offset_right = 75.0
+offset_bottom = 59.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ibnqx")
+script = ExtResource("68_bui82")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameEndBlocker/GameEndPanel"]
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="GameEndBlocker/GameEndPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("69_xvrgp")
+text = "You Win!"
+horizontal_alignment = 1
+
+[node name="Control2" type="Control" parent="GameEndBlocker/GameEndPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="Description" type="Label" parent="GameEndBlocker/GameEndPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.933333, 0.866667, 0.8, 1)
+theme_override_constants/line_spacing = 0
+text = "Points: 37000/36000
+Round: 8/8"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="GameEndBlocker/GameEndPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameEndBlocker/GameEndPanel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="GameEndBlocker/GameEndPanel/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("main_loader")]
+layout_mode = 2
+text = "BUTTON_TITLE_NO_SAVE"
+script = ExtResource("62_wl2hd")
+main_loader = NodePath("../../../../../StateSaver")
+erase_save = true
 
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" to="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" method="_on_pressed"]
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" to="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" method="_on_pressed"]

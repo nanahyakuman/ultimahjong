@@ -764,4 +764,4 @@ func get_fu(groupings: Array, doras: Array, waited_tile: MTile):
 
 func get_yakuhai_vals() -> Array:
 	# offset to convert mhjman winds to mtile winds
-	return [mahjong_manager.seat_wind+1, mahjong_manager.prevalent_wind+1, MTile.SPECIALS.CHUN, MTile.SPECIALS.HAKU, MTile.SPECIALS.HATSU]
+	return [mahjong_manager.seat_wind+1, mahjong_manager.prevalent_wind+1] + MTile.DRAGONS
