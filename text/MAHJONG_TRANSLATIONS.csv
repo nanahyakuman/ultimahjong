@@ -237,7 +237,7 @@ ITEM_CONSUME_MANA,,Consumes %d Mana.,マナ%d
 ITEM_COOLDOWN,,Cooldown of %d.,充電%d
 ,,,
 ITEM_ERASER,,Eraser,消しゴム
-ITEM_ERASER_DESC,,Current tsumo tile is replaced with a White Dragon [i]temporarily[/i].,自摸牌は白になる。一時的。
+ITEM_ERASER_DESC,,Current tsumo tile is replaced with a White Dragon.,自摸牌は白になる。
 ITEM_WIND_MAGNET,,Wind Charm,風守り
 ITEM_WIND_MAGNET_DESC,,"Next tile in the wall you would draw switches positions with a random wind from the remaining wall, if there is one.",次に自模るべき牌が山にある風牌と居場所を交換。風牌がない場合に無益。
 ITEM_BATTERY,,9-Volt,９ヴォルト
@@ -245,23 +245,25 @@ ITEM_BATTERY_DESC,,Reduce all [i]other[/i] item cooldown counters by 9. Only wor
 ITEM_KAN_SWAP,,Kan Swap,カンカン
 ITEM_KAN_SWAP_DESC,,Replace the most recently revealed kan dora with a tile from hand or tsumo.,一番最近に現れた槓ドラを選べた手牌また自摸牌と交換。
 ITEM_PIN_DUPE,,Pinplicator,ピン副
-ITEM_PIN_DUPE_DESC,,Convert a selected Pin into a selected Pin [i]temporarily[/i].,選べた筒子を選べた筒子に変更。一時的。
+ITEM_PIN_DUPE_DESC,,Convert a selected Pin into a selected Pin.,選べた筒子を選べた筒子に変更。
 ITEM_SOU_ADJ,,Sou-so,ソウ代
-ITEM_SOU_ADJ_DESC,,Convert a selected Sou into a selected Sou's predecessor [i]temporarily[/i].,選べた索子を選べた索子の一つ下に変更。一時的。
+ITEM_SOU_ADJ_DESC,,Convert a selected Sou into a selected Sou's predecessor.,選べた索子を選べた索子の一つ下に変更。
 ITEM_AKAFY,,Factory Seize,赤化
-ITEM_AKAFY_DESC,,A random non-aka tile in hand [i]but not tsumo[/i] becomes aka (temporarily).,自摸じゃないランダムな手牌を赤くする。一時的。
+ITEM_AKAFY_DESC,,A random non-aka tile in hand [i]but not tsumo[/i] becomes aka.,自摸じゃないランダムな手牌を赤くする。
 ITEM_POCCHI,,·A·Rock,・あ・ろっく
-ITEM_POCCHI_DESC,,Add a Pocchi to the current tsumo tile [i]permanently[/i].,自摸牌にポッチを埋め込む。永続的。
+ITEM_POCCHI_DESC,,Add a Pocchi to the current tsumo tile.,自摸牌にポッチを埋め込む。
 ITEM_MAN_TERM,,Hat Man,極マン
-ITEM_MAN_TERM_DESC,,Shift a selected Man's value into the terminal further from it [i]temporarily[/i]. Distance ties are chosen at random.,選べた萬子を一番遠い老頭牌に変更。一時的。
+ITEM_MAN_TERM_DESC,,Shift a selected Man's value into the terminal further from it. Distance ties are chosen at random.,選べた萬子を一番遠い老頭牌に変更。
 ITEM_DRAGON_CYCLE,,Dragon Cycle,元更
-ITEM_DRAGON_CYCLE_DESC,,Increment a selected Dragon's type (W>G>R>W).,選べた元牌の種類を変更。順は白發中。一時的。
+ITEM_DRAGON_CYCLE_DESC,,Increment a selected Dragon's type (W>G>R>W).,選べた元牌の種類を変更。順は白發中。
 ITEM_SUJI_OFFSET,,Suji Shift,スジずり
-ITEM_SUJI_OFFSET_DESC,,Adjust current tsumo tile's value by +/- 3 [i]temporarily[/i]. Only works on numbered tiles.,自摸牌を＋／ー３変更。一時的。
+ITEM_SUJI_OFFSET_DESC,,Adjust current tsumo tile's value by +/- 3. Only works on numbered tiles.,自摸牌を＋／ー３変更。
 ITEM_COLOR_SHIFT,,Multpilier,倍バイ
-ITEM_COLOR_SHIFT_DESC,,Change a selected tile's suit [i]temporarily[/i].,数敗の種類を変更。一時的。
+ITEM_COLOR_SHIFT_DESC,,Change a selected tile's suit.,数敗の種類を変更。
 ITEM_WIND_ROT,,Wind Rotator,風回し
 ITEM_WIND_ROT_DESC,,Rotate a selected Wind Tile 90 degrees.,選べた風牌を９０度回す。
+ITEM_IS_TEMPORARY,,This round only.,一局。
+ITEM_IS_PERMANENT,,Permanent.,永続的。
 ,,,
 UPR_DEAD_REDUCE,,Increase the amount of tiles drawn in a round by 4.,局に現れる牌を４枚増加する。
 UPR_KAN_REVEAL,,Start each round with an additional Kan Dora revealed.,局の初めに槓ドラもう一つ。

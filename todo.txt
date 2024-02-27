@@ -132,7 +132,6 @@ languages
 		thai
 
 
-rework deadwall to be resizeable inround?
 when you discard a pocchi, can choose to exchange the 4th tile in the wall with
 	another not-yet-discarded pocchi, even if it turns out to be in the dead wall.
 	 forcing it to be on discard means you can't cycle them ifinitely
@@ -149,23 +148,16 @@ close shop lose money warning
 proper wall gfx haitei drawing
 pocchi almighty and pocci selection code
 translate hovertext
-dora tab that explains the types and colors
-really nneed to go through scoring again
-	scoring display is out of date
-	11223p789s11m 3p NRRRN returned open ryanpeikou
-	stop counting fu after 4, name mangan
-loading into shop doesnt have a song loaded and crashes
 pay riichi bet back!
-re-add buying tiles but only jihai?
 remove 3-sided waits
 translate select a tile text
 acknowledge lack of furiten in guide somewhere
-draw add to kan
-sidebar hover over tiles should give explanations of all the modifiers it has
+kan kake
+sidebar hover over tiles should give explanations of all the modifiers it has.
+	existing "verbose" code can probably be taken advantage of
 charselect show score accel, round max, etc. should be dynamic
 update score accel the frame you buy the upgrade
-scoring table
-probably rework flowers so they do have to match your seat to score
+probably rework flowers so they DO have to match your seat to score
 kazoe double yakuman
 easier to work with item code, so you can just: (current sys is real awkward)
 `	var a await select_from_hand(args)
@@ -178,15 +170,15 @@ language switching is a little weird, i think the exported strings are translati
 	language. annoying but minor
 ui sounds
 
+
 demo MVP:
 	finish current item art
 	
-	saver/loader is a little busted rn. doesnt seem to fully clear items new run generation,
+	saver/loader is a little busted rn. doesnt seem to fully clear items on new run generation,
 	nor score expectation.
 		this can probably be bandaided by forcing the player to quit the game on a loss
 	
 	title screen mute music
-	losing a run return to title doesnt prompt menu saving
 	
 	
 	checks before release:

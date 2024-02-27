@@ -48,6 +48,16 @@ func _init(s:int, v:int, col:int = COL_NONE, f = null, p = false, c = null):
 	pocchi = p
 	canon_tile = c
 
+#  called on canon tiles to rewrite their settings. this feels a little bad
+# but it's necessary bc of how godot does pointers
+func assign_tile(new: MTile):
+	suit = new.suit
+	value = new.value
+	color = new.color
+	former = new.former
+	pocchi = new.pocchi
+	canon_tile = null
+
 # duplicate and save self as new tile's "canon" tile
 func duplicate_canonize() -> MTile:
 	return MTile.new(suit, value, color, former, pocchi, self)
