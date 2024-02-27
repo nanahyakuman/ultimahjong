@@ -49,7 +49,8 @@ func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points:int, mu
 	
 	await AnimTimer.start_get(.3, true)
 	
-	calc.text = "[center][b][color=%s]%d[/color]×2[/b](2+[color=%s]%d[/color])[b]×%d=" % [COL.LBLUE, fu, COL.YELLOW, han, mult]
+	#calc.text = "[center][b][color=%s]%d[/color]×2[/b](2+[color=%s]%d[/color])[b]×%d=" % [COL.LBLUE, fu, COL.YELLOW, han, mult]
+	calc.visible = false
 	total.set_text_colorized(str(points))
 	
 	

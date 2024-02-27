@@ -15,9 +15,9 @@ class FinishInfo:
 func display(fi: FinishInfo):
 	get_parent().visible = true
 	if fi.win:
-		title.text = tr("GAME_END_WON")
+		title.text = tr("GAME_END_WIN")
 	else:
-		title.text = tr("GAME_END_LOST")
+		title.text = tr("GAME_END_LOSE")
 	
 	description.text = tr("GAME_END_SCORE") + ": " + ("%d/%d" % [fi.points, fi.expected_points]) + "\n"
 	description.text += tr("GAME_END_ROUND") + ": " + ("%d/%d" % [fi.round, fi.expected_round])

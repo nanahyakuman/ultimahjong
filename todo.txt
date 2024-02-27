@@ -41,6 +41,7 @@ end of every round can purchase:
 		pick up a discarded tile (actually make it the next tile you draw?)
 	x	transmute a tile's color to another color
 		draw a tile from the last discard rotation
+		next draw is a random yakuhai
 	scoew bonuses
 		1 han for every 7 tiles in your hand without any red ink toka
 		every 5 consecutive discards from hand adds a han
@@ -73,7 +74,6 @@ achievements
 		
 		(https://riichi.wiki/Local_yaku#Yakuman)
 	also add neo-yaku possible because of extra tiles
-		true kokushi
 		4 dragons
 		5 winds
 		14 orphans
@@ -106,15 +106,12 @@ ideas but not critical:
 	auto mode that jsut draw/discs and calls tsumo/ron
 	might add some more seperators to the yaku tabs, they're a little dense. code
 		to add text is already there
-	auto call win, auto discard, ignore calls
 	cant hover tiles in made calls
-	"shape of the game" guide tab
-	make ura dora more clear
-	item upgrading? "smith" an item into a higher use tier
 	syntax hgilight yaku
 		make them orange and link back to their descriptions
 	consider better cjk font(s)
 		http://jikasei.me/font/jf-dotfont/ for jp
+	add a nanahyakuman worth 7 han
 
 languages
 	jibun de yare:
@@ -170,20 +167,37 @@ update score accel the frame you buy the upgrade
 scoring table
 probably rework flowers so they do have to match your seat to score
 kazoe double yakuman
+easier to work with item code, so you can just: (current sys is real awkward)
+`	var a await select_from_hand(args)
+`	var b await select_from_hand(args)
+`	assign_permanent(a, b)
+	temporary/permanent should also be automatic
+if we're gonna rework scoring maybe completely overhaul fu and allow them to double.
+language switching is a little weird, i think the exported strings are translating by
+	default, so you have to regen a cursortextrequestor for it to update to the correct
+	language. annoying but minor
+ui sounds
 
 demo MVP:
-	finish jp. dont need to write everything, but at least finish ultimahjong info
 	finish current item art
-	scoring display. just remove the math segment
-	buy and figure out steam dev
-
-
-music
-	we want oggs for clean looping but overwriting/deleting them sucks, so just finalize in fl and export once
 	
-	finalize and reexport 1.
-		base- delay too loud and wahhh too samey
+	saver/loader is a little busted rn. doesnt seem to fully clear items new run generation,
+	nor score expectation.
+		this can probably be bandaided by forcing the player to quit the game on a loss
+	
+	title screen mute music
+	losing a run return to title doesnt prompt menu saving
+	
+	
+	checks before release:
+		get the inherited scene right lol
+		no override hand in use
+		turn off debug keys
 
+would be nice if theres time, for viability as a deckbuilder:
+	make more items permanent (remember to update text too)
+	add pocchi but not almighty
+	something that removes tiles, maybe a blood sacrifice type thing
 
 
 

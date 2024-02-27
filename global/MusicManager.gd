@@ -6,7 +6,7 @@ extends Node
 @onready var sfx_audio_stream_player = $SFXAudioStreamPlayer
 
 var FILE_PATHS = ["res://audio/music/1/"]
-var EXTENSION = ".mp3"
+var EXTENSION = ".ogg"
 var index = 9999
 
 enum {BASE, TENPAI, SHOP, HAN, WIN}
@@ -29,7 +29,7 @@ func queue_next_song():
 	data.append(load(FILE_PATHS[index]+"base"+EXTENSION))
 	data.append(load(FILE_PATHS[index]+"tenpai"+EXTENSION))
 	data.append(load(FILE_PATHS[index]+"shop"+EXTENSION))
-	data.append(load(FILE_PATHS[index]+"han"+EXTENSION))
+	data.append(load(FILE_PATHS[index]+"han.mp3")) # this is more of a sfx
 	data.append(load(FILE_PATHS[index]+"win"+EXTENSION))
 
 func start_round():

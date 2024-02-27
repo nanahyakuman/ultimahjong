@@ -188,7 +188,7 @@ func _draw_hand():
 #	temp.append(MTile.new(MTile.SUITS.SOU, 9))
 #	temp.append(MTile.new(MTile.SUITS.SOU, 1))
 	
-	#temp = MTileStringConverter.str_to_mtile("11133355s22345p")
+#	temp = MTileStringConverter.str_to_mtile("123456789m白白23s")
 	
 	if temp:
 		temp.sort()

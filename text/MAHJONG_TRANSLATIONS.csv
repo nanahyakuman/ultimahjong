@@ -94,9 +94,8 @@ Once you exceed 8000 points, Fu are no longer counted, and the score rewarded is
 
 Sitting in the East seat multiplies the final value by 1.5. For example, the minimum scoring hand in the East seat is 1500, and a Yakuman is 48000 points.
 
-Here is a table:
-~TABLE~","点数は普通の麻雀と少し違う。
-満貫までに二・三百ぐらいの点差がある。満貫を超えると、翻が一つずつ二千点を得て、十翻以外の翻が四千を得る。
+Here is a table:","点数は普通の麻雀と少し違う。
+満貫までに二・三百ぐらいの点差がある。満貫を超えると、翻が一つずつ二千点を得て、十翻以上の翻が四千を得る。
 次のようになっておる："
 ,,,
 YAKU_RIICHI,,Riichi,立直
@@ -266,7 +265,7 @@ ITEM_WIND_ROT_DESC,,Rotate a selected Wind Tile 90 degrees.,選べた風牌を�
 ,,,
 UPR_DEAD_REDUCE,,Increase the amount of tiles drawn in a round by 4.,局に現れる牌を４枚増加する。
 UPR_KAN_REVEAL,,Start each round with an additional Kan Dora revealed.,局の初めに槓ドラもう一つ。
-UPR_KITA,,Gain the ability to call North Winds as Nuki Dora.,「キタ」出来るように。
+UPR_KITA,,Gain the ability to call North Winds as Nuki Dora.,「キタ」という鳴きが出来る。
 UPR_OPPONENT_KILL,,Reduce the amount of discards made inbetween draws by 1.,山からの捨て牌を一枚減る。
 UPR_MANA_UP,,Gain an additional Mana every time you draw a tile.,自摸のマナを上がる。
 UPR_RONANKOU,,"Calling Ron does not open your hand, nor the grouping it completes.",得点の時、ロンを自摸として扱う。ロンされた牌も暗刻に入られる。
@@ -276,6 +275,8 @@ UPR_FLOWER,,Add 2 Flower tiles to the wall.,花牌二枚。
 UPR_SEASON,,Add 2 Season tiles to the wall.,花牌二枚。
 UPR_KIN_DRAGON,,Add Golden Dragons to the wall.,金四枚。
 UPR_RISING_WIND,,Add Rising Winds to the wall.,登四枚。
+UPR_DECEL,,Reduce score acceleration by 200.,点数の加速を２００減る。
+UPR_MORE_DRAGONS,,"Add one White, Green, and Red dragon.",白・發・中を一つずつ山に追加。
 ,,,
 HOVER_SEAT_WIND,,Your Sitting Wind. Changes every round.,自風。局ずつに変わる。
 HOVER_PREV_WIND,,The Prevalent Wind. Changes every 4 rounds.,場風。各四局に変わる。
