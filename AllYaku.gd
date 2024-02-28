@@ -43,7 +43,7 @@ var YAKUS = {
 #	"SPACER_3": "Sets",
 	"Toitoi": ScoringInfo.Han.new("YAKU_TOITOI", 2, 0, "🀃🀃🀅🀅 🀅 🀛🀛🀛🀞🀞🀞🀏🀏🀏"),
 	"San'ankou": ScoringInfo.Han.new("YAKU_SANANKOU", 2, 0, "🀝🀝🀝🀕🀕🀕🀇🀇🀇🀋 🀋 🀪🀪🀪"),
-	"Sankantsu": ScoringInfo.Han.new("YAKU_SANKANTSU", 2, 0, "🀪🀪🀪🀪 🀪 🀫🀌🀌🀫🀫🀒🀒🀫🀫🀀🀀🀫"),
+	"Sankantsu": ScoringInfo.Han.new("YAKU_SANKANTSU", 2, 0, "🀪🀪🀪🀪 🀪 🀫🀌🀌🀫🀒🀒🀒🀒🀫🀀🀀🀫"),
 	"Sanshoku Doukou": ScoringInfo.Han.new("YAKU_SANSHOKU_DOUKOU", 2, 0, "🀪🀪🀪🀪🀪🀔🀔 🀔 🀝🀝🀝🀋🀋🀋"),
 	
 	"TAB_YAKU_TILES": "TAB_YAKU_TILES",

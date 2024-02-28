@@ -237,7 +237,7 @@ ITEM_CONSUME_MANA,,Consumes %d Mana.,マナ%d
 ITEM_COOLDOWN,,Cooldown of %d.,充電%d
 ,,,
 ITEM_ERASER,,Eraser,消しゴム
-ITEM_ERASER_DESC,,Current tsumo tile is replaced with a White Dragon.,自摸牌は白になる。
+ITEM_ERASER_DESC,,Current tsumo tile is replaced with a White Dragon. The tsumo tile is [i]lost![/i],自摸牌は白と取り替える。自摸牌はなくなる。
 ITEM_WIND_MAGNET,,Wind Charm,風守り
 ITEM_WIND_MAGNET_DESC,,"Next tile in the wall you would draw switches positions with a random wind from the remaining wall, if there is one.",次に自模るべき牌が山にある風牌と居場所を交換。風牌がない場合に無益。
 ITEM_BATTERY,,9-Volt,９ヴォルト
@@ -299,6 +299,7 @@ SLIDER_FX_VOLUME,,Effects Volume,SE音量
 ,,,
 BUTTON_NEW_GAME,,New Game,初めから
 BUTTON_CONTINUE,,Continue,続きから
+BUTTON_WISHLIST,,Add to Wishlist,ウィッシュリスト
 BUTTON_QUIT,,Quit,終了
 ,,,
 CHARACTER_RIICHI_NAME,,Riichi,立直

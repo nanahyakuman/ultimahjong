@@ -8,7 +8,7 @@ end of every round can purchase:
 	x	flowers
 		"almighty" tile (リーチ自摸の場合、和了が出来。それに幡)
 		pocchi-ing a tile means you can switch it out for any other pocchi tile in deck
-		kin dragon is 2yakuhai, and doras all other dragons. costs ~5y
+	x	kin dragon is 2yakuhai, and doras all other dragons. costs ~5y
 	new rules (upgrades)
 		get two ura every reveal
 		call atama?
@@ -178,18 +178,20 @@ demo MVP:
 	nor score expectation.
 		this can probably be bandaided by forcing the player to quit the game on a loss
 	
-	title screen mute music
+	nagashi didnt proc
 	
+	 wishlist button on title screen, possibly on run end screen as well. if we cant get steam integ
+	in can prob at least open a web page
 	
 	checks before release:
 		get the inherited scene right lol
 		no override hand in use
 		turn off debug keys
 
-would be nice if theres time, for viability as a deckbuilder:
-	make more items permanent (remember to update text too)
+would be nice, if theres time, for viability as a deckbuilder:
 	add pocchi but not almighty
-	something that removes tiles, maybe a blood sacrifice type thing
+	 some method of marking tiles? would need another gui element but it coyld display when
+	tiles are gonna be discarded/drawn
 
 
 

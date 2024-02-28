@@ -129,6 +129,8 @@ func _use():
 			pass
 		
 		TYPES.ITEM_ERASER:
+			# delete the old tile
+			_delete_canon(mahjong_manager.tsumo)
 			# old tile is cleared completely, dont maintain reference
 			mahjong_manager.tsumo = null
 			mahjong_manager.do_tsumo(MTile.new(MTile.SUITS.SPECIAL,MTile.SPECIALS.HAKU))
@@ -461,6 +463,12 @@ func _try_make_permanent(new: MTile, type: int):
 	if PERMANENT[type]:
 		new.canon_tile.assign_tile(new)
 		mahjong_manager.tile_counter.emit_signal("updated")
+
+func _delete_canon(tile: MTile):
+	assert(tile.canon_tile != null)
+	mahjong_manager.tile_counter.remove_tile(tile.canon_tile)
+	mahjong_manager.tile_counter.emit_signal("updated")
+
 
 # called on item use, spends mana/cooldown/the item as appropriate.
 func _expend_resource():

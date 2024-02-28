@@ -190,6 +190,11 @@ func increment_tile(tile: MTile):
 	
 	emit_signal("updated")
 
+func remove_tile(tile: MTile):
+	var t = tile_data.find(tile)
+	assert(t != -1)
+	tile_data.remove_at(t)
+
 #  add a number of flowers/seasons, minimizing seen tiles.
 # lowkey probably overengineered lol
 func add_flowers(count: int, season: bool):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://vit286boe7sq"]
+[gd_scene load_steps=85 format=3 uid="uid://vit286boe7sq"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="2_j88jw"]
@@ -70,6 +70,7 @@
 [ext_resource type="Texture2D" uid="uid://he6swdbodca8" path="res://image/plain9pr_outline.png" id="67_5e4rm"]
 [ext_resource type="Script" path="res://GameEndPanel.gd" id="68_bui82"]
 [ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="69_xvrgp"]
+[ext_resource type="Script" path="res://WishlistButton.gd" id="71_8aeh6"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n8ei0"]
 texture = ExtResource("21_sffs3")
@@ -526,7 +527,7 @@ script = ExtResource("22_nsrp2")
 
 [node name="Item" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("29_x2nf7")]
 layout_mode = 2
-type = 5
+type = 1
 activate_self = true
 
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
@@ -1758,8 +1759,10 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GameEndBlocker/GameEndPanel/VBoxContainer"]
+[node name="HBoxContainer" type="VBoxContainer" parent="GameEndBlocker/GameEndPanel/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 4
 alignment = 1
 
 [node name="Button" type="Button" parent="GameEndBlocker/GameEndPanel/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("options_loader", "main_loader")]
@@ -1769,6 +1772,11 @@ script = ExtResource("62_wl2hd")
 options_loader = NodePath("../../../../../HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/OptionsLoader")
 main_loader = NodePath("../../../../../StateSaver")
 erase_save = true
+
+[node name="Button4" type="Button" parent="GameEndBlocker/GameEndPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "BUTTON_WISHLIST"
+script = ExtResource("71_8aeh6")
 
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" to="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" method="_on_pressed"]
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" to="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" method="_on_pressed"]
