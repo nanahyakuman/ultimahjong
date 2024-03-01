@@ -43,7 +43,7 @@ func set_type(ty:int):
 	type = ty
 	match ty:
 		TYPES.REGULAR:
-			dead_wall_size = 32
+			dead_wall_size = 40
 			discard_count = 3
 			valid_seats = 4
 			opponents_its_legal_to_chii_from_count = 1
@@ -58,7 +58,7 @@ func set_type(ty:int):
 			preview_tile_with_strings = ["5'p5's5'm"] #haku removed rn
 			
 		TYPES.SANMA:
-			dead_wall_size = 20
+			dead_wall_size = 28
 			discard_count = 2
 			valid_seats = 3
 			opponents_its_legal_to_chii_from_count = 0
@@ -76,20 +76,20 @@ func set_type(ty:int):
 			
 			expected_points_mod_mod = 3000
 			
-		TYPES.NO_HONORS:
-			dead_wall_size = 32
-			discard_count = 3
-			valid_seats = 4
-			opponents_its_legal_to_chii_from_count = 1
-			hand_size = 14
-			
-			
-			number_of_rounds = 8
-			
-			tr_root = "CHARACTER_NO_HONORS"
-			
-			preview_tile_strings = ["123456789p", "123456789s", "123456789m", "123456789c"]
-			preview_tile_with_strings = [""]
+#		TYPES.NO_HONORS:
+#			dead_wall_size = 48
+#			discard_count = 3
+#			valid_seats = 4
+#			opponents_its_legal_to_chii_from_count = 1
+#			hand_size = 14
+#
+#
+#			number_of_rounds = 8
+#
+#			tr_root = "CHARACTER_NO_HONORS"
+#
+#			preview_tile_strings = ["123456789p", "123456789s", "123456789m", "123456789c"]
+#			preview_tile_with_strings = [""]
 		
 		TYPES.XL:
 			dead_wall_size = 40
@@ -109,17 +109,19 @@ func set_type(ty:int):
 		
 		#  apparently this version of this variant is reported by like 1 guy (https://sloperama.com/mjfaq/mjfaq02b.html),
 		# probably super local. this is temp but i like the idea of an 11-size char
-		TYPES.SICHUAN:
-			dead_wall_size = 8
-			discard_count = 3
-			valid_seats = 4
-			opponents_its_legal_to_chii_from_count = 1
-			hand_size = 11
-			
-			
-			number_of_rounds = 8
-			
-			tr_root = "CHARACTER_SICHUAN"
-			
-			preview_tile_strings = ["123456789p", "123456789s"]
-			preview_tile_with_strings = [""]
+#		TYPES.SICHUAN:
+#			dead_wall_size = 8
+#			discard_count = 3
+#			valid_seats = 4
+#			opponents_its_legal_to_chii_from_count = 1
+#			hand_size = 11
+#
+#
+#			number_of_rounds = 8
+#
+#			tr_root = "CHARACTER_SICHUAN"
+#
+#			preview_tile_strings = ["123456789p", "123456789s"]
+#			preview_tile_with_strings = [""]
+		_:
+			assert(false)

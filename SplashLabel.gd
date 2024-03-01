@@ -112,3 +112,6 @@ func _ready():
 	var sel = pairs.keys().pick_random()
 	
 	append_text("[right]" + tr("ALSO_CHECK_OUT") %[sel, pairs[sel]])
+	
+	#hidden for now, feels out of place in a demo
+	visible = false

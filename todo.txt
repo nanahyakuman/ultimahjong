@@ -171,12 +171,9 @@ ui sounds
 
 
 demo MVP:
-	finish current item art
-	
 	saver/loader is a little busted rn. doesnt seem to fully clear items on new run generation,
 	nor score expectation.
 		this can probably be bandaided by forcing the player to quit the game on a loss
-	nagashi didnt proc
 	
 	force tab bar translations
 	
