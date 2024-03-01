@@ -57,7 +57,7 @@ var remove_from_hand_on_selection = null
 
 func _process(delta: float):
 	if Input.is_action_just_pressed("start_shop"):
-		_end_round()
+		_end_round(false, true)
 
 #  load is passed through so nodes can decide whether to init themselves or
 # let their own `load_cfg()` handle it instead.
@@ -490,7 +490,7 @@ func call_graphic_clicked(bitmask: int, _tiles_involved: Array):
 			_end_round(true)
 			return
 		CALL_BITMASK.RON:
-			_end_round()
+			_end_round(false)
 			return
 		CALL_BITMASK.CHI_L:
 			new_grouping = Grouping.new(Grouping.RUN, tiles_involved)
@@ -723,7 +723,7 @@ func update_hand_label(override_sort = false):
 # `does_not_count` just prevents certain tile draws from decrementing counters
 func _get_next_from_wall(mana_count: int):
 	if wall.size() <= upgrades.get_dead_tiles():
-		_end_round()
+		_end_round(false, true)
 		return null
 	var ret = wall.pop_back()
 	update_wall_counter()
@@ -735,35 +735,50 @@ func _get_next_from_wall(mana_count: int):
 	return ret
 
 
-func _end_round(win_is_tsumo_not_ron = false):
-	# dora and uradora ids.
-	var omote_doras = []
-	var ura_doras = []
-	for i in range(upgrades.get_kan_size()-revealed_kan_dora, kan_dora.size()):
-		for id in kan_dora[i].get_dora_id():
-			omote_doras.append(id)
-	if in_riichi:
+func _end_round(win_is_tsumo_not_ron = false, ryuukyoku = false):
+	var score_info
+	
+	if !ryuukyoku:
+		# dora and uradora ids.
+		var omote_doras = []
+		var ura_doras = []
 		for i in range(upgrades.get_kan_size()-revealed_kan_dora, kan_dora.size()):
-			for id in ura_dora[i].get_dora_id():
-				ura_doras.append(id)
-	var doras = [omote_doras, ura_doras]
+			for id in kan_dora[i].get_dora_id():
+				omote_doras.append(id)
+		if in_riichi:
+			for i in range(upgrades.get_kan_size()-revealed_kan_dora, kan_dora.size()):
+				for id in ura_dora[i].get_dora_id():
+					ura_doras.append(id)
+		var doras = [omote_doras, ura_doras]
+		
+		# add yaku 
+		if ippatsu_counter >= 0:
+			met_yaku.hans.append(ALL_YAKU.YAKUS["Ippatsu"])
+		if wall.size() == upgrades.get_dead_tiles():
+			met_yaku.hans.append(ALL_YAKU.YAKUS["Haitei"])
+		if was_last_draw_from_dead_wall:
+			met_yaku.hans.append(ALL_YAKU.YAKUS["Rinshan"])
+		if discard.size() == 0:
+			met_yaku.hans.append(ALL_YAKU.YAKUS["Kihou"])
+		
+		
+		# ron doesnt open hand upgrade
+		var hand_info = get_hand_info()
+		if upgrades.ron_counted_as_tsumo and !hand_info.tsumo:
+			hand_info.tsumo = hand_info.most_recent_discard
+		
+		score_info = yaku_checker.hand_get_han(hand_info, doras, true, met_yaku)
 	
-	# add yaku 
-	if ippatsu_counter >= 0:
-		met_yaku.hans.append(ALL_YAKU.YAKUS["Ippatsu"])
-	if wall.size() == upgrades.get_dead_tiles():
-		met_yaku.hans.append(ALL_YAKU.YAKUS["Haitei"])
-	if was_last_draw_from_dead_wall:
-		met_yaku.hans.append(ALL_YAKU.YAKUS["Rinshan"])
-	if discard.size() == 0:
-		met_yaku.hans.append(ALL_YAKU.YAKUS["Kihou"])
-	
-	# ron doesnt open hand upgrade
-	var hand_info = get_hand_info()
-	if upgrades.ron_counted_as_tsumo and !hand_info.tsumo:
-		hand_info.tsumo = hand_info.most_recent_discard
-	
-	var score_info = yaku_checker.hand_get_han(hand_info, doras, true, met_yaku)
+	# nagashi check on ryuukyoku
+	else:
+		score_info = ScoringInfo.new()
+		var nagashiteru = true
+		for t in discard:
+			if MTile.NUMERALS.has(t.suit) and ![1,9].has(t.value):
+				nagashiteru = false
+				break
+		if nagashiteru:
+			score_info.hans.append(ALL_YAKU.YAKUS["Nagashi Mangan"])
 	
 	var multiplier_info = MultiplierInfo.new(seat_wind == WINDS.EAST, win_is_tsumo_not_ron)
 	

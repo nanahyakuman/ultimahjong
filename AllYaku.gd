@@ -30,7 +30,7 @@ var YAKUS = {
 	
 #	"SPACER_7": "Special",
 	"Chiitoitsu": ScoringInfo.Han.new("YAKU_CHIITOITSU", 2, 0, "🀚🀚🀛🀛🀔🀔🀖🀖🀍🀍🀂🀂🀅🀅"),
-	"Nagashi Mangan": ScoringInfo.Han.new("YAKU_NAGASHI", 5, 0, "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪  "),
+	"Nagashi Mangan": ScoringInfo.Han.new("YAKU_NAGASHI", 4, 0, "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪  "), #4 bc 5 = 10,000 rn
 	
 #	"SPACER_2": "Runs",
 	"TAB_YAKU_GROUPS": "TAB_YAKU_GROUPS",
