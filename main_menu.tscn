@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cktxx4oqgso8u"]
+[gd_scene load_steps=13 format=3 uid="uid://cktxx4oqgso8u"]
 
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="1_v6jm1"]
 [ext_resource type="Script" path="res://ButtonNewGame.gd" id="2_0gcdp"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://LanguageButton.gd" id="6_74lkm"]
 [ext_resource type="Script" path="res://SaverLoader.gd" id="7_2o14x"]
 [ext_resource type="Script" path="res://WishlistButton.gd" id="7_p3yxy"]
+[ext_resource type="Script" path="res://SplashLabel.gd" id="11_hgbh4"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ahn04"]
 content_margin_left = 16.0
@@ -69,16 +70,17 @@ text = "BUTTON_NEW_GAME"
 script = ExtResource("2_0gcdp")
 options_loader = NodePath("../../../../OptionsLoader")
 
+[node name="Button4" type="Button" parent="VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.466667, 0.2, 1)
+text = "BUTTON_WISHLIST"
+script = ExtResource("7_p3yxy")
+
 [node name="Button3" type="Button" parent="VBoxContainer/PanelContainer/VBoxContainer" node_paths=PackedStringArray("options_loader")]
 layout_mode = 2
 text = "BUTTON_QUIT"
 script = ExtResource("2_1hehv")
 options_loader = NodePath("../../../../OptionsLoader")
-
-[node name="Button4" type="Button" parent="VBoxContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
-text = "BUTTON_WISHLIST"
-script = ExtResource("7_p3yxy")
 
 [node name="OptionsLoader" type="Node" parent="."]
 script = ExtResource("7_2o14x")
@@ -113,3 +115,35 @@ toggle_mode = true
 text = "日本語"
 script = ExtResource("6_74lkm")
 val = "ja"
+
+[node name="VersionLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -21.0
+offset_right = 259.0
+grow_vertical = 0
+theme_override_colors/default_color = Color(0.933333, 0.866667, 0.8, 1)
+theme_override_colors/font_shadow_color = Color(0.133333, 0.133333, 0.133333, 1)
+theme_override_constants/shadow_offset_x = 0
+bbcode_enabled = true
+text = "Ver. 0.1.1"
+
+[node name="SplashLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -364.0
+offset_top = -21.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/default_color = Color(0.933333, 0.866667, 0.8, 1)
+theme_override_colors/font_shadow_color = Color(0.133333, 0.133333, 0.133333, 1)
+theme_override_constants/shadow_offset_x = 0
+bbcode_enabled = true
+text = "[right]Also check out XXX by YYY!"
+script = ExtResource("11_hgbh4")

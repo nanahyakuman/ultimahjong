@@ -322,3 +322,5 @@ GAME_END_WIN,,You won!,勝ち！
 GAME_END_LOSE,,You lost!,負け…
 GAME_END_SCORE,,Score,点
 GAME_END_ROUND,,Round,局目
+,,,
+ALSO_CHECK_OUT,"%s is a replaceable string. please try to keep the order the same (thing by artist), but let me know if you really can't and ill add an exception case",Also check out %s by %s!,

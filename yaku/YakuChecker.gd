@@ -646,20 +646,25 @@ func is_of_run(tile: MTile, hand:Array):
 		return Grouping.new(Grouping.RUN, [tile, has_next, has_nexter])
 	return null
 
-#  "size" allows this function to detect atama and kan. note this checks PRECISE
-# size, so 333m is NOT atama!
+#  "size" allows this function to detect atama, kotsu, and kan. this will
+# trim automatically, so isofset(3m, [33333m], 2) returns an array of the first two 3m.
 func is_of_set(tile: MTile, hand:Array, size: int = 3):
 	var id = tile.get_id()
-	
-	var count = 0
+	# get tiles
 	var tiles_in_set = []
 	for t in hand:
 		if t.get_id() == id:
-			count += 1
 			tiles_in_set.append(t)
 	
+	# trim off excess
+	if tiles_in_set.size() > size:
+		tiles_in_set.resize(size)
+	# not enough
+	elif tiles_in_set.size() < size:
+		return false
 	var type = Grouping.PAIR if size == 2 else Grouping.SET
-	return Grouping.new(type, tiles_in_set) if count >= size else null
+	return Grouping.new(type, tiles_in_set)
+
 
 # get the amount of tiles in an array of groupings
 func size_of_groupings(gs: Array) -> int:
