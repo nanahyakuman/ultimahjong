@@ -1,10 +1,11 @@
-##  persistant upgrades. structured weirdwsly because its a mix of gutted purchaseable
-## code and gutted item code.
+##  persistant upgrades. structured weirdwsly ngl. 'tworks tho
 extends CursorTextRequester
 class_name Upgrade
 
-# pooled by upgradegridcontainer.
-enum TYPES {UPR_NONE, UPR_DEAD_REDUCE, UPR_KAN_REVEAL, UPR_KITA, UPR_OPPONENT_KILL, UPR_MANA_UP, UPR_RONANKOU, UPR_STRONGER_RIICHI, UPR_MORE_MONEY, UPR_FLOWER, UPR_SEASON, UPR_KIN_DRAGON, UPR_RISING_WIND, UPR_DECEL, UPR_MORE_DRAGONS}
+# pooled by upgradegridcontainer, using the metadata below
+enum TYPES {UPR_NONE, UPR_DEAD_REDUCE, UPR_KAN_REVEAL, UPR_KITA, UPR_OPPONENT_KILL,
+	UPR_MANA_UP, UPR_RONANKOU, UPR_STRONGER_RIICHI, UPR_MORE_MONEY, UPR_FLOWER, UPR_SEASON,
+	UPR_KIN_DRAGON, UPR_RISING_WIND, UPR_DECEL, UPR_MORE_DRAGONS}
 #  metadata about items.
 # generally want these to cost 2, but probably go all the way up to 5.
 # 3+ end the shop unceremoniously so taitei to be avoided
@@ -54,7 +55,7 @@ func bought(upgrades: Upgrades, tile_counter: Node, score_tracker: Node):
 		TYPES.UPR_MANA_UP:
 			upgrades.mana_gained_on_player_draw += 1
 		TYPES.UPR_RONANKOU:
-			#  this actually robs you of 8fu on menzenkafu ig, but its
+			#  this actually robs you of your fu on menzenkafu ig, but its
 			# probably best to keep it that way for consistency
 			upgrades.ron_counted_as_tsumo = true
 		TYPES.UPR_STRONGER_RIICHI:

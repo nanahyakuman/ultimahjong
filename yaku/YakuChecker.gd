@@ -314,20 +314,22 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			# putting ryuuii here as well
 			var ryuuii = true
 			for g in groupings:
-					for t in g.tiles:
-						if t.suit == MTile.SUITS.SPECIAL:
-							if t.value != MTile.SPECIALS.HATSU:
-								ryuuii = false
-								break
-						elif t.suit != MTile.SUITS.SOU:
+				if g.type == Grouping.SPECIAL:
+					continue
+				for t in g.tiles:
+					if t.suit == MTile.SUITS.SPECIAL:
+						if t.value != MTile.SPECIALS.HATSU:
 							ryuuii = false
 							break
-						elif !MTile.RYUUII_VALUES.has(t.value):
-							ryuuii = false
-							break
-					
-					if !ryuuii:
+					elif t.suit != MTile.SUITS.SOU:
+						ryuuii = false
 						break
+					elif !MTile.RYUUII_VALUES.has(t.value):
+						ryuuii = false
+						break
+				
+				if !ryuuii:
+					break
 			if ryuuii:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Ryuuiisou"])
 			

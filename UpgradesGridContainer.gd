@@ -6,7 +6,7 @@ extends GridContainer
 @onready var score_tracker = %ScoreTracker
 @onready var upgrade = preload("res://upgrade.tscn")
 
-var pool: ExpandingCounterDict
+var pool: ExpandingCounterDict = ExpandingCounterDict.new()
 
 
 func initialize(ci: CharacterInfo, load: bool):
@@ -46,8 +46,11 @@ func gen_upgrade(type: int):
 
 
 func load_cfg(config: ConfigFile):
+	# let everything else set itself up first
+	await get_tree().process_frame
+	
 	for i in Upgrade.TYPES.size():
-		var count = config.get_value("item", str(i), 0)
+		var count = config.get_value("upgrade", str(i), 0)
 		for j in count:
 			gen_upgrade(i)
 
@@ -55,5 +58,5 @@ func save_cfg(config: ConfigFile):
 	var a = ExpandingCounterDict.new()
 	for c in get_children():
 		a.add(c.type)
-	for u in a.counts:
-		config.set_value("upgrade", str(u), a.counts[u])
+	for u in Upgrade.TYPES.size():
+		config.set_value("upgrade", str(u), a.at(u))
