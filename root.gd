@@ -11,7 +11,8 @@ extends Control
 # gets incremented once we start.
 # also accessed by mahjmanager
 var round_counter = -1
-#  so the shop knows whether to give you free dora or not
+#  so the shop knows whether to give you free dora or not. assogned to false
+# once you buy dora paints!!
 var last_round_was_victory = false
 
 # mostly used on save/load

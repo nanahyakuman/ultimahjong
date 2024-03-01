@@ -259,7 +259,7 @@ ITEM_DRAGON_CYCLE_DESC,,Increment a selected Dragon's type (W>G>R>W).,選べた�
 ITEM_SUJI_OFFSET,,Suji Shift,スジずり
 ITEM_SUJI_OFFSET_DESC,,Adjust current tsumo tile's value by +/- 3. Only works on numbered tiles.,自摸牌を＋／ー３変更。
 ITEM_COLOR_SHIFT,,Multpilier,倍バイ
-ITEM_COLOR_SHIFT_DESC,,Change a selected tile's suit.,数敗の種類を変更。
+ITEM_COLOR_SHIFT_DESC,,Change current tsumo tile's suit.,数牌の自摸牌の種類を変更。
 ITEM_WIND_ROT,,Wind Rotator,風回し
 ITEM_WIND_ROT_DESC,,Rotate a selected Wind Tile 90 degrees.,選べた風牌を９０度回す。
 ITEM_IS_TEMPORARY,,This round only.,一局。

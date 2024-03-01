@@ -267,6 +267,12 @@ func tile_valid(tile: MTile):
 		TYPES.ITEM_DRAGON_CYCLE:
 			if tile.suit != MTile.SUITS.SPECIAL or !MTile.DRAGONS.has(tile.value):
 				return false
+		TYPES.ITEM_COLOR_SHIFT:
+			if !MTile.NUMERALS.has(tile.suit):
+				return false
+		TYPES.ITEM_SUJI_OFFSET:
+			if !MTile.NUMERALS.has(tile.suit):
+				return false
 		TYPES.ITEM_WIND_ROT:
 			if tile.suit != MTile.SUITS.SPECIAL or !MTile.WINDS.has(tile.value):
 				return false
