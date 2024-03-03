@@ -5,6 +5,10 @@ class_name YakuChecker
 
 var character_info: CharacterInfo
 
+# kinda a weird place to define but this is the max val a tile can have.
+# in normal mahj it's 9
+const MAX_VAL = 10
+
 func initialize(ci: CharacterInfo, load: bool):
 	character_info = ci
 
@@ -154,7 +158,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 				if g.type == Grouping.SPECIAL:
 					continue
 				for t in g.tiles:
-					if t.suit == MTile.SUITS.SPECIAL or t.value == 1 or t.value == 9:
+					if t.suit == MTile.SUITS.SPECIAL or t.value <= 1 or t.value >= 9:
 						tanyao = false
 			if tanyao:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Tan'yao"])
@@ -208,7 +212,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 					
 					#sanshoku doukou
 					var possesed_sets = []
-					possesed_sets.resize(9)
+					possesed_sets.resize(10)
 					possesed_sets.fill(0)
 					for s in sets:
 						possesed_sets[s.tiles[0].value-1] |= s.tiles[0].suit
@@ -246,7 +250,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 						# sanshoku
 						# works similar to itsuu, but by val instead of suit
 						var sanshoku_vals = {}
-						for i in 9:
+						for i in 10:
 							sanshoku_vals[i+1] = 0
 						for g in runs:
 							sanshoku_vals[g.tiles[0].value] |= g.tiles[0].suit
@@ -292,24 +296,25 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 				
 				if is_full:
 					var chuuren_bitmask = []
-					chuuren_bitmask.resize(9)
+					chuuren_bitmask.resize(MAX_VAL)
 					chuuren_bitmask.fill(0)
 					for g in groupings:
 						for t in g.tiles:
 							chuuren_bitmask[t.value-1] += 1
 					
-					var chuuren_valid = true
-					if chuuren_bitmask[9-1] < 3:
-						chuuren_valid = false
-					if chuuren_bitmask[1-1] < 3:
-						chuuren_valid = false
-					for i in range(2-1, 8-1+1):
-						if chuuren_bitmask[i] < 1:
-							chuuren_valid = false
-							break
-					
-					if chuuren_valid:
+					#  go through all possible offsets, so 1112345678999 adn 2223456789000 are
+					# both valid
+					for offset in range(0, MAX_VAL - 9 + 1, 1):
+						if chuuren_bitmask[9-1+offset] < 3:
+							continue
+						if chuuren_bitmask[1-1+offset] < 3:
+							continue
+						for i in range(2-1+offset, 8-1+1+offset):
+							if chuuren_bitmask[i] < 1:
+								continue
+						
 						scoring_info.hans.append(ALL_YAKU.YAKUS["Chuuren Poutou"])
+						break # you can only have one chuurren
 			
 			# putting ryuuii here as well
 			var ryuuii = true
@@ -349,7 +354,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			for g in groupings:
 				if g.type == Grouping.SET:
 					if MTile.NUMERALS.has(g.tiles[0].suit):
-						if g.tiles[0].value == 1 or g.tiles[0].value == 9:
+						if g.tiles[0].value <= 1 or g.tiles[0].value >= 9:
 							terminal_sets.append(g)
 					else:
 						honor_sets.append(g)
@@ -360,11 +365,11 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 				elif g.type == Grouping.RUN:
 					# this is implicit
 					#if MTile.NUMERALS.has(g.tiles[0].suit):
-					if g.tiles[0].value == 1 or g.tiles[0].value == 7:
+					if g.tiles[0].value <= 1 or g.tiles[0].value >= 7:
 						terminal_runs.append(g)
 				elif g.type == Grouping.PAIR:
 					if MTile.NUMERALS.has(g.tiles[0].suit):
-						if g.tiles[0].value == 1 or g.tiles[0].value == 9:
+						if g.tiles[0].value <= 1 or g.tiles[0].value >= 9:
 							terminal_sets.append(g)
 					else:
 						honor_pairs.append(g)
@@ -530,7 +535,7 @@ func _is_kokushi(hand: Array):
 				if found_ids.find(tid) == -1:
 					found_ids.append(tid)
 		else:
-			if ![1,9].has(t.value):
+			if !(t.value <= 1) and !(t.value >= 9):
 				return false
 			
 			var tid = t.get_id()
@@ -737,7 +742,7 @@ func get_fu(groupings: Array, doras: Array, waited_tile: MTile):
 			var is_yao = false
 			if g.tiles[0].suit == MTile.SUITS.SPECIAL:
 				is_yao = true
-			elif [1,9].has(g.tiles[0].value):
+			elif g.tiles[0].value <= 1 or g.tiles[0].value >= 9:
 				is_yao = true
 			
 			if is_yao:

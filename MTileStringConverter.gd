@@ -22,6 +22,7 @@ const EMOJIS = [
 #  string is formatted mostly normally, but with more metadata for aka/ao/kin.
 # instead of 0 meaning aka five, `5'` means red five, and this extends to any
 # other number, like 3' as red 3. there is similar formatting for ao and kin.
+# 0 is actually reseverd for 10!
 #  decent malformation handling, so `5'*p` is a red pocchi 5pin, `5*p'` is as well.
 #  additionally, we forgo the dopey 1z for east wind thing, we just write the literal
 # character 發 instead.
@@ -36,7 +37,10 @@ static func mtile_to_str(tiles: Array, type = CHARACTER) -> String:
 			prev_suit = t.suit
 			
 			if t.suit != MTile.SUITS.SPECIAL:
-				ret += str(t.value)
+				if t.value == 10:
+					ret += "0"
+				else:
+					ret += str(t.value)
 			else:
 				ret += SPECIALS_BY_VALUE[t.value]
 			
@@ -55,6 +59,7 @@ static func mtile_to_str(tiles: Array, type = CHARACTER) -> String:
 		
 		return ret
 	else:
+		assert(false, "no longer supported!")
 		var ret = ""
 		for t in tiles:
 			ret += EMOJIS[(log(t.suit)/log(2))*10 + t.value-1]
@@ -84,6 +89,10 @@ static func str_to_mtile(str: String) -> Array:
 		var num = int(c)
 		if 1 <= num and num <= 9:
 			vals.append(MTile.new(MTile.SUITS.NONE, num))
+			continue
+		# have to check 0 manually bc it's a default value on string-to-int conv
+		if "0" == c:
+			vals.append(MTile.new(MTile.SUITS.NONE, 10))
 			continue
 		
 		# mpsf retroactive suiting

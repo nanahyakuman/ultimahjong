@@ -145,7 +145,7 @@ func _draw_hand():
 	update_hand_label()
 	
 	var temp = []
-	#temp = MTileStringConverter.str_to_mtile("111122223333m9s")
+	#temp = MTileStringConverter.str_to_mtile("2223456789000m")
 	
 	if temp:
 		temp.sort()
@@ -774,7 +774,7 @@ func _end_round(win_is_tsumo_not_ron = false, ryuukyoku = false):
 		score_info = ScoringInfo.new()
 		var nagashiteru = true
 		for t in discard:
-			if MTile.NUMERALS.has(t.suit) and ![1,9].has(t.value):
+			if MTile.NUMERALS.has(t.suit) and (t.value >= 2 and t.value <= 8):
 				nagashiteru = false
 				break
 		if nagashiteru:

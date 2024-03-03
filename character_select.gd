@@ -14,10 +14,10 @@ var char_info: CharacterInfo
 var DISPLAY_AMOUNT = 3
 
 func _ready():
-	char_info = CharacterInfo.new()
 	change_char(CharacterInfo.TYPES.REGULAR)
 
 func change_char(type: int):
+	char_info = CharacterInfo.new()
 	char_info.set_type(type)
 	name_label.text = tr(char_info.tr_root+"_NAME")
 	

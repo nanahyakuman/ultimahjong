@@ -5,10 +5,14 @@ end of every round can purchase:
 	special tiles (wild suit, wild digit, flowers that "kan" as dora instantly like sanma N)
 		wild suit
 		wild digit
+		suji and terminal jokers
 	x	flowers
 		"almighty" tile (リーチ自摸の場合、和了が出来。それに幡)
 		pocchi-ing a tile means you can switch it out for any other pocchi tile in deck
 	x	kin dragon is 2yakuhai, and doras all other dragons. costs ~5y
+		d6 that can be rerolled once a draw
+		dominoes? counts as either digit displayed
+	x	0s and 10s (only added 10s rn)
 	new rules (upgrades)
 		get two ura every reveal
 		call atama?
@@ -26,6 +30,8 @@ end of every round can purchase:
 	x	riichi costs 2000 and adds 2 han (actually a multiple-buy allowed mult.)
 	x	sell special dragons and winds here
 		play for an extra round
+		"kan for flow"
+			calling kan guarentees that the haitei fills a wait
 	spell cards, refresh every x draws (items)
 	x	next tile will be --honor-- wind
 	x	exchange one tile for a false haku
@@ -169,6 +175,14 @@ language switching is a little weird, i think the exported strings are translati
 	language. annoying but minor
 ui sounds
 couldnt cancel color shift item
+better handling for bespoke tiles
+	a define in mtile for being unique, prob a enum flag where 0 = normal
+	 rework rotation code to only define 3 rotations? at the very least for custom
+	tiles only want to have to draw top/bottom/a rotation
+
+add 10s
+	check chuuren
+	check all terminal yaku
 
 
 demo MVP:

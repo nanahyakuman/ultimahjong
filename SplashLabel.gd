@@ -30,6 +30,7 @@ var pairs = {
 	"Nykra": "ENDESGA",
 	"eXceed 3rd": "FLAT & Tennen-sozai",
 	"Hellsinker.": "Ruminant’s Whimper",
+	"Balatro": "LocalThunk",
 	
 	# music
 	"Be": "potsu and Rav",

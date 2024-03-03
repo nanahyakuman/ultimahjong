@@ -55,10 +55,10 @@ func get_tile_segment(t: MTile) -> Rect2:
 	if tile.color == MTile.COL_AKA:
 		y += tile_size.y * 6
 	elif tile.color == MTile.COL_AO:
-		x += tile_size.x * 10
+		x += tile_size.x * 11
 	elif tile.color == MTile.COL_KIN:
 		y += tile_size.y * 6
-		x += tile_size.x * 10
+		x += tile_size.x * 11
 	
 	# this texture is only visible if you messed up somehow
 	if t.suit == MTile.SUITS.NONE or t.value == 0:

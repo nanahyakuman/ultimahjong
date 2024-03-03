@@ -66,6 +66,8 @@ func duplicate_canonize() -> MTile:
 func duplicate() -> MTile:
 	return MTile.new(suit, value, color, former, pocchi, canon_tile)
 
+#  for comparision that doesnt care about specific flags, just value.
+# an aka 5p equals a colorless 5p with this as the comparee.
 func get_id():
 	return MTile.gen_id(suit, value)
 
@@ -115,7 +117,7 @@ func get_dora_id():
 		ret.append(MTile.gen_id(suit, v))
 	return ret
 
-# does not care about color or canon, so two different 5p are equal
+# does not care about color or canon, so two different 5p are "equal"
 static func gen_id(s: int, v: int):
 	return s * 100 + v * 1
 
