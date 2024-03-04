@@ -2,6 +2,9 @@ extends Control
 class_name TileGraphic
 
 @onready var sprite = $Rotator/Sprite2D
+@onready var tile_rear = $Rotator/TileRear
+# the sprite in use for special tiles
+@onready var unique_sprite = $Rotator/UniqueSprite
 @onready var sides = $Rotator/Tilesides
 @onready var sim_tile_highlight = $Rotator/SimTileHighlight
 @onready var adj_tile_highlight = $Rotator/AdjTileHighlight
@@ -38,7 +41,15 @@ func assign_tile(t: MTile):
 	value = t.value
 	tile = t
 	
-	sprite.region_rect = get_tile_segment(tile)
+	if tile.unique_type == MTile.UNIQUE.NOT:
+		sprite.region_rect = get_tile_segment(tile)
+		sprite.visible = true
+		unique_sprite.visible = false
+		sides.texture = load("res://image/tile/tilesides.png")
+	else:
+		get_unique_sprite(tile)
+		sprite.visible = false
+		unique_sprite.visible = true
 	
 	_new_dora(TileGraphicKnower.dora_ids)
 	
@@ -62,10 +73,30 @@ func get_tile_segment(t: MTile) -> Rect2:
 	
 	# this texture is only visible if you messed up somehow
 	if t.suit == MTile.SUITS.NONE or t.value == 0:
-		x = 9 * tile_size.x
+		x = 10 * tile_size.x
 		y = 7 * tile_size.y
 	
 	return Rect2(x,y, tile_size.x, tile_size.y)
+
+#  assigns a unique sprite as necessary. lots of pretty bespoke code is gonna
+# gho here long term.
+#  broadly, for every unique tile, thgere should be a matching sprite and 
+# sides sprite, each inheriting their name from its dict key. the sprite should
+# be a sheet of 32x things, and the code here should assign which thing it is.
+func get_unique_sprite(t: MTile):
+	var path = "res://image/tile/custom_tile/%s.png"
+	var sidespath = "res://image/tile/custom_tile/%s_SIDES.png"
+	unique_sprite.texture = load(path % MTile.UNIQUE.keys()[t.unique_type])
+	sides.texture = load(sidespath % MTile.UNIQUE.keys()[t.unique_type])
+	
+	#  reset position. redundant a lot of the time but convenient bc we dont 
+	# need to do any assigning for unique tiles that only have one frame.
+	unique_sprite.region_rect.position = Vector2.ZERO
+	
+	match t.unique_type:
+		MTile.UNIQUE.D6:
+			unique_sprite.region_rect.position.x = 32 * (t.value-1)
+			unique_sprite.region_rect.position.y = 32 * log(t.suit)/log(2)
 
 # -1 to hide entirely.
 func assign_visible_side(side: int):
@@ -86,7 +117,8 @@ func assign_visible_side(side: int):
 		adj_tile_highlight.frame_coords.x = calc_side
 	
 	
-	sprite.visible = !_reversed
+	sprite.visible = !_reversed and tile.unique_type == MTile.UNIQUE.NOT
+	tile_rear.visible = _reversed
 
 func set_reversed(rv: bool):
 	_reversed = rv
@@ -113,8 +145,9 @@ func _gui_input(event):
 			emit_signal("tile_graphic_clicked", tile)
 			#TileGraphicKnower.highlight_matching_tiles(tile, true)
 		
-		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-			print(tile.get_id())
+		# debug
+#		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+#			print(tile.get_id())
 
 
 

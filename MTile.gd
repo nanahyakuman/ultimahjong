@@ -40,6 +40,11 @@ var former: MTile
 # `TileCounter` so that permanent mods are easier to make
 var canon_tile: MTile
 
+#  allows for more bespoke tile types, like d6 or dominoes. these should define custom draw
+# behavoir most of the time, but that'll occur in `TileGraphic.tscn`, not here.
+enum UNIQUE {NOT = 0, D6}
+var unique_type = UNIQUE.NOT
+
 func _init(s:int, v:int, col:int = COL_NONE, f = null, p = false, c = null):
 	suit = s
 	value = v
@@ -124,9 +129,10 @@ static func gen_id(s: int, v: int):
 static func tile_from_id(id: int) -> MTile:
 	return MTile.new(int(id/100), id%100)
 
-# ordered so that aka are always first
+#  ordered so that better dora are always first among equals, and
+# unique types are always last within the suit
 static func gen_order(t: MTile):
-	return gen_id(t.suit,t.value) * 10 + 5 - t.color * 1
+	return gen_id(t.suit,t.value) * 10 + 9 - t.color * 1 + (100 if t.unique_type else 0)
 
 static func tile_compare(a:MTile, b:MTile):
 	return gen_order(a) < gen_order(b)

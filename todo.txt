@@ -32,6 +32,7 @@ end of every round can purchase:
 		play for an extra round
 		"kan for flow"
 			calling kan guarentees that the haitei fills a wait
+		remove a strip of 2-8 (maybe 1-9) of a suit
 	spell cards, refresh every x draws (items)
 	x	next tile will be --honor-- wind
 	x	exchange one tile for a false haku
@@ -120,7 +121,6 @@ ideas but not critical:
 	add a nanahyakuman worth 7 han
 
 languages
-	jibun de yare:
 		en
 		jp
 	bc its mahjong themed:
@@ -128,9 +128,9 @@ languages
 		ch_t
 		korean
 	ver common:
+		portuguese
 		russian
 		spanish
-		portuguese
 		french and german?
 	asia but not very large markets usually:
 		phillipines
@@ -144,7 +144,6 @@ when you discard a pocchi, can choose to exchange the 4th tile in the wall with
 shiro pocchi instant win if riichitsumo
 flower call redraw did NOT propmt tsumo properly. might have been other now-solved
 	issue but should verify
-attempting to suji shift an illegal tile softlocks
 mouse entering a item from the sell prompt cursorhovertexts "add item to wall????" wth???
 	only occurs when setting the cursor style. deadass what??
 dont sell deadwall reducs if the size is already minmum
@@ -175,14 +174,16 @@ language switching is a little weird, i think the exported strings are translati
 	language. annoying but minor
 ui sounds
 couldnt cancel color shift item
-better handling for bespoke tiles
-	a define in mtile for being unique, prob a enum flag where 0 = normal
-	 rework rotation code to only define 3 rotations? at the very least for custom
-	tiles only want to have to draw top/bottom/a rotation
+justify aodora
+	rework fu to be lower value but always mult? or filter them back in after snapping to base
 
-add 10s
-	check chuuren
-	check all terminal yaku
+
+
+d6 issues:
+	d6 was able to be colored.
+	d6 saving (make it generalizeable)
+	right click to do a unique item's thing (once a round)
+		make d6 reroll
 
 
 demo MVP:
@@ -190,10 +191,15 @@ demo MVP:
 	
 	a logo on the title screen. it can be ugly but it should exist
 	
+	item that gives you the tens
+	
+	return riichi bet!!!!
+	
 	checks before release:
 		get the inherited scene right lol
 		no override hand in use
 		turn off debug keys
+
 
 would be nice, if theres time, for viability as a deckbuilder:
 	add pocchi but not almighty

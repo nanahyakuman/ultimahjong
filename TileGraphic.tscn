@@ -35,6 +35,12 @@ texture = ExtResource("5_xhwoj")
 centered = false
 region_rect = Rect2(80, 64, 16, 32)
 
+[node name="UniqueSprite" type="Sprite2D" parent="Rotator"]
+position = Vector2(-8, 0)
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
+
 [node name="Sprite2D" type="Sprite2D" parent="Rotator"]
 texture_repeat = 1
 texture = ExtResource("4_c6ib6")

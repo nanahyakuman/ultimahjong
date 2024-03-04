@@ -873,7 +873,7 @@ grow_vertical = 2
 alignment = 1
 
 [node name="AllTilesDisplay" type="PanelContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_TILES/HBoxContainer"]
-custom_minimum_size = Vector2(174, 0)
+custom_minimum_size = Vector2(222, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_02wl1")
 script = ExtResource("43_nbkwc")

@@ -56,7 +56,7 @@ Finishing a round opens the shop, and grants you a static amount of money. You c
 局ずつに超えなければいけない点数が増える。それに、次回増える程度も高める。
 局の間に店がある。ここでアイテム・アップグレードを買うことができ、前に買ったアイテムが売れる。（アップグレードは売れない。）金は麻雀に戻る時になくなるのでちゃんと使わないといけない。"
 GUIDE_TILES_HEADER_TYPES,,Tile Types,牌の種類
-GUIDE_TILES_TERMINAL,,Terminal: 1 or 9 in any number suit.,老頭牌：数牌の１と９。
+GUIDE_TILES_TERMINAL,,Terminal: 1 or 9+ in any number suit.,老頭牌：数牌の１と９以上。
 GUIDE_TILES_SIMPLE,,Simple: 2 through 8 in any number suit.,中張牌：数牌の２～８。
 GUIDE_TILES_HONOR,,Honor: Dragons and Winds.,字牌：元牌と風牌。
 GUIDE_TILES_YAOCHUU,,Yaochuu: Terminal or Honor.,幺九牌：老頭牌または字牌。
@@ -220,6 +220,7 @@ YAKU_KIN_DORA,,Kin Dora,金ドラ
 YAKU_KITA,,Nuki Dora,キタ
 ,,,
 YAKU_CLOSED_ONLY,,(Closed Only),面前のみ
+YAKU_MINUS_OPEN,,(-%d Open),-%d
 ,,,
 CALL_CHI_L,,Chi L,チー左
 CALL_CHI_M,,Chi M,チー中

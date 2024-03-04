@@ -18,9 +18,9 @@ func set_info(info: ScoringInfo.Han):
 			han_label.text = han_label.text.insert(1, "Y")
 	
 	if info.closed_han - info.open_penalty <= 0:
-		closed_label.text = " (Closed Only) "
+		closed_label.text = "YAKU_CLOSED_ONLY"
 	elif info.open_penalty!= 0:
-		closed_label.text = " (-%d Open) " % info.open_penalty
+		closed_label.text = tr("YAKU_MINUS_OPEN") % info.open_penalty
 	else:
 		closed_label.text = ""
 	
