@@ -80,6 +80,13 @@ func get_total_fu() -> int:
 			return 25
 	return ret
 
+func get_riichi_return() -> int:
+	var sum = 0
+	for h in hans:
+		if h.nam == "YAKU_RIICHI" or  h.nam == "YAKU_DOUBLE_RIICHI":
+			sum += 1000
+	return sum
+
 #const MANGAN_HANS = {
 #	6: 3000, # haneman
 #	7: 3000, #3500, # taihanman

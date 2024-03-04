@@ -71,6 +71,9 @@ func end_round(scoring_info: ScoringInfo, multiplier_info: MultiplierInfo):
 	
 	await scoring_root.update_scoring(scoring_info, fu, han, points, multiplier_info.get_multiplier())
 	
+	# only add after we tell the player their base score
+	points += scoring_info.get_riichi_return()
+	
 	# add points and check we beat the threshhold
 	score_tracker.update_score(points)
 	

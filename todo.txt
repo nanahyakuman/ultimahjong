@@ -191,8 +191,6 @@ unique item issues:
 demo MVP:
 	BUMRUSH FINISH IS PRIORITY!!!!
 	
-	does chiitoi work right?
-	
 	force tab bar translations. just make it work somehow, it's gonna be gross no matter what
 	
 	a logo on the title screen. it can be ugly but it should exist
@@ -203,11 +201,10 @@ demo MVP:
 	
 	fix or remove d6
 	
-	return riichi bet!!!!
-	
 	items arent changing sprite right. fix or disable for now
 	
 	checks before release:
+		all items don't crash when used correctly
 		get the inherited scene right lol
 		no override hand in use
 		turn off debug keys
