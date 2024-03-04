@@ -43,9 +43,9 @@ func assign_tile(t: MTile):
 	
 	if tile.unique_type == MTile.UNIQUE.NOT:
 		sprite.region_rect = get_tile_segment(tile)
+		sides.texture = load("res://image/tile/tilesides.png")
 		sprite.visible = true
 		unique_sprite.visible = false
-		sides.texture = load("res://image/tile/tilesides.png")
 	else:
 		get_unique_sprite(tile)
 		sprite.visible = false
@@ -83,6 +83,11 @@ func get_tile_segment(t: MTile) -> Rect2:
 #  broadly, for every unique tile, thgere should be a matching sprite and 
 # sides sprite, each inheriting their name from its dict key. the sprite should
 # be a sheet of 32x things, and the code here should assign which thing it is.
+#  the sides should be formatted the same as tilesides.png, although we're kinda
+# ignoring the reversibility code in ankan rn, so tiles always appear up. this is 
+# slightly disappointing ig but i reeally dont want to draw twice as many sprites
+# for every unique tile just so you can visually ankan them. regardless you MUST define all
+# 8 side rotations, the bottom 8 are just gonna be identical to the top 8 though.
 func get_unique_sprite(t: MTile):
 	var path = "res://image/tile/custom_tile/%s.png"
 	var sidespath = "res://image/tile/custom_tile/%s_SIDES.png"
@@ -97,6 +102,7 @@ func get_unique_sprite(t: MTile):
 		MTile.UNIQUE.D6:
 			unique_sprite.region_rect.position.x = 32 * (t.value-1)
 			unique_sprite.region_rect.position.y = 32 * log(t.suit)/log(2)
+		#eraser is automatic
 
 # -1 to hide entirely.
 func assign_visible_side(side: int):

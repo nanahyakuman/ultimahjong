@@ -122,6 +122,8 @@ func _use():
 		return
 	if mahjong_manager._state != MahjongManager.STATE_ACTIONABLE:
 		return
+	if mahjong_manager.tsumo == null:
+		return
 	
 	match type:
 		TYPES.ITEM_NONE:
@@ -133,7 +135,10 @@ func _use():
 			_delete_canon(mahjong_manager.tsumo)
 			# old tile is cleared completely, dont maintain reference
 			mahjong_manager.tsumo = null
-			mahjong_manager.do_tsumo(MTile.new(MTile.SUITS.SPECIAL,MTile.SPECIALS.HAKU))
+			var new_tile = MTile.new(MTile.SUITS.SPECIAL,MTile.SPECIALS.HAKU)
+			new_tile.unique_type = MTile.UNIQUE.ERASER
+			
+			mahjong_manager.do_tsumo(new_tile)
 			
 		TYPES.ITEM_WIND_MAGNET:
 			var wind_ids = []

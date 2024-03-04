@@ -176,24 +176,36 @@ ui sounds
 couldnt cancel color shift item
 justify aodora
 	rework fu to be lower value but always mult? or filter them back in after snapping to base
+dora code should account for non-extant tiles, so sanma 1m doras the 9m, or reduced size decks don't
+ dora removed tiles. should update automatically so you can possibly take advantage of it
 
-
-
-d6 issues:
+unique item issues:
 	d6 was able to be colored.
 	d6 saving (make it generalizeable)
-	right click to do a unique item's thing (once a round)
+	right click to do a unique item's thing (once a round) (if it has one)
 		make d6 reroll
+		some indicator
+	allow for unique items to set a different custom min size
 
 
 demo MVP:
+	BUMRUSH FINISH IS PRIORITY!!!!
+	
+	does chiitoi work right?
+	
 	force tab bar translations. just make it work somehow, it's gonna be gross no matter what
 	
 	a logo on the title screen. it can be ugly but it should exist
 	
 	item that gives you the tens
 	
+	japanese tranlsation being mid warning
+	
+	fix or remove d6
+	
 	return riichi bet!!!!
+	
+	items arent changing sprite right. fix or disable for now
 	
 	checks before release:
 		get the inherited scene right lol
