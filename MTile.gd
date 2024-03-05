@@ -46,6 +46,8 @@ var canon_tile: MTile
 # be an eraser and will draw as such.
 enum UNIQUE {NOT = 0, D6, ERASER}
 var unique_type = UNIQUE.NOT
+# tracker that makes it so you can only do special item things once a round
+var already_used = false
 
 func _init(s:int, v:int, col:int = COL_NONE, f = null, p = false, c = null, u = UNIQUE.NOT):
 	suit = s
@@ -133,9 +135,11 @@ static func gen_id(s: int, v: int):
 static func tile_from_id(id: int) -> MTile:
 	return MTile.new(int(id/100), id%100)
 
-#  ordered so that better dora are always first among equals
+#  ordered so that better dora are always first among equals, unique items
+# are always last. this means on calls we take the best dora first, and special
+# items last.
 static func gen_order(t: MTile):
-	return gen_id(t.suit,t.value) * 10 + 9 - t.color * 1
+	return gen_id(t.suit,t.value) * 100 + (90 - t.color * 10) + (int(t.unique_type != MTile.UNIQUE.NOT))
 
 static func tile_compare(a:MTile, b:MTile):
 	return gen_order(a) < gen_order(b)
@@ -152,10 +156,13 @@ static func gen_name(tile: MTile):
 # do nothing.
 #  returns whether there were any updates or not
 func try_unique()-> bool:
+	if already_used:
+		return false
 	match unique_type:
 		UNIQUE.D6:
 			value = (randi()%6)+1
 			canon_tile.value = value
+			already_used = true
 			return true
 		_:
 			return false

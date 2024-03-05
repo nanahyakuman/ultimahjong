@@ -13,6 +13,8 @@ class_name TileGraphic
 @onready var flicker = $Rotator/Flicker
 @onready var custom_overlays = $Rotator/Sprite2D/CustomOverlays
 @onready var rotator = $Rotator
+# display for unique items that can only be used once a round
+@onready var already_used_indicator = $AlreadyUsedIndicator
 
 @export var tile_size = Vector2(16,32)
 
@@ -57,6 +59,10 @@ func assign_tile(t: MTile):
 		assign_custom_overlay(OVERLAY_POCCHI)
 	
 	assign_visible_side(visible_side)
+	
+	#  conveniaent place to call it, because any tile that does anything
+	# should retriggier gui.update_hand, calling this
+	update_used_graphic()
 
 func get_tile_segment(t: MTile) -> Rect2:
 	var x = (t.value-1) * tile_size.x
@@ -158,6 +164,10 @@ func set_rotated(rotated: bool):
 	
 	assign_visible_side(visible_side)
 
+
+func update_used_graphic():
+	already_used_indicator.visible = tile.already_used
+
 signal tile_graphic_clicked
 
 func _gui_input(event):
@@ -168,6 +178,7 @@ func _gui_input(event):
 			#TileGraphicKnower.highlight_matching_tiles(tile, true)
 		
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			TileGraphicKnower.highlight_matching_tiles(tile, false)
 			emit_signal("tile_graphic_clicked", tile, true)
 
 

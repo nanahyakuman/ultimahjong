@@ -527,7 +527,7 @@ script = ExtResource("22_nsrp2")
 
 [node name="Item" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("29_x2nf7")]
 layout_mode = 2
-type = 12
+type = 11
 activate_self = true
 
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]

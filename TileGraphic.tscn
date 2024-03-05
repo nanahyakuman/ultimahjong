@@ -1,7 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://brmkh2to242iv"]
+[gd_scene load_steps=13 format=3 uid="uid://brmkh2to242iv"]
 
 [ext_resource type="Script" path="res://TileGraphic.gd" id="1_w2ft1"]
-[ext_resource type="Texture2D" uid="uid://bv02hj62c4ot" path="res://image/tile/custom_tile/ERASER_SIDES.png" id="2_k7k2b"]
+[ext_resource type="Texture2D" uid="uid://bf8b1q22m2w0s" path="res://image/tile/tilesides.png" id="3_rn2kv"]
 [ext_resource type="Texture2D" uid="uid://baxb03osrtkhb" path="res://image/tile/fx/tile_highlight_b.png" id="4_2lunx"]
 [ext_resource type="Texture2D" uid="uid://ccdv7r4ga7o3t" path="res://image/tile/tiles.png" id="4_c6ib6"]
 [ext_resource type="Texture2D" uid="uid://3xyv2a3mk865" path="res://image/tile/fx/tile_highlight_r.png" id="5_b2fx8"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://TileGraphicFlicker.gd" id="8_r54qq"]
 [ext_resource type="Script" path="res://SimTileHighlight.gd" id="9_hkio8"]
 [ext_resource type="Texture2D" uid="uid://dremluumcx2sb" path="res://image/tile/fx/tile_highlight_r_1.png" id="11_7ok0s"]
+[ext_resource type="Texture2D" uid="uid://bg8q06wqxeri8" path="res://image/tile/custom_tile/alreadyused.png" id="12_ix5wj"]
 
 [node name="TileGraphic" type="Control"]
 custom_minimum_size = Vector2(16, 26)
@@ -24,10 +25,10 @@ script = ExtResource("1_w2ft1")
 
 [node name="Tilesides" type="Sprite2D" parent="Rotator"]
 position = Vector2(8, 13)
-texture = ExtResource("2_k7k2b")
+texture = ExtResource("3_rn2kv")
 hframes = 4
 vframes = 2
-frame = 3
+frame = 1
 
 [node name="TileRear" type="Sprite2D" parent="Rotator"]
 texture_repeat = 1
@@ -84,6 +85,10 @@ script = ExtResource("9_hkio8")
 visible = false
 position = Vector2(8, 13)
 texture = ExtResource("11_7ok0s")
+
+[node name="AlreadyUsedIndicator" type="Sprite2D" parent="."]
+position = Vector2(8, 26)
+texture = ExtResource("12_ix5wj")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

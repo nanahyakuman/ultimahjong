@@ -61,12 +61,11 @@ end of every round can purchase:
 		reduce scoring cutoff vel? seems weird to do both
 achievements
 	all yaku
-	all mangan
-	all possible multiple yakuman
+	all mangan tiers (? weird now)
+	all possible multiple yakuman (? maybe excessive)
 	joke about there not being furiten. "furiten furi"
 	pocchi a false white dragon
 	get any hand with multiple ways of scoring it
-	kin iisou (chonbo)
 	kazoe double
 	yabai kan
 	
@@ -120,7 +119,11 @@ ideas but not critical:
 		make them orange and link back to their descriptions
 	consider better cjk font(s)
 		http://jikasei.me/font/jf-dotfont/ for jp
-	add a nanahyakuman worth 7 han
+	add a nanahyakuman worth 7 han? instead of the whole suit maybe you can only
+		ever get a few of the tiles but they're worth a ton
+
+THERE SHOULD BE A MAHJONG TUTORIAL IN THE FINAL GAME JUST ACCEPT IT
+
 
 languages
 		en
@@ -199,9 +202,13 @@ demo MVP:
 	
 	force tab bar translations. just make it work somehow, it's gonna be gross no matter what
 	
+	tileselect translating!
+	
 	fix or remove d6
 	
 	items arent changing sprite right. fix or disable for now
+	
+	illegal suji shift softlocks(?)
 	
 	checks before release:
 		all items don't crash when used correctly

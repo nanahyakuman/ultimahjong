@@ -15,7 +15,10 @@ func set_tiles(tiles: Array):
 func request_tile_select(requestor: Node):
 	tile_select_requestor_node = requestor
 
-func tile_graphic_clicked(tile: MTile):
+func tile_graphic_clicked(tile: MTile, right: bool):
+	#only take left clicks
+	if right:
+		return
 	#since they can free themselves check for existence
 	if is_instance_valid(tile_select_requestor_node):
 		tile_select_requestor_node.tile_selected(tile)

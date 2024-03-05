@@ -145,7 +145,7 @@ func _draw_hand():
 	update_hand_label()
 	
 	var temp = []
-	temp = MTileStringConverter.str_to_mtile("234567890p1234s")
+	#temp = MTileStringConverter.str_to_mtile("234567890p1234s")
 	
 	if temp:
 		temp.sort()
@@ -619,8 +619,8 @@ func tile_graphic_clicked(tile: MTile, right: bool):
 						hand.erase(tile)
 					add_to_hand_and_update(tile)
 					
-					# rehighlight
-					TileGraphicKnower.highlight_matching_tiles(tile, true)
+					# DONT rehighlight! tile might move!
+					#TileGraphicKnower.highlight_matching_tiles(tile, true)
 					
 					# regenerate tiles display
 					tile_counter.emit_signal("updated")
@@ -639,13 +639,21 @@ func _draw_and_discard(discardee: MTile):
 		tsumo = null
 	hand.erase(discardee)
 	discard.append(discardee)
+	
+	# update usable tiles to be usable again
+	for t in hand:
+		t.already_used = false
+	
 	update_hand_label()
 	gui_manager.update_discard(discard)
 	gui_manager.update_tsumo([])
 	
 	tile_sfx_player.play()
 	
+	# force unhighlight tiles
 	TileGraphicKnower.highlight_matching_tiles(discardee, false)
+	
+	
 	
 	if !_try_enter_riichi():
 		_start_rotation()
