@@ -1,16 +1,19 @@
-[gd_scene load_steps=13 format=3 uid="uid://cktxx4oqgso8u"]
+[gd_scene load_steps=16 format=3 uid="uid://cktxx4oqgso8u"]
 
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="1_v6jm1"]
 [ext_resource type="Script" path="res://ButtonNewGame.gd" id="2_0gcdp"]
 [ext_resource type="Script" path="res://QuitButton.gd" id="2_1hehv"]
 [ext_resource type="Script" path="res://main_menu.gd" id="2_iftnu"]
 [ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="2_tmh4p"]
+[ext_resource type="Texture2D" uid="uid://dat84r1id1005" path="res://image/logo.png" id="3_3h3sx"]
 [ext_resource type="Script" path="res://ContinueButton.gd" id="4_rawt5"]
 [ext_resource type="Script" path="res://OneofManySelectorSaver.gd" id="5_4g0di"]
 [ext_resource type="Script" path="res://LanguageButton.gd" id="6_74lkm"]
 [ext_resource type="Script" path="res://SaverLoader.gd" id="7_2o14x"]
 [ext_resource type="Script" path="res://WishlistButton.gd" id="7_p3yxy"]
+[ext_resource type="Script" path="res://TranslationWarningPanel.gd" id="8_avkfy"]
 [ext_resource type="Script" path="res://SplashLabel.gd" id="11_hgbh4"]
+[ext_resource type="PackedScene" uid="uid://be4kdtynecmdc" path="res://misc/tile sea/TileSea.tscn" id="14_h73ea"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ahn04"]
 content_margin_left = 16.0
@@ -35,6 +38,29 @@ grow_vertical = 2
 theme = ExtResource("1_v6jm1")
 script = ExtResource("2_iftnu")
 
+[node name="TileSea" parent="." instance=ExtResource("14_h73ea")]
+layout_mode = 1
+
+[node name="MouseCatcher" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -95.0
+offset_top = 33.0
+offset_right = 95.0
+offset_bottom = 75.0
+grow_horizontal = 2
+texture = ExtResource("3_3h3sx")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -42,15 +68,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -57.5
+offset_top = -76.0
+offset_right = 57.5
+offset_bottom = 76.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 4
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxTexture_ahn04")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer"]
@@ -81,6 +109,21 @@ layout_mode = 2
 text = "BUTTON_QUIT"
 script = ExtResource("2_1hehv")
 options_loader = NodePath("../../../../OptionsLoader")
+
+[node name="TranslationWarningPanel" type="PanelContainer" parent="."]
+layout_mode = 2
+offset_left = 128.0
+offset_top = 286.0
+offset_right = 512.0
+offset_bottom = 352.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_ahn04")
+script = ExtResource("8_avkfy")
+
+[node name="Label" type="Label" parent="TranslationWarningPanel"]
+layout_mode = 2
+text = "今の日本語訳は自分で書いたため、時々変わった言葉使いが浮かぶ。
+リリースまでにちゃんとした翻訳者をやり直させるつもりだ。"
+horizontal_alignment = 1
 
 [node name="OptionsLoader" type="Node" parent="."]
 script = ExtResource("7_2o14x")
@@ -147,3 +190,5 @@ theme_override_constants/shadow_offset_x = 0
 bbcode_enabled = true
 text = "[right]Also check out XXX by YYY!"
 script = ExtResource("11_hgbh4")
+
+[connection signal="toggled" from="LanguageButtons/JA_Button" to="TranslationWarningPanel" method="_on_ja_button_toggled"]

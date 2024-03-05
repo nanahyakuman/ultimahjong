@@ -195,10 +195,6 @@ demo MVP:
 	
 	a logo on the title screen. it can be ugly but it should exist
 	
-	item that gives you the tens
-	
-	japanese tranlsation being mid warning
-	
 	fix or remove d6
 	
 	items arent changing sprite right. fix or disable for now

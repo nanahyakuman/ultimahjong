@@ -15,7 +15,6 @@ theme = ExtResource("1_asr4t")
 script = ExtResource("1_x3rpe")
 
 [node name="GridContainer" type="GridContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1707,6 +1706,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 106.0
 offset_top = 52.0

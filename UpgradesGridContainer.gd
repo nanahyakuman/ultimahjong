@@ -19,7 +19,7 @@ func initialize(ci: CharacterInfo, load: bool):
 	
 	if !load:
 		for i in ci.starting_uprgrades:
-			gen_upgrade(i)
+			gen_upgrade(i, false)
 
 
 # return an array of randomly selected items left in pool
@@ -34,7 +34,7 @@ func get_random_from_pool(amount: int) -> Array:
 func alert_bought(type: int):
 	pool.add(type, -1)
 
-func gen_upgrade(type: int):
+func gen_upgrade(type: int, load_mute: bool):
 	var a = upgrade.instantiate()
 	a.type = type
 	add_child(a)
@@ -42,7 +42,7 @@ func gen_upgrade(type: int):
 		upgrades = $"../../../../../../../MahjongRoot/MahjongManager/Upgrades"
 	# retrigger upgrades
 	alert_bought(type)
-	a.bought(upgrades, tile_counter, score_tracker)
+	a.bought(upgrades, tile_counter, score_tracker, load_mute)
 
 
 func load_cfg(config: ConfigFile):
@@ -52,7 +52,7 @@ func load_cfg(config: ConfigFile):
 	for i in Upgrade.TYPES.size():
 		var count = config.get_value("upgrade", str(i), 0)
 		for j in count:
-			gen_upgrade(i)
+			gen_upgrade(i, true)
 
 func save_cfg(config: ConfigFile):
 	var a = ExpandingCounterDict.new()

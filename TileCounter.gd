@@ -196,6 +196,7 @@ func increment_tile(tile: MTile):
 
 func remove_tile(tile: MTile):
 	var t = tile_data.find(tile)
+	tile_counts.add(tile.get_id(), -1)
 	assert(t != -1)
 	tile_data.remove_at(t)
 

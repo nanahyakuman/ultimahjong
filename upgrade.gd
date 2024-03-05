@@ -5,7 +5,7 @@ class_name Upgrade
 # pooled by upgradegridcontainer, using the metadata below
 enum TYPES {UPR_NONE, UPR_DEAD_REDUCE, UPR_KAN_REVEAL, UPR_KITA, UPR_OPPONENT_KILL,
 	UPR_MANA_UP, UPR_RONANKOU, UPR_STRONGER_RIICHI, UPR_MORE_MONEY, UPR_FLOWER, UPR_SEASON,
-	UPR_KIN_DRAGON, UPR_RISING_WIND, UPR_DECEL, UPR_MORE_DRAGONS}
+	UPR_KIN_DRAGON, UPR_RISING_WIND, UPR_DECEL, UPR_MORE_DRAGONS, UPR_TENS}
 #  metadata about items.
 # generally want these to cost 2, but probably go all the way up to 5.
 # 3+ end the shop unceremoniously so taitei to be avoided
@@ -24,7 +24,8 @@ const METADATA = {		# cost, pool size
 	TYPES.UPR_KIN_DRAGON:		[4, 1],
 	TYPES.UPR_RISING_WIND:		[4, 1],
 	TYPES.UPR_DECEL:			[2, 0], # muted rn bc it's kinda lame, and because the gui doesnt update right rn
-	TYPES.UPR_MORE_DRAGONS:		[1, 2]
+	TYPES.UPR_MORE_DRAGONS:		[1, 4],
+	TYPES.UPR_TENS:				[1, 2],
 }
 var type = TYPES.UPR_NONE
 
@@ -40,8 +41,9 @@ func _ready():
 	sprite_2d.frame = type
 
 
-# called when bought. (and on reload)
-func bought(upgrades: Upgrades, tile_counter: Node, score_tracker: Node):
+#  called when bought (and on reload). load_mute` is for upgrades that
+# just add tiles, bc tile management is already handled by the tilecounter
+func bought(upgrades: Upgrades, tile_counter: Node, score_tracker: Node, load_mute: bool):
 	assert(type != TYPES.UPR_NONE, "not a valid upgrade!")
 	match type:
 		TYPES.UPR_DEAD_REDUCE:
@@ -63,18 +65,30 @@ func bought(upgrades: Upgrades, tile_counter: Node, score_tracker: Node):
 		TYPES.UPR_MORE_MONEY:
 			upgrades.additional_money_per_round += 1
 		TYPES.UPR_FLOWER:
-			tile_counter.add_flowers(2, false)
+			if !load_mute:
+				tile_counter.add_flowers(2, false)
 		TYPES.UPR_SEASON:
-			tile_counter.add_flowers(2, true)
+			if !load_mute:
+				tile_counter.add_flowers(2, true)
 		TYPES.UPR_KIN_DRAGON:
-			for i in 4:
-				tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.KIN))
+			if !load_mute:
+				for i in 4:
+					tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.KIN))
 		TYPES.UPR_RISING_WIND:
-			for i in 4:
-				tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.UP))
+			if !load_mute:
+				for i in 4:
+					tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.UP))
 		TYPES.UPR_DECEL:
 			score_tracker.expected_points_mod_mod -= 200
 		TYPES.UPR_MORE_DRAGONS:
-			tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
-			tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
-			tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+			if !load_mute:
+				tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU))
+				tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HATSU))
+				tile_counter.increment_tile(MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.CHUN))
+		TYPES.UPR_TENS:
+			if !load_mute:
+				for i in [MTile.SUITS.PIN, MTile.SUITS.SOU, MTile.SUITS.MAN]:
+					for j in 2:
+						tile_counter.increment_tile(MTile.new(i, 10))
+
+
