@@ -237,20 +237,22 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 					
 					if runs.size() >= 3:
 						# ittsuu
-						# weird optimization but basically generates a bitmask for each run in each suit
-						var itsuu_suits = {MTile.SUITS.PIN: 0b000, MTile.SUITS.SOU: 0b000, MTile.SUITS.MAN: 0b000, MTile.SUITS.CHO: 0b000}
-						for g in runs:
-							for index in [0,1,2]:
-								if g.tiles[0].value == index*3 + 1:
-									itsuu_suits[g.tiles[0].suit] |= int(pow(2,index))
-						for s in itsuu_suits.keys():
-							if itsuu_suits[s] == 7:
-								scoring_info.hans.append(ALL_YAKU.YAKUS["Ittsuu"])
+						# weird optimization but basically generates a bitmask for each run in each suit.
+						# does it for every valid offset, so checks 147 first, then 258
+						for offset in (MAX_VAL-9+1):
+							var itsuu_suits = {MTile.SUITS.PIN: 0b000, MTile.SUITS.SOU: 0b000, MTile.SUITS.MAN: 0b000, MTile.SUITS.CHO: 0b000}
+							for g in runs:
+								for index in [0,1,2]:
+									if g.tiles[0].value == index*3 + 1 + offset:
+										itsuu_suits[g.tiles[0].suit] |= int(pow(2,index))
+							for s in itsuu_suits.keys():
+								if itsuu_suits[s] == 7:
+									scoring_info.hans.append(ALL_YAKU.YAKUS["Ittsuu"])
 						
 						# sanshoku
 						# works similar to itsuu, but by val instead of suit
 						var sanshoku_vals = {}
-						for i in 10:
+						for i in MAX_VAL:
 							sanshoku_vals[i+1] = 0
 						for g in runs:
 							sanshoku_vals[g.tiles[0].value] |= g.tiles[0].suit
