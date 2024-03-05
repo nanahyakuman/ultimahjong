@@ -145,7 +145,7 @@ func _draw_hand():
 	update_hand_label()
 	
 	var temp = []
-	temp = MTileStringConverter.str_to_mtile("11334467799m00s")
+	#temp = MTileStringConverter.str_to_mtile("11334467799m00s")
 	
 	if temp:
 		temp.sort()
@@ -580,30 +580,50 @@ func _input(event):
 # in_hand` can even be clicked, and since this is only
 # for tiles in hand, we know that if a tile is clicked
 # it's in hand.
-func tile_graphic_clicked(tile: MTile):
-	if _state == STATE_ACTIONABLE:
-		was_last_draw_from_dead_wall = false
-		if in_riichi:
-			_draw_and_discard(tsumo)
-		else:
-			_draw_and_discard(tile)
-	elif _state == STATE_SELECT_TILE:
-		if !tile_select_requestor_node.tile_valid(tile):
-			return
-		
-		if remove_from_hand_on_selection:
-			if tsumo == tile:
-				tsumo = null
+func tile_graphic_clicked(tile: MTile, right: bool):
+	if !right: #ie left-cliock
+		if _state == STATE_ACTIONABLE:
+			was_last_draw_from_dead_wall = false
+			if in_riichi:
+				_draw_and_discard(tsumo)
 			else:
-				# prevent from making any modifications to a riichi hand
-				if in_riichi:
-					return
+				_draw_and_discard(tile)
+		elif _state == STATE_SELECT_TILE:
+			if !tile_select_requestor_node.tile_valid(tile):
+				return
+			
+			if remove_from_hand_on_selection:
+				if tsumo == tile:
+					tsumo = null
 				else:
-					hand.erase(tile)
-		
-		_set_state(STATE_ANIMATING)
-		tile_select_requestor_node.tile_selected(tile)
-		
+					# prevent from making any modifications to a riichi hand
+					if in_riichi:
+						return
+					else:
+						hand.erase(tile)
+			
+			_set_state(STATE_ANIMATING)
+			tile_select_requestor_node.tile_selected(tile)
+	
+	else: # right click
+		if _state == STATE_ACTIONABLE:
+			# cant do it on riichid tiles, nor after calls
+			if !in_riichi or tile == tsumo:
+				TileGraphicKnower.highlight_matching_tiles(tile, false)
+				var refresh = tile.try_unique()
+				if refresh:
+					# add new tile and prompt scanning
+					if tile == tsumo:
+						tsumo = null
+					else:
+						hand.erase(tile)
+					add_to_hand_and_update(tile)
+					
+					# rehighlight
+					TileGraphicKnower.highlight_matching_tiles(tile, true)
+					
+					# regenerate tiles display
+					tile_counter.emit_signal("updated")
 
 #func draw_and_discard_index(i: int):
 #	if i == 13:

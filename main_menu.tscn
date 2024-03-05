@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cktxx4oqgso8u"]
+[gd_scene load_steps=15 format=3 uid="uid://cktxx4oqgso8u"]
 
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="1_v6jm1"]
 [ext_resource type="Script" path="res://ButtonNewGame.gd" id="2_0gcdp"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" path="res://WishlistButton.gd" id="7_p3yxy"]
 [ext_resource type="Script" path="res://TranslationWarningPanel.gd" id="8_avkfy"]
 [ext_resource type="Script" path="res://SplashLabel.gd" id="11_hgbh4"]
-[ext_resource type="PackedScene" uid="uid://be4kdtynecmdc" path="res://misc/tile sea/TileSea.tscn" id="14_h73ea"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ahn04"]
 content_margin_left = 16.0
@@ -37,9 +36,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_v6jm1")
 script = ExtResource("2_iftnu")
-
-[node name="TileSea" parent="." instance=ExtResource("14_h73ea")]
-layout_mode = 1
 
 [node name="MouseCatcher" type="Control" parent="."]
 layout_mode = 1

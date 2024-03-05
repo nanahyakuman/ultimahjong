@@ -11,7 +11,9 @@ end of every round can purchase:
 		pocchi-ing a tile means you can switch it out for any other pocchi tile in deck
 	x	kin dragon is 2yakuhai, and doras all other dragons. costs ~5y
 		d6 that can be rerolled once a draw
-		dominoes? counts as either digit displayed
+		d4 winds
+		d10 numerical
+		dominoes. can count as either digit displayed, rclick to flip
 	x	0s and 10s (only added 10s rn)
 	new rules (upgrades)
 		get two ura every reveal
@@ -179,21 +181,23 @@ justify aodora
 dora code should account for non-extant tiles, so sanma 1m doras the 9m, or reduced size decks don't
  dora removed tiles. should update automatically so you can possibly take advantage of it
 
+
 unique item issues:
 	d6 was able to be colored.
-	d6 saving (make it generalizeable)
-	right click to do a unique item's thing (once a round) (if it has one)
-		make d6 reroll
+	saving! ig prob just add a [2] -type suffix to tiles
+	right click to do a unique item's thing
+		make it so you can only do them once a round optionally
 		some indicator
 	allow for unique items to set a different custom min size
+	make unique items appear to the side of the tile display, prevents jumpiness
+
+add dominoes
 
 
 demo MVP:
 	BUMRUSH FINISH IS PRIORITY!!!!
 	
 	force tab bar translations. just make it work somehow, it's gonna be gross no matter what
-	
-	a logo on the title screen. it can be ugly but it should exist
 	
 	fix or remove d6
 	

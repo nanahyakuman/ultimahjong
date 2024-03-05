@@ -1773,6 +1773,7 @@ main_loader = NodePath("../../../../../StateSaver")
 erase_save = true
 
 [node name="Button4" type="Button" parent="GameEndBlocker/GameEndPanel/VBoxContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "BUTTON_WISHLIST"
 script = ExtResource("71_8aeh6")

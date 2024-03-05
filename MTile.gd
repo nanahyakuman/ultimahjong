@@ -42,16 +42,19 @@ var canon_tile: MTile
 
 #  allows for more bespoke tile types, like d6 or dominoes. these should define custom draw
 # behavoir most of the time, but that'll occur in `TileGraphic.tscn`, not here.
+#  note that being unique does NOT imply a certain suit/value on its own! any tile can
+# be an eraser and will draw as such.
 enum UNIQUE {NOT = 0, D6, ERASER}
 var unique_type = UNIQUE.NOT
 
-func _init(s:int, v:int, col:int = COL_NONE, f = null, p = false, c = null):
+func _init(s:int, v:int, col:int = COL_NONE, f = null, p = false, c = null, u = UNIQUE.NOT):
 	suit = s
 	value = v
 	color = col
 	former = f
 	pocchi = p
 	canon_tile = c
+	unique_type = u
 
 #  called on canon tiles to rewrite their settings. this feels a little bad
 # but it's necessary bc of how godot does pointers
@@ -62,14 +65,15 @@ func assign_tile(new: MTile):
 	former = new.former
 	pocchi = new.pocchi
 	canon_tile = null
+	unique_type = new.unique_type
 
 # duplicate and save self as new tile's "canon" tile
 func duplicate_canonize() -> MTile:
-	return MTile.new(suit, value, color, former, pocchi, self)
+	return MTile.new(suit, value, color, former, pocchi, self, unique_type)
 
 # just duplicate
 func duplicate() -> MTile:
-	return MTile.new(suit, value, color, former, pocchi, canon_tile)
+	return MTile.new(suit, value, color, former, pocchi, canon_tile, unique_type)
 
 #  for comparision that doesnt care about specific flags, just value.
 # an aka 5p equals a colorless 5p with this as the comparee.
@@ -129,10 +133,9 @@ static func gen_id(s: int, v: int):
 static func tile_from_id(id: int) -> MTile:
 	return MTile.new(int(id/100), id%100)
 
-#  ordered so that better dora are always first among equals, --and
-# unique types are always last within the suit--
+#  ordered so that better dora are always first among equals
 static func gen_order(t: MTile):
-	return gen_id(t.suit,t.value) * 10 + 9 - t.color * 1 #+ (100 if t.unique_type else 0)
+	return gen_id(t.suit,t.value) * 10 + 9 - t.color * 1
 
 static func tile_compare(a:MTile, b:MTile):
 	return gen_order(a) < gen_order(b)
@@ -142,3 +145,17 @@ static func gen_name(tile: MTile):
 		return SPECIAL_NAMES[tile.value]
 	else:
 		return str(tile.value) + SUIT_NAMES[log(tile.suit)/log(2)]
+
+
+#  called if this tile is right clicked on. only need to define
+# behavior if it exists, `_` should catch things like eraser that
+# do nothing.
+#  returns whether there were any updates or not
+func try_unique()-> bool:
+	match unique_type:
+		UNIQUE.D6:
+			value = (randi()%6)+1
+			canon_tile.value = value
+			return true
+		_:
+			return false

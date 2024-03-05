@@ -16,12 +16,10 @@ class_name TileGraphic
 
 @export var tile_size = Vector2(16,32)
 
-@export var suit = 0
-@export var value = 0
-var tile = null
+var tile: MTile = null
 enum {SIDE_NONE = -1, SIDE_RIGHT, SIDE_TOP, SIDE_LEFT, SIDE_BOT}
 var visible_side = SIDE_BOT
-var _reversed = false
+var _reversed: bool = false
 var _rotated: bool = false
 
 # hover text name
@@ -37,8 +35,6 @@ func assign_tile(t: MTile):
 	if !t:
 		return
 	
-	suit = t.suit
-	value = t.value
 	tile = t
 	
 	if tile.unique_type == MTile.UNIQUE.NOT:
@@ -59,6 +55,8 @@ func assign_tile(t: MTile):
 	
 	if t.pocchi:
 		assign_custom_overlay(OVERLAY_POCCHI)
+	
+	assign_visible_side(visible_side)
 
 func get_tile_segment(t: MTile) -> Rect2:
 	var x = (t.value-1) * tile_size.x
@@ -87,7 +85,7 @@ func get_tile_segment(t: MTile) -> Rect2:
 # ignoring the reversibility code in ankan rn, so tiles always appear up. this is 
 # slightly disappointing ig but i reeally dont want to draw twice as many sprites
 # for every unique tile just so you can visually ankan them. regardless you MUST define all
-# 8 side rotations, the bottom 8 are just gonna be identical to the top 8 though.
+# 8 side rotations, the bottom 4 should be identical to those in base tilesides!
 func get_unique_sprite(t: MTile):
 	var path = "res://image/tile/custom_tile/%s.png"
 	var sidespath = "res://image/tile/custom_tile/%s_SIDES.png"
@@ -123,7 +121,25 @@ func assign_visible_side(side: int):
 		adj_tile_highlight.frame_coords.x = calc_side
 	
 	
-	sprite.visible = !_reversed and tile.unique_type == MTile.UNIQUE.NOT
+	# no precalcing ors :<
+	#sprite.visible = !_reversed and (!tile or tile.unique_type == MTile.UNIQUE.NOT)
+	if !_reversed:
+		if !tile:
+			sprite.visible = true
+		elif tile.unique_type == MTile.UNIQUE.NOT:
+			sprite.visible = true
+		else:
+			sprite.visible = false
+	else:
+		sprite.visible = false
+	
+	sprite.visible = !_reversed
+	unique_sprite.visible = !_reversed
+	# hide normal sprite if we're unique
+	if tile:
+		if tile.unique_type != MTile.UNIQUE.NOT:
+			sprite.visible = false
+	
 	tile_rear.visible = _reversed
 
 func set_reversed(rv: bool):
@@ -148,12 +164,11 @@ func _gui_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			TileGraphicKnower.highlight_matching_tiles(tile, false)
-			emit_signal("tile_graphic_clicked", tile)
+			emit_signal("tile_graphic_clicked", tile, false)
 			#TileGraphicKnower.highlight_matching_tiles(tile, true)
 		
-		# debug
-#		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-#			print(tile.get_id())
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			emit_signal("tile_graphic_clicked", tile, true)
 
 
 

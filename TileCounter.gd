@@ -17,16 +17,20 @@ func initialize(character_info: CharacterInfo, load: bool):
 	match character_info.type:
 		# normal riichi, with a single shiropocchi
 		CharacterInfo.TYPES.REGULAR:
-			for i in [MTile.SUITS.MAN, MTile.SUITS.PIN, MTile.SUITS.SOU]:
+			for i in [MTile.SUITS.PIN, MTile.SUITS.SOU, MTile.SUITS.MAN]:
 				for j in 9:
 					for k in 4:
 						var a = MTile.new(i,j+1)
 						tile_data.append(a)
 					if j+1 == 5:
 						tile_data[-4].color = MTile.COL_AKA
-#				var d6 = MTile.new(i, 1)
-#				d6.unique_type = MTile.UNIQUE.D6
-#				tile_data.append(d6)
+			
+			# temp d6 tester
+			for i in 6:
+				var d6 = MTile.new(MTile.SUITS.PIN, 1+i)
+				d6.unique_type = MTile.UNIQUE.D6
+				tile_data.append(d6)
+			
 			for i in MTile.DEF_SPECIALS:
 				for k in 4:
 					var a = MTile.new(MTile.SUITS.SPECIAL, i)
