@@ -207,12 +207,12 @@ func _use():
 			return
 		
 		TYPES.ITEM_SUJI_OFFSET:
+			if !tile_valid(mahjong_manager.tsumo):
+				return
+			
 			mahjong_manager.stall_for_external_select()
 			
 			var tsumo = mahjong_manager.tsumo
-			
-			if !MTile.NUMERALS.has(tsumo.suit):
-				return
 			
 			var tile_vals = [tsumo.value-3, tsumo.value+3]
 			var new_tiles = []
@@ -228,11 +228,13 @@ func _use():
 			popup_tile_select.set_tiles(new_tiles)
 			popup_tile_select.request_tile_select(self)
 			tile_select.update_text("Select a new value.")
+			return
 		
 		TYPES.ITEM_COLOR_SHIFT:
-			var tile = mahjong_manager.tsumo
-			if !MTile.NUMERALS.has(tile.suit):
+			if !tile_valid(mahjong_manager.tsumo):
 				return
+			
+			var tile = mahjong_manager.tsumo
 			
 			mahjong_manager.stall_for_external_select()
 			
@@ -244,6 +246,7 @@ func _use():
 			popup_tile_select.set_tiles(new_tiles)
 			popup_tile_select.request_tile_select(self)
 			tile_select.update_text("Select a new suit.")
+			return
 		
 		TYPES.ITEM_WIND_ROT:
 			mahjong_manager.request_tile_select(self, true)
@@ -398,7 +401,6 @@ func tile_selected(tile: MTile):
 			if selected_tile_memory.size() == 0:
 				selected_tile_memory.append(tile)
 				
-				
 				# inelegant. i do not care
 				var new_tiles_vals = []
 				match tile.value:
@@ -450,7 +452,7 @@ func update_graphics(mana: int, force: int = false):
 	
 	match charge_type:
 		CH_TYPES.ONCE:
-			cant_use = true
+			cant_use = false
 		CH_TYPES.MANA:
 			cant_use = COOLD[type] > mana
 			
@@ -460,7 +462,7 @@ func update_graphics(mana: int, force: int = false):
 			counter_label.text = str(maxi(0,cooldown_counter))
 	
 	
-	sprite_2d.frame_coords.y = (type / sprite_2d.hframes) * (2 + int(cant_use and !force))
+	sprite_2d.frame_coords.y = (type / sprite_2d.hframes) * (2) + int(cant_use and !force)
 	
 	if !cant_use:
 		mouse_default_cursor_shape = CURSOR_POINTING_HAND

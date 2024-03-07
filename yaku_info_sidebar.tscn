@@ -82,7 +82,7 @@ layout_mode = 2
 theme_override_colors/default_color = Color(0.933333, 0.866667, 0.8, 1)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_umf01")
 bbcode_enabled = true
-text = "[i]Three Identical Triplets"
+text = "[i]Yaku Reading"
 fit_content = true
 
 [node name="DescLabel" type="RichTextLabel" parent="VBoxContainer"]

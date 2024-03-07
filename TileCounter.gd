@@ -26,10 +26,10 @@ func initialize(character_info: CharacterInfo, load: bool):
 						tile_data[-4].color = MTile.COL_AKA
 			
 			# temp d6 tester
-			for i in 6:
-				var d6 = MTile.new(MTile.SUITS.PIN, 1+i)
-				d6.unique_type = MTile.UNIQUE.D6
-				tile_data.append(d6)
+			#for i in 6:
+			#	var d6 = MTile.new(MTile.SUITS.PIN, 1+i)
+			#	d6.unique_type = MTile.UNIQUE.D6
+			#	tile_data.append(d6)
 			
 			for i in MTile.DEF_SPECIALS:
 				for k in 4:

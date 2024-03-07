@@ -106,7 +106,9 @@ func get_unique_sprite(t: MTile):
 		MTile.UNIQUE.D6:
 			unique_sprite.region_rect.position.x = 32 * (t.value-1)
 			unique_sprite.region_rect.position.y = 32 * log(t.suit)/log(2)
-		#eraser is automatic
+		MTile.UNIQUE.DOMINO: # this implementation is really wasteful but whatever
+			unique_sprite.region_rect.position.x = 32 * (t.value-1)
+			unique_sprite.region_rect.position.x = 32 * (t.unique_args[0]-1)
 
 # -1 to hide entirely.
 func assign_visible_side(side: int):

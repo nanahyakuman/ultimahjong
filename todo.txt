@@ -183,7 +183,7 @@ justify aodora
 	rework fu to be lower value but always mult? or filter them back in after snapping to base
 dora code should account for non-extant tiles, so sanma 1m doras the 9m, or reduced size decks don't
  dora removed tiles. should update automatically so you can possibly take advantage of it
-
+cant cancel items that prompt tileselector or mahjmanager
 
 unique item issues:
 	d6 was able to be colored.
@@ -203,12 +203,6 @@ demo MVP:
 	force tab bar translations. just make it work somehow, it's gonna be gross no matter what
 	
 	tileselect translating!
-	
-	fix or remove d6
-	
-	items arent changing sprite right. fix or disable for now
-	
-	illegal suji shift softlocks(?)
 	
 	checks before release:
 		all items don't crash when used correctly

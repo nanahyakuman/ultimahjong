@@ -44,12 +44,16 @@ var canon_tile: MTile
 # behavoir most of the time, but that'll occur in `TileGraphic.tscn`, not here.
 #  note that being unique does NOT imply a certain suit/value on its own! any tile can
 # be an eraser and will draw as such.
-enum UNIQUE {NOT = 0, D6, ERASER}
+enum UNIQUE {NOT = 0, D6, ERASER, DOMINO}
 var unique_type = UNIQUE.NOT
 # tracker that makes it so you can only do special item things once a round
 var already_used = false
+# so that unique tiles can store custom arguments. keep this reference updated:
+# 	DOMINO
+#		[0] is the other value
+var unique_args = []
 
-func _init(s:int, v:int, col:int = COL_NONE, f = null, p = false, c = null, u = UNIQUE.NOT):
+func _init(s:int, v:int, col:int = COL_NONE, f = null, p = false, c = null, u = UNIQUE.NOT, ua = []):
 	suit = s
 	value = v
 	color = col
@@ -57,6 +61,7 @@ func _init(s:int, v:int, col:int = COL_NONE, f = null, p = false, c = null, u = 
 	pocchi = p
 	canon_tile = c
 	unique_type = u
+	unique_args = ua.duplicate(true)
 
 #  called on canon tiles to rewrite their settings. this feels a little bad
 # but it's necessary bc of how godot does pointers
@@ -68,14 +73,15 @@ func assign_tile(new: MTile):
 	pocchi = new.pocchi
 	canon_tile = null
 	unique_type = new.unique_type
+	unique_args = new.unique_args.duplicate(true)
 
 # duplicate and save self as new tile's "canon" tile
 func duplicate_canonize() -> MTile:
-	return MTile.new(suit, value, color, former, pocchi, self, unique_type)
+	return MTile.new(suit, value, color, former, pocchi, self, unique_type, unique_args)
 
 # just duplicate
 func duplicate() -> MTile:
-	return MTile.new(suit, value, color, former, pocchi, canon_tile, unique_type)
+	return MTile.new(suit, value, color, former, pocchi, canon_tile, unique_type, unique_args)
 
 #  for comparision that doesnt care about specific flags, just value.
 # an aka 5p equals a colorless 5p with this as the comparee.
