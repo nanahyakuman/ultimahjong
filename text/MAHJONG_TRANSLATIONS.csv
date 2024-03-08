@@ -46,7 +46,7 @@ Wtih two exceptions (Chiitoitsu and Kokushi Musou), every hand is made up of 4 g
 申し訳ございません、この部分は後で書くつもりです。"
 GUIDE_BASICS_2,,"This hand consists of a run of 123-Pin, a run of 234-Sou and of 678-Sou, a pair of 9-Man, and a set of Red Dragons, totalling, once more, to 4 groups and a pair.
 Critically, this hand meets at least one win condition, more commonly referred to as [i]Yaku[/i]. Here, the hand meets [i]Yakuhai[/i] by having a set of Red Dragons. A hand [i]is not valid[/i] if it does not meet at least one Yaku. Refer to the Yaku tab for information on specific Yaku, but Yakuhai is one of the more easily acheivable ones (which have been starred for reference). Riichi is perhaps the most critical to understand, but the explanation behind it is left in the Yaku tab.
-A round ends when the number of tiles left in the wall reaches a cutoff, 30 by default. If you have not gone out by this point, you get no points. (There is no ryuukoku tenpai payout by default.)
+A round ends when the number of tiles left in the wall reaches a cutoff. If you have not gone out by this point, you get no points. (There is no ryuukoku tenpai payout by default.)
 
 [b]UltiMahjong Fundamentals[/b]
 The whole game is played out across 8 rounds (by default). Every round, your seat wind advances in counterclockwise compass order (N>W>S>E), and every four rounds, the prevalent wind advances in clockwise compass order (E>S>W>N).
@@ -117,7 +117,7 @@ YAKU_MENZENTSUMO,,Menzentsumo,門前自摸
 YAKU_MENZENTSUMO_DESC,,Win by tsumo with a closed hand.,門前のまま自摸で上がる。
 YAKU_MENZENTSUMO_LIT,,Closed Self-Draw,メンゼンツモ
 YAKU_CHIITOITSU,,Chiitoitsu,七対子
-YAKU_CHIITOITSU_DESC,,"Hand contains seven pairs. Four of the same tile [i]does not count[/i] as two pairs, they [i]must[/i] all be unique.",七つの対子。
+YAKU_CHIITOITSU_DESC,,Hand contains seven pairs. Four of the same tile [i]does[/i] as two pairs.,七つの対子。同じ牌四枚も二つの対子になれる。
 YAKU_CHIITOITSU_LIT,,Seven Pairs,チートイツ
 YAKU_NAGASHI,,Nagashi Mangan,流し満貫
 YAKU_NAGASHI_DESC,,"A round ends with no other win, and your [i]discards[/i] consist solely of terminals and honors.",上がらなくて局を終えて、自分の捨牌は幺九牌だけだった。
@@ -138,7 +138,7 @@ YAKU_ITTSUU,,Ittsuu,一通
 YAKU_ITTSUU_DESC,,"1-9 in a single suit. [i]Specifically demands[/i] a winning hand containing the runs 123, 456, and 789, [i]not[/i] just having at least one of every tile.",ある数牌の種類の１～９。厳密に、１２３と４５６と７８９の順子が必要。
 YAKU_ITTSUU_LIT,,Full Straight,イッツ―
 YAKU_TOITOI,,Toitoi,対々和
-YAKU_TOITOI_DESC,,Hand consists of four set/quads and a pair.,頭一つ、残りの面子が刻子や槓子。
+YAKU_TOITOI_DESC,,Hand consists of only set/quads and a pair.,頭一つ、残りの面子が刻子や槓子。
 YAKU_TOITOI_LIT,,All Triplets,トイトイ
 YAKU_SANANKOU,,San'ankou,三暗刻
 YAKU_SANANKOU_DESC,,Three concealed sets/quads. The [i]sets themselves[/i] must be entirely concealed; finishing the last set with ron does [i]not[/i] qualify.,三つの暗刻や暗槓。
@@ -196,7 +196,7 @@ YAKU_SUUKANTSU,,Suukantsu,四槓子
 YAKU_SUUKANTSU_DESC,,Call four quads.,四回カンを鳴く。暗槓でも明槓でもいい。
 YAKU_SUUKANTSU_LIT,,Four Quads,スーカンツ
 YAKU_KOKUSHI,,Kokushi Musou,国士無双
-YAKU_KOKUSHI_DESC,,"One of every terminal and honor, and a second of any of them.",字牌や老頭牌から、十二枚複数のない牌と一つの対子。
+YAKU_KOKUSHI_DESC,,"13 unqiue terminals and honors, and a second of any of them.",字牌や老頭牌の中で、十二枚複数のない牌と一つの対子。
 YAKU_KOKUSHI_LIT,,Thirteen Orphans,コクシムソー
 YAKU_TSUUIISOU,,Tsuuiisou,字一色
 YAKU_TSUUIISOU_DESC,,Hand only contains honors.,字牌だけ。
@@ -265,6 +265,19 @@ ITEM_WIND_ROT,,Wind Rotator,風回し
 ITEM_WIND_ROT_DESC,,Rotate a selected Wind Tile 90 degrees.,選べた風牌を９０度回す。
 ITEM_IS_TEMPORARY,,This round only.,一局。
 ITEM_IS_PERMANENT,,Permanent.,永続的。
+,,,
+PROMPT_SELECT_TILE,these are all real redundant but i dont think they justify anything smarter than this,Select a tile to be swapped.,牌を選べ。
+PROMPT_SELECT_PIN,,Select a Pin to be swapped.,筒子を選べ。
+PROMPT_SELECT_SOU,,Select a Sou to be swapped.,索子を選べ。
+PROMPT_SELECT_MAN,,Select a Man to be swapped.,萬子を選べ。
+PROMPT_SELECT_DRAGON_CYCLE,,Select a Dragon to cycle.,元牌を選べ。
+PROMPT_SELECT_NEW_SUIT,,Select a new suit.,新しい種類を選べ。
+PROMPT_SELECT_NEW_VALUE,,Select a new value.,新しい数を選べ。
+PROMPT_SELECT_WIND_ROTATE,,Select a Wind to be rotated.,風牌を選べ。
+PROMPT_PIN_BECOME,,Select a Pin to become.,為る筒子を選べ。
+PROMPT_SOU_PREDECESS,,Select a Sou to predecess.,為る索子の上の牌を選べ。
+PROMPT_DRAGON_BECOME,,Select a Dragon to become.,為る元牌を選べ。
+PROMPT_WIND_BECOME,,Select a Wind to become.,為る風牌を選べ。
 ,,,
 UPR_DEAD_REDUCE,,Increase the amount of tiles drawn in a round by 4.,局に現れる牌を４枚増加する。
 UPR_KAN_REVEAL,,Start each round with an additional Kan Dora revealed.,局の初めに槓ドラもう一つ。

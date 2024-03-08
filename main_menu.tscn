@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cktxx4oqgso8u"]
+[gd_scene load_steps=16 format=3 uid="uid://cktxx4oqgso8u"]
 
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="1_v6jm1"]
 [ext_resource type="Script" path="res://ButtonNewGame.gd" id="2_0gcdp"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://main_menu.gd" id="2_iftnu"]
 [ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="2_tmh4p"]
 [ext_resource type="Texture2D" uid="uid://dat84r1id1005" path="res://image/logo.png" id="3_3h3sx"]
+[ext_resource type="PackedScene" uid="uid://be4kdtynecmdc" path="res://misc/tile sea/TileSea.tscn" id="3_16d2s"]
 [ext_resource type="Script" path="res://ContinueButton.gd" id="4_rawt5"]
 [ext_resource type="Script" path="res://OneofManySelectorSaver.gd" id="5_4g0di"]
 [ext_resource type="Script" path="res://LanguageButton.gd" id="6_74lkm"]
@@ -36,6 +37,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_v6jm1")
 script = ExtResource("2_iftnu")
+
+[node name="TileSea" parent="." instance=ExtResource("3_16d2s")]
+layout_mode = 1
 
 [node name="MouseCatcher" type="Control" parent="."]
 layout_mode = 1
@@ -117,8 +121,8 @@ script = ExtResource("8_avkfy")
 
 [node name="Label" type="Label" parent="TranslationWarningPanel"]
 layout_mode = 2
-text = "今の日本語訳は自分で書いたため、時々変わった言葉使いが浮かぶ。
-リリースまでにちゃんとした翻訳者をやり直させるつもりだ。"
+text = "今の日本語訳は自分で書いたため、時々変わった言葉使いが浮かびます。
+リリースまでにちゃんとした翻訳者をやり直させるつもりです。"
 horizontal_alignment = 1
 
 [node name="OptionsLoader" type="Node" parent="."]

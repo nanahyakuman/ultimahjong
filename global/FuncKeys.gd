@@ -11,8 +11,8 @@ func _process(_delta):
 			get_window().set_mode(Window.MODE_WINDOWED)
 			DisplayServer.window_set_size(Vector2i(0,0))
 	
-	if Input.is_action_just_pressed("set_size"):
-		DisplayServer.window_set_size(Vector2i(1920,1080))
+	#if Input.is_action_just_pressed("set_size"):
+	#	DisplayServer.window_set_size(Vector2i(1920,1080))
 	
 	if Input.is_action_just_pressed("screenshot"):
 		var image = get_viewport().get_texture().get_image()

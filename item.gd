@@ -156,17 +156,17 @@ func _use():
 			
 		TYPES.ITEM_KAN_SWAP:
 			mahjong_manager.request_tile_select(self, true)
-			tile_select.update_text("Select a tile to swap in.")
+			tile_select.update_text(tr("PROMPT_SELECT_TILE"))
 			return # more steps to follow so we skip over updating the counter
 			
 		TYPES.ITEM_PIN_DUPE:
 			mahjong_manager.request_tile_select(self, true)
-			tile_select.update_text("Select a Pin to be swapped.")
+			tile_select.update_text(tr("PROMPT_SELECT_PIN"))
 			return
 			
 		TYPES.ITEM_SOU_ADJ:
 			mahjong_manager.request_tile_select(self, true)
-			tile_select.update_text("Select a Sou to be swapped.")
+			tile_select.update_text(tr("PROMPT_SELECT_SOU"))
 			return
 			
 		TYPES.ITEM_AKAFY:
@@ -198,12 +198,12 @@ func _use():
 		
 		TYPES.ITEM_MAN_TERM:
 			mahjong_manager.request_tile_select(self, true)
-			tile_select.update_text("Select a Man to be swapped.")
+			tile_select.update_text(tr("PROMPT_SELECT_MAN"))
 			return
 		
 		TYPES.ITEM_DRAGON_CYCLE:
 			mahjong_manager.request_tile_select(self, true)
-			tile_select.update_text("Select a Dragon to cycle.")
+			tile_select.update_text(tr("PROMPT_SELECT_DRAGON_CYCLE"))
 			return
 		
 		TYPES.ITEM_SUJI_OFFSET:
@@ -227,7 +227,7 @@ func _use():
 			
 			popup_tile_select.set_tiles(new_tiles)
 			popup_tile_select.request_tile_select(self)
-			tile_select.update_text("Select a new value.")
+			tile_select.update_text(tr("PROMPT_SELECT_NEW_VALUE"))
 			return
 		
 		TYPES.ITEM_COLOR_SHIFT:
@@ -245,12 +245,12 @@ func _use():
 				new_tiles.append(MTile.new(s, tile.value))
 			popup_tile_select.set_tiles(new_tiles)
 			popup_tile_select.request_tile_select(self)
-			tile_select.update_text("Select a new suit.")
+			tile_select.update_text(tr("PROMPT_SELECT_NEW_SUIT"))
 			return
 		
 		TYPES.ITEM_WIND_ROT:
 			mahjong_manager.request_tile_select(self, true)
-			tile_select.update_text("Select a Wind to be rotated.")
+			tile_select.update_text(tr("PROMPT_SELECT_WIND_ROTATE"))
 			return
 	
 	#  default item behaviour assumes the usage is immediate, if not
@@ -304,7 +304,7 @@ func tile_selected(tile: MTile):
 				# override default update behavior to get two items
 				mahjong_manager.complete_tile_select()
 				mahjong_manager.request_tile_select(self, false)
-				tile_select.update_text("Select a Pin to become.")
+				tile_select.update_text(tr("PROMPT_PIN_BECOME"))
 				return
 			else:
 				var new_t = selected_tile_memory[0].duplicate()
@@ -321,7 +321,7 @@ func tile_selected(tile: MTile):
 				# override default update behavior to get two items
 				mahjong_manager.complete_tile_select()
 				mahjong_manager.request_tile_select(self, false)
-				tile_select.update_text("Select a Sou to predecess.")
+				tile_select.update_text(tr("PROMPT_SOU_PREDECESS"))
 				return
 			else:
 				var val = tile.value
@@ -366,7 +366,7 @@ func tile_selected(tile: MTile):
 						mahjong_manager.stall_for_external_select()
 						popup_tile_select.set_tiles(new_tiles)
 						popup_tile_select.request_tile_select(self)
-						tile_select.update_text("Select a Dragon to become.")
+						tile_select.update_text(tr("PROMPT_DRAGON_BECOME"))
 						return
 				var new_tile = tile.duplicate()
 				new_tile.former = tile
@@ -424,7 +424,7 @@ func tile_selected(tile: MTile):
 				mahjong_manager.stall_for_external_select()
 				popup_tile_select.set_tiles(new_tiles)
 				popup_tile_select.request_tile_select(self)
-				tile_select.update_text("Select a Wind to become.")
+				tile_select.update_text(tr("PROMPT_WIND_BECOME"))
 				return
 			else:
 				var new_t = selected_tile_memory[0].duplicate()

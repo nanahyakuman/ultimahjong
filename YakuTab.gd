@@ -7,12 +7,15 @@ extends TabContainer
 
 # create tabs for all yaku procedurally.
 func _ready():
-	generate()
-	
 	LocaleChangedSignaller.connect("locale_changed", generate)
 	
 
 func generate():
+	#  if we don't wait here we get weird translation issues with tabbar names,
+	# i suspect the xserver isn't fully initialized or sumn. either way this fixes
+	# it.
+	await get_tree().process_frame
+	
 	for c in get_children():
 		c.queue_free()
 	

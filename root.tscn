@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://vit286boe7sq"]
+[gd_scene load_steps=82 format=3 uid="uid://vit286boe7sq"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="2_j88jw"]
@@ -37,7 +37,6 @@
 [ext_resource type="Script" path="res://NumberColorizer.gd" id="27_yfh58"]
 [ext_resource type="FontFile" uid="uid://dmoumxbcf3gn" path="res://text/font/Body2.png" id="28_jde07"]
 [ext_resource type="Script" path="res://PopupTileSelector.gd" id="28_st0rv"]
-[ext_resource type="PackedScene" uid="uid://xbdfpjmfa56k" path="res://item.tscn" id="29_x2nf7"]
 [ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="32_on5h8"]
 [ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="35_14yv6"]
 [ext_resource type="Script" path="res://ColoredPurchaseables.gd" id="37_xpxeh"]
@@ -53,7 +52,6 @@
 [ext_resource type="Script" path="res://YakuTab.gd" id="45_rsntb"]
 [ext_resource type="Texture2D" uid="uid://ng8eqocmaltm" path="res://image/sidebar_tiles_9pr.png" id="47_n10gp"]
 [ext_resource type="Script" path="res://ScoreTracker.gd" id="50_7li6w"]
-[ext_resource type="Texture2D" uid="uid://xoodhoigui53" path="res://image/optionsbutton.png" id="51_57d0l"]
 [ext_resource type="FontFile" uid="uid://bian1q53chnum" path="res://text/font/BodyTilesColor.png" id="51_huq5q"]
 [ext_resource type="Script" path="res://UpgradesGridContainer.gd" id="52_bpkb5"]
 [ext_resource type="Script" path="res://text/RTLTranslator.gd" id="52_jcp4g"]
@@ -152,16 +150,6 @@ content_margin_right = 8.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qwacc"]
 content_margin_left = 8.0
 content_margin_right = 8.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_puj4v"]
-texture = ExtResource("51_57d0l")
-texture_margin_left = 18.0
-texture_margin_top = 10.0
-texture_margin_right = 18.0
-texture_margin_bottom = 10.0
-expand_margin_bottom = 1.0
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ibnqx"]
 content_margin_left = 4.0
@@ -525,11 +513,6 @@ size_flags_vertical = 4
 alignment = 2
 script = ExtResource("22_nsrp2")
 
-[node name="Item" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("29_x2nf7")]
-layout_mode = 2
-type = 11
-activate_self = true
-
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
 layout_mode = 1
 anchors_preset = 2
@@ -855,6 +838,7 @@ grow_vertical = 2
 tab_alignment = 1
 
 [node name="TAB_RUN" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN"]
@@ -1532,7 +1516,6 @@ tab_size = 2
 script = ExtResource("56_iu0f6")
 
 [node name="TAB_OPTIONS" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="OptionsLoader" type="Node" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS"]
@@ -1678,11 +1661,6 @@ script = ExtResource("59_a21bj")
 [node name="TitleButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" node_paths=PackedStringArray("options_loader", "main_loader")]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_puj4v")
-theme_override_styles/hover = SubResource("StyleBoxTexture_puj4v")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_puj4v")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_puj4v")
-theme_override_styles/focus = SubResource("StyleBoxTexture_puj4v")
 text = "BUTTON_TITLE"
 script = ExtResource("62_wl2hd")
 options_loader = NodePath("../../OptionsLoader")
@@ -1691,11 +1669,6 @@ main_loader = NodePath("../../../../../../StateSaver")
 [node name="QuitButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" node_paths=PackedStringArray("options_loader", "main_loader")]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_puj4v")
-theme_override_styles/hover = SubResource("StyleBoxTexture_puj4v")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_puj4v")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_puj4v")
-theme_override_styles/focus = SubResource("StyleBoxTexture_puj4v")
 text = "BUTTON_SAVE_QUIT"
 script = ExtResource("43_uwhsm")
 options_loader = NodePath("../../OptionsLoader")

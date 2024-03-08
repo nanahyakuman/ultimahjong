@@ -188,9 +188,6 @@ cant cancel items that prompt tileselector or mahjmanager
 unique item issues:
 	d6 was able to be colored.
 	saving! ig prob just add a [2] -type suffix to tiles
-	right click to do a unique item's thing
-		make it so you can only do them once a round optionally
-		some indicator
 	allow for unique items to set a different custom min size
 	make unique items appear to the side of the tile display, prevents jumpiness
 
@@ -198,17 +195,11 @@ add dominoes
 
 
 demo MVP:
-	BUMRUSH FINISH IS PRIORITY!!!!
-	
-	force tab bar translations. just make it work somehow, it's gonna be gross no matter what
-	
-	tileselect translating!
-	
 	checks before release:
-		all items don't crash when used correctly
-		get the inherited scene right lol
-		no override hand in use
-		turn off debug keys
+x		no items in hand
+x		get the inherited scene right lol
+x		no override hand in use
+x		turn off debug keys
 
 
 would be nice, if theres time, for viability as a deckbuilder:
