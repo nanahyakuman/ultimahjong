@@ -3,6 +3,12 @@ extends Node
 func load_cfg(config: ConfigFile):
 	var val = config.get_value("selector", name, "en")
 	for c in get_children():
+		# force update to new standard
+		if typeof(c.val) != typeof(val):
+			c.button_pressed = true
+			# have to forcibly call this here, uggy i know
+			c._pressed()
+			break
 		if c.val == val:
 			c.button_pressed = true
 			# have to forcibly call this here, uggy i know
