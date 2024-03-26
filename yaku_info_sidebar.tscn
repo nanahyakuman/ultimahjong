@@ -60,7 +60,7 @@ texture = ExtResource("4_y6rvf")
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_mlqvd")
-text = "Sample Yaku"
+text = "Yaku"
 
 [node name="ClosedLabel" type="Label" parent="VBoxContainer/Panel/HBoxContainer"]
 layout_mode = 2
@@ -89,7 +89,7 @@ fit_content = true
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_d8jss")
 bbcode_enabled = true
-text = "yaku description!!!!!!"
+text = "yaku desc yaku desc"
 fit_content = true
 
 [node name="Control3" type="Control" parent="VBoxContainer"]

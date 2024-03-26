@@ -16,7 +16,7 @@ class_name TileGraphic
 # display for unique items that can only be used once a round
 @onready var already_used_indicator = $AlreadyUsedIndicator
 
-@export var tile_size = Vector2(16,32)
+var tile_size = Vector2(16,32)
 
 var tile: MTile = null
 enum {SIDE_NONE = -1, SIDE_RIGHT, SIDE_TOP, SIDE_LEFT, SIDE_BOT}
@@ -25,13 +25,13 @@ var _reversed: bool = false
 var _rotated: bool = false
 
 # hover text name
-@export var verbose = false
+var verbose = false
 
 func _ready():
 	TileGraphicKnower.highlight.connect(self._highlight_requested)
 	TileGraphicKnower.new_dora.connect(self._new_dora)
 	TileGraphicKnower.change_texture.connect(self._assign_tileset)
-	_assign_tileset(TileGraphicKnower.tileset)
+	_assign_tileset(TileGraphicKnower.tilesets[TileGraphicKnower.tile_version])
 
 func assign_tile(t: MTile):
 	if !t:

@@ -460,6 +460,7 @@ hover_text = "HOVER_PREV_WIND"
 [node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/RoundWind"]
 texture = ExtResource("20_he7r1")
 centered = false
+hframes = 2
 vframes = 6
 
 [node name="SittingWind" type="Control" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer"]
@@ -472,6 +473,7 @@ hover_text = "HOVER_SEAT_WIND"
 [node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/SittingWind"]
 texture = ExtResource("19_1d4n6")
 centered = false
+hframes = 2
 vframes = 7
 
 [node name="ManaBar" type="PanelContainer" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer"]
@@ -838,7 +840,6 @@ grow_vertical = 2
 tab_alignment = 1
 
 [node name="TAB_RUN" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN"]
@@ -1516,6 +1517,7 @@ tab_size = 2
 script = ExtResource("56_iu0f6")
 
 [node name="TAB_OPTIONS" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="OptionsLoader" type="Node" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS"]
@@ -1640,7 +1642,6 @@ toggle_mode = true
 text = "TILESET_NAME_KANJI"
 icon = ExtResource("53_af85s")
 script = ExtResource("54_0kukl")
-val = "res://image/tile/tiles.png"
 
 [node name="ArabicButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/TilesetButtons"]
 layout_mode = 2
@@ -1648,7 +1649,7 @@ toggle_mode = true
 text = "TILESET_NAME_ARABIC"
 icon = ExtResource("56_7eblf")
 script = ExtResource("54_0kukl")
-val = "res://image/tile/tile_numerals.png"
+val = 1
 
 [node name="SkipAnimsButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" groups=["save_options"]]
 layout_mode = 2
