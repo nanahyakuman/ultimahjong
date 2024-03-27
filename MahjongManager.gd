@@ -145,7 +145,7 @@ func _draw_hand():
 	update_hand_label()
 	
 	var temp = []
-	#temp = MTileStringConverter.str_to_mtile("234567890p1234s")
+	temp = MTileStringConverter.str_to_mtile("33p123456678s45`m")
 	
 	if temp:
 		temp.sort()
@@ -439,19 +439,20 @@ func _do_if_can_tsumo():
 						break
 			involved[CALL_BITMASK.CLOSED_KAN] = four_tiles
 		
-		# kita in riichi
+		# kita not in riichi
 		if upgrades.get_can_kita_nuki():
-			if tsumo.suit == MTile.SUITS.SPECIAL and tsumo.value == MTile.SPECIALS.NORTH:
-				involved[CALL_BITMASK.KITA] = [tsumo]
-				btm |= CALL_BITMASK.KITA
+			for t in full_hand:
+				if t.suit == MTile.SUITS.SPECIAL and t.value == MTile.SPECIALS.NORTH:
+					involved[CALL_BITMASK.KITA] = [t]
+					btm |= CALL_BITMASK.KITA
+					break
 	
-	# kita not in riichi
-	if upgrades.get_can_kita_nuki():
-		for t in full_hand:
-			if t.suit == MTile.SUITS.SPECIAL and t.value == MTile.SPECIALS.NORTH:
-				involved[CALL_BITMASK.KITA] = [t]
-				btm |= CALL_BITMASK.KITA
-				break
+	# kita in riichi
+	elif upgrades.get_can_kita_nuki():
+		if tsumo.suit == MTile.SUITS.SPECIAL and tsumo.value == MTile.SPECIALS.NORTH:
+			involved[CALL_BITMASK.KITA] = [tsumo]
+			btm |= CALL_BITMASK.KITA
+	
 	
 	#  flowers. same as kan, we pass the tile itself instead of assuming
 	# there's a discard involved, bc. there isnt.

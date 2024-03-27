@@ -158,7 +158,7 @@ static func _alt_points_count(fu: int, han: int, yakuman: int):
 
 func pinfu_check():
 	for f in fus:
-		if f.fu > 0 and !["Base", "Ao Dora", "Menzenkafu", "Tsumo"].has(f.nam):
+		if f.fu > 0 and !["FU_TYPE_BASE", "FU_TYPE_AO_DORA", "FU_TYPE_MENZENKAFU", "FU_TYPE_TSUMO"].has(f.nam):
 			return false
 	return true
 

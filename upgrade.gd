@@ -23,7 +23,7 @@ const METADATA = {		# cost, pool size
 	TYPES.UPR_SEASON:			[2, 2],
 	TYPES.UPR_KIN_DRAGON:		[4, 1],
 	TYPES.UPR_RISING_WIND:		[4, 1],
-	TYPES.UPR_DECEL:			[2, 0], # muted rn bc it's kinda lame, and because the gui doesnt update right rn
+	TYPES.UPR_DECEL:			[2, 0], # muted rn bc it's kinda lame, and because the gui doesnt update right atm
 	TYPES.UPR_MORE_DRAGONS:		[1, 4],
 	TYPES.UPR_TENS:				[1, 4],
 }

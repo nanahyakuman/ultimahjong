@@ -15,6 +15,7 @@ end of every round can purchase:
 		d10 numerical
 		dominoes. can count as either digit displayed, rclick to flip
 	x	0s and 10s (only added 10s rn)
+		counter tile that is worth 1 when drawn but can be incremented once a round
 	new rules (upgrades)
 		get two ura every reveal
 		call atama?
@@ -184,6 +185,11 @@ justify aodora
 dora code should account for non-extant tiles, so sanma 1m doras the 9m, or reduced size decks don't
  dora removed tiles. should update automatically so you can possibly take advantage of it
 cant cancel items that prompt tileselector or mahjmanager
+redraw a.rock to be the bocchi hair pendant
+rework tiles to be customizable on a per-group basis, eg:
+	pin sou as god intented or with numerals
+	man normal, as numerals, or with numerals
+	winds (and flowers/indicators) as is or with numerals
 
 unique item issues:
 	d6 was able to be colored.
@@ -201,13 +207,6 @@ x		get the inherited scene right lol
 x		no override hand in use
 x		turn off debug keys
 
-
-would be nice, if theres time, for viability as a deckbuilder:
-	add pocchi but not almighty
-	 some method of marking tiles? would need another gui element but it coyld display when
-	tiles are gonna be discarded/drawn. maybe just a counter on the all tiles display
-	
-	title screen music. just do the f7 gsus thing
 
 
 

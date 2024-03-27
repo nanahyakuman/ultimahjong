@@ -18,10 +18,13 @@ var state
 ]
 @onready var colored_purchaseables = $VBoxContainer/ColoredPurchaseables
 @onready var dora_info_label = $VBoxContainer/DoraInfoLabel
+@onready var really_close_catcher = $ReallyCloseCatcher
 
 
 func start(was_victory: bool):
 	state = STATE_ACTIVE
+	
+	really_close_catcher.visible = false
 	
 	# money is added elsewhere
 	
@@ -42,7 +45,15 @@ func start(was_victory: bool):
 func adjust_money(amount: int):
 	money += amount
 	cash_label.text = "[b]%s¥ " % str(money)
-	
+
+
+#  prompt the player that they're gonna lose all their money if 
+# applicable
+func try_close():
+	if money > 0:
+		really_close_catcher.visible = true
+	else:
+		close()
 
 func close():
 	adjust_money(-money)

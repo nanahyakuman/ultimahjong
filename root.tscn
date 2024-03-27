@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://vit286boe7sq"]
+[gd_scene load_steps=85 format=3 uid="uid://vit286boe7sq"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="2_j88jw"]
@@ -43,6 +43,7 @@
 [ext_resource type="Script" path="res://FuTab.gd" id="41_je4uv"]
 [ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tile/tilecounter/tablediv.png" id="41_k312k"]
 [ext_resource type="Texture2D" uid="uid://cfmymgbxt6t6r" path="res://image/tile/tilecounter/tilecounter_dead.png" id="41_py2jx"]
+[ext_resource type="Script" path="res://ReallyCloseCatcher.gd" id="41_rbmxq"]
 [ext_resource type="Texture2D" uid="uid://8eiqqlppwabi" path="res://image/tile/tilecounter/tilecounter.png" id="43_3nd3k"]
 [ext_resource type="Texture2D" uid="uid://c6hifrbh73ile" path="res://image/tile/tilecounter/tilecounter_ends.png" id="43_ki72n"]
 [ext_resource type="Script" path="res://AllTilesDisplay.gd" id="43_nbkwc"]
@@ -126,6 +127,17 @@ axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l6in4"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cemfp"]
+content_margin_top = 1.0
+content_margin_bottom = 4.0
+texture = ExtResource("32_on5h8")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_02wl1"]
 texture = ExtResource("47_n10gp")
@@ -763,6 +775,57 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Next Round"
 script = ExtResource("21_roajs")
+
+[node name="ReallyCloseCatcher" type="Control" parent="HBoxContainer/MahjongRoot/ShopRoot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("41_rbmxq")
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/ReallyCloseCatcher"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -114.5
+offset_top = 49.0
+offset_right = 114.5
+offset_bottom = 111.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_cemfp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/ReallyCloseCatcher/PanelContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ShopRoot/ReallyCloseCatcher/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Unspent money will be lost. Really close?"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Control" type="Control" parent="HBoxContainer/MahjongRoot/ShopRoot/ReallyCloseCatcher/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/ReallyCloseCatcher/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="ReturnButton" type="Button" parent="HBoxContainer/MahjongRoot/ShopRoot/ReallyCloseCatcher/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Return to Shop"
+
+[node name="ContinueButton" type="Button" parent="HBoxContainer/MahjongRoot/ShopRoot/ReallyCloseCatcher/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Continue"
+
+[node name="Control2" type="Control" parent="HBoxContainer/MahjongRoot/ShopRoot/ReallyCloseCatcher/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
 
 [node name="GraphicTileCounter" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
@@ -1731,3 +1794,5 @@ script = ExtResource("71_8aeh6")
 
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" to="HBoxContainer/MahjongRoot/ScoringRoot/OpenShopButton" method="_on_pressed"]
 [connection signal="pressed" from="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" to="HBoxContainer/MahjongRoot/ShopRoot/NextRoundButton" method="_on_pressed"]
+[connection signal="pressed" from="HBoxContainer/MahjongRoot/ShopRoot/ReallyCloseCatcher/PanelContainer/VBoxContainer/HBoxContainer/ReturnButton" to="HBoxContainer/MahjongRoot/ShopRoot/ReallyCloseCatcher" method="_on_return_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/MahjongRoot/ShopRoot/ReallyCloseCatcher/PanelContainer/VBoxContainer/HBoxContainer/ContinueButton" to="HBoxContainer/MahjongRoot/ShopRoot/ReallyCloseCatcher" method="_on_continue_button_pressed"]
