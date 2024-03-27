@@ -1,3 +1,4 @@
+class_name OneOfManySelectorSaver
 extends Node
 
 func load_cfg(config: ConfigFile):
@@ -6,10 +7,9 @@ func load_cfg(config: ConfigFile):
 		# force update to new standard
 		if typeof(c.val) != typeof(val):
 			c.button_pressed = true
-			# have to forcibly call this here, uggy i know
 			c._pressed()
 			break
-		if c.val == val:
+		elif c.val == val:
 			c.button_pressed = true
 			# have to forcibly call this here, uggy i know
 			c._pressed()

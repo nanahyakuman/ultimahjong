@@ -8,12 +8,12 @@
 [ext_resource type="Texture2D" uid="uid://dat84r1id1005" path="res://image/logo.png" id="3_3h3sx"]
 [ext_resource type="PackedScene" uid="uid://be4kdtynecmdc" path="res://misc/tile sea/TileSea.tscn" id="3_16d2s"]
 [ext_resource type="Script" path="res://ContinueButton.gd" id="4_rawt5"]
-[ext_resource type="Script" path="res://OneofManySelectorSaver.gd" id="5_4g0di"]
 [ext_resource type="Script" path="res://LanguageButton.gd" id="6_74lkm"]
 [ext_resource type="Script" path="res://SaverLoader.gd" id="7_2o14x"]
 [ext_resource type="Script" path="res://WishlistButton.gd" id="7_p3yxy"]
 [ext_resource type="Script" path="res://TranslationWarningPanel.gd" id="8_avkfy"]
 [ext_resource type="Script" path="res://SplashLabel.gd" id="11_hgbh4"]
+[ext_resource type="Script" path="res://LanguageButtons.gd" id="12_1mxq7"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ahn04"]
 content_margin_left = 16.0
@@ -144,7 +144,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 theme_override_constants/h_separation = 9
 theme_override_constants/v_separation = 2
-script = ExtResource("5_4g0di")
+script = ExtResource("12_1mxq7")
 
 [node name="EN_Button" type="Button" parent="LanguageButtons"]
 layout_mode = 2

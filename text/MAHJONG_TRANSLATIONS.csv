@@ -1,4 +1,6 @@
-keys,notes,en,ja
+1,notes,en,ja
+TR_ENDONYM,"not used rn, in-game buttons other than en/jp will show the locale code above instead",Eglish,日本語
+,,,
 TAB_RUN,"as in ""an isaac run"", a single playthrough of a arcade/rogulike game",Run,当荘
 TAB_YAKU,,Yaku,役
 TAB_GUIDE,,Guide,説明
@@ -284,7 +286,7 @@ UPR_KAN_REVEAL,,Start each round with an additional Kan Dora revealed.,局の初
 UPR_KITA,,Gain the ability to call North Winds as Nuki Dora.,「キタ」という鳴きが出来る。
 UPR_OPPONENT_KILL,,Reduce the amount of discards made inbetween draws by 1.,山からの捨て牌を一枚減る。
 UPR_MANA_UP,,Gain an additional Mana every time you draw a tile.,自摸のマナを上がる。
-UPR_RONANKOU,,"Calling Ron does not open your hand, nor the grouping it completes.",得点の時、ロンを自摸として扱う。ロンされた牌も暗刻に入られる。
+UPR_RONANKOU,,Calling Ron still treats the discarded tile as if you had drawn it yourself.,得点の時、ロンを自摸として扱う。ロンされた牌も暗刻に入られる。
 UPR_STRONGER_RIICHI,,"Riichi costs 1000 more to enter, but is worth an additional Han.",リーチはもっと一千払い、もっと一飜を得る。
 UPR_MORE_MONEY,,Gain 1 extra money every round.,店に入る時に一円ボーナス。
 UPR_FLOWER,,Add 2 Flower tiles to the wall.,花牌二枚。
@@ -337,4 +339,4 @@ GAME_END_LOSE,,You lost!,負け…
 GAME_END_SCORE,,Score,点
 GAME_END_ROUND,,Round,局目
 ,,,
-ALSO_CHECK_OUT,"%s is a replaceable string. please try to keep the order the same (thing by artist), but let me know if you really can't and ill add an exception case",Also check out %s by %s!,
+ALSO_CHECK_OUT,%s is a replaceable string.,Also check out %s by %s!,
