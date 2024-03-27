@@ -53,7 +53,16 @@ A round ends when the number of tiles left in the wall reaches a cutoff. If you 
 [b]UltiMahjong Fundamentals[/b]
 The whole game is played out across 8 rounds (by default). Every round, your seat wind advances in counterclockwise compass order (N>W>S>E), and every four rounds, the prevalent wind advances in clockwise compass order (E>S>W>N).
 At the end of every round, you must have met a minimum score to continue the run. This minimum threshold increases every round. The amount that it will increase next round also increases.
-Finishing a round opens the shop, and grants you a static amount of money. You can buy anything you have enough money for, or sell items for money. All unspent money is [i]forfeited[/i] when you close the shop!","ウルティ麻雀のコツ：
+Finishing a round opens the shop, and grants you a static amount of money. You can buy anything you have enough money for, or sell items for money. All unspent money is [i]forfeited[/i] when you close the shop!
+
+[b]UltiMahjong Differences[/b]
+A quick list of notable differences between this game and ""standard"" (were it extant) Riichi:
+No furiten.
+No shouminkan.
+No kuikae restrictions.
+The final discarded tile can be called even when not for a win.
+Chiitoitsu can contain identical pairs. Daisangen can contain identical sets. In general, there is no penalty to identicality.
+Kazoe does not stack with other yakuman, the other(s) will [i]always[/i] disable it, but it [i]can[/i] stack with itself, e.g. 26 han is a double Kazoe Yakuman. (This has weird scoring implications and may be revisited.)","ウルティ麻雀のコツ：
 他の雀士はいない。一局に一人で上がる、一人で流局するしかできない。
 局ずつに超えなければいけない点数が増える。それに、次回増える程度も高める。
 局の間に店がある。ここでアイテム・アップグレードを買うことができ、前に買ったアイテムが売れる。（アップグレードは売れない。）金は麻雀に戻る時になくなるのでちゃんと使わないといけない。"
@@ -295,6 +304,7 @@ UPR_KIN_DRAGON,,"Add Golden Dragons, an additional dragon tile, to the wall.",�
 UPR_RISING_WIND,,"Add Rising Winds, and additional wind tile, to the wall.",登四枚。
 UPR_DECEL,,Reduce score acceleration by 200.,点数の加速を２００減る。
 UPR_MORE_DRAGONS,,"Add one White, Green, and Red dragon.",白・發・中を一つずつ山に追加。
+UPR_TENS,,"Adds one 10 to each of Man, Pin, and Sou.",１０筒、１０索と十萬を追加。
 ,,,
 HOVER_SEAT_WIND,,Your Sitting Wind. Changes every round.,自風。局ずつに変わる。
 HOVER_PREV_WIND,,The Prevalent Wind. Changes every 4 rounds.,場風。各四局に変わる。

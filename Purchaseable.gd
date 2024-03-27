@@ -73,7 +73,7 @@ func calc_cost():
 			Item.CH_TYPES.ONCE:
 				cost = 1
 			Item.CH_TYPES.MANA:
-				cost = 3
+				cost = 2
 			Item.CH_TYPES.TIMR:
 				cost = 4
 	elif type == TYPES.UPGRADE:
