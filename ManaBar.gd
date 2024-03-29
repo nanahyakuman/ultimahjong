@@ -4,7 +4,7 @@ extends CursorTextRequester
 @onready var fill2 = $Fill2
 @onready var label = $Label
 
-@export var cap = 136
+@export var cap = 136/2
 @export var mana = 0
 
 func _ready():

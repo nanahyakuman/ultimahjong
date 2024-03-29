@@ -96,10 +96,10 @@ var YAKUS = {
 var FU = {
 	"SPACER_1": "FU_HEADER_SPECIAL",
 	
-	"Base": ScoringInfo.Fu.new("FU_TYPE_BASE", 0),#20),
-	"Menzenkafu": ScoringInfo.Fu.new("FU_TYPE_MENZENKAFU", 8),#10),
+	"Base": ScoringInfo.Fu.new("FU_TYPE_BASE", 20),
+	"Menzenkafu": ScoringInfo.Fu.new("FU_TYPE_MENZENKAFU", 10),
 	"Tsumo": ScoringInfo.Fu.new("FU_TYPE_TSUMO", 2),
-	"Chiitoitsu": ScoringInfo.Fu.new("FU_TYPE_CHIITOITSU", 5),#25),
+	"Chiitoitsu": ScoringInfo.Fu.new("FU_TYPE_CHIITOITSU", 5),
 	"Ao Dora": ScoringInfo.Fu.new("FU_TYPE_AO_DORA", 16),
 	
 	"SPACER_2": "FU_HEADER_GROUPINGS",

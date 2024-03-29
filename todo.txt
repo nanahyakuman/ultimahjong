@@ -26,7 +26,8 @@ end of every round can purchase:
 	x	ron counts as tsumo (adds menzentsumo to closed hands, makes sanankou easier, etc.)
 		swap in akadora when in riichi
 		riichi ryuukyoku rewards half points off the best hand you could've gotten
-		drawing a tile gives you 2 mana instead of 1 (20% speed buff)
+	x	drawing a tile gives you 2 mana instead of 1 (20% speed buff)
+		raise mana cap 50% (twice)
 		pin-fu (pin award fu)
 		can score a 0-han hand
 	x	reduce opponent discards by one
@@ -187,10 +188,7 @@ dora code should account for non-extant tiles, so sanma 1m doras the 9m, or redu
  dora removed tiles. should update automatically so you can possibly take advantage of it
 cant cancel items that prompt tileselector or mahjmanager
 redraw a.rock to be the bocchi hair pendant
-rework tiles to be customizable on a per-group basis, eg:
-	pin sou as god intented or with numerals
-	man normal, as numerals, or with numerals
-	winds (and flowers/indicators) as is or with numerals
+
 
 unique item issues:
 	d6 was able to be colored.

@@ -312,8 +312,10 @@ HOVER_MANA,,Mana. Increases every time a tile is drawn.,マナ。牌を自摸と
 HOVER_DEAD_TILES,,Dead Tiles. Not drawn normally.,牌山の後ろ。普通に自模らない。
 HOVER_WALL,,Tiles in the wall.,牌山。
 ,,,
-TILESET_NAME_KANJI,"different tilesets, one has traditional kanji man and the other has arabic numerals",Kanji,漢数字
-TILESET_NAME_ARABIC,,Arabic,アラビア数字
+TILESET_MAN_KANJI,"different tilesets, one has traditional kanji man and the other has arabic numerals",Kanji Numerals,漢数字
+TILESET_MAN_WESTERN,,Arabic Numerals,アラビア数字
+TILESET_WINDS_KANJI,,Kanji Winds,漢字風牌
+TILESET_WINDS_WESTERN,,Arabic Winds,アラビア字風牌
 ,,,
 BUTTON_SAVE_QUIT,,Save and Quit,保存して終了
 BUTTON_TITLE_NO_SAVE,,Return to Title,タイトルに戻る

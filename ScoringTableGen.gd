@@ -12,13 +12,13 @@ func _ready():
 	tex += c % "H\\F"
 	
 	for FU in range(0, (FU_TO_SHOW) * 10, 10):
-			tex += c % FU
+			tex += c % (FU+20)
 	
 	for HAN in range(1, 14, 1):
 		tex += c % HAN
 		
 		for FU in range(0, (FU_TO_SHOW) * 10, 10):
-			tex += c % str(ScoringInfo._alt_points_count(FU, HAN, 0) * 4)
+			tex += c % str(ScoringInfo._undoubled_fu_count(FU+20, HAN, 0) * 4)
 	
 	tex += "[/table]"
 	

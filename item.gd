@@ -19,7 +19,7 @@ var shop_root
 enum TYPES {ITEM_NONE, ITEM_ERASER, ITEM_WIND_MAGNET, ITEM_BATTERY, ITEM_KAN_SWAP, ITEM_PIN_DUPE, ITEM_SOU_ADJ, ITEM_AKAFY, ITEM_POCCHI, ITEM_MAN_TERM, ITEM_DRAGON_CYCLE, ITEM_SUJI_OFFSET, ITEM_COLOR_SHIFT, ITEM_WIND_ROT}
 #  items either use mana, charge themselves, or are one-time use
 @export var type: TYPES = TYPES.ITEM_NONE
-const COOLD = [     0,          48,               15,           24,            70,            44,           52,         61,          59,            36,                31,               32,               43,            27]
+const COOLD = [     0,          48,               25,           24,            60,            44,           52,         61,          59,            36,                31,               32,               43,            27]
 #  if true for this item, then modifications made to a tile are permanent.
 # play around with this a little, dont want you to completely garbage your
 # wall but it makes decisions more interesting

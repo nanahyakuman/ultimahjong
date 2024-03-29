@@ -408,7 +408,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			elif wind_count >= 3 and wind_pairs >= 1:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Shousuushii"])
 			
-			# get fu
+			# get fu.
 			if do_fu:
 				scoring_info.fus = get_fu(groupings, doras, final_tile)
 				
@@ -430,7 +430,6 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 				if pairs.size() >= 7:
 					scoring_info.fus.clear()
 					scoring_info.fus.append(ALL_YAKU.FU["Chiitoitsu"].duplicate())
-			
 			
 			
 			if scoring_info.get_base_points() >= max.get_base_points():

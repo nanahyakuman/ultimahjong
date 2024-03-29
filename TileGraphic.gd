@@ -17,6 +17,7 @@ class_name TileGraphic
 @onready var already_used_indicator = $AlreadyUsedIndicator
 
 var tile_size = Vector2(16,32)
+var WESTERNIZE_SHEET_WIDTH = 20
 
 var tile: MTile = null
 enum {SIDE_NONE = -1, SIDE_RIGHT, SIDE_TOP, SIDE_LEFT, SIDE_BOT}
@@ -30,8 +31,12 @@ var verbose = false
 func _ready():
 	TileGraphicKnower.highlight.connect(self._highlight_requested)
 	TileGraphicKnower.new_dora.connect(self._new_dora)
-	TileGraphicKnower.change_texture.connect(self._assign_tileset)
-	_assign_tileset(TileGraphicKnower.tilesets[TileGraphicKnower.tile_version])
+	TileGraphicKnower.change_texture.connect(self.retexture_self)
+
+#  called when tilegraphicknower's westernization settings are changed,
+# to update tiles on demand
+func retexture_self():
+	assign_tile(tile)
 
 func assign_tile(t: MTile):
 	if !t:
@@ -70,15 +75,27 @@ func get_tile_segment(t: MTile) -> Rect2:
 	if tile.color == MTile.COL_AKA:
 		y += tile_size.y * 6
 	elif tile.color == MTile.COL_AO:
-		x += tile_size.x * 11
+		x += tile_size.x * 10
 	elif tile.color == MTile.COL_KIN:
 		y += tile_size.y * 6
-		x += tile_size.x * 11
+		x += tile_size.x * 10
 	
-	# this texture is only visible if you messed up somehow
-	if t.suit == MTile.SUITS.NONE or t.value == 0:
-		x = 10 * tile_size.x
-		y = 7 * tile_size.y
+	# various texture options
+	match t.suit:
+		MTile.SUITS.PIN:
+			x += tile_size.x * WESTERNIZE_SHEET_WIDTH * TileGraphicKnower.pinsou_version
+		MTile.SUITS.SOU:
+			x += tile_size.x * WESTERNIZE_SHEET_WIDTH * TileGraphicKnower.pinsou_version
+		MTile.SUITS.CHO:
+			x += tile_size.x * WESTERNIZE_SHEET_WIDTH * TileGraphicKnower.pinsou_version
+		
+		MTile.SUITS.MAN:
+			x += tile_size.x * WESTERNIZE_SHEET_WIDTH * TileGraphicKnower.man_version
+		
+		MTile.SUITS.SPECIAL:
+			x += tile_size.x * WESTERNIZE_SHEET_WIDTH * TileGraphicKnower.wind_version
+		MTile.SUITS.FLOWER:
+			x += tile_size.x * WESTERNIZE_SHEET_WIDTH * TileGraphicKnower.wind_version
 	
 	return Rect2(x,y, tile_size.x, tile_size.y)
 
@@ -260,7 +277,3 @@ func assign_custom_overlay(overlay_type: int):
 func clear_custom_overlays():
 	for c in custom_overlays.get_children():
 		c.texture = null
-
-
-func _assign_tileset(tex: Texture2D):
-	sprite.texture = tex

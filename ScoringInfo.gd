@@ -84,7 +84,7 @@ func get_riichi_return() -> int:
 	var sum = 0
 	for h in hans:
 		if h.nam == "YAKU_RIICHI" or  h.nam == "YAKU_DOUBLE_RIICHI":
-			sum += 1000
+			sum += 1000 * h.closed_han * h.count
 	return sum
 
 #const MANGAN_HANS = {
@@ -111,14 +111,13 @@ func get_riichi_return() -> int:
 #	12: 7000, # sanhanbaiman
 #}
 
-#  using alt rn. to canonize, formally remove futei and set
-# menzentsumo to 8
+
 func get_base_points():
 	var han = get_total_han()
 	var fu = get_total_fu()
 	var yakuman = get_total_yakuman()
 	
-	return ScoringInfo._alt_points_count(fu, han, yakuman)
+	return ScoringInfo._undoubled_fu_count(fu, han, yakuman)
 
 #static func _base_point_calc(fu: int, han: int):
 #	var points = int(round_to_place(fu,10) * pow(2.0, han + 2.0))
@@ -155,6 +154,49 @@ static func _alt_points_count(fu: int, han: int, yakuman: int):
 				base = yakuman * 8000
 	
 	return base
+
+# assumes futei added already. scales exponentially (too fast)
+static func _aoten_points_count(fu: int, han: int, yakuman: int):
+	return fu * pow(2, han+2)
+
+# also assumes futei. scales up linearly, so 7 han is ~7700 pts
+static func _linear_points_count(fu: int, han: int, yakuman: int):
+	return fu * han * 250/20
+
+#  also assumes futei, steps up through mults without ever discarding fu.
+# this means that 30 fu is akin to a doubler,
+const han_mults = [1, 2, 4, 8, 10, 12, 14, 16, 18, 20, 24, 28, 32]
+static func _stepped_points_count(fu: int, han: int, yakuman: int):
+	var base = fu * 250/30
+	
+	base = round_to_place(base, 25)
+	
+	var mult
+	if han <= 13:
+		mult = han_mults[han-1]
+	else:
+		mult = 32
+	
+	return base * mult
+
+
+# han are tied to mults of 1000, fu are ~400 per 10
+static func _undoubled_fu_count(fu: int, han: int, yakuman: int):
+	var base
+	if han <= 0:
+		base = -99999
+	elif han <= 13:
+		base = 250 * han_mults[han-1]
+	else:
+		base = 250 * 32
+		if yakuman > 1:
+			base = 250 * 32 * yakuman
+	
+	var fu_base = round_to_place(fu-30, 10)
+	fu_base *= 10
+	
+	return base + fu_base
+
 
 func pinfu_check():
 	for f in fus:

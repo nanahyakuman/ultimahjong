@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://vit286boe7sq"]
+[gd_scene load_steps=84 format=3 uid="uid://vit286boe7sq"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="2_j88jw"]
@@ -56,17 +56,16 @@
 [ext_resource type="FontFile" uid="uid://bian1q53chnum" path="res://text/font/BodyTilesColor.png" id="51_huq5q"]
 [ext_resource type="Script" path="res://UpgradesGridContainer.gd" id="52_bpkb5"]
 [ext_resource type="Script" path="res://text/RTLTranslator.gd" id="52_jcp4g"]
-[ext_resource type="Texture2D" uid="uid://jtl7gd0lo25b" path="res://image/tile/tiles_rep.png" id="53_af85s"]
 [ext_resource type="Script" path="res://SaverLoader.gd" id="53_pk3io"]
 [ext_resource type="Script" path="res://TilesetButton.gd" id="54_0kukl"]
 [ext_resource type="Script" path="res://LanguageButton.gd" id="54_q66h1"]
 [ext_resource type="Script" path="res://OneofManySelectorSaver.gd" id="55_36kcy"]
-[ext_resource type="Texture2D" uid="uid://2gvfr87k662v" path="res://image/tile/tiles_numerals_rep.png" id="56_7eblf"]
 [ext_resource type="Script" path="res://ScoringTableGen.gd" id="56_iu0f6"]
 [ext_resource type="Script" path="res://LanguageButtons.gd" id="58_ovgt5"]
 [ext_resource type="Script" path="res://SkipAnimsButton.gd" id="59_a21bj"]
 [ext_resource type="Script" path="res://VolumeHSlider.gd" id="62_uapdn"]
 [ext_resource type="Script" path="res://TitleButton.gd" id="62_wl2hd"]
+[ext_resource type="Script" path="res://TilesetButtonWinds.gd" id="63_uvugq"]
 [ext_resource type="Texture2D" uid="uid://he6swdbodca8" path="res://image/plain9pr_outline.png" id="67_5e4rm"]
 [ext_resource type="Script" path="res://GameEndPanel.gd" id="68_bui82"]
 [ext_resource type="FontFile" uid="uid://dvb1ofv411u8h" path="res://text/font/Title.png" id="69_xvrgp"]
@@ -676,21 +675,20 @@ script = ExtResource("27_yfh58")
 
 [node name="OpenShopButton" type="Button" parent="HBoxContainer/MahjongRoot/ScoringRoot"]
 layout_mode = 1
-anchors_preset = 3
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -61.0
-offset_top = -29.0
-offset_right = -3.0
+offset_left = -235.0
+offset_top = 13.0
+offset_right = -177.0
+offset_bottom = 42.0
 grow_horizontal = 0
-grow_vertical = 0
 text = "Next"
 script = ExtResource("21_8bhal")
 
 [node name="ShopRoot" type="Control" parent="HBoxContainer/MahjongRoot" groups=["save_state"]]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1046,7 +1044,6 @@ tab_alignment = 1
 script = ExtResource("45_rsntb")
 
 [node name="TAB_GUIDE" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE"]
@@ -1060,6 +1057,7 @@ theme_override_fonts/font = ExtResource("28_jde07")
 tab_alignment = 1
 
 [node name="TAB_GUIDE_BASICS" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_BASICS"]
@@ -1548,7 +1546,6 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
 text = "  🀁→🀁   🀉🀊🀋🀌→🀉/🀌"
 
 [node name="TAB_GUIDE_SCORE" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_SCORE"]
@@ -1582,6 +1579,7 @@ tab_size = 2
 script = ExtResource("56_iu0f6")
 
 [node name="TAB_OPTIONS" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="OptionsLoader" type="Node" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS"]
@@ -1670,25 +1668,42 @@ text = "日本語"
 script = ExtResource("54_q66h1")
 val = "ja"
 
-[node name="TilesetButtons" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" groups=["save_options"]]
+[node name="TilesetManButtons" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" groups=["save_options"]]
 layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 1
 script = ExtResource("55_36kcy")
 
-[node name="KanjiButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/TilesetButtons"]
+[node name="KanjiButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/TilesetManButtons"]
 layout_mode = 2
 toggle_mode = true
-text = "TILESET_NAME_KANJI"
-icon = ExtResource("53_af85s")
+text = "TILESET_MAN_KANJI"
 script = ExtResource("54_0kukl")
 
-[node name="ArabicButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/TilesetButtons"]
+[node name="ArabicButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/TilesetManButtons"]
 layout_mode = 2
 toggle_mode = true
-text = "TILESET_NAME_ARABIC"
-icon = ExtResource("56_7eblf")
+text = "TILESET_MAN_WESTERN"
 script = ExtResource("54_0kukl")
+val = 1
+
+[node name="TilesetWindButtons" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" groups=["save_options"]]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+script = ExtResource("55_36kcy")
+
+[node name="KanjiButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/TilesetWindButtons"]
+layout_mode = 2
+toggle_mode = true
+text = "TILESET_WINDS_KANJI"
+script = ExtResource("63_uvugq")
+
+[node name="ArabicButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/TilesetWindButtons"]
+layout_mode = 2
+toggle_mode = true
+text = "TILESET_WINDS_WESTERN"
+script = ExtResource("63_uvugq")
 val = 1
 
 [node name="SkipAnimsButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" groups=["save_options"]]
