@@ -37,6 +37,7 @@ end of every round can purchase:
 		"kan for flow"
 			calling kan guarentees that the haitei fills a wait
 		remove a strip of 2-8 (maybe 1-9) of a suit
+		make ippatsu last longer
 	spell cards, refresh every x draws (items)
 	x	next tile will be --honor-- wind
 	x	exchange one tile for a false haku

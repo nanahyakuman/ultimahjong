@@ -37,7 +37,7 @@ class Han:
 		return Han.new(TR_KEY, closed_han, open_penalty, graphic_desc, easy)
 	
 	func calc_han(open: bool):
-		return maxi(0, closed_han - (open_penalty * int(open))) * count
+		return maxi(0, (closed_han - (open_penalty * int(open))) * count) 
 
 class Fu:
 	var nam: String = ""
@@ -77,7 +77,7 @@ func get_total_fu() -> int:
 	for f in fus:
 		ret += f.fu
 		if f.nam == "Chiitoitsu":
-			return 25
+			return 25 # this prob shouldnt be hardcoded in future
 	return ret
 
 func get_riichi_return() -> int:
@@ -87,30 +87,6 @@ func get_riichi_return() -> int:
 			sum += 1000 * h.closed_han * h.count
 	return sum
 
-#const MANGAN_HANS = {
-#	6: 3000, # haneman
-#	7: 3000, #3500, # taihanman
-#
-#	8: 4000, # baimain
-#	9: 4000, #4666, # shoubaiman
-#	10: 4000, #5333, # daibaiman
-#
-#	11: 6000, # sanbaiman
-#	12: 6000, #7000, # sanhanbaiman
-#}
-#const MANGAN_SMOOTHED = {
-#	5: 2500,
-#	6: 3000, # haneman
-#	7: 3500, # taihanman
-#
-#	8: 4000, # baimain
-#	9: 4666, # shoubaiman
-#	10: 5333, # daibaiman
-#
-#	11: 6000, # sanbaiman
-#	12: 7000, # sanhanbaiman
-#}
-
 
 func get_base_points():
 	var han = get_total_han()
@@ -118,20 +94,6 @@ func get_base_points():
 	var yakuman = get_total_yakuman()
 	
 	return ScoringInfo._undoubled_fu_count(fu, han, yakuman)
-
-#static func _base_point_calc(fu: int, han: int):
-#	var points = int(round_to_place(fu,10) * pow(2.0, han + 2.0))
-#
-#	if points >= 2000:
-#		points = 2000
-#
-#		if MANGAN_HANS.has(han):
-#			points = MANGAN_HANS[han]
-#		if han >= 13:
-#			#points = 8000 #+ (han-13) * 500
-#			points = (int(han/13)) * 8000
-#
-#	return points
 
 
 static func _alt_points_count(fu: int, han: int, yakuman: int):
@@ -165,7 +127,7 @@ static func _linear_points_count(fu: int, han: int, yakuman: int):
 
 #  also assumes futei, steps up through mults without ever discarding fu.
 # this means that 30 fu is akin to a doubler,
-const han_mults = [1, 2, 4, 8, 10, 12, 14, 16, 18, 20, 24, 28, 32]
+const han_mults = [0, 1, 2, 4, 8, 10, 12, 14, 16, 18, 20, 24, 28, 32]
 static func _stepped_points_count(fu: int, han: int, yakuman: int):
 	var base = fu * 250/30
 	
@@ -173,7 +135,7 @@ static func _stepped_points_count(fu: int, han: int, yakuman: int):
 	
 	var mult
 	if han <= 13:
-		mult = han_mults[han-1]
+		mult = han_mults[han]
 	else:
 		mult = 32
 	
@@ -183,17 +145,21 @@ static func _stepped_points_count(fu: int, han: int, yakuman: int):
 # han are tied to mults of 1000, fu are ~400 per 10
 static func _undoubled_fu_count(fu: int, han: int, yakuman: int):
 	var base
+	# redundant but should catch (-) vals
 	if han <= 0:
-		base = -99999
+		base = 0
 	elif han <= 13:
-		base = 250 * han_mults[han-1]
+		base = 250 * han_mults[han]
 	else:
-		base = 250 * 32
-		if yakuman > 1:
-			base = 250 * 32 * yakuman
+		# yakuman are 32k each, then normal calculations for whatevers on top
+		base = 250*32 * int(han / 13) + (250 * han_mults[han%13])
 	
 	var fu_base = round_to_place(fu-30, 10)
 	fu_base *= 10
+	
+	# chiitoi override. prob sohulndt be harcoded in future
+	if fu == 25:
+		fu_base = 250
 	
 	return base + fu_base
 

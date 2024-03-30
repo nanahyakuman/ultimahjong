@@ -116,7 +116,7 @@ YAKU_DOUBLE_RIICHI,,Double Riichi,ダブル立直
 YAKU_DOUBLE_RIICHI_DESC,,Declare Riichi with your first discard.,最初の捨牌で立直。
 YAKU_DOUBLE_RIICHI_LIT,,Double Ready,ダブルリーチ
 YAKU_IPPATSU,,Ippatsu,一発
-YAKU_IPPATSU_DESC,,Win before or on your first draw after declaring Rīchi.,立直した後、牌を捨てる前に上がる。
+YAKU_IPPATSU_DESC,,Win before or on your first draw after declaring Riichi.,立直した後、牌を捨てる前に上がる。
 YAKU_IPPATSU_LIT,,One-Shot,イッパツ
 YAKU_HAITEI,,Haitei,海底
 YAKU_HAITEI_DESC,,Win off the last live tile in the wall.,牌山の最後の牌で上がる。
@@ -192,34 +192,34 @@ YAKU_KAZOE,,Kazoe Yakuman,数え役満
 YAKU_KAZOE_DESC,,"Never awarded itself, simply a name for any hand that reaches or exceeds thirteen han without fulfilling any defined Yakuman pattern. Any other Yakuman disables this one, so there can be no multiple Yakuman hands containing Kazoe.",ちゃんとした役満じゃない、ほかの役満なしで十三翻を超えると数え役満になる。
 YAKU_KAZOE_LIT,,Accumulated Yakuman,かぞえヤクマン
 YAKU_DAISANGEN,,Daisangen,大三元
-YAKU_DAISANGEN_DESC,,Any Three Dragon sets/quads.,元牌の刻子や槓子三つ。
+YAKU_DAISANGEN_DESC,,"Any Three Dragon sets/quads. Unlike Shousangen, disables the 3 Yakuhai.",元牌の刻子や槓子三つ。
 YAKU_DAISANGEN_LIT,,Big Three Dragons,ダイサンゲン
 YAKU_SHOUSUUSHII,,Shousuushii,少四風
-YAKU_SHOUSUUSHII_DESC,,Any three sets/quads of winds and a pair of a fourth.,風牌の刻子や槓子三つ、対子一つ。
+YAKU_SHOUSUUSHII_DESC,,Any three sets/quads of winds and a pair of a fourth. Disables earned wind yakuhai.,風牌の刻子や槓子三つ、対子一つ。
 YAKU_SHOUSUUSHII_LIT,,Little Four Winds,ショースーシー
 YAKU_DAISUUSHII,,Daisuushii,大四風
-YAKU_DAISUUSHII_DESC,,Any four sets/quads of winds.,風牌の刻子や槓子四つ。
+YAKU_DAISUUSHII_DESC,,Any four sets/quads of winds. Disables earned wind yakuhai.,風牌の刻子や槓子四つ。
 YAKU_DAISUUSHII_LIT,,Big Four Winds,ダイスーシー
 YAKU_SUUANKOU,,Suuankou,四暗刻
-YAKU_SUUANKOU_DESC,,Four concealed sets/quads. The [i]sets themselves[/i] must be entirely concealed; finishing the last set with ron does [i]not[/i] qualify.,四つの暗刻や暗槓。
+YAKU_SUUANKOU_DESC,,Four concealed sets/quads. The [i]sets themselves[/i] must be entirely concealed; finishing the last set with ron does [i]not[/i] qualify. Disables Toitoi and Sanankou.,四つの暗刻や暗槓。
 YAKU_SUUANKOU_LIT,,Four Concealed Triplets,スーアンコー
 YAKU_SUUKANTSU,,Suukantsu,四槓子
-YAKU_SUUKANTSU_DESC,,Call four quads. Open and closed both qualify.,四回カンを鳴く。暗槓でも明槓でもいい。
+YAKU_SUUKANTSU_DESC,,Call four quads. Open and closed both qualify. Disables Toitoi and Sankantsu.,四回カンを鳴く。暗槓でも明槓でもいい。
 YAKU_SUUKANTSU_LIT,,Four Quads,スーカンツ
 YAKU_KOKUSHI,,Kokushi Musou,国士無双
 YAKU_KOKUSHI_DESC,,"13 unqiue terminals and honors, and a second of any of them.",字牌や老頭牌の中で、十二枚複数のない牌と一つの対子。
 YAKU_KOKUSHI_LIT,,Thirteen Orphans,コクシムソー
 YAKU_TSUUIISOU,,Tsuuiisou,字一色
-YAKU_TSUUIISOU_DESC,,Hand only contains honors.,字牌だけ。
+YAKU_TSUUIISOU_DESC,,Hand only contains honors. Disables Toitoi and Chiitoitsu.,字牌だけ。
 YAKU_TSUUIISOU_LIT,,All Honors,ツーイーソー
 YAKU_CHINROUTOU,,Chinroutou,清老頭
-YAKU_CHINROUTOU_DESC,,Hand only contains terminals (no honors).,老頭牌だけ。
+YAKU_CHINROUTOU_DESC,,Hand only contains terminals (no honors). Disables Toitoi and Chiitoitsu.,老頭牌だけ。
 YAKU_CHINROUTOU_LIT,,All Terminals,チンロートー
 YAKU_RYUUIISOU,,Ryuuiisou,緑一色
-YAKU_RYUUIISOU_DESC,,"Hand only contains 2/3/4/6/8-Sou and Green Dragons. These are traditionally the tiles with only green ink on them, however, recolored variants of these tiles still contribute.",２３４６８索と發だけ。
+YAKU_RYUUIISOU_DESC,,"Hand only contains 2/3/4/6/8-Sou and Green Dragons. These are traditionally the tiles with only green ink on them, however, recolored variants of these tiles still contribute. Disables Hon'itsu and Chin'itsu.",２３４６８索と發だけ。
 YAKU_RYUUIISOU_LIT,,All Green,リューイーソー
 YAKU_CHUUREN,,Chuuren Poutou,九蓮宝燈
-YAKU_CHUUREN_DESC,,"1112345678999 of any suit, plus one more tile from the suit. Also includes the same pattern at other offsets.",ある数牌の種類の１１１２３４５６７８９９９とその種類から何でももう一つ。
+YAKU_CHUUREN_DESC,,"1112345678999 of any suit, plus one more tile from the suit. Also includes the same pattern at other offsets. Disables Chin'itsu.",ある数牌の種類の１１１２３４５６７８９９９とその種類から何でももう一つ。
 YAKU_CHUUREN_LIT,,Nine Gates,チューレンポートー
 YAKU_KIHOU,,Kihou,機和
 YAKU_KIHOU_DESC,,Complete a hand without ever discarding.,牌を捨てなくて上がる。
@@ -301,7 +301,7 @@ UPR_MORE_MONEY,,Gain 1 extra money every round.,店に入る時に一円ボー�
 UPR_FLOWER,,Add 2 Flower tiles to the wall.,花牌二枚。
 UPR_SEASON,,Add 2 Season tiles to the wall.,花牌二枚。
 UPR_KIN_DRAGON,,"Add Golden Dragons, an additional dragon tile, to the wall.",金四枚。
-UPR_RISING_WIND,,"Add Rising Winds, and additional wind tile, to the wall.",登四枚。
+UPR_RISING_WIND,,"Add Rising Winds, an additional Yakuhai wind tile, to the wall.",登四枚。
 UPR_DECEL,,Reduce score acceleration by 200.,点数の加速を２００減る。
 UPR_MORE_DRAGONS,,"Add one White, Green, and Red dragon.",白・發・中を一つずつ山に追加。
 UPR_TENS,,"Adds one 10 to each of Man, Pin, and Sou.",１０筒、１０索と十萬を追加。

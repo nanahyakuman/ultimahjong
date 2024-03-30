@@ -144,12 +144,16 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			## OTHER 1-HAN YAKU (put here for nicer ordering)
 			
 			# yakuhaki
+			# count wind yakuhai so we can remove them on shou/daisuu
+			var wind_yakuhai = 0
 			for g in groupings:
 				var ykvals = get_yakuhai_vals()
 				if g.type == Grouping.SET:
 					if g.tiles[0].suit == MTile.SUITS.SPECIAL:
 						for i in ykvals.count(g.tiles[0].value):
 							YakuChecker.append_or_merge_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Yakuhai"])
+							if MTile.WINDS.has(g.tiles[0].value):
+								wind_yakuhai += 1
 			
 			# tanyao
 			#if !is_open:
@@ -203,10 +207,16 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 					
 					if hidden_sets.size() >= 4:
 						scoring_info.hans.append(ALL_YAKU.YAKUS["Suuankou"])
+						# disable toitoi, but only for appropriately sized hands
+						if groupings.size() == 5: # 4 sets and 1 pair
+							YakuChecker.reduce_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Toitoi"])
 					elif hidden_sets.size() == 3:
 						scoring_info.hans.append(ALL_YAKU.YAKUS["San'ankou"])
 					if kans.size() >= 4:
 						scoring_info.hans.append(ALL_YAKU.YAKUS["Suukantsu"])
+						# disable toitoi, but only for appropriately sized hands
+						if groupings.size() == 5: # 4 sets and 1 pair
+							YakuChecker.reduce_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Toitoi"])
 					elif kans.size() == 3:
 						scoring_info.hans.append(ALL_YAKU.YAKUS["Sankantsu"])
 					
@@ -316,6 +326,9 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 								continue
 						
 						scoring_info.hans.append(ALL_YAKU.YAKUS["Chuuren Poutou"])
+						YakuChecker.reduce_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Chin'itsu"])
+						
+						
 						break # you can only have one chuurren
 			
 			# putting ryuuii here as well
@@ -339,6 +352,8 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 					break
 			if ryuuii:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Ryuuiisou"])
+				YakuChecker.reduce_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Hon'itsu"])
+				YakuChecker.reduce_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Chin'itsu"])
 			
 			
 			## HONOR/TERMINAL-BASED YAKU
@@ -385,9 +400,20 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			# all terminals
 			if terminal_pairs.size() + terminal_sets.size() == groupings_count_excluding_flowers:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Chinroutou"])
+				# chinrou will always present one or the other
+				YakuChecker.reduce_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Toitoi"])
+				YakuChecker.reduce_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Chiitoitsu"])
+				#junchan already handled by branches
 			# all honors:
 			elif honor_pairs.size() + honor_sets.size() == groupings_count_excluding_flowers:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Tsuuiisou"])
+				# just disable all of the yakuhai
+				YakuChecker.reduce_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Yakuhai"], 99)
+				#  _technicvally_ if you have the jihai runs upgrade this isn't "neceesarily implied"
+				# but i think it makes more sense to clear it still
+				YakuChecker.reduce_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Toitoi"])
+				YakuChecker.reduce_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Chiitoitsu"])
+				
 			# all terminals/honors
 			elif terminal_pairs.size() + terminal_sets.size() + honor_sets.size() + honor_pairs.size() == groupings_count_excluding_flowers:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Honroutou"])
@@ -399,14 +425,20 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 			# sangen
 			if sangen_count >= 3:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Daisangen"])
+				YakuChecker.reduce_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Yakuhai"], 3)
 			elif sangen_count >= 2 and gen_pairs >= 1:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Shousangen"])
 			
 			# suushi
 			if wind_count >= 4:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Daisuushii"])
+				YakuChecker.reduce_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Yakuhai"], wind_count)
+				# disable toitoi, but only for appropriately sized hands
+				if groupings.size() == 5: # 4 sets and 1 pair
+					YakuChecker.reduce_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Toitoi"])
 			elif wind_count >= 3 and wind_pairs >= 1:
 				scoring_info.hans.append(ALL_YAKU.YAKUS["Shousuushii"])
+				YakuChecker.reduce_yaku(scoring_info.hans, ALL_YAKU.YAKUS["Yakuhai"], wind_count)
 			
 			# get fu.
 			if do_fu:
@@ -479,6 +511,15 @@ static func append_or_merge_yaku(array: Array, yaku: ScoringInfo.Han):
 			return
 	# implicit else
 	array.append(yaku.duplicate())
+
+#  occasionally used to disable yaku that are implied (chinrou toitoi, daisangen yakuhai, nado).
+# these counts are maxxed with 0, so if they run negative it shouldn't cause issues
+static func reduce_yaku(array: Array, yaku: ScoringInfo.Han, amount: int = 1):
+	var nam = yaku.nam
+	for h in array:
+		if h.nam == nam:
+			h.count -= amount
+			return
 
 # `made_groupings` should only ever contain closed groups (i.e. kans)
 func hand_meets_basic_reqs(hand: Array, made_groupings: Array) -> bool:
@@ -777,4 +818,4 @@ func get_fu(groupings: Array, doras: Array, waited_tile: MTile):
 
 func get_yakuhai_vals() -> Array:
 	# offset to convert mhjman winds to mtile winds
-	return [mahjong_manager.seat_wind+1, mahjong_manager.prevalent_wind+1] + MTile.DRAGONS
+	return [mahjong_manager.seat_wind+1, mahjong_manager.prevalent_wind+1] + MTile.DRAGONS + [MTile.SPECIALS.UP]

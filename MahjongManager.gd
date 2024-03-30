@@ -44,6 +44,7 @@ var remaining_opp_discards
 
 # trackers for yaku it makes sense for `MahjongManager` to handle
 var in_riichi = false
+var tile_entered_riichi_with = -1
 var ippatsu_counter = 0
 # for rinshan
 var was_last_draw_from_dead_wall = false
@@ -78,6 +79,7 @@ func start_round():
 	calls_manager.enable_calls(0, {})
 	
 	in_riichi = false
+	tile_entered_riichi_with = -1
 	
 	met_yaku = ScoringInfo.new()
 	
@@ -145,7 +147,7 @@ func _draw_hand():
 	update_hand_label()
 	
 	var temp = []
-	#temp = MTileStringConverter.str_to_mtile("3`45567p23456s11m")
+	temp = MTileStringConverter.str_to_mtile("123456789p1m登登登")
 	
 	if temp:
 		temp.sort()
@@ -206,6 +208,9 @@ func do_tsumo(override: MTile = null):
 		tsumo = _get_next_from_wall(upgrades.mana_gained_on_player_draw)
 	if !tsumo:
 		return
+	
+#	tsumo.suit = MTile.SUITS.MAN
+#	tsumo.value = 5
 	
 	gui_manager.update_tsumo([tsumo])
 	tile_sfx_player.play()
@@ -646,7 +651,7 @@ func _draw_and_discard(discardee: MTile):
 		t.already_used = false
 	
 	update_hand_label()
-	gui_manager.update_discard(discard)
+	gui_manager.update_discard(discard, tile_entered_riichi_with)
 	gui_manager.update_tsumo([])
 	
 	tile_sfx_player.play()
@@ -728,6 +733,7 @@ func _try_enter_riichi():
 # entered from calls
 func _do_riichi():
 	in_riichi = true
+	tile_entered_riichi_with = discard.size()-1
 	ippatsu_counter = upgrades.get_discard_count() + 1
 	for i in upgrades.riichi_multiplier:
 		if discard.size() == 1:
@@ -736,6 +742,9 @@ func _do_riichi():
 			YakuChecker.append_or_merge_yaku(met_yaku.hans, ALL_YAKU.YAKUS["Riichi"])
 	MusicManager.start_tenpai()
 	score_tracker.update_score(-1000 * upgrades.riichi_multiplier)
+	
+	# recall this to rotate the tile retroactively
+	gui_manager.update_discard(discard, tile_entered_riichi_with)
 	_start_rotation()
 
 

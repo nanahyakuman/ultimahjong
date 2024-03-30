@@ -32,12 +32,15 @@ func _ready():
 
 func update_hand(tiles: Array):
 	_update_node(hand, tiles, mahjong_manager, TileGraphic.SIDE_TOP)
-	
-func update_discard(tiles: Array):
+
+# hack into rotating code to rotate riichi discard
+func update_discard(tiles: Array, riichi_offset: int = -1):
 	for d in discards.size():
-		_update_node(discards[d], tiles.slice(d*SIZE, d*SIZE+SIZE))
+		var include_riichi_this_row = d*SIZE <= riichi_offset and d*SIZE+SIZE > riichi_offset
+		_update_node(discards[d], tiles.slice(d*SIZE, d*SIZE+SIZE), null, 3, -1, false, riichi_offset-d*SIZE if include_riichi_this_row else -1)
 
 func update_opp_discard(tiles: Array):
+	# slice discard arrays
 	for d in opp_dcs.size():
 		var ret = _update_node(opp_dcs[d], tiles.slice(d*SIZE, d*SIZE+SIZE))
 		if ret:

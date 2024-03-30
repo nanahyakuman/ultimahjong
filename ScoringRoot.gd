@@ -7,6 +7,7 @@ extends Control
 @onready var calc = $Window/VBoxContainer/Calc
 @onready var total = $Window/VBoxContainer/Total
 @onready var score_label = $"../GUIManager/TableTop/HBoxContainer/HBoxContainer/ScoreLabel"
+@onready var open_shop_button = $OpenShopButton
 
 
 @export var animate = true
@@ -20,6 +21,9 @@ func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points:int, mu
 	fu_points.clear()
 	calc.clear()
 	total.clear()
+	
+	# cant skip anim
+	open_shop_button.visible = false
 	
 	fu_points.append_text("[right][color=%s]" % COL.LBLUE)
 	for f in scoring_info.fus:
@@ -56,3 +60,5 @@ func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points:int, mu
 	
 	if points > 0:
 		MusicManager.start_win()
+	
+	open_shop_button.visible = true
