@@ -151,20 +151,15 @@ when you discard a pocchi, can choose to exchange the 4th tile in the wall with
 	another not-yet-discarded pocchi, even if it turns out to be in the dead wall.
 	 forcing it to be on discard means you can't cycle them ifinitely
 shiro pocchi instant win if riichitsumo
-flower call redraw did NOT propmt tsumo properly. might have been other now-solved
-	issue but should verify
 mouse entering a item from the sell prompt cursorhovertexts "add item to wall????" wth???
 	only occurs when setting the cursor style. deadass what??
 dont sell deadwall reducs if the size is already minmum
 	calc how many to pool from the charinfo
 cursor scaling
-close shop lose money warning
 proper wall gfx haitei drawing
 pocchi almighty and pocci selection code
 translate hovertext
-pay riichi bet back!
 remove 3-sided waits
-translate select a tile text
 acknowledge lack of furiten in guide somewhere
 kan kake
 sidebar hover over tiles should give explanations of all the modifiers it has.
@@ -172,15 +167,9 @@ sidebar hover over tiles should give explanations of all the modifiers it has.
 charselect show score accel, round max, etc. should be dynamic
 update score accel the frame you buy the upgrade
 probably rework flowers so they DO have to match your seat to score
-kazoe double yakuman
 consider easier to work with item code. i hate to have a billion tiny scripts on
  some level, but it's prob worth it long term to have easier and cleaner hooks in
  and out than what's going on rn
-if we're gonna rework scoring maybe completely overhaul fu and allow them to double.
-	itd make ao dora better
-language switching is a little weird, i think the exported strings are translating by
-	default, so you have to regen a cursortextrequestor for it to update to the correct
-	language. annoying but minor
 ui sounds
 couldnt cancel color shift item
 justify aodora
@@ -189,7 +178,7 @@ dora code should account for non-extant tiles, so sanma 1m doras the 9m, or redu
  dora removed tiles. should update automatically so you can possibly take advantage of it
 cant cancel items that prompt tileselector or mahjmanager
 redraw a.rock to be the bocchi hair pendant
-
+assigning a cycled kin to hatsu crashed
 
 unique item issues:
 	d6 was able to be colored.

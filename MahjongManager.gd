@@ -147,7 +147,7 @@ func _draw_hand():
 	update_hand_label()
 	
 	var temp = []
-	temp = MTileStringConverter.str_to_mtile("123456789p1m登登登")
+	#temp = MTileStringConverter.str_to_mtile("123456789p1m登登登")
 	
 	if temp:
 		temp.sort()
@@ -209,8 +209,8 @@ func do_tsumo(override: MTile = null):
 	if !tsumo:
 		return
 	
-#	tsumo.suit = MTile.SUITS.MAN
-#	tsumo.value = 5
+	#tsumo.suit = MTile.SUITS.MAN
+	#tsumo.value = 5
 	
 	gui_manager.update_tsumo([tsumo])
 	tile_sfx_player.play()
@@ -594,6 +594,12 @@ func tile_graphic_clicked(tile: MTile, right: bool):
 				_draw_and_discard(tsumo)
 			else:
 				_draw_and_discard(tile)
+		#  allow clicking through calls. this hacks into exisiting code
+		# to prevent illegal stuff. rn this means you can click through pons
+		# and chiis, not just ankans/flowers/etc, but whatever
+		elif _state == STATE_CALLS:
+			call_graphic_clicked(CALL_BITMASK.NONE, [])
+			tile_graphic_clicked(tile, right)
 		elif _state == STATE_SELECT_TILE:
 			if !tile_select_requestor_node.tile_valid(tile):
 				return
