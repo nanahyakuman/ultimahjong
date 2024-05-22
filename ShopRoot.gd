@@ -19,6 +19,8 @@ var state
 @onready var colored_purchaseables = $VBoxContainer/ColoredPurchaseables
 @onready var dora_info_label = $VBoxContainer/DoraInfoLabel
 @onready var really_close_catcher = $ReallyCloseCatcher
+@onready var color_rect = $ColorRect
+@onready var everything_container = $VBoxContainer
 
 
 func start(was_victory: bool):
@@ -26,8 +28,16 @@ func start(was_victory: bool):
 	
 	really_close_catcher.visible = false
 	
-	# money is added elsewhere
 	
+	everything_container.visible = false
+	var increment = 16
+	color_rect.size.y = increment
+	for i in range(0, size.y, increment):
+		color_rect.size.y = i
+		await AnimTimer.start_mod(.05)
+	color_rect.size.y = size.y
+	
+	# money is added elsewhere
 	MusicManager.start_shop()
 	
 	for s in to_be_started:
@@ -41,6 +51,10 @@ func start(was_victory: bool):
 		colored_purchaseables.visible = false
 		#dora_info_label.text = "[center]" + tr("SHOP_DORA_DESC_L")
 		dora_info_label.visible = false
+	
+	# prevent glitching in
+	await get_tree().process_frame
+	everything_container.visible = true
 
 func adjust_money(amount: int):
 	money += amount

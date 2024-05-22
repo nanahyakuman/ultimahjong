@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://vit286boe7sq"]
+[gd_scene load_steps=85 format=3 uid="uid://vit286boe7sq"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="2_j88jw"]
@@ -39,6 +39,7 @@
 [ext_resource type="Script" path="res://PopupTileSelector.gd" id="28_st0rv"]
 [ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="32_on5h8"]
 [ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="35_14yv6"]
+[ext_resource type="Texture2D" uid="uid://d1cartjey82ob" path="res://image/shopbg.png" id="37_61gos"]
 [ext_resource type="Script" path="res://ColoredPurchaseables.gd" id="37_xpxeh"]
 [ext_resource type="Script" path="res://FuTab.gd" id="41_je4uv"]
 [ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tile/tilecounter/tablediv.png" id="41_k312k"]
@@ -675,7 +676,6 @@ script = ExtResource("21_8bhal")
 
 [node name="ShopRoot" type="Control" parent="HBoxContainer/MahjongRoot" groups=["save_state"]]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -686,14 +686,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("19_bnl3p")
 
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer/MahjongRoot/ShopRoot"]
+[node name="ColorRect" type="TextureRect" parent="HBoxContainer/MahjongRoot/ShopRoot"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.266667, 0.2, 0.2, 1)
+texture = ExtResource("37_61gos")
+stretch_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot"]
 layout_mode = 1
@@ -1087,7 +1088,6 @@ tab_size = 2
 script = ExtResource("52_jcp4g")
 
 [node name="TAB_GUIDE_TILES" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="OldRichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES"]
@@ -1409,6 +1409,25 @@ theme_override_fonts/font = ExtResource("51_huq5q")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
 text = "  🀓"
 
+[node name="LabelWithTiles15" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TypeName" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles15"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tmfx4")
+bbcode_enabled = true
+text = "GUIDE_TILES_MURASAKI_DORA"
+fit_content = true
+script = ExtResource("52_jcp4g")
+
+[node name="TileLabel" type="Label" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer/LabelWithTiles15"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("51_huq5q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
+text = "  🀈"
+
 [node name="LabelWithTiles10" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 2
@@ -1533,6 +1552,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_yq7ui")
 text = "  🀁→🀁   🀉🀊🀋🀌→🀉/🀌"
 
 [node name="TAB_GUIDE_SCORE" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_SCORE"]

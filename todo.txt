@@ -147,6 +147,7 @@ languages
 		thai
 
 
+add secret yaku eventually
 when you discard a pocchi, can choose to exchange the 4th tile in the wall with
 	another not-yet-discarded pocchi, even if it turns out to be in the dead wall.
 	 forcing it to be on discard means you can't cycle them ifinitely
@@ -182,6 +183,8 @@ assigning a cycled kin to hatsu crashed
 check doukou tens
 expand wait descriprions, "1-sided" is misleading
 some new dora distribution method? or at least clean up this one
+explain new dora
+reimplement fu upgrades
 
 unique item issues:
 	d6 was able to be colored.

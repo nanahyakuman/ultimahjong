@@ -26,7 +26,7 @@ func randomize_tile(c: TileGraphic):
 		real_suit = [1,2,4,16,32][suit]
 	var val = (randi()%(9 if real_suit != 32 else 8))+1
 	var col = 0
-	if randi()%4 == 0 and (real_suit != 32 and (real_suit != 16 and val != 9)):
-		col = randi()%4
+	if randi()%3 == 0 and (real_suit != 32 and (real_suit != 16 and val != 9)):
+		col = randi()%6
 	var tile = MTile.new(real_suit, val, col)
 	c.assign_tile(tile)

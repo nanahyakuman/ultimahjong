@@ -76,6 +76,9 @@ var YAKUS = {
 	
 	"Kihou": ScoringInfo.Han.new("YAKU_KIHOU", 13, 0),
 	
+	#"TAB_YAKU_SECRET": "TAB_YAKU_SECRET",
+	#"TEXT_Y": [tr("YAKU_SECRET_INTRO")],
+	
 	#  read as a give up flag, so no yaku tab is created. maybe
 	# move to special??
 	"DORA": "Dora",
