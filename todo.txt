@@ -179,6 +179,7 @@ dora code should account for non-extant tiles, so sanma 1m doras the 9m, or redu
 cant cancel items that prompt tileselector or mahjmanager
 redraw a.rock to be the bocchi hair pendant
 assigning a cycled kin to hatsu crashed
+check doukou tens
 
 unique item issues:
 	d6 was able to be colored.
