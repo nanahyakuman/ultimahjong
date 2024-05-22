@@ -17,7 +17,7 @@ end of every round can purchase:
 	x	0s and 10s (only added 10s rn)
 		counter tile that is worth 1 when drawn but can be incremented once a round
 	new rules (upgrades)
-		get two ura every reveal
+		get two ura every reveal?
 		call atama?
 		create runs with winds/dragons
 	x	call kita
@@ -180,6 +180,8 @@ cant cancel items that prompt tileselector or mahjmanager
 redraw a.rock to be the bocchi hair pendant
 assigning a cycled kin to hatsu crashed
 check doukou tens
+expand wait descriprions, "1-sided" is misleading
+some new dora distribution method? or at least clean up this one
 
 unique item issues:
 	d6 was able to be colored.

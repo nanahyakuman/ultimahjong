@@ -147,7 +147,7 @@ func _draw_hand():
 	update_hand_label()
 	
 	var temp = []
-	#temp = MTileStringConverter.str_to_mtile("123456789p1m登登登")
+	temp = MTileStringConverter.str_to_mtile("123456789p1234-s")
 	
 	if temp:
 		temp.sort()

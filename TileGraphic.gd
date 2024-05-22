@@ -72,13 +72,20 @@ func assign_tile(t: MTile):
 func get_tile_segment(t: MTile) -> Rect2:
 	var x = (t.value-1) * tile_size.x
 	var y = roundi(log(t.suit)/log(2)) * tile_size.y
-	if tile.color == MTile.COL_AKA:
-		y += tile_size.y * 6
-	elif tile.color == MTile.COL_AO:
-		x += tile_size.x * 10
-	elif tile.color == MTile.COL_KIN:
-		y += tile_size.y * 6
-		x += tile_size.x * 10
+	
+	match tile.color:
+		MTile.COL_AO:
+			x += tile_size.x * 10
+		MTile.COL_AKA:
+			y += tile_size.y * 6
+		MTile.COL_KIN:
+			y += tile_size.y * 6
+			x += tile_size.x * 10
+		MTile.COL_MURASAKI:
+			y += tile_size.y * 11
+		MTile.COL_MIDORI:
+			y += tile_size.y * 11
+			x += tile_size.x * 10
 	
 	# various texture options
 	match t.suit:

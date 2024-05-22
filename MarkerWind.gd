@@ -6,6 +6,7 @@ extends CursorTextRequester
 func _ready():
 	TileGraphicKnower.change_texture.connect(change_westernized)
 	change_westernized()
+	super()
 
 # a little e-ink anim to highlight wind changes
 func set_wind(wind: int):

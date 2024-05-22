@@ -22,7 +22,7 @@ const SPECIAL_NAMES = ["NONE", "East", "South", "West", "North", "Rising", "Whit
 var suit: int
 var value: int
 
-enum {COL_NONE, COL_AO, COL_AKA, COL_KIN}
+enum {COL_NONE, COL_AKA, COL_AO, COL_KIN, COL_MURASAKI, COL_MIDORI}
 var color: int
 
 #  whether the tile has a pocchi

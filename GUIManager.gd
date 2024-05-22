@@ -19,8 +19,6 @@ const SIZE = 22
 @onready var made_calls = $MadeCalls
 @onready var score_label = $TableTop/HBoxContainer/HBoxContainer/ScoreLabel
 @onready var needed_score_label = $TableTop/HBoxContainer/HBoxContainer/NeededScoreLabel
-@onready var score_mod_label = $TableTop/HBoxContainer/HBoxContainer/VBoxContainer/ScoreModLabel
-@onready var score_mod_label_2 = $TableTop/HBoxContainer/HBoxContainer/VBoxContainer/ScoreModLabel2
 @onready var popup_tile_selector = $PopupTileSelector/HBoxContainer
 @onready var popup_tile_selector_call_root = $PopupTileSelector
 
@@ -124,8 +122,6 @@ func update_wall_count(c: int, d: int, k: int, km: int):
 	graphic_tile_counter.update_wall_count(c, d, k, km)
 
 
-func update_score(score: int, expected_score: int, expected_points_mod: int, expected_points_mod_mod: int):
-	score_label.set_text_colorized(str(score))
-	needed_score_label.set_text_colorized(str(expected_score))
-	score_mod_label.text = "+%04d" % expected_points_mod
-	score_mod_label_2.text = "+" + str(expected_points_mod_mod)
+func update_score(score, expected_score):
+	score_label.set_text_colorized(score)
+	needed_score_label.set_text_colorized(expected_score)

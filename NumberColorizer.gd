@@ -8,7 +8,7 @@ var OFFSET = 1
 
 #  this does not work for value 500????
 # commented out for now because not critical
-func set_text_colorized(tex: String):
+#func set_text_colorized(tex: String):
 #	var length = tex.length()
 #	var tex_out = ""
 #
@@ -18,8 +18,14 @@ func set_text_colorized(tex: String):
 #			tex_out = tex.substr(0,length-digit) + ("[color=%s]" % cols[i]) + tex.substr(length-digit,1) + "[/color]" + tex.substr(length-digit+1)
 #		tex = tex_out
 #
-	var tex_out = str(tex)
-	while tex_out.length() < 4:
-		tex_out = "0" + tex_out
+#	var tex_out = str(tex)
+#	while tex_out.length() < 4:
+#		tex_out = "0" + tex_out
+#	clear()
+#	append_text(("[center]" if center else "") + "[b]" + tex_out)
+
+
+func set_text_colorized(number):
+	var tex_out = String.num_scientific(number)
 	clear()
 	append_text(("[center]" if center else "") + "[b]" + tex_out)

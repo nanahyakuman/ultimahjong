@@ -51,6 +51,10 @@ static func mtile_to_str(tiles: Array, type = CHARACTER) -> String:
 					ret += "`"
 				MTile.COL_KIN:
 					ret +="\""
+				MTile.COL_MURASAKI:
+					ret += "-"
+				MTile.COL_MIDORI:
+					ret +="="
 			
 			if t.pocchi:
 				ret +="*"
@@ -79,6 +83,12 @@ static func str_to_mtile(str: String) -> Array:
 			continue
 		if c == "\"":
 			get_last_assigned(vals,ret).color = MTile.COL_KIN
+			continue
+		if c == "-":
+			get_last_assigned(vals,ret).color = MTile.COL_MURASAKI
+			continue
+		if c == "=":
+			get_last_assigned(vals,ret).color = MTile.COL_MIDORI
 			continue
 		
 		if c == "*":

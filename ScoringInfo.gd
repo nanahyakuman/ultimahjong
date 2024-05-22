@@ -93,7 +93,7 @@ func get_base_points():
 	var fu = get_total_fu()
 	var yakuman = get_total_yakuman()
 	
-	return ScoringInfo._undoubled_fu_count(fu, han, yakuman)
+	return ScoringInfo._aoten_points_count(fu, han, yakuman)
 
 
 static func _alt_points_count(fu: int, han: int, yakuman: int):
@@ -117,9 +117,9 @@ static func _alt_points_count(fu: int, han: int, yakuman: int):
 	
 	return base
 
-# assumes futei added already. scales exponentially (too fast)
+# assumes futei added already. scales exponentially (too fast?)
 static func _aoten_points_count(fu: int, han: int, yakuman: int):
-	return fu * pow(2, han+2)
+	return float(fu) * pow(2, han+2)
 
 # also assumes futei. scales up linearly, so 7 han is ~7700 pts
 static func _linear_points_count(fu: int, han: int, yakuman: int):

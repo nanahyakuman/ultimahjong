@@ -14,7 +14,7 @@ extends Control
 
 # fu, han, and points can theoretically be derived here but
 # why do it twice
-func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points:int, mult: int):
+func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points, mult):
 	han_names.clear()
 	han_points.clear()
 	fu_names.clear()
@@ -53,9 +53,9 @@ func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points:int, mu
 	
 	await AnimTimer.start_get(.3, true)
 	
-	#calc.text = "[center][b][color=%s]%d[/color]×2[/b](2+[color=%s]%d[/color])[b]×%d=" % [COL.LBLUE, fu, COL.YELLOW, han, mult]
-	calc.visible = false
-	total.set_text_colorized(str(points))
+	calc.text = "[center][b][color=%s]%d[/color]×2[/b](2+[color=%s]%d[/color])[b]×%d=" % [COL.LBLUE, fu, COL.YELLOW, han, mult]
+	#calc.visible = false
+	total.set_text_colorized(points)
 	
 	
 	if points > 0:

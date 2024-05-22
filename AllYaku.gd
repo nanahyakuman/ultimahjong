@@ -87,6 +87,8 @@ var YAKUS = {
 	"Ura Dora": ScoringInfo.Han.new("YAKU_URA_DORA", 1, 0, ""),
 	"Aka Dora": ScoringInfo.Han.new("YAKU_AKA_DORA", 1, 0, "", true),
 	"Kin Dora": ScoringInfo.Han.new("YAKU_KIN_DORA", 2, 0, "",),
+	"Murasaki Dora": ScoringInfo.Han.new("YAKU_MURASAKI_DORA", 1, 1, "",),
+	
 }
 
 #  spacers are just so the ui can generate titles, shouldn't be accessed

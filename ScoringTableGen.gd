@@ -18,7 +18,7 @@ func _ready():
 		tex += c % HAN
 		
 		for FU in range(0, (FU_TO_SHOW) * 10, 10):
-			tex += c % str(ScoringInfo._undoubled_fu_count(FU+20, HAN, 0) * 4)
+			tex += c % str(ScoringInfo._aoten_points_count(FU+20, HAN, 0) * 4)
 	
 	tex += "[/table]"
 	

@@ -13,7 +13,7 @@ func _init(was_dealer: bool, was_tsumo: bool):
 	tsumo = was_tsumo
 
 # new scoring doesn't care about rounding
-func get_multiplied(points: int):
+func get_multiplied(points):
 #	if !tsumo:
 #		return ScoringInfo.round_to_place(points * (4 if !dealer else 6), 100)
 #	else:

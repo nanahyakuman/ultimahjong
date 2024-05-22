@@ -495,6 +495,8 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 						YakuChecker.append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Aka Dora"])
 					if t.color == MTile.COL_KIN:
 						YakuChecker.append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kin Dora"])
+					if t.color == MTile.COL_MURASAKI: # dont need to check for openness here bc mdora is -1 on open
+						YakuChecker.append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Murasaki Dora"])
 					if doras[0].has(t.get_id()):
 						YakuChecker.append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kan Dora"])
 					if !is_open and doras[1].has(t.get_id()):
@@ -730,15 +732,17 @@ func size_of_groupings(gs: Array) -> int:
 				count += 6
 	return count
 
-func get_dora(groupings: Array, dora_ids: Array):
-	var dora = 0
-	for g in groupings:
-		for t in g.tiles:
-			if t.aka:
-				dora += 1
-			dora += dora_ids.count(t.get_id())
-	
-	return dora
+#  seemingly unused? i don't recall writing it and doesnt
+# appear to be in use
+#func get_dora(groupings: Array, dora_ids: Array):
+#	var dora = 0
+#	for g in groupings:
+#		for t in g.tiles:
+#			if t.aka:
+#				dora += 1
+#			dora += dora_ids.count(t.get_id())
+#
+#	return dora
 
 # assumes the hand is valid and not chiitoitsu
 func get_fu(groupings: Array, doras: Array, waited_tile: MTile):

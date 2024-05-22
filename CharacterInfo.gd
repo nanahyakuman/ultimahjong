@@ -20,10 +20,9 @@ var hand_size: int
 var starting_uprgrades: Array #of ints
 
 # scoring expectations
-var base_score: int					= 2000
-var base_expected_points: int 		= 0
-var base_expected_points_mod: int	= 0
-var expected_points_mod_mod: int	= 2000
+var base_score: float				= 2000
+var base_expected_points: float 	= 1000
+var base_expected_points_mod: float	= 2		#multiplier
 
 # how many rounds to win the game after
 var number_of_rounds: int
@@ -74,7 +73,6 @@ func set_type(ty:int):
 			preview_tile_strings = ["123456789p", "123456789s", "19m", "東南西北白發中"]
 			preview_tile_with_strings = ["1\"s"]
 			
-			expected_points_mod_mod = 3000
 			
 #		TYPES.NO_HONORS:
 #			dead_wall_size = 48
