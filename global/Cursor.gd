@@ -10,6 +10,8 @@ func _ready():
 
 func _process(delta):
 	position = get_window().get_mouse_position() + offset
+	if position.x > get_viewport_rect().size.x / 2:
+		position.x -= size.x + 14
 
 func set_text(str: String):
 	visible = str.length() != 0

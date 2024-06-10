@@ -11,7 +11,7 @@ var char_info: CharacterInfo
 @onready var texture_button_2 = $VBoxContainer/PanelContainer/HBoxContainer/TextureButton2
 
 # override to hide unfinished characters
-var DISPLAY_AMOUNT = 3
+var DISPLAY_AMOUNT = 4
 
 func _ready():
 	change_char(CharacterInfo.TYPES.REGULAR)

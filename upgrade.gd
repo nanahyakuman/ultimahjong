@@ -11,7 +11,7 @@ enum TYPES {UPR_NONE, UPR_DEAD_REDUCE, UPR_KAN_REVEAL, UPR_KITA, UPR_OPPONENT_KI
 # 3+ end the shop unceremoniously so taitei to be avoided
 enum {METADATA_COST = 0, METADATA_COUNT = 1}
 const METADATA = {		# cost, pool size
-	TYPES.UPR_DEAD_REDUCE:		[1, 0], # never chosen by pool, just shows up until there's no point buying more
+	TYPES.UPR_DEAD_REDUCE:		[1, 4], # need at least 10 remaining for kandora, sanma is size 28. in future maybe make this more dynamic
 	TYPES.UPR_KAN_REVEAL:		[2, 4],
 	TYPES.UPR_KITA:				[4, 1],
 	TYPES.UPR_OPPONENT_KILL:	[5, 1],

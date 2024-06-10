@@ -1,13 +1,13 @@
 class_name MTile
 
 # this needs to stay a bitmask or a lot of stuff will break!
-enum SUITS {NONE=0, PIN=1, SOU=2, MAN=4, CHO=8, SPECIAL=16, FLOWER=32}
+enum SUITS {NONE=0, PIN=1, SOU=2, MAN=4, II=8, SPECIAL=16, FLOWER=32}
 # specials are 1-indexed becuase so are the suits
 enum SPECIALS {NONE, EAST, SOUTH, WEST, NORTH, UP, HAKU, HATSU, CHUN, KIN, SEI}
 const DEF_SPECIALS = [SPECIALS.EAST, SPECIALS.SOUTH, SPECIALS.WEST, SPECIALS.NORTH, SPECIALS.HAKU, SPECIALS.HATSU, SPECIALS.CHUN]
 
 # for easy lookup with `has()`
-const NUMERALS = [SUITS.MAN, SUITS.PIN, SUITS.SOU, SUITS.CHO]
+const NUMERALS = [SUITS.MAN, SUITS.PIN, SUITS.SOU, SUITS.II]
 const DRAGONS = [SPECIALS.HAKU, SPECIALS.HATSU, SPECIALS.CHUN, SPECIALS.KIN, SPECIALS.SEI]
 const BASIC_DRAGONS = [SPECIALS.HAKU, SPECIALS.HATSU, SPECIALS.CHUN]
 const WINDS = [SPECIALS.EAST, SPECIALS.SOUTH, SPECIALS.WEST, SPECIALS.NORTH, SPECIALS.UP]
@@ -15,15 +15,21 @@ const BASIC_WINDS = [SPECIALS.EAST, SPECIALS.SOUTH, SPECIALS.WEST, SPECIALS.NORT
 # here for consitency, the sou in ryuuiisou
 const RYUUII_VALUES = [2,3,4,6,8]
 
-# to generate human readable name
-const SUIT_NAMES = ["-Pin", "-Sou", "-Man", "-Cho", "-Spec", "-Flower"]
-const SPECIAL_NAMES = ["NONE", "East", "South", "West", "North", "Rising", "White", "Green", "Red", "Gold"]
+# tr strings to generate human readable name
+const SUIT_NAMES = ["TILE_SUIT_PIN", "TILE_SUIT_SOU", "TILE_SUIT_MAN", "TILE_SUIT_II", "nope", "TILE_SUIT_FLOWER"]
+const SPECIAL_NAMES = ["NONE", "TILE_SPEC_EAST", "TILE_SPEC_SOUTH", "TILE_SPEC_WEST", "TILE_SPEC_NORTH", "TILE_SPEC_UP", "TILE_SPEC_HAKU", "TILE_SPEC_HATSU", "TILE_SPEC_CHUN", "TILE_SPEC_KIN"]
 
 var suit: int
 var value: int
 
-enum {COL_NONE, COL_AKA, COL_AO, COL_KIN, COL_MURASAKI, COL_MIDORI}
+enum {COL_NONE, COL_AKA, COL_AO, COL_KIN, COL_MURASAKI, COL_MIDORI, COL_KURO}
 var color: int
+# for verbosity, the translation strings for the dora
+const COLOR_TR_STRINGS = ["NO COLOR", "GUIDE_TILES_AKA_DORA", "GUIDE_TILES_AO_DORA", "GUIDE_TILES_KIN_DORA", "GUIDE_TILES_MURASAKI_DORA", "GUIDE_TILES_MIDORI_DORA", "GUIDE_TILES_KURO_DORA"]
+
+enum {MAT_NONE, MAT_CERAMIC, MAT_METAL, MAT_VERDANT, MAT_FRAME, MAT_KEBAB}
+var material: int
+const MAT_TR_STRINGS = ["NO MATERIAL", "GUIDE_TILES_MAT_CERAMIC", "GUIDE_TILES_MAT_METAL", "GUIDE_TILES_MAT_VERDANT", "GUIDE_TILES_MAT_FRAME", "GUIDE_TILES_MAT_KEBAB" ]
 
 #  whether the tile has a pocchi
 var pocchi: bool
@@ -31,7 +37,7 @@ var pocchi: bool
 #  allows us to track tiles that have been modified so the player can still
 # sorta count them. this is different from the canon tile, which is the canonical
 # form shown in the sidebar. if you temp shift a 6s to a 7s and permanantly pocchi it,
-# there will be pocchi'd 7s this round, but the canong change was pocchi'ing a 6s, so
+# there will be pocchi'd 7s this round, but the canon change was pocchi'ing a 6s, so
 # starting next round there'll be a pocchi'd 6s in the wall. this is possibly all too much
 # but i want there to be both temp and permanent changes and this is the logical way to do that.
 var former: MTile
@@ -53,10 +59,11 @@ var already_used = false
 #		[0] is the other value
 var unique_args = []
 
-func _init(s:int, v:int, col:int = COL_NONE, f = null, p = false, c = null, u = UNIQUE.NOT, ua = []):
+func _init(s:int, v:int, col:int = COL_NONE, mat: int = MAT_NONE, f = null, p = false, c = null, u = UNIQUE.NOT, ua = []):
 	suit = s
 	value = v
-	color = col
+	color = COL_KURO #randi()%7 if randi()%4==0 else 0
+	material = mat #randi()%6 if randi()%4==0 else 0
 	former = f
 	pocchi = p
 	canon_tile = c
@@ -69,6 +76,7 @@ func assign_tile(new: MTile):
 	suit = new.suit
 	value = new.value
 	color = new.color
+	material = new.material
 	former = new.former
 	pocchi = new.pocchi
 	canon_tile = null
@@ -77,11 +85,11 @@ func assign_tile(new: MTile):
 
 # duplicate and save self as new tile's "canon" tile
 func duplicate_canonize() -> MTile:
-	return MTile.new(suit, value, color, former, pocchi, self, unique_type, unique_args)
+	return MTile.new(suit, value, color, material, former, pocchi, self, unique_type, unique_args)
 
 # just duplicate
 func duplicate() -> MTile:
-	return MTile.new(suit, value, color, former, pocchi, canon_tile, unique_type, unique_args)
+	return MTile.new(suit, value, color, material, former, pocchi, canon_tile, unique_type, unique_args)
 
 #  for comparision that doesnt care about specific flags, just value.
 # an aka 5p equals a colorless 5p with this as the comparee.
@@ -89,7 +97,10 @@ func get_id():
 	return MTile.gen_id(suit, value)
 
 func get_name():
-	return MTile.gen_name(self)
+	# had to destaticify this, keeping this as an alias
+	#return MTile.gen_name(self)
+	return gen_name(self)
+
 
 #  `chi_sets` returns neighbors and superneighbors in order, to make
 # it easy to check for chis.
@@ -150,11 +161,25 @@ static func gen_order(t: MTile):
 static func tile_compare(a:MTile, b:MTile):
 	return gen_order(a) < gen_order(b)
 
-static func gen_name(tile: MTile):
+# not static anymore becaise tr() is not-static
+func gen_name(tile: MTile):
+	var str
+	
+	# base name
 	if tile.suit == SUITS.SPECIAL:
-		return SPECIAL_NAMES[tile.value]
+		str = tr(SPECIAL_NAMES[tile.value])
 	else:
-		return str(tile.value) + SUIT_NAMES[log(tile.suit)/log(2)]
+		str = str(tile.value) + tr(SUIT_NAMES[log(tile.suit)/log(2)])
+	
+	# color desc
+	if tile.color != COL_NONE:
+		str += "\n" + tr(COLOR_TR_STRINGS[tile.color])
+	
+	# material desc
+	if tile.material != MAT_NONE:
+		str += "\n" + tr(MAT_TR_STRINGS[tile.material])
+	
+	return str
 
 
 #  called if this tile is right clicked on. only need to define

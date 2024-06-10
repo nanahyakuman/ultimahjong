@@ -250,7 +250,7 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 						# weird optimization but basically generates a bitmask for each run in each suit.
 						# does it for every valid offset, so checks 147 first, then 258
 						for offset in (MAX_VAL-9+1):
-							var itsuu_suits = {MTile.SUITS.PIN: 0b000, MTile.SUITS.SOU: 0b000, MTile.SUITS.MAN: 0b000, MTile.SUITS.CHO: 0b000}
+							var itsuu_suits = {MTile.SUITS.PIN: 0b000, MTile.SUITS.SOU: 0b000, MTile.SUITS.MAN: 0b000, MTile.SUITS.II: 0b000}
 							for g in runs:
 								for index in [0,1,2]:
 									if g.tiles[0].value == index*3 + 1 + offset:
@@ -497,6 +497,8 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 						YakuChecker.append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kin Dora"])
 					if t.color == MTile.COL_MURASAKI: # dont need to check for openness here bc mdora is -1 on open
 						YakuChecker.append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Murasaki Dora"])
+					if t.color == MTile.COL_KURO: # dont need to check for openness here bc mdora is -1 on open
+						YakuChecker.append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kuro Dora"])
 					if doras[0].has(t.get_id()):
 						YakuChecker.append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kan Dora"])
 					if !is_open and doras[1].has(t.get_id()):

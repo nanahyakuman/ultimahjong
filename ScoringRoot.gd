@@ -38,7 +38,7 @@ func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points, mult):
 	for h in scoring_info.hans:
 		var han_count = h.calc_han(scoring_info.open)
 		# ignore non-scoring han, e.g. open pinfu, open menzentsumo
-		if han_count <= 0:
+		if han_count == 0:
 			continue
 		
 		han_names.append_text(tr(h.nam) + "\n")

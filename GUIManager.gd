@@ -35,7 +35,7 @@ func update_hand(tiles: Array):
 func update_discard(tiles: Array, riichi_offset: int = -1):
 	for d in discards.size():
 		var include_riichi_this_row = d*SIZE <= riichi_offset and d*SIZE+SIZE > riichi_offset
-		_update_node(discards[d], tiles.slice(d*SIZE, d*SIZE+SIZE), null, 3, -1, false, riichi_offset-d*SIZE if include_riichi_this_row else -1)
+		_update_node(discards[d], tiles.slice(d*SIZE, d*SIZE+SIZE), null, TileGraphic.SIDE_BOT, -1, false, riichi_offset-d*SIZE if include_riichi_this_row else -1)
 
 func update_opp_discard(tiles: Array):
 	# slice discard arrays

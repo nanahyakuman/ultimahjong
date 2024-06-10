@@ -37,7 +37,7 @@ class Han:
 		return Han.new(TR_KEY, closed_han, open_penalty, graphic_desc, easy)
 	
 	func calc_han(open: bool):
-		return maxi(0, (closed_han - (open_penalty * int(open))) * count) 
+		return (closed_han - (open_penalty * int(open))) * maxi(0, count)
 
 class Fu:
 	var nam: String = ""

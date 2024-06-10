@@ -63,7 +63,7 @@ func initialize(character_info: CharacterInfo, load: bool):
 		
 		#no honors
 		CharacterInfo.TYPES.NO_HONORS:
-			for i in [MTile.SUITS.MAN, MTile.SUITS.PIN, MTile.SUITS.SOU, MTile.SUITS.CHO]:
+			for i in [MTile.SUITS.MAN, MTile.SUITS.PIN, MTile.SUITS.SOU, MTile.SUITS.II]:
 				for j in 9:
 					for k in 4:
 						var a = MTile.new(i,j+1)

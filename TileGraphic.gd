@@ -1,26 +1,26 @@
 extends Control
 class_name TileGraphic
 
-@onready var sprite = $Rotator/Sprite2D
-@onready var tile_rear = $Rotator/TileRear
+@onready var numeral = $Rotator/NumeralGraphic
 # the sprite in use for special tiles
 @onready var unique_sprite = $Rotator/UniqueSprite
-@onready var sides = $Rotator/Tilesides
+@onready var tile_material = $Rotator/TileMaterial
 @onready var sim_tile_highlight = $Rotator/SimTileHighlight
 @onready var adj_tile_highlight = $Rotator/AdjTileHighlight
 @onready var call_tile_highlight = $Rotator/CallTileHighlight
-@onready var dora_sprite = $Rotator/Sprite2D/TileDora
+@onready var dora_sprite = $Rotator/NumeralGraphic/TileDora
 @onready var flicker = $Rotator/Flicker
-@onready var custom_overlays = $Rotator/Sprite2D/CustomOverlays
+@onready var custom_overlays = $Rotator/NumeralGraphic/CustomOverlays
 @onready var rotator = $Rotator
 # display for unique items that can only be used once a round
 @onready var already_used_indicator = $AlreadyUsedIndicator
 
 var tile_size = Vector2(16,32)
+var material_size = Vector2(32,48)
 var WESTERNIZE_SHEET_WIDTH = 20
 
 var tile: MTile = null
-enum {SIDE_NONE = -1, SIDE_RIGHT, SIDE_TOP, SIDE_LEFT, SIDE_BOT}
+enum {SIDE_RIGHT, SIDE_TOP, SIDE_BOT}
 var visible_side = SIDE_BOT
 var _reversed: bool = false
 var _rotated: bool = false
@@ -45,13 +45,14 @@ func assign_tile(t: MTile):
 	tile = t
 	
 	if tile.unique_type == MTile.UNIQUE.NOT:
-		sprite.region_rect = get_tile_segment(tile)
-		sides.texture = load("res://image/tile/tilesides.png")
-		sprite.visible = true
+		# numeral segment
+		numeral.region_rect = get_tile_segment(tile)
+		tile_material.texture = load("res://image/tile/tilesides.png")
+		numeral.visible = true
 		unique_sprite.visible = false
 	else:
 		get_unique_sprite(tile)
-		sprite.visible = false
+		numeral.visible = false
 		unique_sprite.visible = true
 	
 	_new_dora(TileGraphicKnower.dora_ids)
@@ -86,6 +87,8 @@ func get_tile_segment(t: MTile) -> Rect2:
 		MTile.COL_MIDORI:
 			y += tile_size.y * 11
 			x += tile_size.x * 10
+		MTile.COL_KURO:
+			y += tile_size.y * 16
 	
 	# various texture options
 	match t.suit:
@@ -93,7 +96,7 @@ func get_tile_segment(t: MTile) -> Rect2:
 			x += tile_size.x * WESTERNIZE_SHEET_WIDTH * TileGraphicKnower.pinsou_version
 		MTile.SUITS.SOU:
 			x += tile_size.x * WESTERNIZE_SHEET_WIDTH * TileGraphicKnower.pinsou_version
-		MTile.SUITS.CHO:
+		MTile.SUITS.II:
 			x += tile_size.x * WESTERNIZE_SHEET_WIDTH * TileGraphicKnower.pinsou_version
 		
 		MTile.SUITS.MAN:
@@ -120,7 +123,7 @@ func get_unique_sprite(t: MTile):
 	var path = "res://image/tile/custom_tile/%s.png"
 	var sidespath = "res://image/tile/custom_tile/%s_SIDES.png"
 	unique_sprite.texture = load(path % MTile.UNIQUE.keys()[t.unique_type])
-	sides.texture = load(sidespath % MTile.UNIQUE.keys()[t.unique_type])
+	tile_material.texture = load(sidespath % MTile.UNIQUE.keys()[t.unique_type])
 	
 	#  reset position. redundant a lot of the time but convenient bc we dont 
 	# need to do any assigning for unique tiles that only have one frame.
@@ -134,45 +137,41 @@ func get_unique_sprite(t: MTile):
 			unique_sprite.region_rect.position.x = 32 * (t.value-1)
 			unique_sprite.region_rect.position.x = 32 * (t.unique_args[0]-1)
 
-# -1 to hide entirely.
 func assign_visible_side(side: int):
-	var calc_side = side + (int(_rotated) * -3)
+	# forgot why we do this at all but for now just ignore negatives
+	if side == -1:
+		return
 	
 	visible_side = side
-	if visible_side == SIDE_NONE:
-		sides.visible = false
-		sim_tile_highlight.frame_coords.x = 4
-		adj_tile_highlight.frame_coords.x = 4
-	elif !_reversed:
-		sides.frame = calc_side
-		sim_tile_highlight.frame_coords.x = calc_side
-		adj_tile_highlight.frame_coords.x = calc_side
-	else:
-		sides.frame = 4 + calc_side
-		sim_tile_highlight.frame_coords.x = calc_side
-		adj_tile_highlight.frame_coords.x = calc_side
 	
+	# override rotated tiles to always be sideways
+	var calc_side = SIDE_LEFT if _rotated else side
 	
-	# no precalcing ors :<
-	#sprite.visible = !_reversed and (!tile or tile.unique_type == MTile.UNIQUE.NOT)
+	# tile rotation /and/ material
+	tile_material.region_rect.position.x = (calc_side + 3*tile.material ) * material_size.x
+	
+	sim_tile_highlight.frame_coords.x = calc_side
+	adj_tile_highlight.frame_coords.x = calc_side
+	
+	tile_material.region_rect.position.y = int(_reversed) * material_size.y
+	
+	# show numeral (and sides, implicitly) or not
 	if !_reversed:
 		if !tile:
-			sprite.visible = true
+			numeral.visible = true
 		elif tile.unique_type == MTile.UNIQUE.NOT:
-			sprite.visible = true
+			numeral.visible = true
 		else:
-			sprite.visible = false
+			numeral.visible = false
 	else:
-		sprite.visible = false
+		numeral.visible = false
 	
-	sprite.visible = !_reversed
+	numeral.visible = !_reversed
 	unique_sprite.visible = !_reversed
 	# hide normal sprite if we're unique
 	if tile:
 		if tile.unique_type != MTile.UNIQUE.NOT:
-			sprite.visible = false
-	
-	tile_rear.visible = _reversed
+			numeral.visible = false
 
 func set_reversed(rv: bool):
 	_reversed = rv
@@ -222,8 +221,7 @@ func _on_mouse_exited():
 	if tile:
 		if !_reversed:
 			TileGraphicKnower.highlight_matching_tiles(tile, false)
-		if verbose:
-			CursorText.set_text("")
+		CursorText.set_text("")
 
 func _highlight_requested(id: int, adjs: Array, val: bool):
 	if _reversed:

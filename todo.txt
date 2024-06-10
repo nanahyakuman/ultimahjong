@@ -72,6 +72,9 @@ achievements
 	kazoe double
 	yabai kan
 	get a ton of calls availible at once (all chis + pon + kan (+ ron?))
+	have a murasaki kebab that still doesn't score
+	score less points then you have fu (i.e. have at least 3 kuro dora)
+	play a completely colored hand
 	
 	not sure i want to add even more dopey yaku clogging up menus, but they'd make cool hidden achievements
 		daichiishin (chiitoi tsuuii) (+1y)
@@ -147,6 +150,12 @@ languages
 		thai
 
 
+difficulty modes:
+	base game
+	accumulated score resets after every east sitting
+	bosses every east sitting
+
+
 add secret yaku eventually
 when you discard a pocchi, can choose to exchange the 4th tile in the wall with
 	another not-yet-discarded pocchi, even if it turns out to be in the dead wall.
@@ -161,7 +170,6 @@ proper wall gfx haitei drawing
 pocchi almighty and pocci selection code
 translate hovertext
 remove 3-sided waits
-acknowledge lack of furiten in guide somewhere
 kan kake
 sidebar hover over tiles should give explanations of all the modifiers it has.
 	existing "verbose" code can probably be taken advantage of
@@ -173,9 +181,7 @@ consider easier to work with item code. i hate to have a billion tiny scripts on
  and out than what's going on rn
 ui sounds
 couldnt cancel color shift item
-justify aodora
-	rework fu to be lower value but always mult? or filter them back in after snapping to base
-dora code should account for non-extant tiles, so sanma 1m doras the 9m, or reduced size decks don't
+kan dora code should account for non-extant tiles, so sanma 1m doras the 9m, or reduced size decks don't
  dora removed tiles. should update automatically so you can possibly take advantage of it
 cant cancel items that prompt tileselector or mahjmanager
 redraw a.rock to be the bocchi hair pendant
@@ -185,6 +191,15 @@ expand wait descriprions, "1-sided" is misleading
 some new dora distribution method? or at least clean up this one
 explain new dora
 reimplement fu upgrades
+"verdant" tiles that grow into a dora if discarded
+"kebab" tiles that are worth a han if called with at least one other kebab
+chou chuuren failed
+consider 16 rounds and weaker items
+make eraser description more clear
+bigger shop and/or rerolls
+make it clear dora only apply to an already completed hand (allowing negative han hands for
+ excessive dora)
+
 
 unique item issues:
 	d6 was able to be colored.

@@ -47,6 +47,7 @@ func add_tile_graphic(t: MTile):
 	var col = current_suit_holder.get_child(t.value-1)
 	col.add_child(tg)
 	tg.assign_tile(t)
+	tg.verbose = true
 
 
 

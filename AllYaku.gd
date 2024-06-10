@@ -91,6 +91,7 @@ var YAKUS = {
 	"Aka Dora": ScoringInfo.Han.new("YAKU_AKA_DORA", 1, 0, "", true),
 	"Kin Dora": ScoringInfo.Han.new("YAKU_KIN_DORA", 2, 0, "",),
 	"Murasaki Dora": ScoringInfo.Han.new("YAKU_MURASAKI_DORA", 1, 1, "",),
+	"Kuro Dora": ScoringInfo.Han.new("YAKU_KURO_DORA", -1, 0, "",),
 	
 }
 

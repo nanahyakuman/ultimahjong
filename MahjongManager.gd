@@ -147,7 +147,8 @@ func _draw_hand():
 	update_hand_label()
 	
 	var temp = []
-	temp = MTileStringConverter.str_to_mtile("123456789p1234-s")
+	#temp = MTileStringConverter.str_to_mtile("白\"")
+	temp = MTileStringConverter.str_to_mtile("123456789s1234p")
 	
 	if temp:
 		temp.sort()
@@ -209,8 +210,9 @@ func do_tsumo(override: MTile = null):
 	if !tsumo:
 		return
 	
-	#tsumo.suit = MTile.SUITS.MAN
-	#tsumo.value = 5
+#	tsumo.suit = MTile.SUITS.SPECIAL
+#	tsumo.value = 6
+#	tsumo.color = MTile.COL_KIN
 	
 	gui_manager.update_tsumo([tsumo])
 	tile_sfx_player.play()
