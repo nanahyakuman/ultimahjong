@@ -34,17 +34,6 @@ const MAT_TR_STRINGS = ["NO MATERIAL", "GUIDE_TILES_MAT_CERAMIC", "GUIDE_TILES_M
 #  whether the tile has a pocchi
 var pocchi: bool
 
-#  allows us to track tiles that have been modified so the player can still
-# sorta count them. this is different from the canon tile, which is the canonical
-# form shown in the sidebar. if you temp shift a 6s to a 7s and permanantly pocchi it,
-# there will be pocchi'd 7s this round, but the canon change was pocchi'ing a 6s, so
-# starting next round there'll be a pocchi'd 6s in the wall. this is possibly all too much
-# but i want there to be both temp and permanent changes and this is the logical way to do that.
-var former: MTile
-
-#  allow tiles in round use to point back to their canon originator in
-# `TileCounter` so that permanent mods are easier to make
-var canon_tile: MTile
 
 #  allows for more bespoke tile types, like d6 or dominoes. these should define custom draw
 # behavoir most of the time, but that'll occur in `TileGraphic.tscn`, not here.
@@ -59,37 +48,24 @@ var already_used = false
 #		[0] is the other value
 var unique_args = []
 
-func _init(s:int, v:int, col:int = COL_NONE, mat: int = MAT_NONE, f = null, p = false, c = null, u = UNIQUE.NOT, ua = []):
+func _init(s:int, v:int, col:int = COL_NONE, mat: int = MAT_NONE, p = false, u = UNIQUE.NOT, ua = []):
 	suit = s
 	value = v
 	color = COL_KURO #randi()%7 if randi()%4==0 else 0
 	material = mat #randi()%6 if randi()%4==0 else 0
-	former = f
 	pocchi = p
-	canon_tile = c
 	unique_type = u
 	unique_args = ua.duplicate(true)
 
-#  called on canon tiles to rewrite their settings. this feels a little bad
-# but it's necessary bc of how godot does pointers
+#  assign a tile onto an existing one, for convenience
 func assign_tile(new: MTile):
 	suit = new.suit
 	value = new.value
 	color = new.color
 	material = new.material
-	former = new.former
 	pocchi = new.pocchi
-	canon_tile = null
 	unique_type = new.unique_type
 	unique_args = new.unique_args.duplicate(true)
-
-# duplicate and save self as new tile's "canon" tile
-func duplicate_canonize() -> MTile:
-	return MTile.new(suit, value, color, material, former, pocchi, self, unique_type, unique_args)
-
-# just duplicate
-func duplicate() -> MTile:
-	return MTile.new(suit, value, color, material, former, pocchi, canon_tile, unique_type, unique_args)
 
 #  for comparision that doesnt care about specific flags, just value.
 # an aka 5p equals a colorless 5p with this as the comparee.
@@ -192,7 +168,6 @@ func try_unique()-> bool:
 	match unique_type:
 		UNIQUE.D6:
 			value = (randi()%6)+1
-			canon_tile.value = value
 			already_used = true
 			return true
 		_:

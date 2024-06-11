@@ -20,10 +20,6 @@ enum TYPES {ITEM_NONE, ITEM_ERASER, ITEM_WIND_MAGNET, ITEM_BATTERY, ITEM_KAN_SWA
 #  items either use mana, charge themselves, or are one-time use
 @export var type: TYPES = TYPES.ITEM_NONE
 const COOLD = [     0,          48,               25,           24,            60,            44,           52,         61,          59,            36,                31,               32,               43,            27]
-#  if true for this item, then modifications made to a tile are permanent.
-# play around with this a little, dont want you to completely garbage your
-# wall but it makes decisions more interesting
-const PERMANENT = [false,    false,            false,        false,         false,          true,         true,      false,        true,          true,              true,             true,             true,          true]
 
 enum CH_TYPES {ONCE, MANA, TIMR}
 # make sure to set BEFORE calling _ready()!
@@ -57,8 +53,6 @@ func _ready():
 	hover_name.text = tr(string_id)
 	hover_body.append_text(tr(string_id + "_DESC"))
 	
-	
-	hover_body.append_text("\n" + tr("ITEM_IS_TEMPORARY" if !PERMANENT[type] else "ITEM_IS_PERMANENT"))
 	hover_body.append_text("[right][color=%s]" % COL.LBLUE)
 	# additional gfx that vary based on type
 	match charge_type:
@@ -131,14 +125,11 @@ func _use():
 			pass
 		
 		TYPES.ITEM_ERASER:
-			# delete the old tile
-			_delete_canon(mahjong_manager.tsumo)
-			# old tile is cleared completely, dont maintain reference
 			mahjong_manager.tsumo = null
-			var new_tile = MTile.new(MTile.SUITS.SPECIAL,MTile.SPECIALS.HAKU)
-			new_tile.unique_type = MTile.UNIQUE.ERASER
+			var t = MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU)
+			t.unique_type = MTile.UNIQUE.ERASER
 			
-			mahjong_manager.do_tsumo(new_tile)
+			mahjong_manager.do_tsumo(t)
 			
 		TYPES.ITEM_WIND_MAGNET:
 			var wind_ids = []
@@ -187,11 +178,6 @@ func _use():
 		
 		TYPES.ITEM_POCCHI:
 			mahjong_manager.tsumo.pocchi = true
-			
-			# it's permananent, so assign canon and queue redraw
-			_try_make_permanent(mahjong_manager.tsumo, type)
-			#mahjong_manager.tsumo.canon_tile.pocchi = true
-			#mahjong_manager.tile_counter.emit_signal("updated")
 			
 			mahjong_manager.gui_manager.update_tsumo([mahjong_manager.tsumo])
 			
@@ -253,6 +239,8 @@ func _use():
 			tile_select.update_text(tr("PROMPT_SELECT_WIND_ROTATE"))
 			return
 	
+	
+	mahjong_manager.tile_counter.emit_signal("updated")
 	#  default item behaviour assumes the usage is immediate, if not
 	# call return in switch above.
 	_expend_resource()
@@ -307,11 +295,9 @@ func tile_selected(tile: MTile):
 				tile_select.update_text(tr("PROMPT_PIN_BECOME"))
 				return
 			else:
-				var new_t = selected_tile_memory[0].duplicate()
-				new_t.value = tile.value
-				new_t.former = tile
-				_try_make_permanent(new_t, type)
-				mahjong_manager.add_to_hand_and_update(new_t)
+				var t = selected_tile_memory[0]
+				t.value = tile.value
+				mahjong_manager.add_to_hand_and_update(t)
 				selected_tile_memory.clear()
 		
 		TYPES.ITEM_SOU_ADJ:
@@ -329,25 +315,19 @@ func tile_selected(tile: MTile):
 				if val <= 0:
 					val = 9
 				
-				var new_t = selected_tile_memory[0].duplicate()
-				new_t.value = val
-				new_t.former = tile
-				_try_make_permanent(new_t, type)
-				mahjong_manager.add_to_hand_and_update(new_t)
+				var t = selected_tile_memory[0]
+				t.value = val
+				mahjong_manager.add_to_hand_and_update(t)
 				selected_tile_memory.clear()
 		
 		TYPES.ITEM_MAN_TERM:
-			var new_tile = tile.duplicate()
-			new_tile.value = 1 if randi()%1 else 9
-			
 			if tile.value < 5:
-				new_tile.value = 9
+				tile.value = 9
 			elif tile.value > 5:
-				new_tile.value = 1
-			
-			new_tile.former = tile
-			_try_make_permanent(new_tile, type)
-			mahjong_manager.add_to_hand_and_update(new_tile)
+				tile.value = 1
+			else:
+				tile.value = 1 if randi()%1 else 9
+			mahjong_manager.add_to_hand_and_update(tile)
 		
 		TYPES.ITEM_DRAGON_CYCLE:
 			if selected_tile_memory.size() == 0:
@@ -368,34 +348,26 @@ func tile_selected(tile: MTile):
 						popup_tile_select.request_tile_select(self)
 						tile_select.update_text(tr("PROMPT_DRAGON_BECOME"))
 						return
-				var new_tile = tile.duplicate()
-				new_tile.former = tile
-				new_tile.value = val
-				_try_make_permanent(new_tile, type)
-				mahjong_manager.add_to_hand_and_update(new_tile)
+				var t = tile
+				t.value = val
+				mahjong_manager.add_to_hand_and_update(t)
 			else:
-				var new_t = selected_tile_memory[0].duplicate()
-				new_t.value = tile.value
-				new_t.former = tile
-				_try_make_permanent(new_t, type)
-				mahjong_manager.add_to_hand_and_update(new_t)
+				var t = selected_tile_memory[0]
+				t.value = tile.value
+				mahjong_manager.add_to_hand_and_update(t)
 				selected_tile_memory.clear()
 		
 		TYPES.ITEM_SUJI_OFFSET:
-			var new_tile = mahjong_manager.tsumo.duplicate()
-			new_tile.value = tile.value
-			new_tile.former = mahjong_manager.tsumo
+			var t = mahjong_manager.tsumo
+			t.value = tile.value
 			mahjong_manager.tsumo = null
-			_try_make_permanent(new_tile, type)
-			mahjong_manager.add_to_hand_and_update(new_tile)
+			mahjong_manager.add_to_hand_and_update(t)
 		
 		TYPES.ITEM_COLOR_SHIFT:
-			var new_tile = mahjong_manager.tsumo.duplicate()
-			new_tile.suit = tile.suit
-			new_tile.former = mahjong_manager.tsumo
+			var t = mahjong_manager.tsumo
+			t.suit = tile.suit
 			mahjong_manager.tsumo = null
-			_try_make_permanent(new_tile, type)
-			mahjong_manager.add_to_hand_and_update(new_tile)
+			mahjong_manager.add_to_hand_and_update(t)
 		
 		TYPES.ITEM_WIND_ROT:
 			if selected_tile_memory.size() == 0:
@@ -427,13 +399,11 @@ func tile_selected(tile: MTile):
 				tile_select.update_text(tr("PROMPT_WIND_BECOME"))
 				return
 			else:
-				var new_t = selected_tile_memory[0].duplicate()
+				var t = selected_tile_memory[0]
 				#new_t.suit = tile.suit
-				new_t.value = tile.value
-				new_t.former = tile
+				t.value = tile.value
 				
-				_try_make_permanent(new_t, type)
-				mahjong_manager.add_to_hand_and_update(new_t)
+				mahjong_manager.add_to_hand_and_update(t)
 				selected_tile_memory.clear()
 	
 	# default completion behaviour
@@ -468,19 +438,6 @@ func update_graphics(mana: int, force: int = false):
 		mouse_default_cursor_shape = CURSOR_POINTING_HAND
 	else:
 		mouse_default_cursor_shape = CURSOR_ARROW
-
-
-#  if a tile effect is supposed to be permanent this does it.
-# otherwise do nothing. this is mostly for speed of development
-func _try_make_permanent(new: MTile, type: int):
-	if PERMANENT[type]:
-		new.canon_tile.assign_tile(new)
-		mahjong_manager.tile_counter.emit_signal("updated")
-
-func _delete_canon(tile: MTile):
-	assert(tile.canon_tile != null)
-	mahjong_manager.tile_counter.remove_tile(tile.canon_tile)
-	mahjong_manager.tile_counter.emit_signal("updated")
 
 
 # called on item use, spends mana/cooldown/the item as appropriate.

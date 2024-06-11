@@ -105,7 +105,7 @@ func initialize(character_info: CharacterInfo, load: bool):
 func get_all_tiles():
 	var ret = []
 	for t in tile_data:
-		ret.append(t.duplicate_canonize())
+		ret.append(t)
 	return ret
 
 func get_all_unique_tiles():

@@ -200,8 +200,13 @@ bigger shop and/or rerolls
 make it clear dora only apply to an already completed hand (allowing negative han hands for
  excessive dora)
 
+eraser does not delete anymore rn?
+	reverify all items actually
+also make creating new items easier
 
-unique item issues:
+
+
+unique tile issues:
 	d6 was able to be colored.
 	saving! ig prob just add a [2] -type suffix to tiles
 	allow for unique items to set a different custom min size

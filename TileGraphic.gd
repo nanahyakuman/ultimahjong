@@ -58,8 +58,6 @@ func assign_tile(t: MTile):
 	_new_dora(TileGraphicKnower.dora_ids)
 	
 	clear_custom_overlays()
-	if t.former:
-		assign_custom_overlay(t.suit)
 	
 	if t.pocchi:
 		assign_custom_overlay(OVERLAY_POCCHI)
@@ -250,20 +248,11 @@ func _new_dora(ids: Array):
 
 # custom overlays to indicate tiles that aren't actually real.
 enum {
-	OVERLAY_PINDUPE = MTile.SUITS.PIN, OVERLAY_SOUDUPE = MTile.SUITS.SOU, OVERLAY_MANDUPE = MTile.SUITS.MAN, OVERLAY_DRAGDUPE = MTile.SUITS.SPECIAL,
 	OVERLAY_POCCHI
 }
 func assign_custom_overlay(overlay_type: int):
 	var new_tex = null
 	match overlay_type:
-		OVERLAY_PINDUPE:
-			new_tex = load("res://image/tile/fx/pindupe_indicator.png")
-		OVERLAY_SOUDUPE:
-			new_tex = load("res://image/tile/fx/soudupe_indicator.png")
-		OVERLAY_MANDUPE:
-			new_tex = load("res://image/tile/fx/mandupe_indicator.png")
-		OVERLAY_DRAGDUPE:
-			new_tex = load("res://image/tile/fx/dragdupe_indicator.png")
 		OVERLAY_POCCHI:
 			new_tex = load("res://image/tile/fx/pocchi.png")
 	
