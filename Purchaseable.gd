@@ -5,12 +5,13 @@ class_name Purchaseable
 @export var tile_graphic = preload("res://TileGraphic.tscn")
 @export var item_scene = preload("res://item.tscn")
 @export var upgrade_scene = preload("res://upgrade.tscn")
+# hidden unless we're a recolor purchaseable
+@onready var texture_holder = $HBoxContainer/TextureHolder
 @onready var sprite = $HBoxContainer/TextureHolder/Sprite2D
 @onready var label = $PanelBuster/Label
 
 
-enum TYPES {AKA, AO, KIN, ITEM, UPGRADE}
-const HOVER_TEXTS = ["Convert tiles to aka.", "Convert tiles to ao.", "Convert tiles to kin."]
+enum TYPES {COLOR, ITEM, UPGRADE}
 var type = null
 # should only possess one either tiles or item or upgrade
 var tiles = []
@@ -18,7 +19,8 @@ var hidden_mask = []
 var item: Item
 var upgrade: Upgrade
 var cost = 3
-
+# only used by color purchaseables
+var color = MTile.COL_NONE
 
 func assign_tiles(ts: Array, hidden: int = 0):
 	tiles = ts
@@ -57,17 +59,12 @@ func assign_upgrade(id: int):
 
 func assign_type(ty: int):
 	type = ty
-	sprite.frame = ty
+	texture_holder.visible = ty == TYPES.COLOR
+	sprite.frame = color
 
 func calc_cost():
-	if type == TYPES.AKA:
-		cost = 2
-#	elif type == TYPES.ADD:
-#		cost = 1
-#	elif type == TYPES.DEAD_REDUCE:
-#		cost = 1
-#	elif type == TYPES.KAN_REVEAL:
-#		cost = 3
+	if type == TYPES.COLOR:
+		cost = 1
 	elif type == TYPES.ITEM:
 		match item.charge_type:
 			Item.CH_TYPES.ONCE:
@@ -77,7 +74,6 @@ func calc_cost():
 			Item.CH_TYPES.TIMR:
 				cost = 4
 	elif type == TYPES.UPGRADE:
-		# tune this in future
 		cost = Upgrade.METADATA[upgrade.type][Upgrade.METADATA_COST]
 	
 	label.text = "%d" % cost
@@ -89,12 +85,13 @@ func _gui_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			if await get_parent().pressed(self):
-				get_parent().hovered(self, false)
+				_mouse_exit()
 				queue_free()
 
 
 func _mouse_entered():
-	get_parent().hovered(self, true)
+	if type == TYPES.COLOR:
+		CursorText.set_text(tr("PURCHASEABLE_RECOLOR") + "\n " + tr(MTile.COLOR_TR_STRINGS[color]))
 
 func _mouse_exit():
-	get_parent().hovered(self, false)
+	CursorText.set_text("")

@@ -38,6 +38,7 @@ end of every round can purchase:
 			calling kan guarentees that the haitei fills a wait
 		remove a strip of 2-8 (maybe 1-9) of a suit
 		make ippatsu last longer
+		dora purchaseables contain an additional tile
 	spell cards, refresh every x draws (items)
 	x	next tile will be --honor-- wind
 	x	exchange one tile for a false haku
@@ -119,6 +120,7 @@ ideas but not critical:
 	some items should highlight what they affect
 	canon tile highlight
 	auto mode that jsut draw/discs and calls tsumo/ron
+		actually cant do bc items
 	might add some more seperators to the yaku tabs, they're a little dense. code
 		to add text is already there
 	cant hover tiles in made calls
@@ -168,7 +170,6 @@ dont sell deadwall reducs if the size is already minmum
 cursor scaling
 proper wall gfx haitei drawing
 pocchi almighty and pocci selection code
-translate hovertext
 remove 3-sided waits
 kan kake
 sidebar hover over tiles should give explanations of all the modifiers it has.
@@ -199,6 +200,7 @@ make eraser description more clear
 bigger shop and/or rerolls
 make it clear dora only apply to an already completed hand (allowing negative han hands for
  excessive dora)
+shade tiles that have been discarded already
 
 eraser does not delete anymore rn?
 	reverify all items actually

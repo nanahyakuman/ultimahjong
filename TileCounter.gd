@@ -223,8 +223,7 @@ func add_flowers(count: int, season: bool):
 
 
 func set_color(tile: MTile, color: int):
-	
-	tile.canon_tile.color = color
+	tile.color = color
 	
 	emit_signal("updated")
 

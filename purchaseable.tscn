@@ -53,7 +53,7 @@ centered = false
 hframes = 8
 
 [node name="Spacer" type="Control" parent="HBoxContainer"]
-custom_minimum_size = Vector2(2, 0)
+custom_minimum_size = Vector2(6, 0)
 layout_mode = 2
 
 [node name="TileContainer" type="HBoxContainer" parent="HBoxContainer"]

@@ -148,7 +148,7 @@ func _draw_hand():
 	
 	var temp = []
 	#temp = MTileStringConverter.str_to_mtile("白\"")
-	temp = MTileStringConverter.str_to_mtile("123456789s1234p")
+	#temp = MTileStringConverter.str_to_mtile("123456789s1234p")
 	
 	if temp:
 		temp.sort()
@@ -824,6 +824,7 @@ func _end_round(win_is_tsumo_not_ron = false, ryuukyoku = false):
 				nagashiteru = false
 				break
 		if nagashiteru:
+			score_info.fus.append(ALL_YAKU.FU["Base"])
 			score_info.hans.append(ALL_YAKU.YAKUS["Nagashi Mangan"])
 	
 	var multiplier_info = MultiplierInfo.new(seat_wind == WINDS.EAST, win_is_tsumo_not_ron)

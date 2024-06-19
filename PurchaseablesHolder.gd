@@ -11,21 +11,16 @@ class_name PurchaseablesHolder
 
 @export var purchaseable: PackedScene
 
-@export var type = Purchaseable.TYPES.AKA
+@export var type = Purchaseable.TYPES.COLOR
 # how many sub buttons to generate
 @export var BUTTONS = 3
-# how many TILES to add.
-@export var PER_BUTTON = 3
+
 
 func start():
 	var tiles
 	var valid_items
 	var valid_ups
 	match type:
-		Purchaseable.TYPES.AKA:
-			tiles = tile_counter.get_random_non_colored_ids(PER_BUTTON, BUTTONS)
-#		Purchaseable.TYPES.ADD:
-#			tiles = tile_counter.get_random_tiles_to_add(PER_BUTTON, BUTTONS)
 		Purchaseable.TYPES.ITEM:
 			var possessed_items = []
 			for i in items.get_children():
@@ -36,17 +31,20 @@ func start():
 			valid_items.erase(0)
 		Purchaseable.TYPES.UPGRADE:
 			valid_ups = upgrades_grid_container.get_random_from_pool(BUTTONS)
-		
-	for c in get_children():
-		c.queue_free()
+	
+	# clear items but not the labels
+	var cs = get_children()
+	for i in range(1, cs.size()):
+		cs[i].queue_free()
 	
 	for i in BUTTONS:
 		var a: Purchaseable = purchaseable.instantiate()
 		add_child(a)
-		var hidden_c = mini(randi()%(PER_BUTTON+1),randi()%(PER_BUTTON+1))
-		hidden_c = mini(randi()%(PER_BUTTON+1), hidden_c)
+		# no longer used hiding code
+		#var hidden_c = mini(randi()%(PER_BUTTON+1),randi()%(PER_BUTTON+1))
+		#hidden_c = mini(randi()%(PER_BUTTON+1), hidden_c)
 		if tiles:
-			a.assign_tiles(tiles[i], hidden_c)
+			a.assign_tiles(tiles[i], 0)#hidden_c)
 		else:
 			a.assign_tiles([], 0)
 		a.assign_type(type)
@@ -54,7 +52,9 @@ func start():
 			# inelegant temp solution while pocchis dont exist
 			valid_items.erase(Item.TYPES.ITEM_POCCHI)
 			var itm = valid_items.pick_random()
-			var item_type = maxi(0, i - 1)
+			# 1124
+			#var item_type = maxi(0, i - 1)
+			var item_type = [1,1,2,2][i]
 			a.assign_item(itm, item_type)
 			valid_items.erase(itm)
 		if valid_ups:
@@ -75,27 +75,10 @@ func pressed(node: Purchaseable):
 	shop_root.state = shop_root.STATE_ANIMATING
 	
 	match node.type:
-		Purchaseable.TYPES.AKA:
+		Purchaseable.TYPES.COLOR:
 			for t in node.tiles:
-				tile_counter.set_color(t, MTile.COL_AKA)
+				tile_counter.set_color(t, node.color)
 				await AnimTimer.start_mod(.15)
-		Purchaseable.TYPES.AO:
-			for t in node.tiles:
-				tile_counter.set_color(t, MTile.COL_AO)
-				await AnimTimer.start_mod(.15)
-		Purchaseable.TYPES.KIN:
-			for t in node.tiles:
-				tile_counter.set_color(t, MTile.COL_KIN)
-				await AnimTimer.start_mod(.15)
-#		Purchaseable.TYPES.ADD:
-#			for t in node.tiles:
-#				tile_counter.increment_tile(t)
-#				await AnimTimer.start_mod(.15)
-#		Purchaseable.TYPES.DEAD_REDUCE:
-#			# 4 is a lot ig but you're prob. not buying this every round
-#			upgrades.dead_wall_size_reduce += 4
-#		Purchaseable.TYPES.KAN_REVEAL:
-#			upgrades.additional_revealed_kandora += 1
 		Purchaseable.TYPES.ITEM:
 			var a = node.item
 			a.reparent(items)
@@ -112,7 +95,3 @@ func pressed(node: Purchaseable):
 	
 	return true
 
-
-func hovered(node: Purchaseable, yes: bool):
-	if node and !node.item and !node.upgrade:
-		CursorText.set_text(Purchaseable.HOVER_TEXTS[node.type] if yes else "")

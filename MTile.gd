@@ -51,7 +51,7 @@ var unique_args = []
 func _init(s:int, v:int, col:int = COL_NONE, mat: int = MAT_NONE, p = false, u = UNIQUE.NOT, ua = []):
 	suit = s
 	value = v
-	color = COL_KURO #randi()%7 if randi()%4==0 else 0
+	color = col #randi()%7 if randi()%4==0 else 0
 	material = mat #randi()%6 if randi()%4==0 else 0
 	pocchi = p
 	unique_type = u

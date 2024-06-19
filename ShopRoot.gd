@@ -2,6 +2,7 @@ extends Control
 
 var money = 0
 
+const LOSE_ALL_MONEY = true
 
 enum {STATE_ANIMATING, STATE_ACTIVE}
 var state
@@ -16,7 +17,7 @@ var state
 	$VBoxContainer/UpgradePurchaseables,
 	$VBoxContainer/ItemPurchaseables
 ]
-@onready var colored_purchaseables = $VBoxContainer/ColoredPurchaseables
+@onready var colored_purchaseables_2 = $VBoxContainer/ColoredPurchaseables2
 @onready var dora_info_label = $VBoxContainer/DoraInfoLabel
 @onready var really_close_catcher = $ReallyCloseCatcher
 @onready var color_rect = $ColorRect
@@ -43,14 +44,7 @@ func start(was_victory: bool):
 	for s in to_be_started:
 		s.start()
 	
-	if was_victory:
-		colored_purchaseables.start()
-		dora_info_label.text = "[center]" + tr("SHOP_DORA_DESC_W")
-		dora_info_label.visible = true
-	else:
-		colored_purchaseables.visible = false
-		#dora_info_label.text = "[center]" + tr("SHOP_DORA_DESC_L")
-		dora_info_label.visible = false
+	colored_purchaseables_2.start()
 	
 	# prevent glitching in
 	await get_tree().process_frame
@@ -64,13 +58,17 @@ func adjust_money(amount: int):
 #  prompt the player that they're gonna lose all their money if 
 # applicable
 func try_close():
-	if money > 0:
-		really_close_catcher.visible = true
-	else:
+	if !LOSE_ALL_MONEY:
 		close()
+	else:
+		if money > 0:
+			really_close_catcher.visible = true
+		else:
+			close()
 
 func close():
-	adjust_money(-money)
+	if LOSE_ALL_MONEY:
+		adjust_money(-money)
 	MusicManager.stop_music()
 	root.start_round()
 

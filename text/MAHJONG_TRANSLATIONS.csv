@@ -257,15 +257,15 @@ TILE_SUIT_SOU,,-sou,索
 TILE_SUIT_MAN,,-man,萬
 TILE_SUIT_II,,-ii,億
 TILE_SUIT_FLOWER,, flower,花
-TILE_SPEC_EAST,names for jihai,East Wind,東
-TILE_SPEC_SOUTH,,South Wind,南
-TILE_SPEC_WEST,,West Wind,西
-TILE_SPEC_NORTH,,North Wind,北
-TILE_SPEC_UP,,Rising Wind,登
-TILE_SPEC_HAKU,,White Dragon,白
-TILE_SPEC_HATSU,,Green Dragon,發
-TILE_SPEC_CHUN,,Red Dragon,中
-TILE_SPEC_KIN,,Gold Dragon,金
+TILE_SPEC_EAST,names for jihai,East Wind,トン
+TILE_SPEC_SOUTH,,South Wind,ナン
+TILE_SPEC_WEST,,West Wind,シャ
+TILE_SPEC_NORTH,,North Wind,ペイ
+TILE_SPEC_UP,,Rising Wind,トー
+TILE_SPEC_HAKU,,White Dragon,ハク
+TILE_SPEC_HATSU,,Green Dragon,ハツ
+TILE_SPEC_CHUN,,Red Dragon,チュン
+TILE_SPEC_KIN,,Gold Dragon,キン
 ,,,
 ITEM_ONE_TIME,use %d for inserted digits,One-time use.,一回
 ITEM_CONSUME_MANA,,Consumes %d Mana.,マナ%d
@@ -297,8 +297,6 @@ ITEM_COLOR_SHIFT,,Multipilier,倍バイ
 ITEM_COLOR_SHIFT_DESC,,Change current tsumo tile's suit.,数牌の自摸牌の種類を変更。
 ITEM_WIND_ROT,,Wind Rotator,風回し
 ITEM_WIND_ROT_DESC,,Rotate a selected Wind tile 90 degrees.,選べた風牌を９０度回す。
-ITEM_IS_TEMPORARY,,This round only.,一局。
-ITEM_IS_PERMANENT,,Permanent.,永続的。
 ,,,
 PROMPT_SELECT_TILE,these are all real redundant but i dont think they justify anything smarter than this,Select a tile to be swapped.,牌を選べ。
 PROMPT_SELECT_PIN,,Select a Pin to be swapped.,筒子を選べ。
@@ -329,6 +327,8 @@ UPR_DECEL,,Reduce score acceleration by 200.,点数の加速を２００減る�
 UPR_MORE_DRAGONS,,"Add one White, Green, and Red dragon.",白・發・中を一つずつ山に追加。
 UPR_TENS,,"Adds one 10 to each of Man, Pin, and Sou.",１０筒、１０索と十萬を追加。
 ,,,
+PURCHASEABLE_RECOLOR,,Recolor tiles.,ドラをつけ。
+,,,
 HOVER_SEAT_WIND,,Your Sitting Wind. Changes every round.,自風。局ずつに変わる。
 HOVER_PREV_WIND,,The Prevalent Wind. Changes every rotation of winds.,場風。各四局に変わる。
 HOVER_MANA,,Mana. Increases every time a tile is drawn.,マナ。牌を自摸とマナを得る。
@@ -343,7 +343,7 @@ TILESET_WINDS_WESTERN,,Arabic Winds,アラビア字風牌
 BUTTON_SAVE_QUIT,,Save and Quit,保存して終了
 BUTTON_TITLE_NO_SAVE,,Return to Title,タイトルに戻る
 BUTTON_TITLE,,Save and Return to Title,保存してタイトルに戻る
-BUTTON_SKIP_ANIMS,,Skip Animations,アニメーション無し
+BUTTON_SKIP_ANIMS,,Skip Anims,アニメ無し
 SLIDER_MASTER_VOLUME,,Master Volume,MASTER音量
 SLIDER_MUSIC_VOLUME,,Music Volume,BGM音量
 SLIDER_FX_VOLUME,,Effects Volume,SE音量
@@ -366,7 +366,9 @@ BUTTON_BACK,,Back,戻る
 BUTTON_START,,Start,開始
 ,,,
 SHOP_NAME,,Shop,ショップ
-SHOP_DORA_DESC_W,,"You won last round, choose one of the Dora Paints above as a reward!",先局上がった、上にあるドラの一つを選んで！
+SHOP_UPGRADES,,Upgrades,アップグレード
+SHOP_ITEMS,,Items,アイテム
+SHOP_DORA_DESC_W,,"You won last round, choose one of the Dora Paints above as a reward!",先局上がったため、上にあるドラの一つを選んで！
 SHOP_DORA_DESC_L,,Win the round to get Dora rewards!,上がるとドラを得る。
 ,,,
 GAME_END_WIN,,You won!,勝ち！

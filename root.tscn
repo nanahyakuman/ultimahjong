@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://vit286boe7sq"]
+[gd_scene load_steps=85 format=3 uid="uid://vit286boe7sq"]
 
 [ext_resource type="Script" path="res://MahjongManager.gd" id="1_x3kjf"]
 [ext_resource type="Theme" uid="uid://b313koco087ot" path="res://theme.tres" id="2_j88jw"]
@@ -37,15 +37,14 @@
 [ext_resource type="Script" path="res://NumberColorizer.gd" id="27_yfh58"]
 [ext_resource type="FontFile" uid="uid://dmoumxbcf3gn" path="res://text/font/Body2.png" id="28_jde07"]
 [ext_resource type="Script" path="res://PopupTileSelector.gd" id="28_st0rv"]
-[ext_resource type="PackedScene" uid="uid://xbdfpjmfa56k" path="res://item.tscn" id="29_s5425"]
 [ext_resource type="Texture2D" uid="uid://b7pi28pjp68qt" path="res://image/cursor9pr.png" id="32_on5h8"]
 [ext_resource type="Texture2D" uid="uid://clj2wxpbqagea" path="res://image/scoring9pr.png" id="35_14yv6"]
 [ext_resource type="Texture2D" uid="uid://d1cartjey82ob" path="res://image/shopbg.png" id="37_61gos"]
-[ext_resource type="Script" path="res://ColoredPurchaseables.gd" id="37_xpxeh"]
 [ext_resource type="Script" path="res://FuTab.gd" id="41_je4uv"]
 [ext_resource type="Texture2D" uid="uid://njfot1si4chf" path="res://image/tile/tilecounter/tablediv.png" id="41_k312k"]
 [ext_resource type="Texture2D" uid="uid://cfmymgbxt6t6r" path="res://image/tile/tilecounter/tilecounter_dead.png" id="41_py2jx"]
 [ext_resource type="Script" path="res://ReallyCloseCatcher.gd" id="41_rbmxq"]
+[ext_resource type="Script" path="res://ColoredPurchaseables2.gd" id="42_ivwdv"]
 [ext_resource type="Texture2D" uid="uid://8eiqqlppwabi" path="res://image/tile/tilecounter/tilecounter.png" id="43_3nd3k"]
 [ext_resource type="Texture2D" uid="uid://c6hifrbh73ile" path="res://image/tile/tilecounter/tilecounter_ends.png" id="43_ki72n"]
 [ext_resource type="Script" path="res://AllTilesDisplay.gd" id="43_nbkwc"]
@@ -516,12 +515,6 @@ size_flags_vertical = 4
 alignment = 2
 script = ExtResource("22_nsrp2")
 
-[node name="Item" parent="HBoxContainer/MahjongRoot/GUIManager/All/TableBottom/HBoxContainer/Items" instance=ExtResource("29_s5425")]
-layout_mode = 2
-type = 1
-charge_type = 0
-activate_self = true
-
 [node name="Calls" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/GUIManager"]
 layout_mode = 1
 anchors_preset = 2
@@ -683,7 +676,6 @@ script = ExtResource("21_8bhal")
 
 [node name="ShopRoot" type="Control" parent="HBoxContainer/MahjongRoot" groups=["save_state"]]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -716,24 +708,11 @@ theme_override_constants/separation = 4
 [node name="Spacer" type="Control" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
+[node name="ShopName" type="Label" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
 layout_mode = 2
-bbcode_enabled = true
-text = "[center][b]Shop"
-fit_content = true
-
-[node name="ColoredPurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 4
-alignment = 1
-script = ExtResource("37_xpxeh")
-purchaseable = ExtResource("21_3mckx")
-
-[node name="DoraInfoLabel" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
-layout_mode = 2
-bbcode_enabled = true
-text = "[center]you won the last round! pick one of the above as award!"
-fit_content = true
+theme_override_fonts/font = ExtResource("69_xvrgp")
+text = "SHOP_NAME"
+horizontal_alignment = 1
 
 [node name="UpgradePurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
 layout_mode = 2
@@ -741,9 +720,11 @@ theme_override_constants/separation = 4
 alignment = 1
 script = ExtResource("20_wmn33")
 purchaseable = ExtResource("21_3mckx")
-type = 4
-BUTTONS = 4
-PER_BUTTON = 0
+type = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer/UpgradePurchaseables"]
+layout_mode = 2
+text = "SHOP_UPGRADES"
 
 [node name="ItemPurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
 layout_mode = 2
@@ -751,9 +732,18 @@ theme_override_constants/separation = 4
 alignment = 1
 script = ExtResource("20_wmn33")
 purchaseable = ExtResource("21_3mckx")
-type = 3
-BUTTONS = 4
-PER_BUTTON = 0
+type = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer/ItemPurchaseables"]
+layout_mode = 2
+text = "SHOP_ITEMS"
+
+[node name="ColoredPurchaseables2" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+script = ExtResource("42_ivwdv")
+purchaseable = ExtResource("21_3mckx")
 
 [node name="NextRoundButton" type="Button" parent="HBoxContainer/MahjongRoot/ShopRoot"]
 layout_mode = 1
@@ -785,9 +775,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -114.5
-offset_top = 49.0
+offset_top = 204.0
 offset_right = 114.5
-offset_bottom = 111.0
+offset_bottom = 266.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_cemfp")
 
@@ -1040,6 +1030,7 @@ tab_alignment = 1
 script = ExtResource("45_rsntb")
 
 [node name="TAB_GUIDE" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE"]
@@ -1053,7 +1044,6 @@ theme_override_fonts/font = ExtResource("28_jde07")
 tab_alignment = 1
 
 [node name="TAB_GUIDE_BASICS" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_BASICS"]
@@ -1096,6 +1086,7 @@ tab_size = 2
 script = ExtResource("52_jcp4g")
 
 [node name="TAB_GUIDE_TILES" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="OldRichTextLabel" type="RichTextLabel" parent="HBoxContainer/Sidebar/TabContainer/TAB_GUIDE/TabContainer/TAB_GUIDE_TILES"]
@@ -1613,7 +1604,6 @@ tab_size = 2
 script = ExtResource("56_iu0f6")
 
 [node name="TAB_OPTIONS" type="TabBar" parent="HBoxContainer/Sidebar/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="OptionsLoader" type="Node" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS"]
@@ -1626,7 +1616,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 2
 alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer"]
@@ -1704,7 +1694,7 @@ val = "ja"
 
 [node name="TilesetManButtons" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" groups=["save_options"]]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 9
 alignment = 1
 script = ExtResource("55_36kcy")
 
@@ -1723,7 +1713,7 @@ val = 1
 
 [node name="TilesetWindButtons" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" groups=["save_options"]]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 9
 alignment = 1
 script = ExtResource("55_36kcy")
 
@@ -1740,7 +1730,13 @@ text = "TILESET_WINDS_WESTERN"
 script = ExtResource("63_uvugq")
 val = 1
 
-[node name="SkipAnimsButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer" groups=["save_options"]]
+[node name="AssortedOptions" type="GridContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 9
+columns = 2
+
+[node name="SkipAnimsButton" type="Button" parent="HBoxContainer/Sidebar/TabContainer/TAB_OPTIONS/VBoxContainer/AssortedOptions" groups=["save_options"]]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
