@@ -15,6 +15,8 @@ class_name PurchaseablesHolder
 # how many sub buttons to generate
 @export var BUTTONS = 3
 
+# only permit one to be bought from the set
+@export var exclusive = false
 
 func start():
 	var tiles
@@ -71,6 +73,9 @@ func pressed(node: Purchaseable):
 	if shop_root.state != shop_root.STATE_ACTIVE:
 		return false
 	
+	if node.type == Purchaseable.TYPES.ITEM and items.get_child_count() >= items.max:
+		return false
+	
 	shop_root.adjust_money(-node.cost)
 	shop_root.state = shop_root.STATE_ANIMATING
 	
@@ -84,6 +89,7 @@ func pressed(node: Purchaseable):
 			a.reparent(items)
 			a._mouse_exited()
 			a.activate(mahjong_manager, %TileSelectPanel, %PopupTileSelector, %ManaBar, shop_root)
+			items.recount()
 		Purchaseable.TYPES.UPGRADE:
 			var a = node.upgrade
 			a.reparent(upgrades_grid_container)
@@ -92,6 +98,10 @@ func pressed(node: Purchaseable):
 			CursorText.set_text("")
 	
 	shop_root.state = shop_root.STATE_ACTIVE
+	
+	if exclusive:
+		for c in get_children():
+			c.queue_free()
 	
 	return true
 

@@ -202,6 +202,8 @@ make it clear dora only apply to an already completed hand (allowing negative ha
  excessive dora)
 shade tiles that have been discarded already
 murasaki tiles should work on an individual level, not a hand level
+add a rematerial purchase that works like recolor
+
 
 
 eraser does not delete anymore rn?

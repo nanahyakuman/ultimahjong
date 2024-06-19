@@ -827,6 +827,11 @@ func _end_round(win_is_tsumo_not_ron = false, ryuukyoku = false):
 			score_info.fus.append(ALL_YAKU.FU["Base"])
 			score_info.hans.append(ALL_YAKU.YAKUS["Nagashi Mangan"])
 	
+	# add midori dora:
+	for d in discard:
+		if d.color == MTile.COL_MIDORI:
+			score_info.fus.append(ALL_YAKU.FU["Midori Dora"])
+	
 	var multiplier_info = MultiplierInfo.new(seat_wind == WINDS.EAST, win_is_tsumo_not_ron)
 	
 	# lock self up until next round

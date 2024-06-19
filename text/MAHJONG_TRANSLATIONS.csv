@@ -23,6 +23,7 @@ FU_TYPE_MENZENKAFU,,Menzenkafu,門前加符
 FU_TYPE_TSUMO,,Tsumo,自摸
 FU_TYPE_CHIITOITSU,,Chiitoitsu,七対子
 FU_TYPE_AO_DORA,,Ao Dora,青ドラ
+FU_TYPE_MIDORI_DORA,,Midori Dora,緑ドラ
 FU_HEADER_GROUPINGS,,Groupings,面子
 FU_TYPE_PAIR,,Pair,対子
 FU_TYPE_YAKUHAI_PAIR,,Yakuhai Pair,役牌対子
@@ -81,10 +82,11 @@ GUIDE_TILES_RUN,,Run: 3 tiles in a row of the same number suit. Individual runs 
 GUIDE_TILES_HEADER_DORA,,Dora Tiles,ドラ牌
 GUIDE_TILES_DESC_DORA,,"Some tiles provide value just for being in hand at completion. However, you still need to have at least one Yaku in hand to go out. They are as follows:",ある牌は手配に存在するだけで翻を得る。だが、ドラだけで和了できない、まだ役が必要だ。
 GUIDE_TILES_AKA_DORA,dont use bbcode here! sorry,Aka: Printed fully in red. 1 Han.,赤ドラ：一飜。
-GUIDE_TILES_AO_DORA,"""",Ao: Printed fully in blue. 16 Fu.,青ドラ：一六符。
+GUIDE_TILES_AO_DORA,"""",Ao: Printed fully in blue. 10 Fu.,青ドラ：１０符。
+GUIDE_TILES_MIDORI_DORA,,Midori: Printed fully in green. 10 Fu if discarded.,緑ドラ：切れば１０符。
 GUIDE_TILES_KIN_DORA,"""",Kin: Printed fully in gold. 2 Han.,金ドラ：二飜。
 GUIDE_TILES_MURASAKI_DORA,"""",Murasaki: Printed fully in purple. 1 Han if full hand is closed.,紫ドラ：面前の場合に一飜。
-GUIDE_TILES_JURO_DORA,"""",Kuro: Printed fully in black (and marked). -1 Han.,黑ドラ：-1飜。
+GUIDE_TILES_KURO_DORA,"""",Kuro: Printed fully in black (and marked). -1 Han.,黑ドラ：-1飜。
 GUIDE_TILES_KAN_DORA,,"Kan: Every time a kan is called, a tile is revealed from the dead wall. The tile following it in sequence becomes a bonus tile. For number tiles, the order is sequential (1...9>1). For dragons, the order is W>G>R>W. For Winds: N>E>S>W>N.",槓を鳴くと、新しい槓ドラが表れる。局の最初に一つある。見える牌の次がドラになって、例え六萬なら七萬。
 GUIDE_TILES_HEADER_MATERIALS,put materials here!,,
 ,,,

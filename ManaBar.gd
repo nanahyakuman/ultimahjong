@@ -4,8 +4,11 @@ extends CursorTextRequester
 @onready var fill2 = $Fill2
 @onready var label = $Label
 
+@onready var upgrades = %Upgrades
+
 @export var cap = 136/2
 @export var mana = 0
+var can_overcharge = false
 
 func _ready():
 	_update_display()
@@ -16,7 +19,7 @@ func _ready():
 # overcharge allows us to reach a double-cap on mana
 func add_mana(amount: int, overcharge: bool = false):
 	var mod = 0
-	if !overcharge:
+	if !overcharge and !upgrades.mana_can_overcharge:
 		#mana = mini(mana + amount, cap)
 		mod = amount
 		if mana + mod > cap:

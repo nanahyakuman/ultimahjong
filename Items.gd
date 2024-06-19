@@ -2,6 +2,16 @@ extends HBoxContainer
 @onready var mana_bar = $"../ManaBar"
 
 @onready var item_scene = preload("res://item.tscn")
+@onready var item_count_label = $"../ItemCountLabel"
+
+@export var max = 5
+
+func _ready():
+	recount()
+
+# update label. since queuefree isnt instantaneous we allow for offsetting
+func recount(offset = 0):
+	item_count_label.text = "%d/%d" % [get_child_count() + offset, max]
 
 # add mana or reduce counters
 func tile_drawn(amount: int = 1):
@@ -13,7 +23,6 @@ func tile_drawn(amount: int = 1):
 func update_tile_graphics():
 	for i in get_children():
 		i.update_graphics(mana_bar.mana)
-
 
 func load_cfg(config: ConfigFile):
 	var types = config.get_value("items", "types")

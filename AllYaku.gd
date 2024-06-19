@@ -106,7 +106,8 @@ var FU = {
 	"Menzenkafu": ScoringInfo.Fu.new("FU_TYPE_MENZENKAFU", 10),
 	"Tsumo": ScoringInfo.Fu.new("FU_TYPE_TSUMO", 2),
 	"Chiitoitsu": ScoringInfo.Fu.new("FU_TYPE_CHIITOITSU", 25),
-	"Ao Dora": ScoringInfo.Fu.new("FU_TYPE_AO_DORA", 16),
+	"Ao Dora": ScoringInfo.Fu.new("FU_TYPE_AO_DORA", 10),
+	"Midori Dora": ScoringInfo.Fu.new("FU_TYPE_MIDORI_DORA", 10),
 	
 	"SPACER_2": "FU_HEADER_GROUPINGS",
 	

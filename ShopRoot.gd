@@ -18,7 +18,6 @@ var state
 	$VBoxContainer/ItemPurchaseables
 ]
 @onready var colored_purchaseables_2 = $VBoxContainer/ColoredPurchaseables2
-@onready var dora_info_label = $VBoxContainer/DoraInfoLabel
 @onready var really_close_catcher = $ReallyCloseCatcher
 @onready var color_rect = $ColorRect
 @onready var everything_container = $VBoxContainer

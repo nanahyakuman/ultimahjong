@@ -4,6 +4,8 @@ extends PurchaseablesHolder
 
 @onready var root = $"../../../../.."
 
+var chain = preload("res://image/chain.png")
+
 const TILES_PER_COLOR = {
 	MTile.COL_AKA: 2,
 	MTile.COL_AO: 4,
@@ -32,5 +34,16 @@ func start():
 		a.color = colors[i]
 		a.assign_type(Purchaseable.TYPES.COLOR)
 		a.calc_cost()
+		
+		# chain together exclusive items
+		if exclusive:
+			if i < BUTTONS - 1:
+				var rect = TextureRect.new()
+				rect.texture = chain
+				rect.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
+				add_child(rect)
+	
+	if exclusive:
+		add_theme_constant_override("separation", 0)
 	
 	visible = true

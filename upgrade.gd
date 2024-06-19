@@ -5,7 +5,7 @@ class_name Upgrade
 # pooled by upgradegridcontainer, using the metadata below
 enum TYPES {UPR_NONE, UPR_DEAD_REDUCE, UPR_KAN_REVEAL, UPR_KITA, UPR_OPPONENT_KILL,
 	UPR_MANA_UP, UPR_RONANKOU, UPR_STRONGER_RIICHI, UPR_MORE_MONEY, UPR_FLOWER, UPR_SEASON,
-	UPR_KIN_DRAGON, UPR_RISING_WIND, UPR_DECEL, UPR_MORE_DRAGONS, UPR_TENS}
+	UPR_KIN_DRAGON, UPR_RISING_WIND, UPR_DECEL, UPR_MORE_DRAGONS, UPR_TENS, UPR_MANA_CAP_DOUBLE}
 #  metadata about items.
 # generally want these to cost 2, but probably go all the way up to 5.
 # 3+ end the shop unceremoniously so taitei to be avoided
@@ -26,6 +26,7 @@ const METADATA = {		# cost, pool size
 	TYPES.UPR_DECEL:			[2, 0], # muted rn bc it's kinda lame, and because the gui doesnt update right atm
 	TYPES.UPR_MORE_DRAGONS:		[1, 4],
 	TYPES.UPR_TENS:				[1, 4],
+	TYPES.UPR_MANA_CAP_DOUBLE:	[1, 1]
 }
 var type = TYPES.UPR_NONE
 
@@ -41,7 +42,7 @@ func _ready():
 	sprite_2d.frame = type
 
 
-#  called when bought (and on reload). load_mute` is for upgrades that
+#  called when bought (and on reload). `load_mute` is for upgrades that
 # just add tiles, bc tile management is already handled by the tilecounter
 func bought(upgrades: Upgrades, tile_counter: Node, score_tracker: Node, load_mute: bool):
 	assert(type != TYPES.UPR_NONE, "not a valid upgrade!")
@@ -90,5 +91,7 @@ func bought(upgrades: Upgrades, tile_counter: Node, score_tracker: Node, load_mu
 				for i in [MTile.SUITS.PIN, MTile.SUITS.SOU, MTile.SUITS.MAN]:
 					for j in 1:
 						tile_counter.increment_tile(MTile.new(i, 10))
+		TYPES.UPR_MANA_CAP_DOUBLE:
+			upgrades.mana_can_overcharge = true
 
 

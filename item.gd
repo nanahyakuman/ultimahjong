@@ -476,6 +476,7 @@ func _gui_input(event):
 				_use()
 			else:
 				queue_free()
+				get_parent().recount(-1)
 				shop_root.adjust_money(1)
 
 func _mouse_entered():

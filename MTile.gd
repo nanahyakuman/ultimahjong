@@ -38,7 +38,7 @@ var pocchi: bool
 #  allows for more bespoke tile types, like d6 or dominoes. these should define custom draw
 # behavoir most of the time, but that'll occur in `TileGraphic.tscn`, not here.
 #  note that being unique does NOT imply a certain suit/value on its own! any tile can
-# be an eraser and will draw as such.
+# theoretically be an eraser and will draw as such, so you need to keep the suit/value in sync!
 enum UNIQUE {NOT = 0, D6, ERASER, DOMINO}
 var unique_type = UNIQUE.NOT
 # tracker that makes it so you can only do special item things once a round
