@@ -201,6 +201,8 @@ bigger shop and/or rerolls
 make it clear dora only apply to an already completed hand (allowing negative han hands for
  excessive dora)
 shade tiles that have been discarded already
+murasaki tiles should work on an individual level, not a hand level
+
 
 eraser does not delete anymore rn?
 	reverify all items actually

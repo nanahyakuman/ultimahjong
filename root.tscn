@@ -723,6 +723,7 @@ purchaseable = ExtResource("21_3mckx")
 type = 2
 
 [node name="Label" type="Label" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer/UpgradePurchaseables"]
+visible = false
 layout_mode = 2
 text = "SHOP_UPGRADES"
 
@@ -735,6 +736,7 @@ purchaseable = ExtResource("21_3mckx")
 type = 1
 
 [node name="Label" type="Label" parent="HBoxContainer/MahjongRoot/ShopRoot/VBoxContainer/ItemPurchaseables"]
+visible = false
 layout_mode = 2
 text = "SHOP_ITEMS"
 
@@ -744,6 +746,7 @@ theme_override_constants/separation = 4
 alignment = 1
 script = ExtResource("42_ivwdv")
 purchaseable = ExtResource("21_3mckx")
+BUTTONS = 1
 
 [node name="NextRoundButton" type="Button" parent="HBoxContainer/MahjongRoot/ShopRoot"]
 layout_mode = 1

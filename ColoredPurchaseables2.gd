@@ -18,10 +18,10 @@ func start():
 	
 	# select 3 random colors
 	var colors = [MTile.COL_AKA, MTile.COL_AO, MTile.COL_KIN, MTile.COL_MURASAKI, MTile.COL_MIDORI]
-	while colors.size() > 3:
+	while colors.size() > BUTTONS:
 		colors.remove_at(randi_range(0,colors.size()-1))
 	
-	for i in 3:
+	for i in BUTTONS:
 		var a: Purchaseable = purchaseable.instantiate()
 		add_child(a)
 		#var hidden = mini(randi()%(PER_BUTTON+1),randi()%(PER_BUTTON+1))
