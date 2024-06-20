@@ -125,10 +125,12 @@ func _use():
 			pass
 		
 		TYPES.ITEM_ERASER:
-			mahjong_manager.tsumo = null
 			var t = MTile.new(MTile.SUITS.SPECIAL, MTile.SPECIALS.HAKU)
 			t.unique_type = MTile.UNIQUE.ERASER
 			
+			mahjong_manager.tile_counter.remove_tile(mahjong_manager.tsumo)
+			
+			mahjong_manager.tsumo = null
 			mahjong_manager.do_tsumo(t)
 			
 		TYPES.ITEM_WIND_MAGNET:
@@ -408,6 +410,7 @@ func tile_selected(tile: MTile):
 	
 	# default completion behaviour
 	mahjong_manager.complete_tile_select()
+	mahjong_manager.tile_counter.emit_signal("updated")
 	popup_tile_select.set_tiles([])
 	tile_select.update_text("")
 	_expend_resource()

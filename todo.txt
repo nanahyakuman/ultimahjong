@@ -177,15 +177,11 @@ sidebar hover over tiles should give explanations of all the modifiers it has.
 charselect show score accel, round max, etc. should be dynamic
 update score accel the frame you buy the upgrade
 probably rework flowers so they DO have to match your seat to score
-consider easier to work with item code. i hate to have a billion tiny scripts on
- some level, but it's prob worth it long term to have easier and cleaner hooks in
- and out than what's going on rn
 ui sounds
 couldnt cancel color shift item
 kan dora code should account for non-extant tiles, so sanma 1m doras the 9m, or reduced size decks don't
  dora removed tiles. should update automatically so you can possibly take advantage of it
 cant cancel items that prompt tileselector or mahjmanager
-redraw a.rock to be the bocchi hair pendant
 assigning a cycled kin to hatsu crashed
 check doukou tens
 expand wait descriprions, "1-sided" is misleading
@@ -195,20 +191,12 @@ reimplement fu upgrades
 "verdant" tiles that grow into a dora if discarded
 "kebab" tiles that are worth a han if called with at least one other kebab
 chou chuuren failed
-consider 16 rounds and weaker items
-make eraser description more clear
 bigger shop and/or rerolls
 make it clear dora only apply to an already completed hand (allowing negative han hands for
  excessive dora)
 shade tiles that have been discarded already
 murasaki tiles should work on an individual level, not a hand level
 add a rematerial purchase that works like recolor
-
-
-
-eraser does not delete anymore rn?
-	reverify all items actually
-also make creating new items easier
 
 
 
