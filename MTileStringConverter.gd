@@ -45,16 +45,18 @@ static func mtile_to_str(tiles: Array, type = CHARACTER) -> String:
 				ret += SPECIALS_BY_VALUE[t.value]
 			
 			match t.color:
-				MTile.COL_AKA:
+				MTile.COLS.AKA:
 					ret += "'"
-				MTile.COL_AO:
+				MTile.COLS.AO:
 					ret += "`"
-				MTile.COL_KIN:
+				MTile.COLS.KIN:
 					ret +="\""
-				MTile.COL_MURASAKI:
+				MTile.COLS.MURASAKI:
 					ret += "-"
-				MTile.COL_MIDORI:
+				MTile.COLS.MIDORI:
 					ret +="="
+				MTile.COLS.MIDORI:
+					ret +="%"
 			
 			if t.pocchi:
 				ret +="*"
@@ -76,19 +78,22 @@ static func str_to_mtile(str: String) -> Array:
 	for c in str:
 		# aka
 		if c == "'":
-			get_last_assigned(vals,ret).color = MTile.COL_AKA
+			get_last_assigned(vals,ret).color = MTile.COLS.AKA
 			continue
 		if c == "`":
-			get_last_assigned(vals,ret).color = MTile.COL_AO
+			get_last_assigned(vals,ret).color = MTile.COLS.AO
 			continue
 		if c == "\"":
-			get_last_assigned(vals,ret).color = MTile.COL_KIN
+			get_last_assigned(vals,ret).color = MTile.COLS.KIN
 			continue
 		if c == "-":
-			get_last_assigned(vals,ret).color = MTile.COL_MURASAKI
+			get_last_assigned(vals,ret).color = MTile.COLS.MURASAKI
 			continue
 		if c == "=":
-			get_last_assigned(vals,ret).color = MTile.COL_MIDORI
+			get_last_assigned(vals,ret).color = MTile.COLS.MIDORI
+			continue
+		if c == "%":
+			get_last_assigned(vals,ret).color = MTile.COLS.KURO
 			continue
 		
 		if c == "*":

@@ -147,8 +147,7 @@ func _draw_hand():
 	update_hand_label()
 	
 	var temp = []
-	#temp = MTileStringConverter.str_to_mtile("白\"")
-	#temp = MTileStringConverter.str_to_mtile("123456789s1234p")
+	temp = MTileStringConverter.str_to_mtile("123456789s1234p")
 	
 	if temp:
 		temp.sort()
@@ -807,13 +806,32 @@ func _end_round(win_is_tsumo_not_ron = false, ryuukyoku = false):
 		if discard.size() == 0:
 			met_yaku.hans.append(ALL_YAKU.YAKUS["Kihou"])
 		
+		## any upgrades that add fu/yaku ##
+		var hand_info = get_hand_info()
+		var all_tiles = hand_info.get_all_tiles()
 		
 		# ron doesnt open hand upgrade
-		var hand_info = get_hand_info()
 		if upgrades.ron_counted_as_tsumo and !hand_info.tsumo:
 			hand_info.tsumo = hand_info.most_recent_discard
 		
 		score_info = yaku_checker.hand_get_han(hand_info, doras, true, met_yaku)
+		
+		# add midori dora:
+		for d in discard:
+			if d.color == MTile.COLS.MIDORI:
+				score_info.fus.append(ALL_YAKU.FU["Midori Dora"])
+		
+		# "pin""fu" (fu for having pin)
+		if upgrades.pinfu:
+			var counter = 0
+			for t in all_tiles:
+				if t.suit == MTile.SUITS.PIN:
+					counter += 1
+			
+			# this is bespokey but it's probably fine
+			var new_pinfu = ScoringInfo.Fu.new("FU_PINFU", counter)
+			score_info.fus.append(new_pinfu)
+			
 	
 	# nagashi check on ryuukyoku
 	else:
@@ -827,10 +845,7 @@ func _end_round(win_is_tsumo_not_ron = false, ryuukyoku = false):
 			score_info.fus.append(ALL_YAKU.FU["Base"])
 			score_info.hans.append(ALL_YAKU.YAKUS["Nagashi Mangan"])
 	
-	# add midori dora:
-	for d in discard:
-		if d.color == MTile.COL_MIDORI:
-			score_info.fus.append(ALL_YAKU.FU["Midori Dora"])
+	
 	
 	var multiplier_info = MultiplierInfo.new(seat_wind == WINDS.EAST, win_is_tsumo_not_ron)
 	

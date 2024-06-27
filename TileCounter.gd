@@ -23,7 +23,7 @@ func initialize(character_info: CharacterInfo, load: bool):
 						var a = MTile.new(i,j+1)
 						tile_data.append(a)
 					if j+1 == 5:
-						tile_data[-4].color = MTile.COL_AKA
+						tile_data[-4].color = MTile.COLS.AKA
 			
 			# temp d6 tester
 			#for i in 6:
@@ -53,7 +53,7 @@ func initialize(character_info: CharacterInfo, load: bool):
 						var a = MTile.new(i,j+1)
 						tile_data.append(a)
 			# gold iisou
-			tile_data[-9*4].color = MTile.COL_KIN
+			tile_data[-9*4].color = MTile.COLS.KIN
 			
 			for i in MTile.DEF_SPECIALS:
 				for k in 4:
@@ -69,7 +69,7 @@ func initialize(character_info: CharacterInfo, load: bool):
 						var a = MTile.new(i,j+1)
 						tile_data.append(a)
 					if j+1 == 5:
-						tile_data[-4].color = MTile.COL_AKA
+						tile_data[-4].color = MTile.COLS.AKA
 		
 		
 		#XL- 17 sized hand, no dora but 8 flowers
@@ -128,7 +128,33 @@ func get_random_non_colored_ids(amount_in_group: int, groups: int):
 		var counter = 0
 		while tiles.size() > 0 and counter < amount_in_group:
 			var next = tiles.pop_back()
-			if next.color != MTile.COL_NONE:
+			if next.color != MTile.COLS.NONE:
+				continue
+			if next.suit == MTile.SUITS.FLOWER:
+				continue
+			if next.suit == MTile.SUITS.SPECIAL and [MTile.SPECIALS.KIN, MTile.SPECIALS.SEI, MTile.SPECIALS.UP].has(next.value):
+				continue
+			if next.unique_type != MTile.UNIQUE.NOT:
+				continue
+			subret.append(next)
+			counter += 1
+		subret.sort_custom(Callable(MTile, "tile_compare"))
+		ret.append(subret)
+	
+	return ret
+
+func get_random_non_material_ids(amount_in_group: int, groups: int):
+	var ret = []
+	
+	var tiles = get_all_tiles()
+	tiles.shuffle()
+	
+	for GI in groups:
+		var subret = []
+		var counter = 0
+		while tiles.size() > 0 and counter < amount_in_group:
+			var next = tiles.pop_back()
+			if next.material != MTile.MATS.NONE:
 				continue
 			if next.suit == MTile.SUITS.FLOWER:
 				continue
@@ -227,7 +253,10 @@ func set_color(tile: MTile, color: int):
 	
 	emit_signal("updated")
 
-
+func set_material(tile: MTile, mat: int):
+	tile.material = mat
+	
+	emit_signal("updated")
 
 func load_cfg(config: ConfigFile):
 	tile_data = MTileStringConverter.str_to_mtile(config.get_value("state", "tile_data"))

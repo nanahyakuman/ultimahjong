@@ -19,7 +19,6 @@ var pairs = {
 	# nepotism
 	"Cloidioid": "me",
 	"Hickory 19px": "me",
-	"my old uploads as seventhousandk": "me",
 	
 	# games. to be expanded prob.
 	"LUFTRAUSERS": "Vlambeer",
@@ -103,6 +102,8 @@ var pairs = {
 	"Nothing Less": "knapsack",
 	"djijam7widoj": "dive to the heart", # its uhhhh the one with the radially symmetric cuneiform
 	"THE INEFFABLE TRUTH": "G JONES",
+	
+	"howtomarketagame.com": "Chris Zukowski",
 	
 	# yt channels here
 }

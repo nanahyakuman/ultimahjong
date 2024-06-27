@@ -22,12 +22,12 @@ const SPECIAL_NAMES = ["NONE", "TILE_SPEC_EAST", "TILE_SPEC_SOUTH", "TILE_SPEC_W
 var suit: int
 var value: int
 
-enum {COL_NONE, COL_AKA, COL_AO, COL_KIN, COL_MURASAKI, COL_MIDORI, COL_KURO}
+enum COLS {NONE, AKA, AO, KIN, MURASAKI, MIDORI, KURO}
 var color: int
 # for verbosity, the translation strings for the dora
 const COLOR_TR_STRINGS = ["NO COLOR", "GUIDE_TILES_AKA_DORA", "GUIDE_TILES_AO_DORA", "GUIDE_TILES_KIN_DORA", "GUIDE_TILES_MURASAKI_DORA", "GUIDE_TILES_MIDORI_DORA", "GUIDE_TILES_KURO_DORA"]
 
-enum {MAT_NONE, MAT_CERAMIC, MAT_METAL, MAT_VERDANT, MAT_FRAME, MAT_KEBAB}
+enum MATS {NONE, CERAMIC, METAL, VERDANT, FRAME, KEBAB}
 var material: int
 const MAT_TR_STRINGS = ["NO MATERIAL", "GUIDE_TILES_MAT_CERAMIC", "GUIDE_TILES_MAT_METAL", "GUIDE_TILES_MAT_VERDANT", "GUIDE_TILES_MAT_FRAME", "GUIDE_TILES_MAT_KEBAB" ]
 
@@ -48,7 +48,7 @@ var already_used = false
 #		[0] is the other value
 var unique_args = []
 
-func _init(s:int, v:int, col:int = COL_NONE, mat: int = MAT_NONE, p = false, u = UNIQUE.NOT, ua = []):
+func _init(s:int, v:int, col:int = COLS.NONE, mat: int = MATS.NONE, p = false, u = UNIQUE.NOT, ua = []):
 	suit = s
 	value = v
 	color = col #randi()%7 if randi()%4==0 else 0
@@ -148,11 +148,11 @@ func gen_name(tile: MTile):
 		str = str(tile.value) + tr(SUIT_NAMES[log(tile.suit)/log(2)])
 	
 	# color desc
-	if tile.color != COL_NONE:
+	if tile.color != COLS.NONE:
 		str += "\n" + tr(COLOR_TR_STRINGS[tile.color])
 	
 	# material desc
-	if tile.material != MAT_NONE:
+	if tile.material != MATS.NONE:
 		str += "\n" + tr(MAT_TR_STRINGS[tile.material])
 	
 	return str

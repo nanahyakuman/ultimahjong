@@ -491,13 +491,13 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 					all_tiles.append(t)
 			if doras.size() > 0:
 				for t in all_tiles:
-					if t.color == MTile.COL_AKA:
+					if t.color == MTile.COLS.AKA:
 						YakuChecker.append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Aka Dora"])
-					if t.color == MTile.COL_KIN:
+					if t.color == MTile.COLS.KIN:
 						YakuChecker.append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kin Dora"])
-					if t.color == MTile.COL_MURASAKI: # dont need to check for openness here bc mdora is -1 on open
+					if t.color == MTile.COLS.MURASAKI: # dont need to check for openness here bc mdora is -1 on open
 						YakuChecker.append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Murasaki Dora"])
-					if t.color == MTile.COL_KURO: # dont need to check for openness here bc mdora is -1 on open
+					if t.color == MTile.COLS.KURO: # dont need to check for openness here bc mdora is -1 on open
 						YakuChecker.append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kuro Dora"])
 					if doras[0].has(t.get_id()):
 						YakuChecker.append_or_merge_yaku(max.hans, ALL_YAKU.YAKUS["Kan Dora"])
@@ -814,7 +814,7 @@ func get_fu(groupings: Array, doras: Array, waited_tile: MTile):
 	
 	for g in groupings:
 		for t in g.tiles:
-			if t.color == MTile.COL_AO:
+			if t.color == MTile.COLS.AO:
 				fus.append(ALL_YAKU.FU["Ao Dora"].duplicate())
 	
 	

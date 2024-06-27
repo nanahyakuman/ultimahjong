@@ -16,8 +16,11 @@ end of every round can purchase:
 		dominoes. can count as either digit displayed, rclick to flip
 	x	0s and 10s (only added 10s rn)
 		counter tile that is worth 1 when drawn but can be incremented once a round
+	mats:
+		ensures you draw anoyther tile of its type when discarded (suit/wind/dragon)
+		verdant - if discarded, worth 1 fu for every rotation it's on the table
 	new rules (upgrades)
-		get two ura every reveal?
+	x	get two ura every reveal?
 		call atama?
 		create runs with winds/dragons
 	x	call kita
@@ -27,9 +30,9 @@ end of every round can purchase:
 		swap in akadora when in riichi
 		riichi ryuukyoku rewards half points off the best hand you could've gotten
 	x	drawing a tile gives you 2 mana instead of 1 (20% speed buff)
-		raise mana cap 50% (twice)
-		pin-fu (pin award fu)
-		can score a 0-han hand
+	x	raise mana cap
+	x	pin-fu (pin award fu)
+	--	can score a 0-han hand
 	x	reduce opponent discards by one
 	x	riichi costs 2000 and adds 2 han (actually a multiple-buy allowed mult.)
 	x	sell special dragons and winds here
@@ -44,13 +47,13 @@ end of every round can purchase:
 	x	exchange one tile for a false haku
 		autocomplete a wait? seems op
 	x	exchange a tile in hand for a current kandora
-		rearrange next five tiles
+		see the next 4 tiles, choose one to draw
 	x	aka a random tile
 	x	change a tile to one of its suji tiles
 	x	cycle a dragon's suit
 		reclose a called set
 		spawn a random orphan
-		convert a wind to a chosen adjacent wind
+	x	convert a wind to a chosen adjacent wind
 		pick up a discarded tile (actually make it the next tile you draw?)
 	x	transmute a tile's color to another color
 		draw a tile from the last discard rotation
@@ -63,6 +66,7 @@ end of every round can purchase:
 	other:
 	x	reduce scoring cutoff acceleration 200 ~2
 		reduce scoring cutoff vel? seems weird to do both
+		more options in shop (in some capacity, maybe more dora on vic)
 achievements
 	all yaku
 	all mangan tiers (? weird now)
@@ -196,8 +200,10 @@ make it clear dora only apply to an already completed hand (allowing negative ha
  excessive dora)
 shade tiles that have been discarded already
 murasaki tiles should work on an individual level, not a hand level
-add a rematerial purchase that works like recolor
-
+scoring results need to make uradora and agarihai more clear
+cancelling pin selection reportedly deleted the pin
+upload celina's art!
+save materials
 
 
 unique tile issues:

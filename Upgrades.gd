@@ -60,3 +60,6 @@ func get_money_per_round():
 
 # double mana cap
 var mana_can_overcharge = false
+
+# pin award fu
+var pinfu = true

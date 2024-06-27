@@ -1,17 +1,14 @@
-##  ignores all the exports, lol.
 ##  pretty hacky overall but functional
 extends PurchaseablesHolder
 
 @onready var root = $"../../../../.."
 
-var chain = preload("res://image/chain.png")
-
 const TILES_PER_COLOR = {
-	MTile.COL_AKA: 2,
-	MTile.COL_AO: 4,
-	MTile.COL_KIN: 1,
-	MTile.COL_MURASAKI: 3,
-	MTile.COL_MIDORI: 3
+	MTile.COLS.AKA: 2,
+	MTile.COLS.AO: 4,
+	MTile.COLS.KIN: 1,
+	MTile.COLS.MURASAKI: 3,
+	MTile.COLS.MIDORI: 3
 }
 
 func start():
@@ -19,7 +16,9 @@ func start():
 		c.queue_free()
 	
 	# select 3 random colors
-	var colors = [MTile.COL_AKA, MTile.COL_AO, MTile.COL_KIN, MTile.COL_MURASAKI, MTile.COL_MIDORI]
+	var colors = []
+	for i in range(1, MTile.COLS.size()-1): # avoid "none" and kuro
+		colors.append(i)
 	while colors.size() > BUTTONS:
 		colors.remove_at(randi_range(0,colors.size()-1))
 	
@@ -31,7 +30,7 @@ func start():
 		var hidden = 0
 		a.assign_tiles(tile_counter.get_random_non_colored_ids(TILES_PER_COLOR[colors[i]], 1)[0], hidden)
 		# do the following two in this order
-		a.color = colors[i]
+		a.color_or_material = colors[i]
 		a.assign_type(Purchaseable.TYPES.COLOR)
 		a.calc_cost()
 		

@@ -2,7 +2,7 @@ extends Control
 
 var money = 0
 
-const LOSE_ALL_MONEY = true
+const LOSE_ALL_MONEY = false
 
 enum {STATE_ANIMATING, STATE_ACTIVE}
 var state
@@ -10,24 +10,23 @@ var state
 @onready var root = $"../../.."
 @onready var cash_label = $"../GUIManager/TableTop/HBoxContainer/CashLabel"
 @onready var to_be_started = [
-	# these are given as rewards for a successful round
-	#$VBoxContainer/ColoredPurchaseables,
 	# no longer selling these, don't liek how it messes up counts
 	#$VBoxContainer/TilePurchaseables,
 	$VBoxContainer/UpgradePurchaseables,
-	$VBoxContainer/ItemPurchaseables
+	$VBoxContainer/ItemPurchaseables,
+	$LastRoundWonWindow/VBoxContainer/ColoredPurchaseables2,
+	$LastRoundWonWindow/VBoxContainer/MaterialPurchaseables
 ]
-@onready var colored_purchaseables_2 = $VBoxContainer/ColoredPurchaseables2
 @onready var really_close_catcher = $ReallyCloseCatcher
 @onready var color_rect = $ColorRect
 @onready var everything_container = $VBoxContainer
+@onready var last_round_won_window = $LastRoundWonWindow
 
 
 func start(was_victory: bool):
 	state = STATE_ACTIVE
 	
 	really_close_catcher.visible = false
-	
 	
 	everything_container.visible = false
 	var increment = 16
@@ -38,12 +37,14 @@ func start(was_victory: bool):
 	color_rect.size.y = size.y
 	
 	# money is added elsewhere
+	
 	MusicManager.start_shop()
 	
 	for s in to_be_started:
 		s.start()
 	
-	colored_purchaseables_2.start()
+	if root.last_round_was_victory:
+		last_round_won_window.visible = true
 	
 	# prevent glitching in
 	await get_tree().process_frame

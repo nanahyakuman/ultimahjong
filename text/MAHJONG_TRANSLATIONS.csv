@@ -9,7 +9,7 @@ TAB_RUN_TILES,,Tiles,牌
 TAB_RUN_FU,,Fu,符
 TAB_RUN_UPGRADES,,Upgrades,アップグレード
 TAB_YAKU_SPECIAL,,Special,特別
-TAB_YAKU_GROUPS,,Groups,面子
+TAB_YAKU_GROUPS,ly,Groups,面子
 TAB_YAKU_TILES,,Tiles,牌
 TAB_YAKU_YAKUMAN,,Yakuman,役満
 TAB_GUIDE_BASICS,,Basics,基本
@@ -42,6 +42,9 @@ FU_HEADER_WAITS,,Waits,待ち
 FU_TYPE_1SIDED,,1-Sided,一面
 FU_TYPE_2SIDED,,2-Sided,両面
 FU_TYPE_3SIDED,,~~~~~,
+FU_PINFU,,"""Pin""""Fu""",筒符
+,,,
+,,,
 ,,,
 GUIDE_BASICS_1,split into parts so that we can provide examples alongside text easily,"[b]Mahjong Fundamentals[/b]
 Every round, the basic aim is to build a winning hand with the 13 tiles in hand combined with a final 14th tile. This last tile is either drawn yourself or discarded by an opponent player.
@@ -81,12 +84,12 @@ GUIDE_TILES_QUAD,,"Quad: 4 tiles of the same value and suit. [i]Must[/i] be call
 GUIDE_TILES_RUN,,Run: 3 tiles in a row of the same number suit. Individual runs can [i]only[/i] be 3 tiles long.,順子：連続する三枚の牌。
 GUIDE_TILES_HEADER_DORA,,Dora Tiles,ドラ牌
 GUIDE_TILES_DESC_DORA,,"Some tiles provide value just for being in hand at completion. However, you still need to have at least one Yaku in hand to go out. They are as follows:",ある牌は手配に存在するだけで翻を得る。だが、ドラだけで和了できない、まだ役が必要だ。
-GUIDE_TILES_AKA_DORA,dont use bbcode here! sorry,Aka: Printed fully in red. 1 Han.,赤ドラ：一飜。
-GUIDE_TILES_AO_DORA,"""",Ao: Printed fully in blue. 10 Fu.,青ドラ：１０符。
-GUIDE_TILES_MIDORI_DORA,,Midori: Printed fully in green. 10 Fu if discarded.,緑ドラ：切れば１０符。
-GUIDE_TILES_KIN_DORA,"""",Kin: Printed fully in gold. 2 Han.,金ドラ：二飜。
-GUIDE_TILES_MURASAKI_DORA,"""",Murasaki: Printed fully in purple. 1 Han if full hand is closed.,紫ドラ：面前の場合に一飜。
-GUIDE_TILES_KURO_DORA,"""",Kuro: Printed fully in black (and marked). -1 Han.,黑ドラ：-1飜。
+GUIDE_TILES_AKA_DORA,dont use bbcode here! sorry,Aka: Printed and marked in red. 1 Han.,赤ドラ：一飜。
+GUIDE_TILES_AO_DORA,"""",Ao: Printed and marked in blue. 10 Fu.,青ドラ：１０符。
+GUIDE_TILES_MIDORI_DORA,,Midori: Printed and marked in green. 10 Fu if discarded.,緑ドラ：切れば１０符。
+GUIDE_TILES_KIN_DORA,"""",Kin: Printed and marked in gold. 2 Han.,金ドラ：二飜。
+GUIDE_TILES_MURASAKI_DORA,"""",Murasaki: Printed and marked in purple. 1 Han if full hand is closed.,紫ドラ：面前の場合に一飜。
+GUIDE_TILES_KURO_DORA,"""",Kuro: Printed and marked in black. -1 Han.,黑ドラ：-1飜。
 GUIDE_TILES_KAN_DORA,,"Kan: Every time a kan is called, a tile is revealed from the dead wall. The tile following it in sequence becomes a bonus tile. For number tiles, the order is sequential (1...9>1). For dragons, the order is W>G>R>W. For Winds: N>E>S>W>N.",槓を鳴くと、新しい槓ドラが表れる。局の最初に一つある。見える牌の次がドラになって、例え六萬なら七萬。
 GUIDE_TILES_HEADER_MATERIALS,put materials here!,,
 ,,,
@@ -328,8 +331,16 @@ UPR_RISING_WIND,,"Add Rising Winds, an additional Yakuhai wind tile, to the wall
 UPR_DECEL,,Reduce score acceleration by 200.,点数の加速を２００減る。
 UPR_MORE_DRAGONS,,"Add one White, Green, and Red dragon.",白・發・中を一つずつ山に追加。
 UPR_TENS,,"Adds one 10 to each of Man, Pin, and Sou.",１０筒、１０索と十萬を追加。
+UPR_MANA_CAP_DOUBLE,,Double your maximum mana.,
+UPR_PINFU,,All pin tiles award 1 fu.,
+,,,
+,,,
+,,,
+,,,
+,,,
 ,,,
 PURCHASEABLE_RECOLOR,,Recolor tiles.,ドラをつけ。
+PURCHASEABLE_REMAT,,Rematerial tiles.,
 ,,,
 HOVER_SEAT_WIND,,Your Sitting Wind. Changes every round.,自風。局ずつに変わる。
 HOVER_PREV_WIND,,The Prevalent Wind. Changes every rotation of winds.,場風。各四局に変わる。
@@ -367,11 +378,14 @@ LABEL_SELECT_CHARACTER,,Select a Deck!,牌を選べ！
 BUTTON_BACK,,Back,戻る
 BUTTON_START,,Start,開始
 ,,,
+BUTTON_SKIP,,Skip,次へ
+BUTTON_CLOSE_SHOP,,Next Round,次へ
+,,,
 SHOP_NAME,,Shop,ショップ
 SHOP_UPGRADES,,Upgrades,アップグレード
 SHOP_ITEMS,,Items,アイテム
-SHOP_DORA_DESC_W,,"You won last round, choose one of the Dora Paints above as a reward!",先局上がったため、上にあるドラの一つを選んで！
-SHOP_DORA_DESC_L,,Win the round to get Dora rewards!,上がるとドラを得る。
+SHOP_DORA_DESC_W,,"You won last round, choose from the below as a reward!",先局上がったため、ご褒美を選んで！
+SHOP_DORA_DESC_L,unused rn,---,
 ,,,
 GAME_END_WIN,,You won!,勝ち！
 GAME_END_LOSE,,You lost!,負け…

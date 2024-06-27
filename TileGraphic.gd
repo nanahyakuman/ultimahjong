@@ -73,19 +73,19 @@ func get_tile_segment(t: MTile) -> Rect2:
 	var y = roundi(log(t.suit)/log(2)) * tile_size.y
 	
 	match tile.color:
-		MTile.COL_AO:
+		MTile.COLS.AO:
 			x += tile_size.x * 10
-		MTile.COL_AKA:
+		MTile.COLS.AKA:
 			y += tile_size.y * 6
-		MTile.COL_KIN:
+		MTile.COLS.KIN:
 			y += tile_size.y * 6
 			x += tile_size.x * 10
-		MTile.COL_MURASAKI:
+		MTile.COLS.MURASAKI:
 			y += tile_size.y * 11
-		MTile.COL_MIDORI:
+		MTile.COLS.MIDORI:
 			y += tile_size.y * 11
 			x += tile_size.x * 10
-		MTile.COL_KURO:
+		MTile.COLS.KURO:
 			y += tile_size.y * 16
 	
 	# various texture options
@@ -133,7 +133,7 @@ func get_unique_sprite(t: MTile):
 			unique_sprite.region_rect.position.y = 32 * log(t.suit)/log(2)
 		MTile.UNIQUE.DOMINO: # this implementation is really wasteful but whatever
 			unique_sprite.region_rect.position.x = 32 * (t.value-1)
-			unique_sprite.region_rect.position.x = 32 * (t.unique_args[0]-1)
+			unique_sprite.region_rect.position.y = 32 * (t.unique_args[0]-1)
 
 func assign_visible_side(side: int):
 	# forgot why we do this at all but for now just ignore negatives

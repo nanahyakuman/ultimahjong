@@ -79,6 +79,7 @@ position = Vector2(8, 13)
 texture = ExtResource("11_7ok0s")
 
 [node name="AlreadyUsedIndicator" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(8, 26)
 texture = ExtResource("12_ix5wj")
 

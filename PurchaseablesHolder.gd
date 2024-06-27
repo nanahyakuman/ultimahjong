@@ -17,6 +17,7 @@ class_name PurchaseablesHolder
 
 # only permit one to be bought from the set
 @export var exclusive = false
+var chain = preload("res://image/chain.png")
 
 func start():
 	var tiles
@@ -49,7 +50,9 @@ func start():
 			a.assign_tiles(tiles[i], 0)#hidden_c)
 		else:
 			a.assign_tiles([], 0)
+		
 		a.assign_type(type)
+		
 		if valid_items:
 			# inelegant temp solution while pocchis dont exist
 			valid_items.erase(Item.TYPES.ITEM_POCCHI)
@@ -59,6 +62,7 @@ func start():
 			var item_type = [1,1,2,2][i]
 			a.assign_item(itm, item_type)
 			valid_items.erase(itm)
+		
 		if valid_ups:
 			var upr = valid_ups[i]
 			a.assign_upgrade(upr)
@@ -82,7 +86,11 @@ func pressed(node: Purchaseable):
 	match node.type:
 		Purchaseable.TYPES.COLOR:
 			for t in node.tiles:
-				tile_counter.set_color(t, node.color)
+				tile_counter.set_color(t, node.color_or_material)
+				await AnimTimer.start_mod(.15)
+		Purchaseable.TYPES.MATERIAL:
+			for t in node.tiles:
+				tile_counter.set_material(t, node.color_or_material)
 				await AnimTimer.start_mod(.15)
 		Purchaseable.TYPES.ITEM:
 			var a = node.item

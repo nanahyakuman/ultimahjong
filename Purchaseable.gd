@@ -11,7 +11,7 @@ class_name Purchaseable
 @onready var label = $PanelBuster/Label
 
 
-enum TYPES {COLOR, ITEM, UPGRADE}
+enum TYPES {COLOR, ITEM, UPGRADE, MATERIAL}
 var type = null
 # should only possess one either tiles or item or upgrade
 var tiles = []
@@ -19,8 +19,8 @@ var hidden_mask = []
 var item: Item
 var upgrade: Upgrade
 var cost = 3
-# only used by color purchaseables
-var color = MTile.COL_NONE
+# only used by color/material purchaseables
+var color_or_material = MTile.COLS.NONE
 
 func assign_tiles(ts: Array, hidden: int = 0):
 	tiles = ts
@@ -59,12 +59,14 @@ func assign_upgrade(id: int):
 
 func assign_type(ty: int):
 	type = ty
-	texture_holder.visible = ty == TYPES.COLOR
-	sprite.frame = color
+	texture_holder.visible = ty == TYPES.COLOR or ty == TYPES.MATERIAL
+	sprite.frame_coords = Vector2i(color_or_material, int(ty == TYPES.MATERIAL))
 
 func calc_cost():
 	if type == TYPES.COLOR:
-		cost = 1
+		cost = 0
+	elif type == TYPES.MATERIAL:
+		cost = 0
 	elif type == TYPES.ITEM:
 		match item.charge_type:
 			Item.CH_TYPES.ONCE:
@@ -91,7 +93,9 @@ func _gui_input(event):
 
 func _mouse_entered():
 	if type == TYPES.COLOR:
-		CursorText.set_text(tr("PURCHASEABLE_RECOLOR") + "\n " + tr(MTile.COLOR_TR_STRINGS[color]))
+		CursorText.set_text(tr("PURCHASEABLE_RECOLOR") + "\n " + tr(MTile.COLOR_TR_STRINGS[color_or_material]))
+	elif type == TYPES.MATERIAL:
+		CursorText.set_text(tr("PURCHASEABLE_REMAT") + "\n " + tr(MTile.MAT_TR_STRINGS[color_or_material]))
 
 func _mouse_exit():
 	CursorText.set_text("")
