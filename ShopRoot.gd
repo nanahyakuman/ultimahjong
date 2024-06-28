@@ -43,8 +43,8 @@ func start(was_victory: bool):
 	for s in to_be_started:
 		s.start()
 	
-	if root.last_round_was_victory:
-		last_round_won_window.visible = true
+	# this is always initialized, but it's hidden if you lose
+	last_round_won_window.visible = was_victory
 	
 	# prevent glitching in
 	await get_tree().process_frame

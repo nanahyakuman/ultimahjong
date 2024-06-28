@@ -147,7 +147,7 @@ func _draw_hand():
 	update_hand_label()
 	
 	var temp = []
-	temp = MTileStringConverter.str_to_mtile("123456789s1234p")
+	#temp = MTileStringConverter.str_to_mtile("123456789s1234p")
 	
 	if temp:
 		temp.sort()
@@ -243,6 +243,9 @@ func _do_opp_discard():
 		return
 	opp_discard.append(disc)
 	gui_manager.update_opp_discard(opp_discard)
+	# gray out older tiles
+	disc.discarded = true
+	tile_counter.emit_signal("updated")
 	
 	tile_sfx_player.play()
 	
@@ -661,6 +664,10 @@ func _draw_and_discard(discardee: MTile):
 	gui_manager.update_discard(discard, tile_entered_riichi_with)
 	gui_manager.update_tsumo([])
 	
+	# update sidebar
+	discardee.discarded = true
+	tile_counter.emit_signal("updated")
+	
 	tile_sfx_player.play()
 	
 	# force unhighlight tiles
@@ -859,6 +866,11 @@ func _end_round(win_is_tsumo_not_ron = false, ryuukyoku = false):
 	
 	# moved to root temporarily(?)
 	#TileGraphicKnower.update_dora_ids([])
+	
+	# undiscard tiles
+	for t in tile_counter.get_all_tiles():
+		t.discarded = false
+	tile_counter.emit_signal("updated")
 
 
 func _set_state(new_state: int):

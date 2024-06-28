@@ -14,6 +14,8 @@ class_name TileGraphic
 @onready var rotator = $Rotator
 # display for unique items that can only be used once a round
 @onready var already_used_indicator = $AlreadyUsedIndicator
+# sidebar greyer
+@onready var already_discarded = $Rotator/AlreadyDiscarded
 
 var tile_size = Vector2(16,32)
 var material_size = Vector2(32,48)
@@ -64,6 +66,9 @@ func assign_tile(t: MTile):
 	
 	assign_visible_side(visible_side)
 	
+	if verbose:
+		already_discarded.visible = t.discarded
+	
 	#  conveniaent place to call it, because any tile that does anything
 	# should retriggier gui.update_hand, calling this
 	update_used_graphic()
@@ -94,7 +99,7 @@ func get_tile_segment(t: MTile) -> Rect2:
 			x += tile_size.x * WESTERNIZE_SHEET_WIDTH * TileGraphicKnower.pinsou_version
 		MTile.SUITS.SOU:
 			x += tile_size.x * WESTERNIZE_SHEET_WIDTH * TileGraphicKnower.pinsou_version
-		MTile.SUITS.II:
+		MTile.SUITS.CHO:
 			x += tile_size.x * WESTERNIZE_SHEET_WIDTH * TileGraphicKnower.pinsou_version
 		
 		MTile.SUITS.MAN:

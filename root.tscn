@@ -1000,10 +1000,14 @@ layout_mode = 2
 
 [node name="SuitsRoot" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_TILES/HBoxContainer/AllTilesDisplay/ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/separation = 8
+alignment = 1
 
 [node name="Pin" type="HBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_TILES/HBoxContainer/AllTilesDisplay/ScrollContainer/SuitsRoot"]
 layout_mode = 2
+alignment = 1
 
 [node name="IdenticalTiles" type="VBoxContainer" parent="HBoxContainer/Sidebar/TabContainer/TAB_RUN/TabContainer/TAB_RUN_TILES/HBoxContainer/AllTilesDisplay/ScrollContainer/SuitsRoot/Pin"]
 layout_mode = 2

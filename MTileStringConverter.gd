@@ -6,7 +6,7 @@ class_name MTileStringConverter
 # emoji is not feature complete
 enum {CHARACTER, EMOJI}
 
-const SUITS = {MTile.SUITS.MAN: "m", MTile.SUITS.PIN: "p", MTile.SUITS.SOU: "s", MTile.SUITS.II: "c", MTile.SUITS.SPECIAL: "", MTile.SUITS.FLOWER: "f", null: ""}
+const SUITS = {MTile.SUITS.MAN: "m", MTile.SUITS.PIN: "p", MTile.SUITS.SOU: "s", MTile.SUITS.CHO: "c", MTile.SUITS.SPECIAL: "", MTile.SUITS.FLOWER: "f", null: ""}
 const SPECIALS_BY_VALUE = ["?", "東", "南", "西", "北", "登", "白", "發", "中", "金"]
 
 const EMOJIS = [

@@ -1,13 +1,13 @@
 class_name MTile
 
 # this needs to stay a bitmask or a lot of stuff will break!
-enum SUITS {NONE=0, PIN=1, SOU=2, MAN=4, II=8, SPECIAL=16, FLOWER=32}
+enum SUITS {NONE=0, PIN=1, SOU=2, MAN=4, CHO=8, SPECIAL=16, FLOWER=32}
 # specials are 1-indexed becuase so are the suits
 enum SPECIALS {NONE, EAST, SOUTH, WEST, NORTH, UP, HAKU, HATSU, CHUN, KIN, SEI}
 const DEF_SPECIALS = [SPECIALS.EAST, SPECIALS.SOUTH, SPECIALS.WEST, SPECIALS.NORTH, SPECIALS.HAKU, SPECIALS.HATSU, SPECIALS.CHUN]
 
 # for easy lookup with `has()`
-const NUMERALS = [SUITS.MAN, SUITS.PIN, SUITS.SOU, SUITS.II]
+const NUMERALS = [SUITS.MAN, SUITS.PIN, SUITS.SOU, SUITS.CHO]
 const DRAGONS = [SPECIALS.HAKU, SPECIALS.HATSU, SPECIALS.CHUN, SPECIALS.KIN, SPECIALS.SEI]
 const BASIC_DRAGONS = [SPECIALS.HAKU, SPECIALS.HATSU, SPECIALS.CHUN]
 const WINDS = [SPECIALS.EAST, SPECIALS.SOUTH, SPECIALS.WEST, SPECIALS.NORTH, SPECIALS.UP]
@@ -16,7 +16,7 @@ const BASIC_WINDS = [SPECIALS.EAST, SPECIALS.SOUTH, SPECIALS.WEST, SPECIALS.NORT
 const RYUUII_VALUES = [2,3,4,6,8]
 
 # tr strings to generate human readable name
-const SUIT_NAMES = ["TILE_SUIT_PIN", "TILE_SUIT_SOU", "TILE_SUIT_MAN", "TILE_SUIT_II", "nope", "TILE_SUIT_FLOWER"]
+const SUIT_NAMES = ["TILE_SUIT_PIN", "TILE_SUIT_SOU", "TILE_SUIT_MAN", "TILE_SUIT_CHO", "nope", "TILE_SUIT_FLOWER"]
 const SPECIAL_NAMES = ["NONE", "TILE_SPEC_EAST", "TILE_SPEC_SOUTH", "TILE_SPEC_WEST", "TILE_SPEC_NORTH", "TILE_SPEC_UP", "TILE_SPEC_HAKU", "TILE_SPEC_HATSU", "TILE_SPEC_CHUN", "TILE_SPEC_KIN"]
 
 var suit: int
@@ -34,7 +34,6 @@ const MAT_TR_STRINGS = ["NO MATERIAL", "GUIDE_TILES_MAT_CERAMIC", "GUIDE_TILES_M
 #  whether the tile has a pocchi
 var pocchi: bool
 
-
 #  allows for more bespoke tile types, like d6 or dominoes. these should define custom draw
 # behavoir most of the time, but that'll occur in `TileGraphic.tscn`, not here.
 #  note that being unique does NOT imply a certain suit/value on its own! any tile can
@@ -47,6 +46,10 @@ var already_used = false
 # 	DOMINO
 #		[0] is the other value
 var unique_args = []
+
+
+# metadata so we can blur out siebar tiles we've discarded
+var discarded = false
 
 func _init(s:int, v:int, col:int = COLS.NONE, mat: int = MATS.NONE, p = false, u = UNIQUE.NOT, ua = []):
 	suit = s

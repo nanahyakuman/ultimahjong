@@ -42,7 +42,7 @@ FU_HEADER_WAITS,,Waits,待ち
 FU_TYPE_1SIDED,,1-Sided,一面
 FU_TYPE_2SIDED,,2-Sided,両面
 FU_TYPE_3SIDED,,~~~~~,
-FU_PINFU,,"""Pin""""Fu""",筒符
+FU_PINFU,,Pin Fu,筒符
 ,,,
 ,,,
 ,,,
@@ -260,7 +260,7 @@ CALL_KITA,,North,キタ
 TILE_SUIT_PIN,suits will be appended to an integer 1~10.,-pin,筒
 TILE_SUIT_SOU,,-sou,索
 TILE_SUIT_MAN,,-man,萬
-TILE_SUIT_II,,-ii,億
+TILE_SUIT_CHO,,-cho,億
 TILE_SUIT_FLOWER,, flower,花
 TILE_SPEC_EAST,names for jihai,East Wind,トン
 TILE_SPEC_SOUTH,,South Wind,ナン

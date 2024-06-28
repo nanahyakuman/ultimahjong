@@ -62,4 +62,4 @@ func get_money_per_round():
 var mana_can_overcharge = false
 
 # pin award fu
-var pinfu = true
+var pinfu = false

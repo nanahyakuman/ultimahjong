@@ -63,7 +63,7 @@ func initialize(character_info: CharacterInfo, load: bool):
 		
 		#no honors
 		CharacterInfo.TYPES.NO_HONORS:
-			for i in [MTile.SUITS.MAN, MTile.SUITS.PIN, MTile.SUITS.SOU, MTile.SUITS.II]:
+			for i in [MTile.SUITS.MAN, MTile.SUITS.PIN, MTile.SUITS.SOU, MTile.SUITS.CHO]:
 				for j in 9:
 					for k in 4:
 						var a = MTile.new(i,j+1)
@@ -216,7 +216,8 @@ func _get_random_tile(suit_override: int = -1, val_override: int = -1) -> MTile:
 
 func increment_tile(tile: MTile):
 	# add the new tile to the list, and give it a unique id
-	var new_tile = tile.duplicate()
+	var new_tile = MTile.new(0,0)
+	new_tile.assign_tile(tile)
 	tile_data.append(new_tile)
 	tile_data.sort_custom(Callable(MTile, "tile_compare"))
 	

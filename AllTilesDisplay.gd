@@ -46,8 +46,9 @@ func add_tile_graphic(t: MTile):
 	var tg = tile_graphic.instantiate()
 	var col = current_suit_holder.get_child(t.value-1)
 	col.add_child(tg)
-	tg.assign_tile(t)
+	# below ordering is important
 	tg.verbose = true
+	tg.assign_tile(t)
 
 
 
