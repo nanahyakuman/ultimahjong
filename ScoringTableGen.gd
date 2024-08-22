@@ -3,6 +3,8 @@ extends RichTextLabel
 func _ready():
 	clear()
 	
+	var multiplier_info = MultiplierInfo.new(false, false)
+	
 	var FU_TO_SHOW = 6
 	
 	var tex = "[table=%d]" % (FU_TO_SHOW+1)
@@ -18,7 +20,7 @@ func _ready():
 		tex += c % HAN
 		
 		for FU in range(0, (FU_TO_SHOW) * 10, 10):
-			tex += c % str(ScoringInfo._aoten_points_count(FU+20, HAN, 0) * 4)
+			tex += c % str(multiplier_info.get_multiplied(ScoringInfo._canonical_points_count(FU+20, HAN, 0)))
 	
 	tex += "[/table]"
 	

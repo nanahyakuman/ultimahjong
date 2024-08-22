@@ -61,15 +61,17 @@ func end_round(scoring_info: ScoringInfo, multiplier_info: MultiplierInfo):
 	
 	var fu = scoring_info.get_total_fu()
 	var han = scoring_info.get_total_han()
+	var chips = scoring_info.get_chip_points()
 	
 	var points = scoring_info.get_base_points()
 	points = multiplier_info.get_multiplied(points)
+	points += chips
 	
 	# 0 points for exhaustive
 	if han == 0:
 		points = 0
 	
-	await scoring_root.update_scoring(scoring_info, fu, han, points, multiplier_info.get_multiplier())
+	await scoring_root.update_scoring(scoring_info, fu, han, chips, points, multiplier_info.get_multiplier())
 	
 	# only add after we tell the player their base score
 	points += scoring_info.get_riichi_return()

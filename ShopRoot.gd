@@ -14,6 +14,8 @@ var state
 	#$VBoxContainer/TilePurchaseables,
 	$VBoxContainer/UpgradePurchaseables,
 	$VBoxContainer/ItemPurchaseables,
+]
+@onready var rewards_to_be_started = [
 	$LastRoundWonWindow/VBoxContainer/ColoredPurchaseables2,
 	$LastRoundWonWindow/VBoxContainer/MaterialPurchaseables
 ]
@@ -27,8 +29,10 @@ func start(was_victory: bool):
 	state = STATE_ACTIVE
 	
 	really_close_catcher.visible = false
-	
 	everything_container.visible = false
+	last_round_won_window.visible = false
+	
+	
 	var increment = 16
 	color_rect.size.y = increment
 	for i in range(0, size.y, increment):
@@ -42,6 +46,12 @@ func start(was_victory: bool):
 	
 	for s in to_be_started:
 		s.start()
+	
+	# give a random dora/mat
+	for r in rewards_to_be_started:
+		r.start()
+		r.visible = false
+	rewards_to_be_started.pick_random().visible = true
 	
 	# this is always initialized, but it's hidden if you lose
 	last_round_won_window.visible = was_victory

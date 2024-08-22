@@ -14,14 +14,15 @@ func _init(was_dealer: bool, was_tsumo: bool):
 
 # new scoring doesn't care about rounding
 func get_multiplied(points):
-#	if !tsumo:
-#		return ScoringInfo.round_to_place(points * (4 if !dealer else 6), 100)
-#	else:
-#		if !dealer:
-#			return ScoringInfo.round_to_place(points, 100) * 2 + ScoringInfo.round_to_place(points * 2, 100)
-#		else:
-#			return ScoringInfo.round_to_place(points * 2, 100) * 3
-	return points * (4 if !dealer else 6)
+	if !tsumo:
+		return ScoringInfo.round_to_place(points * (4 if !dealer else 6), 100)
+	else:
+		if !dealer:
+			return ScoringInfo.round_to_place(points, 100) * 2 + ScoringInfo.round_to_place(points * 2, 100)
+		else:
+			return ScoringInfo.round_to_place(points * 2, 100) * 3
+	
+	#return points * (4 if !dealer else 6)
 
 func get_multiplier():
 	return (4 if !dealer else 6)

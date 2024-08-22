@@ -18,7 +18,6 @@ const SIZE = 22
 @onready var seat_wind = $All/TableBottom/HBoxContainer/SittingWind
 @onready var made_calls = $MadeCalls
 @onready var score_label = $TableTop/HBoxContainer/HBoxContainer/ScoreLabel
-@onready var needed_score_label = $TableTop/HBoxContainer/HBoxContainer/NeededScoreLabel
 @onready var popup_tile_selector = $PopupTileSelector/HBoxContainer
 @onready var popup_tile_selector_call_root = $PopupTileSelector
 
@@ -123,5 +122,5 @@ func update_wall_count(c: int, d: int, k: int, km: int):
 
 
 func update_score(score, expected_score):
-	score_label.set_text_colorized(score)
-	needed_score_label.set_text_colorized(expected_score)
+	score_label.clear()
+	score_label.append_text("[b]%d/%d" % [score, expected_score])

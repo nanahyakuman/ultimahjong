@@ -8,7 +8,7 @@ const TILES_PER_COLOR = {
 	MTile.COLS.AO: 4,
 	MTile.COLS.KIN: 1,
 	MTile.COLS.MURASAKI: 3,
-	MTile.COLS.MIDORI: 3
+	MTile.COLS.MIDORI: 5
 }
 
 func start():

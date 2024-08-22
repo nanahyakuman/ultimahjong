@@ -4,6 +4,8 @@ extends Control
 @onready var han_points = $Window/VBoxContainer/Han/Points
 @onready var fu_names = $Window/VBoxContainer/Fu/Names
 @onready var fu_points = $Window/VBoxContainer/Fu/Points
+@onready var chip_names = $Window/VBoxContainer/Chips/Names
+@onready var chip_points = $Window/VBoxContainer/Chips/Points
 @onready var calc = $Window/VBoxContainer/Calc
 @onready var total = $Window/VBoxContainer/Total
 @onready var score_label = $"../GUIManager/TableTop/HBoxContainer/HBoxContainer/ScoreLabel"
@@ -14,11 +16,13 @@ extends Control
 
 # fu, han, and points can theoretically be derived here but
 # why do it twice
-func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points, mult):
+func update_scoring(scoring_info: ScoringInfo, _fu: int, _han: int, _chips: int, points, mult):
 	han_names.clear()
 	han_points.clear()
 	fu_names.clear()
 	fu_points.clear()
+	chip_names.clear()
+	chip_points.clear()
 	calc.clear()
 	total.clear()
 	
@@ -51,9 +55,16 @@ func update_scoring(scoring_info: ScoringInfo, fu: int, han: int, points, mult):
 		if !animate: #only queue once if not animating, should prevent weird transients
 			MusicManager.play_han()
 	
+	chip_points.append_text("[right][color=%s]" % COL.LGREEN)
+	for c in scoring_info.chips:
+		chip_names.append_text(tr(c.nam) + "\n")
+		chip_points.append_text("%d pts\n" % ScoringInfo.CHIP_VALUE)
+		if animate:
+			await AnimTimer.start_get(.1)
+	
 	await AnimTimer.start_get(.3, true)
 	
-	calc.text = "[center][b][color=%s]%d[/color]×2[/b](2+[color=%s]%d[/color])[b]×%d=" % [COL.LBLUE, fu, COL.YELLOW, han, mult]
+	#calc.text = "[center][b][color=%s]%d[/color]×2[/b](2+[color=%s]%d[/color])[b]×%d=" % [COL.LBLUE, fu, COL.YELLOW, han, mult]
 	#calc.visible = false
 	total.set_text_colorized(points)
 	

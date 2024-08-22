@@ -43,6 +43,7 @@ end of every round can purchase:
 		remove a strip of 2-8 (maybe 1-9) of a suit
 		make ippatsu last longer (ryanbatsu?)
 		dora purchaseables contain an additional tile
+		arisu (https://mjlocal.fandom.com/ja/wiki/%E3%82%A2%E3%83%AA%E3%82%B9)
 	spell cards, refresh every x draws (items)
 	x	next tile will be --honor-- wind
 	x	exchange one tile for a false haku
@@ -64,6 +65,7 @@ end of every round can purchase:
 		every 5 consecutive discards from hand adds a han
 		10 points for every tile left in wall?
 		discard 4 chun for an automatic free mangan
+		make nagashi a baiman
 	other:
 	x	reduce scoring cutoff acceleration 200 ~2
 		reduce scoring cutoff vel? seems weird to do both
@@ -163,6 +165,8 @@ difficulty modes:
 	easy mode
 		remove 1han shibari
 	base game
+		furiten?
+		that chii subs rule
 	accumulated score resets after every east sitting
 	bosses every east sitting
 
@@ -208,6 +212,14 @@ upload celina's art!
 save materials
 win tile and uradora indicator
 rework sidebar update to not suck
+mjsl style tenpai agarihai indicator (maybe even with yaku)
+make scoring display translate fu/han
+does yakuman disabling break anything? check 
+nagashi scoring
+
+change most fu upgrades to chip upgrades
+	add chip display to scoring window
+
 
 
 unique tile issues:

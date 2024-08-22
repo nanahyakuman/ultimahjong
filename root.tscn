@@ -316,19 +316,6 @@ theme_override_colors/default_color = Color(0.933333, 0.866667, 0.8, 1)
 bbcode_enabled = true
 text = "[b]0000"
 fit_content = true
-script = ExtResource("27_yfh58")
-center = false
-
-[node name="NeededScoreLabel" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-theme_override_colors/default_color = Color(0.933333, 0.866667, 0.8, 1)
-bbcode_enabled = true
-text = "[b]0000"
-fit_content = true
-script = ExtResource("27_yfh58")
-center = false
 
 [node name="CashLabel" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/GUIManager/TableTop/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
@@ -659,6 +646,28 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_l6in4")
 bbcode_enabled = true
 fit_content = true
 
+[node name="Control2" type="Control" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="Chips" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer"]
+layout_mode = 2
+
+[node name="Names" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer/Chips"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0.933333, 0.866667, 0.8, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_l6in4")
+bbcode_enabled = true
+fit_content = true
+
+[node name="Points" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer/Chips"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_l6in4")
+bbcode_enabled = true
+fit_content = true
+
 [node name="Calc" type="RichTextLabel" parent="HBoxContainer/MahjongRoot/ScoringRoot/Window/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/default_color = Color(0.933333, 0.866667, 0.8, 1)
@@ -807,7 +816,6 @@ theme_override_constants/separation = 4
 alignment = 1
 script = ExtResource("42_ivwdv")
 purchaseable = ExtResource("21_3mckx")
-BUTTONS = 2
 exclusive = true
 
 [node name="MaterialPurchaseables" type="HBoxContainer" parent="HBoxContainer/MahjongRoot/ShopRoot/LastRoundWonWindow/VBoxContainer"]
@@ -817,7 +825,6 @@ alignment = 1
 script = ExtResource("42_gqq2d")
 purchaseable = ExtResource("21_3mckx")
 type = 3
-BUTTONS = 2
 exclusive = true
 
 [node name="SkipButton" type="Button" parent="HBoxContainer/MahjongRoot/ShopRoot/LastRoundWonWindow"]

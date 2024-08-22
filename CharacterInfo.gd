@@ -20,9 +20,9 @@ var hand_size: int
 var starting_uprgrades: Array #of ints
 
 # scoring expectations
-var base_score: float				= 5000
-var base_expected_points: float 	= 2000
-var base_expected_points_mod: float	= 2		#multiplier
+var base_score: float#				= 25000 # a little weird, but you get a decent amount of game free
+var base_expected_points: float 	= 8000 # base
+var base_expected_points_mod: float	= 8000 # added every round
 
 # how many rounds to win the game after
 var number_of_rounds: int
@@ -48,7 +48,7 @@ func set_type(ty:int):
 			opponents_its_legal_to_chii_from_count = 1
 			hand_size = 14
 			
-			
+			base_score = 25000
 			number_of_rounds = 16
 			
 			tr_root = "CHARACTER_RIICHI"
@@ -63,11 +63,12 @@ func set_type(ty:int):
 			opponents_its_legal_to_chii_from_count = 0
 			hand_size = 14
 			
-			base_expected_points *= 1.5
+			#base_expected_points *= 1.5
 			
 			starting_uprgrades = [Upgrade.TYPES.UPR_KITA]
 			
 			
+			base_score = 35000
 			number_of_rounds = 18
 			
 			tr_root = "CHARACTER_SANMA"
@@ -84,6 +85,7 @@ func set_type(ty:int):
 			hand_size = 14
 			
 			
+			base_score = 25000
 			number_of_rounds = 16
 			
 			tr_root = "CHARACTER_NO_HONORS"
@@ -100,6 +102,8 @@ func set_type(ty:int):
 			
 			starting_uprgrades = [Upgrade.TYPES.UPR_FLOWER, Upgrade.TYPES.UPR_FLOWER]
 			
+			
+			base_score = 25000
 			number_of_rounds = 16
 			
 			tr_root = "CHARACTER_XL"

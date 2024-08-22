@@ -9,6 +9,8 @@ extends PanelContainer
 
 var suit_holders = []
 
+var needs_update = true
+
 func _ready():
 	tile_counter.connect("updated", update)
 	_initialize()
@@ -21,15 +23,21 @@ func _initialize():
 		suits_root.add_child(a)
 		suit_holders.append(a)
 
+#  this weird solution could be alleviated by a better update function
+# bit for now this removes redundant calls in a single frame, reducing lag a lot
 func update():
-	for sh in suit_holders:
-		for s in sh.get_children():
-			for c in s.get_children():
-				c.queue_free()
-	
-	for t in tile_counter.tile_data:
-		add_tile_graphic(t)
+	needs_update = true
 
+func _physics_process(delta):
+	if needs_update:
+		for sh in suit_holders:
+			for s in sh.get_children():
+				for c in s.get_children():
+					c.queue_free()
+		
+		for t in tile_counter.tile_data:
+			add_tile_graphic(t)
+	needs_update = false
 
 func add_tile_graphic(t: MTile):
 	var suit_index = int(log(t.suit)/log(2))

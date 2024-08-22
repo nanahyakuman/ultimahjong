@@ -462,6 +462,13 @@ func hand_get_han(hand_info: HandInformation, doras = [], do_fu = false, other_m
 				if pairs.size() >= 7:
 					scoring_info.fus.clear()
 					scoring_info.fus.append(ALL_YAKU.FU["Chiitoitsu"].duplicate())
+				
+				
+				# do chips here as well
+				for g in groupings:
+					for t in g.tiles:
+						if t.color == MTile.COLS.AO:
+							scoring_info.chips.append(ALL_YAKU.CHIPS["Ao Dora"])
 			
 			
 			if scoring_info.get_base_points() >= max.get_base_points():
@@ -811,11 +818,6 @@ func get_fu(groupings: Array, doras: Array, waited_tile: MTile):
 	
 	if award_wait_fu:
 		fus.append(ALL_YAKU.FU["1-sided Wait"].duplicate())
-	
-	for g in groupings:
-		for t in g.tiles:
-			if t.color == MTile.COLS.AO:
-				fus.append(ALL_YAKU.FU["Ao Dora"].duplicate())
 	
 	
 	return fus

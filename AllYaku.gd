@@ -30,7 +30,7 @@ var YAKUS = {
 	
 #	"SPACER_7": "Special",
 	"Chiitoitsu": ScoringInfo.Han.new("YAKU_CHIITOITSU", 2, 0, "🀚🀚🀛🀛🀔🀔🀖🀖🀍🀍🀂🀂🀅🀅"),
-	"Nagashi Mangan": ScoringInfo.Han.new("YAKU_NAGASHI", 5, 0, "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪  "), #4 bc 5 = 10,000 rn
+	"Nagashi Mangan": ScoringInfo.Han.new("YAKU_NAGASHI", 4, 0, "🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪🀪  "), #4 bc 5 = 10,000 rn
 	
 #	"SPACER_2": "Runs",
 	"TAB_YAKU_GROUPS": "TAB_YAKU_GROUPS",
@@ -106,8 +106,8 @@ var FU = {
 	"Menzenkafu": ScoringInfo.Fu.new("FU_TYPE_MENZENKAFU", 10),
 	"Tsumo": ScoringInfo.Fu.new("FU_TYPE_TSUMO", 2),
 	"Chiitoitsu": ScoringInfo.Fu.new("FU_TYPE_CHIITOITSU", 25),
-	"Ao Dora": ScoringInfo.Fu.new("FU_TYPE_AO_DORA", 10),
-	"Midori Dora": ScoringInfo.Fu.new("FU_TYPE_MIDORI_DORA", 10),
+#	"Ao Dora": ScoringInfo.Fu.new("FU_TYPE_AO_DORA", 10),
+#	"Midori Dora": ScoringInfo.Fu.new("FU_TYPE_MIDORI_DORA", 10),
 	
 	"SPACER_2": "FU_HEADER_GROUPINGS",
 	
@@ -131,6 +131,11 @@ var FU = {
 	
 #	"SPACER_4": "[b]Dora",
 #
+}
+
+var CHIPS = {
+	"Ao Dora": ScoringInfo.Chip.new("CHIP_TYPE_AO_DORA"),
+	"Midori Dora": ScoringInfo.Chip.new("CHIP_TYPE_MIDORI_DORA"),
 }
 
 func upgrade_fu(str: String):

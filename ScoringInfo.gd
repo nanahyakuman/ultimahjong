@@ -53,11 +53,18 @@ class Fu:
 	func duplicate():
 		return Fu.new(nam, fu)
 
+const CHIP_VALUE = 500
+class Chip:
+	var nam: String = ""
+	
+	func _init(_name: String):
+		nam = _name
 
 
 var open = false
 var fus = []
 var hans = []
+var chips = []
 
 func get_total_han() -> int:
 	var ret = 0
@@ -93,8 +100,27 @@ func get_base_points():
 	var fu = get_total_fu()
 	var yakuman = get_total_yakuman()
 	
-	return ScoringInfo._aoten_points_count(fu, han, yakuman)
+	return ScoringInfo._canonical_points_count(fu, han, yakuman)
 
+func get_chip_points():
+	return chips.size() * CHIP_VALUE
+
+
+static func _canonical_points_count(fu: int, han: int, yakuman: int):
+	var base = round_to_place(fu, 10) * pow(2, 2+han)
+	if base >= 2000:
+		base = 2000
+		if han >= 6:
+			base = 3000
+		if han >= 8:
+			base = 4000
+		if han >= 11:
+			base = 6000
+		if han >= 13:
+			base = 8000
+	if yakuman > 1:
+		base = 8000 * yakuman
+	return base
 
 static func _alt_points_count(fu: int, han: int, yakuman: int):
 	var base = 250

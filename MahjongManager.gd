@@ -147,7 +147,7 @@ func _draw_hand():
 	update_hand_label()
 	
 	var temp = []
-	#temp = MTileStringConverter.str_to_mtile("123456789s1234p")
+	temp = MTileStringConverter.str_to_mtile("123123p45678s9`9`m")
 	
 	if temp:
 		temp.sort()
@@ -826,7 +826,7 @@ func _end_round(win_is_tsumo_not_ron = false, ryuukyoku = false):
 		# add midori dora:
 		for d in discard:
 			if d.color == MTile.COLS.MIDORI:
-				score_info.fus.append(ALL_YAKU.FU["Midori Dora"])
+				score_info.chips.append(ALL_YAKU.CHIPS["Midori Dora"])
 		
 		# "pin""fu" (fu for having pin)
 		if upgrades.pinfu:

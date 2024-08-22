@@ -31,7 +31,7 @@ func update_score(score_add):
 
 # called at the end of around / start of shop
 func increment_counters():
-	expected_score *= expected_points_mod
+	expected_score += expected_points_mod
 
 	update_score(0)
 

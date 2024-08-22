@@ -1,4 +1,5 @@
 extends PanelContainer
+
 @onready var h_box_container = $HBoxContainer
 @onready var index_container = $"../../IndexContainer"
 @onready var ind = preload("res://misc/scoring_graph/graph_index.tscn")
